@@ -1,0 +1,1265 @@
+{
+  "diagramType": 2,
+  "data": {
+    "nodes": [
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "type": "Table",
+        "position": {
+          "x": -1144.5011996769233,
+          "y": 463.4654720884458
+        },
+        "data": {
+          "label": "Users",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "0cd8900a-5196-402b-be2d-917f045e9f69",
+              "name": "UserID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false,
+              "isUnique": false
+            },
+            {
+              "id": "958983bd-6dcb-4e23-a1b2-75c4565fb68f",
+              "name": "Fname",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "isUnique": false,
+              "size": "50"
+            },
+            {
+              "id": "f20944d5-fc2a-4d91-a4f6-95f7a6ab1f38",
+              "name": "Lname",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "isUnique": false,
+              "size": "50"
+            },
+            {
+              "id": "14ff1eb6-c14f-4b9c-ba5b-50c475347834",
+              "name": "Email",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "groupNumbers": [],
+              "isPrimaryKey": false,
+              "isUnique": true,
+              "size": "100"
+            },
+            {
+              "id": "6e8fc7de-775c-4204-ac5e-326263a726ff",
+              "name": "Password",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "isUnique": false,
+              "size": "255"
+            },
+            {
+              "id": "34e4d743-84f7-456d-8e8a-aadfaeb08ee5",
+              "name": "Role",
+              "type": "CHAR(n)",
+              "position": 0,
+              "size": "1"
+            },
+            {
+              "id": "fk_86ff16b4-cd20-4790-8ae8-ed63341a01c6",
+              "name": "fk_ProfilePicture",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "5a98b223-73df-4681-93df-f041f0c0f3dd",
+                "sourceTableId": "69b47aa7-566d-490e-9a56-e4d06de362b9",
+                "columns": [
+                  {
+                    "id": "fk_1f010b34-7f97-4126-bcd6-7d87077411ae",
+                    "name": "ProfilePicID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_21e79c4e-92f7-4fde-9746-7ba5dd8a47e0",
+              "name": "fk_Addresses",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "5355b385-e36c-4e18-abfa-b18f803f309a",
+                "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
+                "columns": [
+                  {
+                    "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
+                    "name": "AddressID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 1,
+          "isSelected": false,
+          "isFactTable": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 225
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+        "type": "Table",
+        "position": {
+          "x": -740.6821568277983,
+          "y": 270.9383592918855
+        },
+        "data": {
+          "label": "Clients",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "488d6b06-a5a8-4ab0-a2a9-6ac935caa9bb",
+              "name": "BillingInfo",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "fk_4b9b4543-5bb6-4a6c-945c-f42157fb5e15",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "403286cd-4ef2-4dc6-952f-8f004d31999f",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "ClientID",
+                    "type": "INT"
+                  }
+                ]
+              },
+              "isPrimaryKey": true,
+              "isOptional": false
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 76
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+        "type": "Table",
+        "position": {
+          "x": -257.4320711991943,
+          "y": 138.82021752178773
+        },
+        "data": {
+          "label": "Taskers",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "159f72da-4119-46e3-9baa-a406cbf92638",
+              "name": "Bio",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255",
+              "isOptional": false
+            },
+            {
+              "id": "ff7ec65e-3898-49ed-8dc9-d2f2798347bd",
+              "name": "RatingAvg",
+              "type": "FLOAT",
+              "position": 0,
+              "isPrimaryKey": false,
+              "isOptional": false
+            },
+            {
+              "id": "c4e2c138-035b-4ff4-9b7a-5b7a8a4d884e",
+              "name": "VerificationStatus",
+              "type": "Custom",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "Bool",
+              "isOptional": false
+            },
+            {
+              "id": "c6bfed58-4373-47ae-aea4-9011d269cec2",
+              "name": "VerificationDate",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false,
+              "isOptional": false
+            },
+            {
+              "id": "fk_08626d77-68dd-4fd0-be56-d81f336130fa",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "eceb766e-63fc-46df-8812-68e21cdecd0f",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "TaskerID",
+                    "type": "INT"
+                  }
+                ]
+              },
+              "isPrimaryKey": true,
+              "isOptional": false
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 150
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "type": "Table",
+        "position": {
+          "x": -256.6897679514435,
+          "y": 398.6504830601866
+        },
+        "data": {
+          "label": "Tasks",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "a618f7c5-8478-4246-9454-68f28ccbcb43",
+              "name": "TaskID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "36e1c8c4-3edc-4855-86ce-afd9d64ff813",
+              "name": "Title",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "100"
+            },
+            {
+              "id": "26c307c7-6345-4b32-b20e-f92ed3ba8502",
+              "name": "Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "a4c5c178-1d49-43a6-b578-977a82b0ec3b",
+              "name": "Status",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "6faae6da-bf9b-467b-9fd3-bd8d4e7ab1b7",
+              "name": "PriceOffered",
+              "type": "FLOAT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_c60cbfde-6228-4238-9792-2550f8fb67c3",
+              "name": "fk_Categories",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "f850e8c2-eb05-407c-8734-e141ff77544f",
+                "sourceTableId": "d42772f8-939b-474d-9722-badb997fb0cb",
+                "columns": [
+                  {
+                    "id": "fk_b77c3bb9-5d50-420c-9fce-9d413179856c",
+                    "name": "CategoryID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_2f80c6a0-ab4f-4b2a-8d0c-8cd05dc95612",
+              "name": "fk_Addresses",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
+                "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
+                "columns": [
+                  {
+                    "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
+                    "name": "AddressID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_8e0d2464-132a-42aa-9e4c-13b8258811e0",
+              "name": "fk_Taskers",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "3b520e1c-a0a9-4562-b94d-e6fb487a7788",
+                "sourceTableId": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+                "columns": [
+                  {
+                    "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "TaskerID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 225
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "ae8b83ea-3402-41cc-93c3-73efdfacd221",
+        "type": "Table",
+        "position": {
+          "x": -738.1861081559766,
+          "y": 630.821963707454
+        },
+        "data": {
+          "label": "Notifications",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "30ac2f14-df15-41ab-8304-98604583c2ca",
+              "name": "NotificationID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "61089d50-23a2-4d66-9f11-99453a5f9876",
+              "name": "Message",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "f8fd8378-a66d-4fbf-a4a1-2c0d5ee0db8f",
+              "name": "Type",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "50"
+            },
+            {
+              "id": "b8a08e97-9308-470c-b71d-85e46417f53a",
+              "name": "CreatedAt",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_55622642-9550-4557-a10f-c2dd1b4a5ad9",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "4f59ae01-5785-4989-aed4-9a07ac3ef508",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "UserID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 150
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "4e3d4915-98ee-4868-a87e-7541c1298c75",
+        "type": "Table",
+        "position": {
+          "x": -739.9368043608065,
+          "y": 924.211930172722
+        },
+        "data": {
+          "label": "UserPhones",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "50a724f2-611b-464a-aebe-63b6d5c0d27d",
+              "name": "PhoneID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "15b80060-3bc0-4e51-83ba-1efe33d510ac",
+              "name": "Phone",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "15"
+            },
+            {
+              "id": "fk_04a6c096-1a7d-4cef-959a-ab382d381ca2",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "UserID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 101
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "252a48ca-05e0-4c46-b125-917c361a1d34",
+        "type": "Table",
+        "position": {
+          "x": -737.7118967820887,
+          "y": 802.3750763046083
+        },
+        "data": {
+          "label": "Addresses",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "ddb9bdc9-919b-442d-89e5-d06b2f541b90",
+              "name": "AddressID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "09cfd48c-d65c-40c9-84c7-f673acd6caf2",
+              "name": "AddressLine",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "33ae5d30-bd18-4b1a-ad98-79440bb3794a",
+              "name": "City",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "100"
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 100
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "e798f7a2-b31a-48ba-9651-6e8dfa0f38e2",
+        "type": "Table",
+        "position": {
+          "x": -739.1153194799718,
+          "y": 462.98791332143713
+        },
+        "data": {
+          "label": "Messages",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "7a98351e-15e2-4dea-b186-a1425dc9f96e",
+              "name": "MessageID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "f45b5203-dd09-47b4-9fe5-88084d385d37",
+              "name": "Content",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "d0728098-cff9-431a-a8eb-9a1b7071ad4c",
+              "name": "SentAt",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_a5d840f1-3e0d-414c-be84-a42afaa7a22b",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "1ee77473-5bbb-49e1-ae49-b7e538cae967",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "SenderID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_9bb446d6-ee18-4257-b5e3-505ea54a5ddd",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "5b932840-0215-4222-a1d6-0098212c8b90",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "RecieverID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 150
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "d42772f8-939b-474d-9722-badb997fb0cb",
+        "type": "Table",
+        "position": {
+          "x": -256.8310728449217,
+          "y": 728.114432237779
+        },
+        "data": {
+          "label": "Categories",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "b77c3bb9-5d50-420c-9fce-9d413179856c",
+              "name": "CategoryID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "888d00af-2e86-4c01-9909-d79709e48076",
+              "name": "Name",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "100"
+            },
+            {
+              "id": "f019f518-6ef2-49ee-98ef-e3be1dbdcf1f",
+              "name": "Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 100
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "6d8c9773-a9bb-4390-b916-60c135d22919",
+        "type": "Table",
+        "position": {
+          "x": 111.03757094098273,
+          "y": 526.9494260907003
+        },
+        "data": {
+          "label": "Ratings",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "58c39756-c583-45a4-99f7-1d03efb82efd",
+              "name": "RatingID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "fed22998-546f-46b9-b6dd-290010b2af44",
+              "name": "Score",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "26c11c7d-2f04-4488-96a4-c0f3f3b1c41f",
+              "name": "ReviewText",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false,
+              "size": "255"
+            },
+            {
+              "id": "fk_ecdf23dc-6df7-4c1e-b598-40d7ff8c4b9b",
+              "name": "fk_Tasks",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "afd4348f-9da7-4ff6-bf8b-d47f5b0b8ec2",
+                "sourceTableId": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+                "columns": [
+                  {
+                    "id": "fk_a618f7c5-8478-4246-9454-68f28ccbcb43",
+                    "name": "TaskID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_9d12b3bf-8134-48c7-af23-59a091381714",
+              "name": "fk_Taskers",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "b48d16da-fb32-4021-8257-a895ca09c7c3",
+                "sourceTableId": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+                "columns": [
+                  {
+                    "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "TaskerID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_a257bc32-93d6-4ea7-a2ab-851df34f5da5",
+              "name": "fk_Clients",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "d8e8101c-d5db-4f3d-8637-fe9667abbce7",
+                "sourceTableId": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+                "columns": [
+                  {
+                    "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "ClientID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 175
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "4a6944b8-10f4-4549-88e4-863095aae6b4",
+        "type": "Table",
+        "position": {
+          "x": 72.50482362441971,
+          "y": 134.69012638981448
+        },
+        "data": {
+          "label": "Payments",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "5e57bc74-8210-43d5-917d-83a86157c0f8",
+              "name": "PaymentID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "7a0ff434-9001-4254-b798-4129874d0ee9",
+              "name": "AmountAgreed",
+              "type": "FLOAT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "2675b090-4c3d-40db-bd1d-3c9455699b56",
+              "name": "AmountPaid",
+              "type": "FLOAT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "00b009b6-6fd7-42ba-abed-31f5e4517d41",
+              "name": "PaymentDate",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "da75a9a3-8bb2-4638-863e-9d3ebe22e98d",
+              "name": "PaymentStatus",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_89a6947f-0b7a-4198-be1d-44ea0bc6349e",
+              "name": "fk_Tasks",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "41b7c67a-4760-4395-a6dd-0e011a6c1fe9",
+                "sourceTableId": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+                "columns": [
+                  {
+                    "id": "fk_a618f7c5-8478-4246-9454-68f28ccbcb43",
+                    "name": "TaskID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "29a07b8c-6159-428e-a440-6e089e11a59d",
+              "name": "PaymentMethod",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "100"
+            },
+            {
+              "id": "fk_c751aff1-70ff-44b9-bb1b-5ce309939575",
+              "name": "fk_Clients",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "26f72006-028d-4c42-8b6e-a95699da8912",
+                "sourceTableId": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+                "columns": [
+                  {
+                    "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "ClientID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 225
+        },
+        "selected": true,
+        "dragging": false
+      },
+      {
+        "id": "69b47aa7-566d-490e-9a56-e4d06de362b9",
+        "type": "Table",
+        "position": {
+          "x": -1145.5,
+          "y": 333
+        },
+        "data": {
+          "label": "ProfilePicture",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "1f010b34-7f97-4126-bcd6-7d87077411ae",
+              "name": "ProfilePicID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "c4c1322e-a7f1-4e6b-b853-facb9226ac84",
+              "name": "ProfilePicPath",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "255",
+              "isPrimaryKey": false
+            }
+          ],
+          "numberOfGroups": 0,
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 75
+        },
+        "selected": false,
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->36ed7d1c-9a54-45a0-a431-23047573d85f_403286cd-4ef2-4dc6-952f-8f004d31999f",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-403286cd-4ef2-4dc6-952f-8f004d31999f",
+        "target": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "403286cd-4ef2-4dc6-952f-8f004d31999f",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "d42772f8-939b-474d-9722-badb997fb0cb->4cedcc23-d14b-4792-9595-488ff9ccd5d8_f850e8c2-eb05-407c-8734-e141ff77544f",
+        "type": "Relational",
+        "source": "d42772f8-939b-474d-9722-badb997fb0cb",
+        "targetHandle": "foreign-key-handle-f850e8c2-eb05-407c-8734-e141ff77544f",
+        "target": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "f850e8c2-eb05-407c-8734-e141ff77544f",
+            "sourceTableId": "d42772f8-939b-474d-9722-badb997fb0cb",
+            "columns": [
+              {
+                "id": "fk_b77c3bb9-5d50-420c-9fce-9d413179856c",
+                "name": "CategoryID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "4cedcc23-d14b-4792-9595-488ff9ccd5d8->6d8c9773-a9bb-4390-b916-60c135d22919_afd4348f-9da7-4ff6-bf8b-d47f5b0b8ec2",
+        "type": "Relational",
+        "source": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "targetHandle": "foreign-key-handle-afd4348f-9da7-4ff6-bf8b-d47f5b0b8ec2",
+        "target": "6d8c9773-a9bb-4390-b916-60c135d22919",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "afd4348f-9da7-4ff6-bf8b-d47f5b0b8ec2",
+            "sourceTableId": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+            "columns": [
+              {
+                "id": "fk_a618f7c5-8478-4246-9454-68f28ccbcb43",
+                "name": "TaskID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->e798f7a2-b31a-48ba-9651-6e8dfa0f38e2_1ee77473-5bbb-49e1-ae49-b7e538cae967",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-1ee77473-5bbb-49e1-ae49-b7e538cae967",
+        "target": "e798f7a2-b31a-48ba-9651-6e8dfa0f38e2",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "1ee77473-5bbb-49e1-ae49-b7e538cae967",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->e798f7a2-b31a-48ba-9651-6e8dfa0f38e2_5b932840-0215-4222-a1d6-0098212c8b90",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-5b932840-0215-4222-a1d6-0098212c8b90",
+        "target": "e798f7a2-b31a-48ba-9651-6e8dfa0f38e2",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "5b932840-0215-4222-a1d6-0098212c8b90",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "4cedcc23-d14b-4792-9595-488ff9ccd5d8->4a6944b8-10f4-4549-88e4-863095aae6b4_41b7c67a-4760-4395-a6dd-0e011a6c1fe9",
+        "type": "Relational",
+        "source": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "targetHandle": "foreign-key-handle-41b7c67a-4760-4395-a6dd-0e011a6c1fe9",
+        "target": "4a6944b8-10f4-4549-88e4-863095aae6b4",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "41b7c67a-4760-4395-a6dd-0e011a6c1fe9",
+            "sourceTableId": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+            "columns": [
+              {
+                "id": "fk_a618f7c5-8478-4246-9454-68f28ccbcb43",
+                "name": "TaskID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->ae8b83ea-3402-41cc-93c3-73efdfacd221_4f59ae01-5785-4989-aed4-9a07ac3ef508",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-4f59ae01-5785-4989-aed4-9a07ac3ef508",
+        "target": "ae8b83ea-3402-41cc-93c3-73efdfacd221",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "4f59ae01-5785-4989-aed4-9a07ac3ef508",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->4e3d4915-98ee-4868-a87e-7541c1298c75_f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
+        "target": "4e3d4915-98ee-4868-a87e-7541c1298c75",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "252a48ca-05e0-4c46-b125-917c361a1d34->4cedcc23-d14b-4792-9595-488ff9ccd5d8_9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
+        "type": "Relational",
+        "source": "252a48ca-05e0-4c46-b125-917c361a1d34",
+        "targetHandle": "foreign-key-handle-9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
+        "target": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
+            "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
+            "columns": [
+              {
+                "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
+                "name": "AddressID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "69b47aa7-566d-490e-9a56-e4d06de362b9->128eb063-e47d-4df9-8862-347fc30b6498_5a98b223-73df-4681-93df-f041f0c0f3dd",
+        "type": "Relational",
+        "source": "69b47aa7-566d-490e-9a56-e4d06de362b9",
+        "targetHandle": "foreign-key-handle-5a98b223-73df-4681-93df-f041f0c0f3dd",
+        "target": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "5a98b223-73df-4681-93df-f041f0c0f3dd",
+            "sourceTableId": "69b47aa7-566d-490e-9a56-e4d06de362b9",
+            "columns": [
+              {
+                "id": "fk_1f010b34-7f97-4126-bcd6-7d87077411ae",
+                "name": "ProfilePicID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "252a48ca-05e0-4c46-b125-917c361a1d34->128eb063-e47d-4df9-8862-347fc30b6498_5355b385-e36c-4e18-abfa-b18f803f309a",
+        "type": "Relational",
+        "source": "252a48ca-05e0-4c46-b125-917c361a1d34",
+        "targetHandle": "foreign-key-handle-5355b385-e36c-4e18-abfa-b18f803f309a",
+        "target": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "5355b385-e36c-4e18-abfa-b18f803f309a",
+            "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
+            "columns": [
+              {
+                "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
+                "name": "AddressID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->65da9df0-f8ce-4d47-9da5-53fe826dbb95_eceb766e-63fc-46df-8812-68e21cdecd0f",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-eceb766e-63fc-46df-8812-68e21cdecd0f",
+        "target": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "eceb766e-63fc-46df-8812-68e21cdecd0f",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "65da9df0-f8ce-4d47-9da5-53fe826dbb95->4cedcc23-d14b-4792-9595-488ff9ccd5d8_3b520e1c-a0a9-4562-b94d-e6fb487a7788",
+        "type": "Relational",
+        "source": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+        "targetHandle": "foreign-key-handle-3b520e1c-a0a9-4562-b94d-e6fb487a7788",
+        "target": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "3b520e1c-a0a9-4562-b94d-e6fb487a7788",
+            "sourceTableId": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+            "columns": [
+              {
+                "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "TaskerID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "36ed7d1c-9a54-45a0-a431-23047573d85f->4a6944b8-10f4-4549-88e4-863095aae6b4_26f72006-028d-4c42-8b6e-a95699da8912",
+        "type": "Relational",
+        "source": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+        "targetHandle": "foreign-key-handle-26f72006-028d-4c42-8b6e-a95699da8912",
+        "target": "4a6944b8-10f4-4549-88e4-863095aae6b4",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "26f72006-028d-4c42-8b6e-a95699da8912",
+            "sourceTableId": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+            "columns": [
+              {
+                "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "ClientID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "65da9df0-f8ce-4d47-9da5-53fe826dbb95->6d8c9773-a9bb-4390-b916-60c135d22919_b48d16da-fb32-4021-8257-a895ca09c7c3",
+        "type": "Relational",
+        "source": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+        "targetHandle": "foreign-key-handle-b48d16da-fb32-4021-8257-a895ca09c7c3",
+        "target": "6d8c9773-a9bb-4390-b916-60c135d22919",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "b48d16da-fb32-4021-8257-a895ca09c7c3",
+            "sourceTableId": "65da9df0-f8ce-4d47-9da5-53fe826dbb95",
+            "columns": [
+              {
+                "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "TaskerID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "36ed7d1c-9a54-45a0-a431-23047573d85f->6d8c9773-a9bb-4390-b916-60c135d22919_d8e8101c-d5db-4f3d-8637-fe9667abbce7",
+        "type": "Relational",
+        "source": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+        "targetHandle": "foreign-key-handle-d8e8101c-d5db-4f3d-8637-fe9667abbce7",
+        "target": "6d8c9773-a9bb-4390-b916-60c135d22919",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "d8e8101c-d5db-4f3d-8637-fe9667abbce7",
+            "sourceTableId": "36ed7d1c-9a54-45a0-a431-23047573d85f",
+            "columns": [
+              {
+                "id": "fk_fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "ClientID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "viewport": {
+      "x": 1018.5829007764546,
+      "y": -44.85266242461165,
+      "zoom": 0.6545911875631871
+    }
+  },
+  "name": "FinalSany3y",
+  "folder": {
+    "name": "Diagrams",
+    "folderType": 1,
+    "depth": 0,
+    "id": 43769
+  },
+  "id": 44428,
+  "updatedAtTimestamp": 1758227650
+}
