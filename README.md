@@ -9,6 +9,9 @@ Sany3y is a service platform that connects **clients** who need home or business
 ├── README.md
 └── docs
     ├── Business Requirements Specification.pdf
+    ├── ERDs
+        ├── Physical ERD.erdplus
+        └── Physical ERD.png
     └── word
         └── Business Requirements Specification.docx
 ```
