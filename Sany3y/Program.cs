@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Sany3y
 {
     public class Program
@@ -8,6 +10,10 @@ namespace Sany3y
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("Sany3yDB"));
+            //});
 
             var app = builder.Build();
 
@@ -28,7 +34,8 @@ namespace Sany3y
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}"
+            );
 
             app.Run();
         }
