@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2EAP/srvAmU=",
+  "dgSpecHash": "W0r5osKY3Kc=",
   "success": true,
   "projectFilePath": "E:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj",
   "expectedPackageFiles": [
@@ -82,6 +82,7 @@
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.20\\microsoft.entityframeworkcore.8.0.20.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.20\\microsoft.entityframeworkcore.abstractions.8.0.20.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.20\\microsoft.entityframeworkcore.analyzers.8.0.20.nupkg.sha512",
+    "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.20\\microsoft.entityframeworkcore.design.8.0.20.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.20\\microsoft.entityframeworkcore.relational.8.0.20.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.20\\microsoft.entityframeworkcore.sqlserver.8.0.20.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",

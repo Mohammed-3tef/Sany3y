@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Sany3y.Infrastructure.Models;
 
 namespace Sany3y
 {
@@ -10,10 +11,13 @@ namespace Sany3y
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            //builder.Services.AddDbContext<AppDbContext>(options =>
-            //{
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("Sany3yDB"));
-            //});
+            builder.Services.AddIdentityCore<User>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MainDB"));
+            });
 
             var app = builder.Build();
 
