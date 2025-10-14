@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Sany3y.Infrastructure.Models;
+using Sany3y.Infrastructure.Repositories;
 
 namespace Sany3y
 {
@@ -11,21 +13,32 @@ namespace Sany3y
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddIdentityCore<User>()
-                .AddEntityFrameworkStores<AppDbContext>();
 
+            // Register repositories
+            builder.Services.AddScoped<IRepository<Address>, AddressRepository>();
+            builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
+            builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
+            builder.Services.AddScoped<IRepository<UserPhone>, UserPhoneRepository>();
+            builder.Services.AddScoped<IRepository<ProfilePicture>, ProfilePictureRepository>();
+            builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
+            builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();
+
+            // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MainDB"));
             });
 
+            builder.Services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure middleware
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -34,6 +47,7 @@ namespace Sany3y
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

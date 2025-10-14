@@ -16,7 +16,7 @@ namespace Sany3y.Infrastructure.Models
         public string PhoneNumber { get; set; }
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public User User { get; set; }
     }
 }

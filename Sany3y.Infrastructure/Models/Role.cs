@@ -8,11 +8,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sany3y.Infrastructure.Models
 {
-    public class Role : IdentityRole<int>
+    public class Role : IdentityRole<long>
     {
-        public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
+        public string? Description { get; set; }
     }
 }

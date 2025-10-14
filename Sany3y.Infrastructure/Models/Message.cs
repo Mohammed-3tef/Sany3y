@@ -20,11 +20,11 @@ namespace Sany3y.Infrastructure.Models
         public DateTime SentAt { get; set; }
 
         [ForeignKey("Sender")]
-        public int SenderId { get; set; }
+        public long SenderId { get; set; }
         public User Sender { get; set; }
 
         [ForeignKey("Receiver")]
-        public int ReceiverId { get; set; }
+        public long ReceiverId { get; set; }
         public User Receiver { get; set; }
     }
 }

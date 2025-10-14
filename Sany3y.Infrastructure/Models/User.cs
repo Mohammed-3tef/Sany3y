@@ -9,14 +9,30 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sany3y.Infrastructure.Models
 {
-    public class User : IdentityUser<int>
+    public class User : IdentityUser<long>
     {
         [Required]
-        public DateTime DateOfBirth { get; set; }
+        [Display(Name = "National ID")]
+        [Range(10000000000000, 99999999999999, ErrorMessage = "National ID must be a 14-digit number.")]
+        public long NationalId { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Birth Date")]
+        [DataType(DataType.Date)]
+        public DateOnly BirthDate { get; set; }
 
         [ForeignKey("ProfilePicture")]
-        public int ProfilePictureId { get; set; }
-        public ProfilePicture ProfilePicture { get; set; }
+        [Display(Name = "Profile Picture")]
+        public long? ProfilePictureId { get; set; }
+        public ProfilePicture? ProfilePicture { get; set; }
 
         [ForeignKey("Address")]
         public int AddressId { get; set; }

@@ -26,11 +26,11 @@ namespace Sany3y.Infrastructure.Models
         public Task Task { get; set; }
 
         [ForeignKey("Client")]
-        public int ClientId { get; set; }
+        public long ClientId { get; set; }
         public User Client { get; set; }
 
         [ForeignKey("Tasker")]
-        public int TaskerId { get; set; }
+        public long TaskerId { get; set; }
         public User Tasker { get; set; }
     }
 }

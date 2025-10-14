@@ -9,7 +9,7 @@ namespace Sany3y.Infrastructure.Models
 {
     public class ProfilePicture
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public string Path { get; set; }

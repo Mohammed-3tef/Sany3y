@@ -24,7 +24,7 @@ namespace Sany3y.Infrastructure.Models
         public bool IsRead { get; set; } = false;
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public User User { get; set; }
     }
 }
