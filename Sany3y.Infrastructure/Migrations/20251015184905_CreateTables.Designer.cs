@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251014133214_CreateTables")]
+    [Migration("20251015184905_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -436,8 +436,8 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

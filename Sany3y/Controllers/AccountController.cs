@@ -9,17 +9,17 @@ namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> userManager;
+        private readonly UserRepository userRepository;
         private readonly SignInManager<User> signInManager;
         private readonly IRepository<Address> addressRepository;
         private readonly IRepository<UserPhone> phoneRepository;
 
-        public AccountController(UserManager<User> _userManager, SignInManager<User> _signInManager, IRepository<Address> _addressRepository, IRepository<UserPhone> _phoneRepository)
+        public AccountController(UserRepository _userRepository, SignInManager<User> _signInManager, IRepository<Address> _addressRepository, IRepository<UserPhone> _phoneRepository)
         {
-            userManager = _userManager;
+            userRepository = _userRepository;
             signInManager = _signInManager;
             addressRepository = _addressRepository;
-            this.phoneRepository = _phoneRepository;
+            phoneRepository = _phoneRepository;
         }
 
         public IActionResult Register()
@@ -45,6 +45,14 @@ namespace Sany3y.Controllers
                 return View("Register", registerUser);
             }
 
+            bool isFoundByNationalId = await userRepository.GetByNationalId(registerUser.NationalId) != null;
+
+            if (isFoundByNationalId)
+            {
+                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
+                return View("Register", registerUser);
+            }
+
             Address newAddress = new Address
             {
                 City = registerUser.City,
@@ -63,7 +71,7 @@ namespace Sany3y.Controllers
                 PasswordHash = registerUser.Password,
                 AddressId = newAddress.Id,
             };
-            IdentityResult identityResult = await userManager.CreateAsync(newUser, registerUser.Password);
+            IdentityResult identityResult = await userRepository.Add(newUser);
 
             if (!identityResult.Succeeded)
             {
@@ -94,12 +102,12 @@ namespace Sany3y.Controllers
                 return View("Login", loginUser);
             }
 
-            var user = await userManager.FindByNameAsync(loginUser.UserName)
-                        ?? await userManager.FindByEmailAsync(loginUser.UserName);
+            var user = await userRepository.GetByUsername(loginUser.UserName)
+                        ?? await userRepository.GetByEmail(loginUser.UserName);
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "This username doesn't exist.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View("Login", loginUser);
             }
 

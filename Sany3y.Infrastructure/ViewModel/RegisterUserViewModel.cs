@@ -28,8 +28,8 @@ namespace Sany3y.Infrastructure.ViewModel
 
         [Required]
         [Display(Name = "Birth Date")]
-        [DataType(DataType.Date)]
-        public DateOnly BirthDate { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime BirthDate { get; set; }
 
         [Required]
         public string Email { get; set; }

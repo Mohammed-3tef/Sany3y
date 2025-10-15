@@ -15,6 +15,7 @@ namespace Sany3y
             builder.Services.AddControllersWithViews();
 
             // Register repositories
+            builder.Services.AddScoped<UserRepository, UserRepository>();
             builder.Services.AddScoped<IRepository<Address>, AddressRepository>();
             builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
             builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
@@ -29,9 +30,12 @@ namespace Sany3y
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MainDB"));
             });
 
-            builder.Services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
+            builder.Services.AddIdentity<User, Role>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
             var app = builder.Build();
 
