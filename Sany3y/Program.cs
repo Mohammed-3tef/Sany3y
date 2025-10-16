@@ -26,6 +26,7 @@ namespace Sany3y
             builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
             builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();
 
+            // Register services
             builder.Services.AddTransient<IEmailSender, EmailConfirm>();
 
             // Register DbContext

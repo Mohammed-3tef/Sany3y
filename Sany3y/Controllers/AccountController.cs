@@ -42,13 +42,13 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> SaveRegister(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View("Register", model);
 
             // Check for duplicate National ID
             if (await _userRepository.GetByNationalId(model.NationalId) != null)
             {
                 ModelState.AddModelError("", "This National ID is already registered.");
-                return View(model);
+                return View("Register", model);
             }
 
             // Create and save address
@@ -75,7 +75,7 @@ namespace Sany3y.Controllers
                 foreach (var error in result.Errors)
                     ModelState.AddModelError("", error.Description);
 
-                return View(model);
+                return View("Register", model);
             }
 
             // Save phone
@@ -92,7 +92,7 @@ namespace Sany3y.Controllers
             if (!_userManager.Options.SignIn.RequireConfirmedAccount)
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-            TempData["SuccessMessage"] = "Account created successfully. Please confirm your email before logging in.";
+            TempData["Success"] = "Account created successfully. Please confirm your email before logging in.";
             return RedirectToAction(nameof(Login));
         }
 
@@ -123,7 +123,7 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> SaveLogin(LoginUserViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(model);
+                return View("Login", model);
 
             var user = await _userRepository.GetByUsername(model.UserName)
                         ?? await _userRepository.GetByEmail(model.UserName);
@@ -131,13 +131,13 @@ namespace Sany3y.Controllers
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid username or password.");
-                return View(model);
+                return View("Login", model);
             }
 
             if (!user.EmailConfirmed)
             {
                 await SendEmailConfirmationAsync(user);
-                TempData["InfoMessage"] = "Please confirm your email. A new confirmation link has been sent.";
+                TempData["Info"] = "Please confirm your email. A new confirmation link has been sent.";
                 return RedirectToAction(nameof(EmailConfirmationNotice));
             }
 
@@ -146,7 +146,7 @@ namespace Sany3y.Controllers
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Invalid username or password.");
-                return View(model);
+                return View("Login", model);
             }
 
             return RedirectToAction("Index", "Home");
@@ -182,19 +182,19 @@ namespace Sany3y.Controllers
 
             if (user.EmailConfirmed)
             {
-                TempData["InfoMessage"] = "This email is already confirmed.";
+                TempData["Info"] = "This email is already confirmed.";
                 return RedirectToAction(nameof(Login));
             }
 
             await SendEmailConfirmationAsync(user);
-            TempData["SuccessMessage"] = "A new confirmation link has been sent.";
+            TempData["Success"] = "A new confirmation link has been sent.";
             return RedirectToAction(nameof(EmailConfirmationNotice));
         }
 
         [HttpGet]
         public IActionResult EmailConfirmationNotice()
         {
-            ViewBag.Message = TempData["InfoMessage"] ?? TempData["SuccessMessage"];
+            ViewBag.Message = TempData["Info"] ?? TempData["Success"];
             return View();
         }
 

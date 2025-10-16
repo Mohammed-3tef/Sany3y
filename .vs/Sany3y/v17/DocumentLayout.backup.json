@@ -1,24 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Projects\\Sany3y\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|e:\\projects\\sany3y\\sany3y.infrastructure\\services\\emailconfirm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|solutionrelative:sany3y.infrastructure\\services\\emailconfirm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\account\\confirmemail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\account\\confirmemail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,63 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Account\\Login.cshtml",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Login.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Account\\Login.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB0AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T09:22:13.265Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ConfirmEmail.cshtml",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\ConfirmEmail.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Account\\ConfirmEmail.cshtml",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\ConfirmEmail.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Account\\ConfirmEmail.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-16T09:09:48.454Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmailConfirm.cs",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Services\\EmailConfirm.cs",
-              "RelativeDocumentMoniker": "Sany3y.Infrastructure\\Services\\EmailConfirm.cs",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Services\\EmailConfirm.cs",
-              "RelativeToolTip": "Sany3y.Infrastructure\\Services\\EmailConfirm.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T08:43:07.63Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AccountController.cs",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAqwMcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T07:37:03.69Z",
-              "EditorCaption": ""
             }
           ]
         }
