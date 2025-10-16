@@ -44,18 +44,15 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Register", model);
 
-            // Check for duplicate National ID
             if (await _userRepository.GetByNationalId(model.NationalId) != null)
             {
-                ModelState.AddModelError("", "This National ID is already registered.");
+                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
                 return View("Register", model);
             }
 
-            // Create and save address
             var address = new Address { City = model.City, Street = model.Street };
             await _addressRepository.Add(address);
 
-            // Create user
             var user = new User
             {
                 NationalId = model.NationalId,
@@ -64,6 +61,7 @@ namespace Sany3y.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 BirthDate = model.BirthDate,
+                PasswordHash = model.Password,
                 AddressId = address.Id
             };
 
@@ -73,32 +71,26 @@ namespace Sany3y.Controllers
             {
                 await _addressRepository.Delete(address);
                 foreach (var error in result.Errors)
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
 
                 return View("Register", model);
             }
 
-            // Save phone
             await _phoneRepository.Add(new UserPhone
             {
                 UserId = user.Id,
                 PhoneNumber = model.PhoneNumber
             });
 
-            // Send confirmation email
             await SendEmailConfirmationAsync(user);
-
-            // Auto sign-in only if confirmation is not required
-            if (!_userManager.Options.SignIn.RequireConfirmedAccount)
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-            TempData["Success"] = "Account created successfully. Please confirm your email before logging in.";
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(EmailConfirmationNotice));
         }
 
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
+            await _signInManager.SignOutAsync();
+
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
                 return RedirectToAction("Index", "Home");
 
@@ -130,7 +122,7 @@ namespace Sany3y.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid username or password.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View("Login", model);
             }
 
@@ -145,7 +137,7 @@ namespace Sany3y.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Invalid username or password.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View("Login", model);
             }
 
@@ -169,14 +161,14 @@ namespace Sany3y.Controllers
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                ModelState.AddModelError("", "Please enter your email.");
+                ModelState.AddModelError(string.Empty, "Please enter your email.");
                 return View();
             }
 
             var user = await _userRepository.GetByEmail(email);
             if (user == null)
             {
-                ModelState.AddModelError("", "No account found with this email.");
+                ModelState.AddModelError(string.Empty, "No account found with this email.");
                 return View();
             }
 

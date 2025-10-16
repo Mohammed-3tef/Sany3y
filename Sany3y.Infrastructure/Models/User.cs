@@ -26,7 +26,7 @@ namespace Sany3y.Infrastructure.Models
 
         [Required]
         [Display(Name = "Birth Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         [ForeignKey("ProfilePicture")]
