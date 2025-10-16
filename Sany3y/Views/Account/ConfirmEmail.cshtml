@@ -1,0 +1,20 @@
+﻿<div class="text-center py-5">
+    @if (ViewBag.Message?.ToString().Contains("successfully") ?? false)
+    {
+        <div class="alert alert-success shadow-sm p-4 rounded-3">
+            <h4 class="fw-semibold mb-2">✅ Email Confirmed</h4>
+            <p class="mb-3">@ViewBag.Message</p>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Go to Login</a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger shadow-sm p-4 rounded-3">
+            <h4 class="fw-semibold mb-2">❌ Confirmation Failed</h4>
+            <p>@ViewBag.Message</p>
+            <a asp-controller="Account" asp-action="ResendConfirmation" class="btn btn-outline-danger mt-3">
+                Resend Confirmation Email
+            </a>
+        </div>
+    }
+</div>

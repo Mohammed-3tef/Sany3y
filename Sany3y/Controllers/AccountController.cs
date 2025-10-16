@@ -1,125 +1,218 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.ViewModel;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserRepository userRepository;
-        private readonly SignInManager<User> signInManager;
-        private readonly IRepository<Address> addressRepository;
-        private readonly IRepository<UserPhone> phoneRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserRepository _userRepository;
+        private readonly IRepository<Address> _addressRepository;
+        private readonly IRepository<UserPhone> _phoneRepository;
+        private readonly IEmailSender _emailSender;
 
-        public AccountController(UserRepository _userRepository, SignInManager<User> _signInManager, IRepository<Address> _addressRepository, IRepository<UserPhone> _phoneRepository)
+        public AccountController(
+            IEmailSender emailSender,
+            UserManager<User> userManager,
+            UserRepository userRepository,
+            SignInManager<User> signInManager,
+            IRepository<Address> addressRepository,
+            IRepository<UserPhone> phoneRepository)
         {
-            userRepository = _userRepository;
-            signInManager = _signInManager;
-            addressRepository = _addressRepository;
-            phoneRepository = _phoneRepository;
+            _emailSender = emailSender;
+            _userManager = userManager;
+            _userRepository = userRepository;
+            _signInManager = signInManager;
+            _addressRepository = addressRepository;
+            _phoneRepository = phoneRepository;
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
+        [HttpGet]
+        public IActionResult Register() => View();
 
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> SaveRegister(RegisterUserViewModel registerUser)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveRegister(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
+                return View(model);
+
+            // Check for duplicate National ID
+            if (await _userRepository.GetByNationalId(model.NationalId) != null)
             {
-                return View("Register", registerUser);
+                ModelState.AddModelError("", "This National ID is already registered.");
+                return View(model);
             }
 
-            bool isFoundByNationalId = await userRepository.GetByNationalId(registerUser.NationalId) != null;
+            // Create and save address
+            var address = new Address { City = model.City, Street = model.Street };
+            await _addressRepository.Add(address);
 
-            if (isFoundByNationalId)
+            // Create user
+            var user = new User
             {
-                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
-                return View("Register", registerUser);
-            }
-
-            Address newAddress = new Address
-            {
-                City = registerUser.City,
-                Street = registerUser.Street
+                NationalId = model.NationalId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                Email = model.Email,
+                BirthDate = model.BirthDate,
+                AddressId = address.Id
             };
-            await addressRepository.Add(newAddress);
 
-            User newUser = new User
-            {
-                NationalId = registerUser.NationalId,
-                FirstName = registerUser.FirstName,
-                LastName = registerUser.LastName,
-                UserName = registerUser.UserName,
-                Email = registerUser.Email,
-                BirthDate = registerUser.BirthDate,
-                PasswordHash = registerUser.Password,
-                AddressId = newAddress.Id,
-            };
-            IdentityResult identityResult = await userRepository.Add(newUser);
-
-            if (!identityResult.Succeeded)
-            {
-                await addressRepository.Delete(newAddress);
-
-                foreach (var error in identityResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return View("Register", registerUser);
-            }
-
-            UserPhone phone = new UserPhone
-            {
-                UserId = newUser.Id,
-                PhoneNumber = registerUser.PhoneNumber
-            };
-            await phoneRepository.Add(phone);
-
-            await signInManager.SignInAsync(newUser, false);
-            return RedirectToAction("Login");
-        }
-
-        public async Task<IActionResult> SaveLogin(LoginUserViewModel loginUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Login", loginUser);
-            }
-
-            var user = await userRepository.GetByUsername(loginUser.UserName)
-                        ?? await userRepository.GetByEmail(loginUser.UserName);
-
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                return View("Login", loginUser);
-            }
-
-            var result = await signInManager.PasswordSignInAsync(user, loginUser.Password, loginUser.RememberMe, lockoutOnFailure: false);
+            var result = await _userRepository.Add(user);
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, "Invalid username or password.");
-                return View("Login", loginUser);
+                await _addressRepository.Delete(address);
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError("", error.Description);
+
+                return View(model);
+            }
+
+            // Save phone
+            await _phoneRepository.Add(new UserPhone
+            {
+                UserId = user.Id,
+                PhoneNumber = model.PhoneNumber
+            });
+
+            // Send confirmation email
+            await SendEmailConfirmationAsync(user);
+
+            // Auto sign-in only if confirmation is not required
+            if (!_userManager.Options.SignIn.RequireConfirmedAccount)
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+            TempData["SuccessMessage"] = "Account created successfully. Please confirm your email before logging in.";
+            return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+                return RedirectToAction("Index", "Home");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound($"User with ID '{userId}' was not found.");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            ViewBag.Message = result.Succeeded
+                ? "Your email has been successfully confirmed! You can now log in."
+                : "Email confirmation failed. The link may be invalid or expired.";
+
+            return View("ConfirmEmail");
+        }
+
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveLogin(LoginUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userRepository.GetByUsername(model.UserName)
+                        ?? await _userRepository.GetByEmail(model.UserName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid username or password.");
+                return View(model);
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                await SendEmailConfirmationAsync(user);
+                TempData["InfoMessage"] = "Please confirm your email. A new confirmation link has been sent.";
+                return RedirectToAction(nameof(EmailConfirmationNotice));
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Invalid username or password.");
+                return View(model);
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ResendConfirmation() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResendConfirmation(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError("", "Please enter your email.");
+                return View();
+            }
+
+            var user = await _userRepository.GetByEmail(email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "No account found with this email.");
+                return View();
+            }
+
+            if (user.EmailConfirmed)
+            {
+                TempData["InfoMessage"] = "This email is already confirmed.";
+                return RedirectToAction(nameof(Login));
+            }
+
+            await SendEmailConfirmationAsync(user);
+            TempData["SuccessMessage"] = "A new confirmation link has been sent.";
+            return RedirectToAction(nameof(EmailConfirmationNotice));
+        }
+
+        [HttpGet]
+        public IActionResult EmailConfirmationNotice()
+        {
+            ViewBag.Message = TempData["InfoMessage"] ?? TempData["SuccessMessage"];
+            return View();
+        }
+
+        private async System.Threading.Tasks.Task SendEmailConfirmationAsync(User user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(
+                nameof(ConfirmEmail),
+                "Account",
+                new { userId = user.Id, token },
+                protocol: Request.Scheme);
+
+            var message = $@"
+                <h2>Welcome to Sany3y!</h2>
+                <p>Click below to confirm your email:</p>
+                <p><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Confirm Email</a></p>";
+
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your account", message);
         }
     }
 }

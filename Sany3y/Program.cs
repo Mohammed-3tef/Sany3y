@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
+using Sany3y.Infrastructure.Services;
 
 namespace Sany3y
 {
@@ -24,6 +26,8 @@ namespace Sany3y
             builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
             builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();
 
+            builder.Services.AddTransient<IEmailSender, EmailConfirm>();
+
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
@@ -32,6 +36,7 @@ namespace Sany3y
 
             builder.Services.AddIdentity<User, Role>(options =>
             {
+                options.SignIn.RequireConfirmedAccount = false;
                 options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<AppDbContext>()
