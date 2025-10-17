@@ -24,6 +24,10 @@ namespace Sany3y.Infrastructure.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Bio")]
+        [MaxLength(500, ErrorMessage = "Bio cannot exceed 500 characters.")]
+        public string? Bio { get; set; }
+
         [Required]
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]

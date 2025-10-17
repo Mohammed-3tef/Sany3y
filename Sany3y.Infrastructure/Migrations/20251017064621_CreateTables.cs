@@ -113,6 +113,7 @@ namespace Sany3y.Infrastructure.Migrations
                     NationalId = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProfilePictureId = table.Column<long>(type: "bigint", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SLEZ1iyF7mc=",
+  "dgSpecHash": "AvkafRPUt00=",
   "success": true,
   "projectFilePath": "E:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj",
   "expectedPackageFiles": [
@@ -125,7 +125,7 @@
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\8.0.7\\microsoft.visualstudio.web.codegenerators.mvc.8.0.7.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\mono.texttemplating\\2.3.1\\mono.texttemplating.2.3.1.nupkg.sha512",
-    "C:\\Users\\Mohamed\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Mohamed\\.nuget\\packages\\newtonsoft.json\\13.0.4\\newtonsoft.json.13.0.4.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\nuget.common\\6.11.0\\nuget.common.6.11.0.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\nuget.configuration\\6.11.0\\nuget.configuration.6.11.0.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\nuget.dependencyresolver.core\\6.11.0\\nuget.dependencyresolver.core.6.11.0.nupkg.sha512",

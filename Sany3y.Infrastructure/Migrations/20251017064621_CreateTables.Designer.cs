@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251015184905_CreateTables")]
+    [Migration("20251017064621_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -435,6 +435,10 @@ namespace Sany3y.Infrastructure.Migrations
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Bio")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");

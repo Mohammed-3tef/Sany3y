@@ -433,6 +433,10 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Bio")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 

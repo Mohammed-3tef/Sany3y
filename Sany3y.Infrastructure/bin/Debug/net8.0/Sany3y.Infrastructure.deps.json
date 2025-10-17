@@ -12,7 +12,8 @@
           "Microsoft.AspNetCore.Identity.UI": "8.0.21",
           "Microsoft.EntityFrameworkCore": "8.0.20",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.20",
-          "Microsoft.EntityFrameworkCore.Tools": "8.0.20"
+          "Microsoft.EntityFrameworkCore.Tools": "8.0.20",
+          "Newtonsoft.Json": "13.0.4"
         },
         "runtime": {
           "Sany3y.Infrastructure.dll": {}
@@ -725,6 +726,14 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.4": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.4.30916"
+          }
+        }
+      },
       "System.ClientModel/1.0.0": {
         "dependencies": {
           "System.Memory.Data": "1.0.2",
@@ -1342,6 +1351,13 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pdgNNMai3zv51W5aq268sujXUyx7SNdE2bj1wZcWjAQrKMFZV260lbqYop1d2GM67JI1huLRwxo9ZqnfF/lC6A==",
+      "path": "newtonsoft.json/13.0.4",
+      "hashPath": "newtonsoft.json.13.0.4.nupkg.sha512"
     },
     "System.ClientModel/1.0.0": {
       "type": "package",
