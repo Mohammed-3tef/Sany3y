@@ -45,6 +45,9 @@ namespace Sany3y
 
             var app = builder.Build();
 
+            // Seed the database with initial data.
+            //SeedService.SeedDatabase(app.Services).Wait();
+
             // Configure middleware
             if (!app.Environment.IsDevelopment())
             {

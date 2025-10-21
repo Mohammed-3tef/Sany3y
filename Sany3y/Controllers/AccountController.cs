@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
-using Sany3y.Infrastructure.ViewModel;
+using Sany3y.Infrastructure.ViewModels;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -17,6 +17,23 @@ namespace Sany3y.Controllers
         private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<UserPhone> _phoneRepository;
         private readonly IEmailSender _emailSender;
+
+        private async System.Threading.Tasks.Task SendEmailConfirmationAsync(User user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var callbackUrl = Url.Action(
+                nameof(ConfirmEmail),
+                "Account",
+                new { userId = user.Id, token },
+                protocol: Request.Scheme);
+
+            var message = $@"
+                <h2>Welcome to Sany3y!</h2>
+                <p>Click below to confirm your email:</p>
+                <p><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Confirm Email</a></p>";
+
+            await _emailSender.SendEmailAsync(user.Email, "Confirm your account", message);
+        }
 
         public AccountController(
             IEmailSender emailSender,
@@ -39,7 +56,7 @@ namespace Sany3y.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveRegister(RegisterUserViewModel model)
+        public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("Register", model);
@@ -87,32 +104,11 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
-        {
-            await _signInManager.SignOutAsync();
-
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
-                return RedirectToAction("Index", "Home");
-
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-                return NotFound($"User with ID '{userId}' was not found.");
-
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-
-            ViewBag.Message = result.Succeeded
-                ? "Your email has been successfully confirmed! You can now log in."
-                : "Email confirmation failed. The link may be invalid or expired.";
-
-            return View("ConfirmEmail");
-        }
-
-        [HttpGet]
         public IActionResult Login() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveLogin(LoginUserViewModel model)
+        public async Task<IActionResult> Login(LoginUserViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("Login", model);
@@ -153,6 +149,27 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            await _signInManager.SignOutAsync();
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+                return RedirectToAction("Index", "Home");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound($"User with ID '{userId}' was not found.");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            ViewBag.Message = result.Succeeded
+                ? "Your email has been successfully confirmed! You can now log in."
+                : "Email confirmation failed. The link may be invalid or expired.";
+
+            return View("ConfirmEmail");
+        }
+
+        [HttpGet]
         public IActionResult ResendConfirmation() => View();
 
         [HttpPost]
@@ -190,21 +207,79 @@ namespace Sany3y.Controllers
             return View();
         }
 
-        private async System.Threading.Tasks.Task SendEmailConfirmationAsync(User user)
+        [HttpGet]
+        public IActionResult VerifyEmail() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> VerifyEmail(VerifyEmailViewModel model)
         {
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Action(
-                nameof(ConfirmEmail),
-                "Account",
-                new { userId = user.Id, token },
-                protocol: Request.Scheme);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var message = $@"
-                <h2>Welcome to Sany3y!</h2>
-                <p>Click below to confirm your email:</p>
-                <p><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Confirm Email</a></p>";
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-            await _emailSender.SendEmailAsync(user.Email, "Confirm your account", message);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found!");
+                return View(model);
+            }
+
+            await _emailSender.SendEmailAsync(
+                model.Email,
+                "Password Change Request",
+                $"You requested to change your password. Click the link below to proceed:<br>" +
+                $"<a href='{Url.Action("ChangePassword", "Account", new { email = model.Email }, Request.Scheme)}'>Change Password</a>");
+
+            TempData["Info"] = "A password change link has been sent to your email.";
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("VerifyEmail", "Account");
+            }
+
+            return View(new ChangePasswordViewModel { Email = email });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found!");
+                return View(model);
+            }
+
+            var result = await _userManager.RemovePasswordAsync(user);
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddPasswordAsync(user, model.NewPassword);
+                TempData["Success"] = "Password changed successfully!";
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View(model);
+            }
         }
     }
 }

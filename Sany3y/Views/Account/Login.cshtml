@@ -1,4 +1,4 @@
-﻿@model Sany3y.Infrastructure.ViewModel.LoginUserViewModel
+﻿@model Sany3y.Infrastructure.ViewModels.LoginUserViewModel
 
 <partial name="_Notification" />
 
@@ -6,7 +6,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Account" asp-action="SaveLogin">
+        <form asp-controller="Account" asp-action="Login">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -26,14 +26,16 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-
-            <div class="mt-2">
-                <a asp-controller="Account" asp-action="ResendConfirmation">Resend Confirmation Email</a>
-            </div>
         </form>
     </div>
 </div>
 
+<div>
+    <a asp-controller="Account" asp-action="ResendConfirmation">Resend Confirmation Email</a>
+</div>
+<div>
+    <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
+</div>
 <div>
     <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>

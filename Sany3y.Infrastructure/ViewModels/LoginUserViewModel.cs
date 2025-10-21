@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sany3y.Infrastructure.ViewModel
+namespace Sany3y.Infrastructure.ViewModels
 {
     public class LoginUserViewModel
     {
