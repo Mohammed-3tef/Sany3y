@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "E:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\shared\\_loader.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_loader.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\shared\\_loader.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_loader.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\home\\_teammembercard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\home\\_teammembercard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_Loader.cshtml",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Loader.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_Loader.cshtml",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Loader.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Shared\\_Loader.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-23T09:50:47.102Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_Loader.cshtml.css",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Loader.cshtml.css",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_Loader.cshtml.css",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Loader.cshtml.css",
-              "RelativeToolTip": "Sany3y\\Views\\Shared\\_Loader.cshtml.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-23T09:50:18.308Z",
+              "Title": "_TeamMemberCard.cshtml",
+              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Home\\_TeamMemberCard.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\_TeamMemberCard.cshtml",
+              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Home\\_TeamMemberCard.cshtml*",
+              "RelativeToolTip": "Sany3y\\Views\\Home\\_TeamMemberCard.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-23T13:19:26.063Z",
               "EditorCaption": ""
             },
             {

@@ -1,5 +1,87 @@
-﻿<footer class="border-top footer text-muted">
+﻿<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
     <div class="container">
-        &copy; 2025 - Sany3y
+        <h1 class="fw-bold mb-3">Sany3y<span class="text-success">.com</span></h1>
+        <div class="row gy-4">
+            <!-- العمود الأول -->
+            <div class="col-md-3 col-6">
+                <ul class="list-unstyled">
+                    <li><a asp-controller="Home" asp-action="Index" class="footer-link">Home</a></li>
+                    <li><a href="about us.html" class="footer-link">About Us</a></li>
+                    <li><a asp-controller="Home" asp-action="OurTeam" class="footer-link">Our Team</a></li>
+                </ul>
+            </div>
+
+            <!-- العمود الثاني -->
+            <div class="col-md-3 col-6">
+                <h5 class="fw-bold mb-2">Search By:</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="footer-link">Speciality</a></li>
+                    <li><a href="#" class="footer-link">Area</a></li>
+                </ul>
+            </div>
+
+            <!-- العمود الثالث -->
+            <div class="col-md-3 col-6">
+                <h5 class="fw-bold mb-2">Are You A Technician?</h5>
+                <ul class="list-unstyled">
+                    <li><a asp-controller="Account" asp-action="Login" class="footer-link">Join Sanay3y Technicians</a></li>
+                </ul>
+            </div>
+
+            <!-- العمود الرابع -->
+            <div class="col-md-3 col-6">
+                <h5 class="fw-bold mb-2">Need Help?</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="footer-link">Contact Us</a></li>
+                </ul>
+
+                <!-- أيقونات السوشيال -->
+                <div class="social-icons mt-2">
+                    <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4 text-secondary" />
+
+        <div class="text-center small text-secondary">
+            &copy; 2025 <span class="text-success fw-bold">Sany3y</span>. All rights reserved.
+        </div>
     </div>
 </footer>
+
+<style>
+    .footer-link {
+        color: #bbb;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-link:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-link {
+        color: #bbb;
+        font-size: 1.2rem;
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-link:hover {
+        color: #0d6efd;
+        transform: translateY(-3px);
+    }
+
+    .footer-logo {
+        font-size: 1.5rem;
+    }
+</style>

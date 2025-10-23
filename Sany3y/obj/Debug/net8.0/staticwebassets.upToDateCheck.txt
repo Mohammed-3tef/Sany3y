@@ -1,5 +1,9 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\img\team_members\kenzi.jpg
+wwwroot\img\team_members\mohammed.jpg
+wwwroot\img\team_members\omnia.jpg
+wwwroot\img\team_members\steven.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

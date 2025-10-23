@@ -8,5 +8,10 @@ namespace Sany3y.Controllers
         {
             return View();
         }
+
+        public IActionResult OurTeam()
+        {
+            return View();
+        }
     }
 }

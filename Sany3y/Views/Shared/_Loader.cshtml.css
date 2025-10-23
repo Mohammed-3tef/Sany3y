@@ -31,7 +31,7 @@
 /* الـ spinner */
 .spinner {
     border: 6px solid rgba(255, 255, 255, 0.1);
-    border-top: 6px solid #00ffcc;
+    border-top: 6px solid rgb(25, 135, 84);
     border-radius: 50%;
     width: 70px;
     height: 70px;
