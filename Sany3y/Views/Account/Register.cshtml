@@ -1,6 +1,7 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.RegisterUserViewModel
 
 <partial name="_Notification" />
+<partial name="_Loader" />
 
 <h4>Register</h4>
 <hr />
@@ -69,7 +70,7 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" data-show-loader="true" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

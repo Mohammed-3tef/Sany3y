@@ -296,3 +296,4 @@ E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
+E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\Views\Shared\_Loader.cshtml.rz.scp.css

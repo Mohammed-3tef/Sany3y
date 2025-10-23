@@ -1,0 +1,56 @@
+﻿<div id="loader" class="fade">
+    <div class="spinner"></div>
+    <p style="margin-top: 15px; font-size: 18px; letter-spacing: 1px;">
+        Loading...
+    </p>
+</div>
+
+<script defer>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loader = document.getElementById("loader");
+
+        // 🟢 يخفي اللودر عند تحميل الصفحة
+        window.addEventListener("load", hideLoader);
+
+        // 🟡 أثناء أي طلب Ajax
+        $(document).ajaxStart(showLoader);
+        $(document).ajaxStop(hideLoader);
+
+        // ✅ لما المستخدم يضغط على زرار submit
+        $("form").on("submit", function (e) {
+            const form = $(this);
+
+            // نتحقق لو jQuery Validation موجودة
+            if (form.valid && typeof form.valid === "function") {
+                if (form.valid()) {
+                    showLoader(); // ✅ الفورم صحيحة، فعلاً هيتم الإرسال
+                } else {
+                    hideLoader(); // ❌ الفورم فيها أخطاء
+                    e.preventDefault(); // نمنع الإرسال
+                }
+            } else {
+                // لو مفيش jQuery Validate، نستخدم checkValidity العادي
+                if (this.checkValidity()) {
+                    showLoader();
+                } else {
+                    hideLoader();
+                    e.preventDefault();
+                }
+            }
+        });
+
+        // 🔵 عناصر تانية تشغل اللودر يدويًا
+        document.querySelectorAll("[data-show-loader='true']").forEach(el => {
+            el.addEventListener("click", () => showLoader());
+        });
+
+        // ✅ دوال المساعدة
+        function showLoader() {
+            loader.classList.remove("hide");
+        }
+
+        function hideLoader() {
+            loader.classList.add("hide");
+        }
+    });
+</script>

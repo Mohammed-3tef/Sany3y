@@ -9,11 +9,11 @@ namespace Sany3y.Infrastructure.ViewModels
 {
     public class LoginUserViewModel
     {
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Username is required.")]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
