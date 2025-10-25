@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251017064621_CreateTables")]
+    [Migration("20251024192703_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />

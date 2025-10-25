@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "Sany3y/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Google": "8.0.21",
+          "Microsoft.AspNetCore.Authentication.MicrosoftAccount": "8.0.21",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.20",
           "Microsoft.AspNetCore.Identity.UI": "8.0.21",
           "Microsoft.EntityFrameworkCore": "8.0.20",
@@ -594,6 +596,22 @@
         "resources": {
           "lib/net6.0/zh-Hant/Humanizer.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/8.0.21": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "assemblyVersion": "8.0.21.0",
+            "fileVersion": "8.0.2125.47515"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.MicrosoftAccount/8.0.21": {
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll": {
+            "assemblyVersion": "8.0.21.0",
+            "fileVersion": "8.0.2125.47515"
           }
         }
       },
@@ -2547,6 +2565,20 @@
       "sha512": "sha512-VIXB7HCUC34OoaGnO3HJVtSv2/wljPhjV7eKH4+TFPgQdJj2lvHNKY41Dtg0Bphu7X5UaXFR4zrYYyo+GNOjbA==",
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Google/8.0.21": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-50cz+hOT+UCkvqYZQbEwsGcJzkLmknxZ6UNXkNF7cvpM4JfMsJJ0WDleV4gsqN0gX0QoHfzY5AUv6CwYyjr2sQ==",
+      "path": "microsoft.aspnetcore.authentication.google/8.0.21",
+      "hashPath": "microsoft.aspnetcore.authentication.google.8.0.21.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.MicrosoftAccount/8.0.21": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JJgsXw2Pc5nL6VsJ/GWzE+sZIlH0c3517VAyc4FYKTMJ0Qs5F6IXVT8uHLNHddhw6s/8hLnNHXf97TE6+guzUA==",
+      "path": "microsoft.aspnetcore.authentication.microsoftaccount/8.0.21",
+      "hashPath": "microsoft.aspnetcore.authentication.microsoftaccount.8.0.21.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/8.0.21": {
       "type": "package",

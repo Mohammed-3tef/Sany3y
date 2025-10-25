@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
@@ -42,6 +44,14 @@ namespace Sany3y
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+
+                options.ClaimActions.MapJsonKey("picture", "picture", "url");
+            });
 
             var app = builder.Build();
 

@@ -6,7 +6,7 @@
             <div class="col-md-3 col-6">
                 <ul class="list-unstyled">
                     <li><a asp-controller="Home" asp-action="Index" class="footer-link">Home</a></li>
-                    <li><a href="about us.html" class="footer-link">About Us</a></li>
+                    <li><a asp-controller="Home" asp-action="AboutUs" class="footer-link">About Us</a></li>
                     <li><a asp-controller="Home" asp-action="OurTeam" class="footer-link">Our Team</a></li>
                 </ul>
             </div>
@@ -32,7 +32,8 @@
             <div class="col-md-3 col-6">
                 <h5 class="fw-bold mb-2">Need Help?</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="footer-link">Contact Us</a></li>
+                    <li><a asp-controller="Home" data-show-loader="true" asp-action="ContactUs" class="footer-link">Contact Us</a></li>
+                    <li><a asp-controller="Home" data-show-loader="true" asp-action="Policy" class="footer-link">Privacy Policy</a></li>
                 </ul>
 
                 <!-- أيقونات السوشيال -->

@@ -10,6 +10,7 @@ E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Azure.Core.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Azure.Identity.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Humanizer.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -283,6 +284,7 @@ E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\rjimswa.dswa.cache.json
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\Views\Shared\_Loader.cshtml.rz.scp.css
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\bundle\Sany3y.styles.css
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\projectbundle\Sany3y.bundle.scp.css
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\staticwebassets.build.json
@@ -296,4 +298,4 @@ E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
-E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\scopedcss\Views\Shared\_Loader.cshtml.rz.scp.css
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll

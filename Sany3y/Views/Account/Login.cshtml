@@ -28,6 +28,12 @@
                 <input type="submit" data-show-loader="true" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
+        <form asp-controller="Account" asp-action="ExternalLogin" method="post">
+            <button type="submit" name="provider" value="Google" class="btn btn-danger">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+        </form>
     </div>
 </div>
 

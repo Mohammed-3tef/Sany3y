@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.ViewModels;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace Sany3y.Controllers
 {
@@ -16,6 +19,7 @@ namespace Sany3y.Controllers
         private readonly UserRepository _userRepository;
         private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<UserPhone> _phoneRepository;
+        private readonly IRepository<ProfilePicture> _profilePictureRepo;
         private readonly IEmailSender _emailSender;
 
         private async System.Threading.Tasks.Task SendEmailConfirmationAsync(User user)
@@ -41,6 +45,7 @@ namespace Sany3y.Controllers
             UserRepository userRepository,
             SignInManager<User> signInManager,
             IRepository<Address> addressRepository,
+            IRepository<ProfilePicture> profilePictureRepo,
             IRepository<UserPhone> phoneRepository)
         {
             _emailSender = emailSender;
@@ -48,6 +53,7 @@ namespace Sany3y.Controllers
             _userRepository = userRepository;
             _signInManager = signInManager;
             _addressRepository = addressRepository;
+            _profilePictureRepo = profilePictureRepo;
             _phoneRepository = phoneRepository;
         }
 
@@ -113,8 +119,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            var user = await _userRepository.GetByUsername(model.UserName)
-                        ?? await _userRepository.GetByEmail(model.UserName);
+            var user = await _userRepository.GetByUsername(model.UserName);
 
             if (user == null)
             {
@@ -138,6 +143,109 @@ namespace Sany3y.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            if (provider == "Google")
+                properties.Items["prompt"] = "select_account"; // يجبر Google يفتح صفحة اختيار الإيميل
+
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl ??= Url.Content("~/");
+
+            if (remoteError != null)
+            {
+                TempData["Error"] = $"External provider error: {remoteError}";
+                return RedirectToAction(nameof(Login));
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                TempData["Error"] = "Unable to load external login information.";
+                return RedirectToAction(nameof(Login));
+            }
+
+            // Try to sign in user with existing external login
+            var result = await _signInManager.ExternalLoginSignInAsync(
+                info.LoginProvider, info.ProviderKey, isPersistent: true);
+
+            if (result.Succeeded)
+            {
+                // If the user's email is already confirmed, redirect directly
+                var existingUser = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+                if (existingUser != null && existingUser.EmailConfirmed)
+                    return LocalRedirect(returnUrl);
+
+                // Otherwise, re-confirm email (shouldn't usually happen for Google)
+                TempData["Info"] = "Please confirm your email to complete sign-in.";
+                return RedirectToAction(nameof(EmailConfirmationNotice));
+            }
+
+            // If the user does not have an account, create one using their Google info
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+            var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+            var pictureUrl = info.Principal.FindFirstValue("picture");
+
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["Error"] = "Google did not provide an email. Please use manual registration.";
+                return RedirectToAction(nameof(Login));
+            }
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                var address = new Address { City = "Cairo", Street = "." };
+                await _addressRepository.Add(address);
+
+                user = new User
+                {
+                    UserName = email,
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    AddressId = address.Id,
+                    EmailConfirmed = true // Google accounts are already verified by Google
+                };
+
+                var identityResult = await _userManager.CreateAsync(user);
+                if (!identityResult.Succeeded)
+                {
+                    foreach (var error in identityResult.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    return View("Login");
+                }
+
+                if (!pictureUrl.IsNullOrEmpty())
+                {
+                    ProfilePicture profilePicture = new ProfilePicture { Path = pictureUrl };
+                    await _profilePictureRepo.Add(profilePicture);
+
+                    user.ProfilePicture = profilePicture;
+                }
+            }
+
+            // Add external login link (Google → our user)
+            await _userManager.AddLoginAsync(user, info);
+
+            // Sign in immediately (since email is verified by Google)
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            return LocalRedirect(returnUrl);
         }
 
         [HttpPost]

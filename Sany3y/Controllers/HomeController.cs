@@ -9,7 +9,22 @@ namespace Sany3y.Controllers
             return View();
         }
 
+        public IActionResult Policy()
+        {
+            return View();
+        }
+
         public IActionResult OurTeam()
+        {
+            return View();
+        }
+
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public IActionResult AboutUs()
         {
             return View();
         }
