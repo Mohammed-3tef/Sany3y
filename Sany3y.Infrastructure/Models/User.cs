@@ -33,6 +33,11 @@ namespace Sany3y.Infrastructure.Models
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+        [Required]
+        [Display(Name = "Gender")]
+        [RegularExpression("^[MFO]$")]
+        public char Gender { get; set; }
+
         [ForeignKey("ProfilePicture")]
         [Display(Name = "Profile Picture")]
         public long? ProfilePictureId { get; set; }

@@ -84,6 +84,7 @@ namespace Sany3y.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 BirthDate = model.BirthDate,
+                Gender = model.IsMale ? 'M' : 'F',
                 PasswordHash = model.Password,
                 AddressId = address.Id
             };
@@ -104,6 +105,11 @@ namespace Sany3y.Controllers
                 UserId = user.Id,
                 PhoneNumber = model.PhoneNumber
             });
+
+            if (model.IsClient)
+                await _userManager.AddToRoleAsync(user, "Client");
+            else
+                await _userManager.AddToRoleAsync(user, "Tasker");
 
             await SendEmailConfirmationAsync(user);
             return RedirectToAction(nameof(EmailConfirmationNotice));
@@ -177,23 +183,26 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
-            // Try to sign in user with existing external login
-            var result = await _signInManager.ExternalLoginSignInAsync(
-                info.LoginProvider, info.ProviderKey, isPersistent: true);
+            // Try to sign in existing user by their external login
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
             if (result.Succeeded)
             {
-                // If the user's email is already confirmed, redirect directly
+                // Already linked Google account found
                 var existingUser = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-                if (existingUser != null && existingUser.EmailConfirmed)
-                    return LocalRedirect(returnUrl);
 
-                // Otherwise, re-confirm email (shouldn't usually happen for Google)
-                TempData["Info"] = "Please confirm your email to complete sign-in.";
-                return RedirectToAction(nameof(EmailConfirmationNotice));
+                if (existingUser != null)
+                {
+                    if (existingUser.EmailConfirmed)
+                        return LocalRedirect(returnUrl);
+
+                    // Existing user but email not confirmed
+                    TempData["Info"] = "Please confirm your email to complete sign-in.";
+                    return RedirectToAction(nameof(EmailConfirmationNotice));
+                }
             }
 
-            // If the user does not have an account, create one using their Google info
+            // Get data from Google claims
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
             var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
             var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
@@ -205,10 +214,12 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
+            // Check if this email already exists in your database
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
+                // NEW Google user → auto confirm and sign in
                 var address = new Address { City = "Cairo", Street = "." };
                 await _addressRepository.Add(address);
 
@@ -216,10 +227,11 @@ namespace Sany3y.Controllers
                 {
                     UserName = email,
                     Email = email,
-                    FirstName = firstName,
-                    LastName = lastName,
+                    FirstName = firstName ?? " ",
+                    LastName = lastName ?? " ",
                     AddressId = address.Id,
-                    EmailConfirmed = true // Google accounts are already verified by Google
+                    Gender = 'M',
+                    EmailConfirmed = true
                 };
 
                 var identityResult = await _userManager.CreateAsync(user);
@@ -227,25 +239,46 @@ namespace Sany3y.Controllers
                 {
                     foreach (var error in identityResult.Errors)
                         ModelState.AddModelError(string.Empty, error.Description);
+
                     return View("Login");
                 }
 
-                if (!pictureUrl.IsNullOrEmpty())
+                // Assign "Client" role by default
+                await _userManager.AddToRoleAsync(user, "Client");
+
+                // Optional: Save profile picture
+                if (!string.IsNullOrEmpty(pictureUrl))
                 {
-                    ProfilePicture profilePicture = new ProfilePicture { Path = pictureUrl };
+                    var profilePicture = new ProfilePicture { Path = pictureUrl };
                     await _profilePictureRepo.Add(profilePicture);
 
-                    user.ProfilePicture = profilePicture;
+                    user.ProfilePictureId = profilePicture.Id;
+                    await _userManager.UpdateAsync(user);
                 }
+
+                // Link Google login to new user
+                await _userManager.AddLoginAsync(user, info);
+
+                // Directly sign in (since email is confirmed)
+                await _signInManager.SignInAsync(user, isPersistent: true);
+
+                return LocalRedirect(returnUrl);
             }
+            else
+            {
+                // Existing account found but not confirmed
+                if (!user.EmailConfirmed)
+                {
+                    TempData["Info"] = "Please confirm your email to complete sign-in.";
+                    return RedirectToAction(nameof(EmailConfirmationNotice));
+                }
 
-            // Add external login link (Google → our user)
-            await _userManager.AddLoginAsync(user, info);
+                // Existing account already confirmed → just link Google and sign in
+                await _userManager.AddLoginAsync(user, info);
+                await _signInManager.SignInAsync(user, isPersistent: true);
 
-            // Sign in immediately (since email is verified by Google)
-            await _signInManager.SignInAsync(user, isPersistent: false);
-
-            return LocalRedirect(returnUrl);
+                return LocalRedirect(returnUrl);
+            }
         }
 
         [HttpPost]
@@ -274,6 +307,7 @@ namespace Sany3y.Controllers
                 ? "Your email has been successfully confirmed! You can now log in."
                 : "Email confirmation failed. The link may be invalid or expired.";
 
+            await _signInManager.SignOutAsync();
             return View("ConfirmEmail");
         }
 

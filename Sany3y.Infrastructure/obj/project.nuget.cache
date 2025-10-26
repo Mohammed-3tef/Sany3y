@@ -90,15 +90,5 @@
     "C:\\Users\\Mohamed\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "E:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
-      "warningLevel": 1,
-      "filePath": "E:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

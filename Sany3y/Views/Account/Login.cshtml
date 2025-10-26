@@ -1,50 +1,94 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.LoginUserViewModel
 
+@{
+	ViewBag.Title = "Login";
+}
+
 <partial name="_Notification" />
 <partial name="_Loader" />
 
-<h4>Log In</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<style>
+    .divider:after,
+    .divider:before {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: #eee;
+    }
+
+    .hover-underline{
+		text-decoration: none;
+    }
+
+    .hover-underline:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="text-center mb-4">
+            <h1>Login</h1>
+        </div>
+
         <form asp-controller="Account" asp-action="Login">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
-                </label>
+
+            <div class="row align-items-center mb-3 text-center text-sm-start">
+                <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+                    <div class="form-check d-flex justify-content-center justify-content-sm-start">
+                        <input class="form-check-input me-2" asp-for="RememberMe" id="rememberMe" />
+                        <label class="form-check-label" for="rememberMe">
+                            @Html.DisplayNameFor(model => model.RememberMe)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                    <div class="d-flex justify-content-center justify-content-sm-end">
+                        <a asp-controller="Account" asp-action="ChangePassword" class="text-primary fw-semibold hover-underline">
+                            Forgot Password?
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" data-show-loader="true" value="Create" class="btn btn-primary" />
+
+            <div class="form-group mb-3">
+                <input type="submit" data-show-loader="true" value="Login" class="btn btn-primary w-100" />
             </div>
         </form>
 
-        <form asp-controller="Account" asp-action="ExternalLogin" method="post">
-            <button type="submit" name="provider" value="Google" class="btn btn-danger">
-                <i class="fab fa-google"></i> Continue with Google
+        <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="ExternalLogin" method="post" class="mb-3">
+            <button type="submit" name="provider" value="Google" class="btn btn-danger w-100">
+                <i class="fab fa-google"></i> <span class="mx-1">Continue with Google</span>
             </button>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-controller="Account" asp-action="ResendConfirmation">Resend Confirmation Email</a>
-</div>
-<div>
-    <a asp-controller="Account" asp-action="ChangePassword">Change Password</a>
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+        <div class="">
+            <p class="mb-0">
+                Don't have an account?
+                <a asp-controller="Account" asp-action="Register" class="text-primary fw-semibold hover-underline">
+                    Register here
+                </a>
+			</p>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

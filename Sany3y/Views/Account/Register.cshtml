@@ -1,83 +1,150 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.RegisterUserViewModel
 
+@{
+	ViewBag.Title = "Register";
+}
+
 <partial name="_Notification" />
 <partial name="_Loader" />
 
-<h4>Register</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<style>
+    .hover-underline {
+        text-decoration: none;
+    }
+
+    .hover-underline:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="text-center mb-4">
+            <h1>Register</h1>
+        </div>
+
         <form asp-action="Register">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NationalId" class="control-label"></label>
-                <input asp-for="NationalId" class="form-control" />
-                <span asp-validation-for="NationalId" class="text-danger"></span>
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="NationalId" class="form-label"></label>
+                    <input asp-for="NationalId" min="0" class="form-control" />
+                    <span asp-validation-for="NationalId" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="BirthDate" class="form-label"></label>
+                    <input asp-for="BirthDate" type="date" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                </div>
+
+                <div class="d-md-flex col-md-12 align-items-center">
+                    <label class="form-label d-block col-md-4">Gender</label>
+
+                    <div class="d-flex gap-4 flex-wrap col-md-8">
+                        <div class="form-check col-md-4">
+                            <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" />
+                            <label class="form-check-label" for="genderMale">Male</label>
+                        </div>
+
+                        <div class="form-check col-md-4">
+                            <input asp-for="IsMale" class="form-check-input" type="radio" value="false" id="genderFemale" />
+                            <label class="form-check-label" for="genderFemale">Female</label>
+                        </div>
+                    </div>
+
+                    <span asp-validation-for="IsMale" class="text-danger small"></span>
+                </div>
+
+                
+                <div class="col-md-12">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="City" class="form-label"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="Street" class="form-label"></label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ConfirmPassword" class="form-label"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <div class="d-md-flex col-md-12 align-items-center">
+                    <label class="form-label d-block col-md-4">I am</label>
+
+                    <div class="d-flex gap-4 flex-wrap col-md-8">
+                        <div class="form-check col-md-4">
+                            <input asp-for="IsClient" class="form-check-input" type="radio" value="true" id="client" />
+                            <label class="form-check-label" for="client">Client</label>
+                        </div>
+
+                        <div class="form-check col-md-4">
+                            <input asp-for="IsClient" class="form-check-input" type="radio" value="false" id="tasker" />
+                            <label class="form-check-label" for="tasker">Tasker</label>
+                        </div>
+                    </div>
+
+                    <span asp-validation-for="IsClient" class="text-danger small"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" type="date" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Street" class="control-label"></label>
-                <input asp-for="Street" class="form-control" />
-                <span asp-validation-for="Street" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsClient" /> @Html.DisplayNameFor(model => model.IsClient)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" data-show-loader="true" value="Create" class="btn btn-primary" />
+
+            <div class="form-group mt-4">
+                <input type="submit" data-show-loader="true" value="Create Account" class="btn btn-primary w-100" />
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+        <div class="">
+            <p class="mt-3">
+                Already have an account?
+                <a asp-controller="Account" asp-action="Login" class="text-primary fw-semibold hover-underline">
+                    Login here
+                </a>
+            </p>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

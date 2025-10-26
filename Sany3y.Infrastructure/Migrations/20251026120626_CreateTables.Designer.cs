@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251024192703_CreateTables")]
+    [Migration("20251026120626_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -457,6 +457,10 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("LastName")
                         .IsRequired()

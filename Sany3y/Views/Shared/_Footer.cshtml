@@ -1,4 +1,9 @@
-﻿<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
+﻿@using Microsoft.AspNetCore.Identity
+@using Sany3y.Infrastructure.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
     <div class="container">
         <h1 class="fw-bold mb-3">Sany3y<span class="text-success">.com</span></h1>
         <div class="row gy-4">
@@ -20,13 +25,16 @@
                 </ul>
             </div>
 
-            <!-- العمود الثالث -->
-            <div class="col-md-3 col-6">
-                <h5 class="fw-bold mb-2">Are You A Technician?</h5>
-                <ul class="list-unstyled">
-                    <li><a asp-controller="Account" asp-action="Login" class="footer-link">Join Sanay3y Technicians</a></li>
-                </ul>
-            </div>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <!-- العمود الثالث -->
+                <div class="col-md-3 col-6">
+                    <h5 class="fw-bold mb-2">Are You A Technician?</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Account" asp-action="Login" class="footer-link">Join Sanay3y Technicians</a></li>
+                    </ul>
+                </div>
+            }
 
             <!-- العمود الرابع -->
             <div class="col-md-3 col-6">

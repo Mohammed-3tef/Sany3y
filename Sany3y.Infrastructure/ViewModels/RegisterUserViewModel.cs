@@ -32,6 +32,10 @@ namespace Sany3y.Infrastructure.ViewModels
         public DateTime BirthDate { get; set; }
 
         [Required]
+        [Display(Name = "Gender")]
+        public bool IsMale { get; set; }
+
+        [Required]
         public string Email { get; set; }
 
         [Required]

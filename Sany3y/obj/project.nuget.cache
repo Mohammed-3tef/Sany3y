@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gnilEOiKr/0=",
+  "dgSpecHash": "3Mr9z8ovzwY=",
   "success": true,
   "projectFilePath": "E:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,7 @@
     "C:\\Users\\Mohamed\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\8.0.21\\microsoft.aspnetcore.authentication.facebook.8.0.21.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\8.0.21\\microsoft.aspnetcore.authentication.google.8.0.21.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.authentication.microsoftaccount\\8.0.21\\microsoft.aspnetcore.authentication.microsoftaccount.8.0.21.nupkg.sha512",
     "C:\\Users\\Mohamed\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.21\\microsoft.aspnetcore.cryptography.internal.8.0.21.nupkg.sha512",
