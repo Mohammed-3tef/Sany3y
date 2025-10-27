@@ -3,9 +3,8 @@
 
 @{
     ViewData["Title"] = "Verify Email";
+    Layout = "_ProfileLayout";
 }
-
-<partial name="_Notification" />
 
 <div class="account-container">
     <div class="account-box">
@@ -19,9 +18,6 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <input type="submit" value="Verify" class="btn btn-success w-100 p-2" />
-            <div class="text-center mt-2">
-                <a asp-controller="Account" asp-action="Login" class="text-decoration-none mt-3">Back</a>
-            </div>
         </form>
     </div>
 </div>

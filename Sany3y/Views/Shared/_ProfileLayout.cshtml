@@ -19,19 +19,32 @@
     }
 
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+		<div class="row my-4 g-3">
+            <aside class="col-md-3">
+                @{
+                    await Html.RenderPartialAsync("_ProfileSidebar", "Account");
+                }
+            </aside>
+            <div class="container col-md-9">
+				<main role="main" class="card py-5 px-3 px-md-5">
+					@RenderBody()
+				</main>
+            </div>
+        </div>
     </div>
 
-    @{await Html.RenderPartialAsync("_Footer");}
+    @{
+        await Html.RenderPartialAsync("_Footer");
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

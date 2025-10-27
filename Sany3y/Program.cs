@@ -23,7 +23,6 @@ namespace Sany3y
             builder.Services.AddScoped<IRepository<Address>, AddressRepository>();
             builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
             builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
-            builder.Services.AddScoped<IRepository<UserPhone>, UserPhoneRepository>();
             builder.Services.AddScoped<IRepository<ProfilePicture>, ProfilePictureRepository>();
             builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
             builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();

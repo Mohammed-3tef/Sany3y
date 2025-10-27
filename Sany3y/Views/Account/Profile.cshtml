@@ -1,0 +1,88 @@
+﻿@using Sany3y.Infrastructure.Models
+@using Sany3y.Infrastructure.ViewModels
+@model Sany3y.Infrastructure.DTOs.UserDTO
+
+@{
+    ViewData["Title"] = "Profile Overview";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-md-12">
+        <div class="text-center mb-4">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+
+        <form asp-controller="Account" asp-action="EditProfile">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" readonly/>
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="BirthDate" class="form-label"></label>
+                    <input asp-for="BirthDate" type="date" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="City" class="form-label"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="Street" class="form-label"></label>
+                    <input asp-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger small"></span>
+                </div>
+                
+                <div class="col-md-12">
+                    <label asp-for="Bio" class="form-label"></label>
+                    <textarea asp-for="Bio" class="form-control" ></textarea>
+                    <span asp-validation-for="Bio" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="row form-group mt-4">
+                <div class="col-md-6">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-danger w-100" data-show-loader="true">
+                        Cancel
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+					<input type="submit" data-show-loader="true" value="Save" class="btn btn-primary w-100" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

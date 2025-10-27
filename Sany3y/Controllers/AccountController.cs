@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.ViewModels;
@@ -18,7 +19,6 @@ namespace Sany3y.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserRepository _userRepository;
         private readonly IRepository<Address> _addressRepository;
-        private readonly IRepository<UserPhone> _phoneRepository;
         private readonly IRepository<ProfilePicture> _profilePictureRepo;
         private readonly IEmailSender _emailSender;
 
@@ -45,8 +45,7 @@ namespace Sany3y.Controllers
             UserRepository userRepository,
             SignInManager<User> signInManager,
             IRepository<Address> addressRepository,
-            IRepository<ProfilePicture> profilePictureRepo,
-            IRepository<UserPhone> phoneRepository)
+            IRepository<ProfilePicture> profilePictureRepo)
         {
             _emailSender = emailSender;
             _userManager = userManager;
@@ -54,7 +53,6 @@ namespace Sany3y.Controllers
             _signInManager = signInManager;
             _addressRepository = addressRepository;
             _profilePictureRepo = profilePictureRepo;
-            _phoneRepository = phoneRepository;
         }
 
         [HttpGet]
@@ -83,6 +81,7 @@ namespace Sany3y.Controllers
                 LastName = model.LastName,
                 UserName = model.UserName,
                 Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 BirthDate = model.BirthDate,
                 Gender = model.IsMale ? 'M' : 'F',
                 PasswordHash = model.Password,
@@ -99,12 +98,6 @@ namespace Sany3y.Controllers
 
                 return View("Register", model);
             }
-
-            await _phoneRepository.Add(new UserPhone
-            {
-                UserId = user.Id,
-                PhoneNumber = model.PhoneNumber
-            });
 
             if (model.IsClient)
                 await _userManager.AddToRoleAsync(user, "Client");
@@ -422,6 +415,57 @@ namespace Sany3y.Controllers
 
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+            User currentUser = _userRepository.GetByUsername(User.Identity.Name).Result;
+            UserDTO userDTO = new()
+            {
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                UserName = currentUser.UserName,
+                BirthDate = currentUser.BirthDate,
+                Email = currentUser.Email,
+                PhoneNumber = currentUser.PhoneNumber.ToString(),
+                City = _addressRepository.GetById(currentUser.AddressId).Result.City,
+                Street = _addressRepository.GetById(currentUser.AddressId).Result.Street,
+                Bio = currentUser.Bio
+            };
+            return View(userDTO);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(UserDTO userDTO)
+        {
+            if (!ModelState.IsValid)
+                return View("Profile", userDTO);
+
+            User currentUser = await _userRepository.GetByUsername(userDTO.UserName);
+            if (currentUser == null)
+                return View("Profile", userDTO);
+
+            Address address = new Address
+            {
+                Id = currentUser.AddressId,
+                City = userDTO.City,
+                Street = userDTO.Street
+            };
+            await _addressRepository.Update(address);
+
+            currentUser.FirstName = userDTO.FirstName;
+            currentUser.LastName = userDTO.LastName;
+            currentUser.Email = userDTO.Email;
+            currentUser.PhoneNumber = userDTO.PhoneNumber;
+            currentUser.BirthDate = userDTO.BirthDate;
+            currentUser.Bio = userDTO.Bio;
+            await _userManager.UpdateAsync(currentUser);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

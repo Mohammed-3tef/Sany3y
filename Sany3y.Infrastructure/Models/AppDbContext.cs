@@ -13,7 +13,6 @@ namespace Sany3y.Infrastructure.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<UserPhone> UserPhones { get; set; }
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
@@ -35,7 +34,6 @@ namespace Sany3y.Infrastructure.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().Ignore(u => u.PhoneNumber);
             modelBuilder.Entity<User>().Ignore(u => u.PhoneNumberConfirmed);
 
             modelBuilder.Entity<Address>()
@@ -63,10 +61,6 @@ namespace Sany3y.Infrastructure.Models
                 .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Notification>()
-                .Property(a => a.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<UserPhone>()
                 .Property(a => a.Id)
                 .ValueGeneratedOnAdd();
 

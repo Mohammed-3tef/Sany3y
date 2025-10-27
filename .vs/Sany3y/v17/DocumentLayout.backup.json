@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "E:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\shared\\_profilelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_profilelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Register.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Account\\Register.cshtml",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Register.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Account\\Register.cshtml",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAHIAAAAmAAAAAAAAAA==",
+              "Title": "_ProfileLayout.cshtml",
+              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_ProfileLayout.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_ProfileLayout.cshtml",
+              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_ProfileLayout.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Shared\\_ProfileLayout.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-26T14:00:45.448Z",
+              "WhenOpened": "2025-10-27T10:28:32.205Z",
               "EditorCaption": ""
             },
             {

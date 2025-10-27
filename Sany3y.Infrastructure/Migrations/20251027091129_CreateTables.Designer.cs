@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251026120626_CreateTables")]
+    [Migration("20251027091129_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -486,6 +486,9 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("ProfilePictureId")
                         .HasColumnType("bigint");
 
@@ -514,28 +517,6 @@ namespace Sany3y.Infrastructure.Migrations
                     b.HasIndex("ProfilePictureId");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Sany3y.Infrastructure.Models.UserPhone", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserPhones");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -715,17 +696,6 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("ProfilePicture");
-                });
-
-            modelBuilder.Entity("Sany3y.Infrastructure.Models.UserPhone", b =>
-                {
-                    b.HasOne("Sany3y.Infrastructure.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

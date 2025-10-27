@@ -126,6 +126,7 @@ namespace Sany3y.Infrastructure.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
@@ -319,26 +320,6 @@ namespace Sany3y.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPhones",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserPhones", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserPhones_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Payments",
                 columns: table => new
                 {
@@ -518,11 +499,6 @@ namespace Sany3y.Infrastructure.Migrations
                 name: "IX_Tasks_TaskerId",
                 table: "Tasks",
                 column: "TaskerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPhones_UserId",
-                table: "UserPhones",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -554,9 +530,6 @@ namespace Sany3y.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ratings");
-
-            migrationBuilder.DropTable(
-                name: "UserPhones");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
