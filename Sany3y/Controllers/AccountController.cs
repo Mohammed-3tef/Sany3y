@@ -22,6 +22,20 @@ namespace Sany3y.Controllers
         private readonly IRepository<ProfilePicture> _profilePictureRepo;
         private readonly IEmailSender _emailSender;
 
+        /// <summary>
+        /// Checks if the user’s profile is incomplete (example logic).
+        /// </summary>
+        private bool IsProfileIncomplete(User user)
+        {
+            return string.IsNullOrWhiteSpace(user.FirstName)
+                || string.IsNullOrWhiteSpace(user.LastName)
+                || string.IsNullOrWhiteSpace(user.PhoneNumber)
+                || string.IsNullOrWhiteSpace(user.Email)
+                || string.IsNullOrWhiteSpace(user.UserName)
+                || user.NationalId == 0
+                || user.AddressId == null || user.BirthDate == null || user.Gender == null;
+        }
+
         private async System.Threading.Tasks.Task SendEmailConfirmationAsync(User user)
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -176,105 +190,137 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
-            // Try to sign in existing user by their external login
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
-
-            if (result.Succeeded)
-            {
-                // Already linked Google account found
-                var existingUser = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-
-                if (existingUser != null)
-                {
-                    if (existingUser.EmailConfirmed)
-                        return LocalRedirect(returnUrl);
-
-                    // Existing user but email not confirmed
-                    TempData["Info"] = "Please confirm your email to complete sign-in.";
-                    return RedirectToAction(nameof(EmailConfirmationNotice));
-                }
-            }
-
-            // Get data from Google claims
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-            var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
-            var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+            var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? string.Empty;
+            var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname) ?? string.Empty;
             var pictureUrl = info.Principal.FindFirstValue("picture");
+            var provider = info.LoginProvider;
+            var providerKey = info.ProviderKey;
 
             if (string.IsNullOrEmpty(email))
             {
-                TempData["Error"] = "Google did not provide an email. Please use manual registration.";
+                TempData["Error"] = "Your external provider did not provide an email. Please register manually.";
                 return RedirectToAction(nameof(Login));
             }
 
-            // Check if this email already exists in your database
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user == null)
+            var existingUser = await _userManager.FindByEmailAsync(email);
+            if (existingUser != null)
             {
-                // NEW Google user → auto confirm and sign in
-                var address = new Address { City = "Cairo", Street = "." };
-                await _addressRepository.Add(address);
-
-                user = new User
+                // Auto confirm email for external login
+                if (!existingUser.EmailConfirmed)
                 {
-                    UserName = email,
-                    Email = email,
-                    FirstName = firstName ?? " ",
-                    LastName = lastName ?? " ",
-                    AddressId = address.Id,
-                    Gender = 'M',
-                    EmailConfirmed = true
-                };
-
-                var identityResult = await _userManager.CreateAsync(user);
-                if (!identityResult.Succeeded)
-                {
-                    foreach (var error in identityResult.Errors)
-                        ModelState.AddModelError(string.Empty, error.Description);
-
-                    return View("Login");
+                    existingUser.EmailConfirmed = true;
+                    await _userManager.UpdateAsync(existingUser);
                 }
 
-                // Assign "Client" role by default
+                // Link external login if not already linked
+                var linkedLogins = await _userManager.GetLoginsAsync(existingUser);
+                if (!linkedLogins.Any(l => l.LoginProvider == provider && l.ProviderKey == providerKey))
+                    await _userManager.AddLoginAsync(existingUser, info);
+
+                await _signInManager.SignInAsync(existingUser, isPersistent: true);
+
+                if (IsProfileIncomplete(existingUser))
+                    return RedirectToAction("CompleteProfile", "Account");
+
+                return LocalRedirect(returnUrl);
+            }
+
+            // User not registered → send data to CompleteProfile view
+            var registerModel = new RegisterUserViewModel
+            {
+                UserName = email.Split('@')[0],
+                Email = email,
+                FirstName = firstName,
+                LastName = lastName,
+                Picture = pictureUrl,
+            };
+
+            // Redirect to CompleteProfile with prefilled data
+            return View("CompleteProfile", registerModel);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CompleteProfile(RegisterUserViewModel model) => View(model);
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CompleteProfilePost(RegisterUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (await _userRepository.GetByNationalId(model.NationalId) != null)
+            {
+                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
+                return View(model);
+            }
+
+            // تأكد إن الإيميل لسه مش مستخدم
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                TempData["Error"] = "This email is already registered.";
+                return RedirectToAction(nameof(Login));
+            }
+
+            Address address = new Address
+            {
+                City = model.City,
+                Street = model.Street
+            };
+            await _addressRepository.Add(address);
+
+            // إنشاء المستخدم الجديد بناءً على البيانات اللي المستخدم كملها
+            var user = new User
+            {
+                NationalId = model.NationalId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                Email = model.Email,
+                EmailConfirmed = true,
+                PhoneNumber = model.PhoneNumber,
+                BirthDate = model.BirthDate,
+                Gender = model.IsMale ? 'M' : 'F',
+                PasswordHash = model.Password,
+                AddressId = address.Id
+            };
+
+            // إنشاء المستخدم فعلاً
+            var createResult = await _userManager.CreateAsync(user, model.Password);
+            if (!createResult.Succeeded)
+            {
+                foreach (var error in createResult.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+                return View(model);
+            }
+
+            // حفظ صورة البروفايل لو جت من Google
+            if (!string.IsNullOrEmpty(model.Picture))
+            {
+                var profilePic = new ProfilePicture { Path = model.Picture };
+                await _profilePictureRepo.Add(profilePic);
+
+                user.ProfilePictureId = profilePic.Id;
+                await _userManager.UpdateAsync(user);
+            }
+
+            if (model.IsClient)
                 await _userManager.AddToRoleAsync(user, "Client");
-
-                // Optional: Save profile picture
-                if (!string.IsNullOrEmpty(pictureUrl))
-                {
-                    var profilePicture = new ProfilePicture { Path = pictureUrl };
-                    await _profilePictureRepo.Add(profilePicture);
-
-                    user.ProfilePictureId = profilePicture.Id;
-                    await _userManager.UpdateAsync(user);
-                }
-
-                // Link Google login to new user
-                await _userManager.AddLoginAsync(user, info);
-
-                // Directly sign in (since email is confirmed)
-                await _signInManager.SignInAsync(user, isPersistent: true);
-
-                return LocalRedirect(returnUrl);
-            }
             else
-            {
-                // Existing account found but not confirmed
-                if (!user.EmailConfirmed)
-                {
-                    TempData["Info"] = "Please confirm your email to complete sign-in.";
-                    return RedirectToAction(nameof(EmailConfirmationNotice));
-                }
+                await _userManager.AddToRoleAsync(user, "Tasker");
 
-                // Existing account already confirmed → just link Google and sign in
-                await _userManager.AddLoginAsync(user, info);
-                await _signInManager.SignInAsync(user, isPersistent: true);
+            // تسجيل الدخول مباشرة بعد الإكمال
+            await _signInManager.SignInAsync(user, isPersistent: true);
 
-                return LocalRedirect(returnUrl);
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
@@ -372,6 +418,7 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ChangePassword(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -383,6 +430,7 @@ namespace Sany3y.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -418,13 +466,14 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Profile()
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
 
             User currentUser = _userRepository.GetByUsername(User.Identity.Name).Result;
-            UserDTO userDTO = new()
+            UserDTO userDTO = new UserDTO()
             {
                 FirstName = currentUser.FirstName,
                 LastName = currentUser.LastName,
@@ -440,6 +489,7 @@ namespace Sany3y.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> EditProfile(UserDTO userDTO)
         {
             if (!ModelState.IsValid)

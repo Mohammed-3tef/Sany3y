@@ -1,18 +1,8 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.RegisterUserViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Complete Profile";
 }
-
-<style>
-    .hover-underline {
-        text-decoration: none;
-    }
-
-    .hover-underline:hover {
-        text-decoration: underline;
-    }
-</style>
 
 <div class="container my-5 d-flex justify-content-center align-items-center">
     <div class="col-md-8 col-lg-6">
@@ -20,7 +10,7 @@
             <h1>@ViewData["Title"]</h1>
         </div>
 
-        <form asp-action="Register">
+        <form asp-action="CompleteProfilePost">
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
             <div class="row g-3">
@@ -44,7 +34,7 @@
 
                 <div class="col-md-6">
                     <label asp-for="UserName" class="form-label"></label>
-                    <input asp-for="UserName" class="form-control" />
+                    <input asp-for="UserName" class="form-control" readonly/>
                     <span asp-validation-for="UserName" class="text-danger small"></span>
                 </div>
 
@@ -72,10 +62,10 @@
                     <span asp-validation-for="IsMale" class="text-danger small"></span>
                 </div>
 
-                
+
                 <div class="col-md-12">
                     <label asp-for="Email" class="form-label"></label>
-                    <input asp-for="Email" class="form-control" />
+                    <input asp-for="Email" class="form-control" readonly/>
                     <span asp-validation-for="Email" class="text-danger small"></span>
                 </div>
 
@@ -132,18 +122,11 @@
                 <input type="submit" data-show-loader="true" value="Create Account" class="btn btn-primary w-100" />
             </div>
         </form>
-
-        <div class="">
-            <p class="mt-3">
-                Already have an account?
-                <a asp-controller="Account" asp-action="Login" class="text-primary fw-semibold hover-underline">
-                    Login here
-                </a>
-            </p>
-        </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

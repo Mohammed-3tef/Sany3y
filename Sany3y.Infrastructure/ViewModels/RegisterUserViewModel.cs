@@ -61,5 +61,7 @@ namespace Sany3y.Infrastructure.ViewModels
         [Required]
         [Display(Name = "If you are a client, Check this box.")]
         public bool IsClient { get; set; }
+
+        public string? Picture { get; set; }
     }
 }
