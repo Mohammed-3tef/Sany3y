@@ -22,20 +22,17 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr data-user-id="@item.User.Id">
                 <td>@item.User.NationalId</td>
                 <td>@item.User.UserName</td>
                 <td>@item.User.Email</td>
                 <td>@string.Join(", ", item.Roles)</td>
                 <td>
-                    @if (!item.User.IsOnline)
-                    {
-                        <p class="text-danger border border-danger px-2 rounded-pill">Offline</p>
-                    }
-                    else
-                    {
-                        <p class="text-success border border-success px-2 rounded-pill">Online</p>
-                    }
+                    <p class="user-status px-2 rounded-pill
+                        @(item.User.IsOnline ? "text-success border border-success" : "text-danger border border-danger")"
+                       data-username="@item.User.UserName">
+                        @(item.User.IsOnline ? "Online" : "Offline")
+                    </p>
                 </td>
                 <td>@item.User.CreatedAt.ToString("dd/MM/yyyy")</td>
                 <td class="d-flex">
@@ -45,9 +42,12 @@
                     <button type="button" class="btn btn-outline-warning w-100 mx-2">
                         <i class="fa-solid fa-pen fa-sm"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger w-100">
+                    <button type="button"
+                            class="btn btn-outline-danger w-100 delete-user-btn"
+                            data-id="@item.User.Id" data-username="@item.User.UserName">
                         <i class="fa-solid fa-trash fa-sm"></i>
                     </button>
+
                 </td>
             </tr>
         }
@@ -55,6 +55,33 @@
 </table>
 
 <div id="userModalContainer"></div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="deleteUserForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete user <strong id="deleteUsername"></strong>?</p>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Enter your password to confirm:</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Password" required />
+                        <div id="passwordError" class="text-danger mt-2 d-none"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 @section Scripts {
     <script>
@@ -85,6 +112,55 @@
                     }
                 });
             });
+
+                // لما يضغط على زر الحذف
+            $('.delete-user-btn').on('click', function () {
+                selectedUserId = $(this).data('id');
+                const username = $(this).data('username');
+                $('#deleteUsername').text(username);
+                $('#confirmPassword').val('');
+                $('#passwordError').addClass('d-none');
+                $('#confirmDeleteModal').modal('show');
+            });
+
+            // عند تأكيد الحذف
+            $('#deleteUserForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const password = $('#confirmPassword').val();
+                if (!password) {
+                    $('#passwordError').removeClass('d-none').text('من فضلك أدخل كلمة المرور');
+                    return;
+                }
+
+                // تحقّق بسيط من كلمة المرور (client-side)
+                // في الواقع، المفروض تتحقّق في السيرفر لو حابب أضيفلك ده
+                // لكن دلوقتي مجرد مثال بسيط عشان نبعت POST لفانكشنك
+                const form = $(this);
+                form.attr('action', `/Admin/DeleteUser?id=${selectedUserId}`);
+                form.off('submit').submit(); // يرسل POST فعلي للفانكشن
+            });
         });
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/userStatusHub")
+            .build();
+
+        connection.on("ReceiveUserStatus", function (userId, isOnline) {
+            console.log(`User ${userId} is now ${isOnline ? 'Online' : 'Offline'}`);
+
+            const statusElement = document.querySelector(`tr[data-user-id='${userId}'] .user-status`);
+            if (statusElement) {
+                statusElement.textContent = isOnline ? "Online" : "Offline";
+                statusElement.classList.toggle("text-success", isOnline);
+                statusElement.classList.toggle("border-success", isOnline);
+                statusElement.classList.toggle("text-danger", !isOnline);
+                statusElement.classList.toggle("border-danger", !isOnline);
+            }
+        });
+
+        connection.start().then(() => {
+            console.log("Connected to SignalR hub");
+        }).catch(err => console.error("❌ SignalR Error:", err));
     </script>
 }

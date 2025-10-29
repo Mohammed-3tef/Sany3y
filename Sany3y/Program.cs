@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Sany3y.Hubs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
@@ -14,6 +15,7 @@ namespace Sany3y
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSignalR();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -76,6 +78,7 @@ namespace Sany3y
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapHub<UserStatusHub>("/userStatusHub");
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"

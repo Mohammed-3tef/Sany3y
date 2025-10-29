@@ -300,3 +300,7 @@ E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

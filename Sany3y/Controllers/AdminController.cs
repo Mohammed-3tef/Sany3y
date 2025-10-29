@@ -42,13 +42,15 @@ namespace Sany3y.Controllers
             return View();
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Users()
         {
-            if (!User.IsInRole("Admin")) 
+            if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var users = await _userRepository.GetAll();
+            var currentUser = await _userManager.GetUserAsync(User);
+            var users = (await _userRepository.GetAll()).Where(u => u.UserName != currentUser?.UserName);
             var userRoles = new List<(User User, IList<string> Roles)>();
 
             foreach (var user in users)
@@ -77,6 +79,23 @@ namespace Sany3y.Controllers
             return PartialView("_ViewUserModal", viewModel);
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var user = await _userRepository.GetById(id);
+            if (user == null)
+                return NotFound();
+
+            await _userRepository.Delete(user);
+            TempData["Success"] = "User deleted successfully.";
+            return RedirectToAction("Users");
+        }
+
+        [HttpGet]
         [Authorize]
         public IActionResult Categories()
         {
@@ -85,6 +104,22 @@ namespace Sany3y.Controllers
 
             var categories = _categoryRepository.GetAll().Result;
             return View(categories);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var category = await _categoryRepository.GetById(id);
+            if (category == null)
+                return NotFound();
+
+            await _categoryRepository.Delete(category);
+            TempData["Success"] = "Category deleted successfully.";
+            return RedirectToAction("Categories");
         }
     }
 }

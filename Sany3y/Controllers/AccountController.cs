@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using Sany3y.Hubs;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
@@ -15,6 +17,7 @@ namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IHubContext<UserStatusHub> _hubContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly UserRepository _userRepository;
@@ -54,6 +57,7 @@ namespace Sany3y.Controllers
         }
 
         public AccountController(
+            IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
             UserManager<User> userManager,
             UserRepository userRepository,
@@ -61,6 +65,7 @@ namespace Sany3y.Controllers
             IRepository<Address> addressRepository,
             IRepository<ProfilePicture> profilePictureRepo)
         {
+            _hubContext = hubContext;
             _emailSender = emailSender;
             _userManager = userManager;
             _userRepository = userRepository;
@@ -159,6 +164,7 @@ namespace Sany3y.Controllers
             user.IsOnline = true;
             await _userManager.UpdateAsync(user);
 
+            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, true);
             return RedirectToAction("Index", "Home");
         }
 
@@ -222,7 +228,11 @@ namespace Sany3y.Controllers
                 if (!linkedLogins.Any(l => l.LoginProvider == provider && l.ProviderKey == providerKey))
                     await _userManager.AddLoginAsync(existingUser, info);
 
+                // Make Account is online after login
+                existingUser.IsOnline = true;
+                await _userManager.UpdateAsync(existingUser);
                 await _signInManager.SignInAsync(existingUser, isPersistent: true);
+                await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", existingUser.Id, true);
 
                 if (IsProfileIncomplete(existingUser))
                     return RedirectToAction("CompleteProfile", "Account");
@@ -323,6 +333,7 @@ namespace Sany3y.Controllers
             // Make Account is online after login
             user.IsOnline = true;
             await _userManager.UpdateAsync(user);
+            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, true);
 
             return RedirectToAction("Index", "Home");
         }
@@ -337,9 +348,10 @@ namespace Sany3y.Controllers
             {
                 user.IsOnline = false;
                 await _userManager.UpdateAsync(user);
+                await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, false);
+                await _signInManager.SignOutAsync();
             }
 
-            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 

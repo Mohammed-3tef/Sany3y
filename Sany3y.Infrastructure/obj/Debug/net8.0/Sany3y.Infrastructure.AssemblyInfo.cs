@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sany3y.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7b20323c2d093dc767844305888d2113c490cce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9da8e5c23b2f612a3fb2ae4409d9250b29bb502")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sany3y.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sany3y.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
