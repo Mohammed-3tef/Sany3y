@@ -12,7 +12,7 @@ using Sany3y.Infrastructure.Models;
 namespace Sany3y.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251027091129_CreateTables")]
+    [Migration("20251029083825_CreateTables")]
     partial class CreateTables
     {
         /// <inheritdoc />
@@ -447,6 +447,9 @@ namespace Sany3y.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -461,6 +464,9 @@ namespace Sany3y.Infrastructure.Migrations
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
+
+                    b.Property<bool>("IsOnline")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

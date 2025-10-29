@@ -38,6 +38,14 @@ namespace Sany3y.Infrastructure.Models
         [RegularExpression("^[MFO]$")]
         public char Gender { get; set; }
 
+        [Required]
+        [Display(Name = "Online Now?")]
+        public bool IsOnline{ get; set; } = false;
+
+        [Required]
+        [Display(Name = "Created at")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         [ForeignKey("ProfilePicture")]
         [Display(Name = "Profile Picture")]
         public long? ProfilePictureId { get; set; }

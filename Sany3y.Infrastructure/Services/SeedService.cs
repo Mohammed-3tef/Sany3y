@@ -34,8 +34,8 @@ namespace Sany3y.Infrastructure.Services
                 await SeedRolesAsync(roleManager, logger);
 
                 // Seed admin user
-                //logger.LogInformation("Seeding admin user...");
-                //await SeedAdminUserAsync(userManager, addressRepository, logger);
+                logger.LogInformation("Seeding admin user...");
+                await SeedAdminUserAsync(userManager, addressRepository, logger);
             }
             catch (Exception ex)
             {
@@ -70,14 +70,21 @@ namespace Sany3y.Infrastructure.Services
                 return;
             }
 
-            var address = new Address { City = "Cairo", Street = "." };
+            var address = new Address { City = "Cairo", Street = "Cairo" };
             await addressRepository.Add(address);
 
             var adminUser = new User
             {
+                NationalId = 10000000000001,
+                FirstName = "Sany3y",
+                LastName = "Admin",
                 UserName = "Admin",
                 Email = adminEmail,
+                Gender = 'M',
+                BirthDate = new DateTime(2005, 11, 16),
+                PhoneNumber = ".",
                 AddressId = address.Id,
+                PasswordHash = adminPassword,
                 EmailConfirmed = true
             };
 

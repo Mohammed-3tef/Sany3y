@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "E:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\admin\\_viewusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\_viewusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,24 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AccountController.cs",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAPQAAAAAAAAAAAAIwEIBAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T10:04:09.341Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_ViewUserModal.cshtml",
+              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAwDQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-29T18:26:27.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Users.cshtml",
+              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\Users.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\Users.cshtml",
+              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\Users.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\Users.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-29T18:26:25.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AdminController.cs",
+              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Sany3y\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAmwEAAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-29T15:04:28.345Z",
+              "EditorCaption": ""
             }
           ]
         }

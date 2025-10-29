@@ -155,6 +155,10 @@ namespace Sany3y.Controllers
                 return View("Login", model);
             }
 
+            // Make Account is online after login
+            user.IsOnline = true;
+            await _userManager.UpdateAsync(user);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -316,6 +320,10 @@ namespace Sany3y.Controllers
             // تسجيل الدخول مباشرة بعد الإكمال
             await _signInManager.SignInAsync(user, isPersistent: true);
 
+            // Make Account is online after login
+            user.IsOnline = true;
+            await _userManager.UpdateAsync(user);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -324,6 +332,13 @@ namespace Sany3y.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                user.IsOnline = false;
+                await _userManager.UpdateAsync(user);
+            }
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

@@ -1,0 +1,90 @@
+﻿@model (Sany3y.Infrastructure.Models.User User, IList<string> Roles)
+
+<div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewUserModalLabel">@Model.User.UserName Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">National ID</label>
+                        <input type="text" value="@Model.User.NationalId" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" value="@Model.User.UserName" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" value="@Model.User.FirstName" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" value="@Model.User.LastName" class="form-control" readonly />
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Birth Date</label>
+                        <input type="text" value="@Model.User.BirthDate" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" value="@Model.User.PhoneNumber" class="form-control" readonly />
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" value="@Model.User.Email" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        <input type="text" value="@(Model.User.Gender == 'M' ? "Male" : "Female")" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Roles</label>
+                        <input type="text" value="@string.Join(", ", Model.Roles)" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">City</label>
+                        <input type="text" value="@(ViewBag.Address?.City)" class="form-control" readonly />
+                    </div>
+                    
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Street</label>
+                        <input type="text" value="@(ViewBag.Address?.Street)" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+                        <input type="text" value="@(Model.User.IsOnline ? "Online" : "Offline")" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Created At</label>
+                        <input type="text" value="@Model.User.CreatedAt" class="form-control" readonly />
+                    </div>
+                    
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Bio</label>
+                        <textarea value="@Model.User.Bio" class="form-control" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
