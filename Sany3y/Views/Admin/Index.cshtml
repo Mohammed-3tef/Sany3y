@@ -6,4 +6,16 @@
 	Layout = "_AdminLayout";
 }
 
-<h1>Welcome to the Admin Dashboard</h1>
+<h1>Welcome back, Admin!</h1>
+
+<div class="row mt-3">
+	<div class="col-md-4">
+		@await Html.PartialAsync("_DashboardCard", new { Title = "Users", Number = ViewBag.TotalUsers })
+	</div>
+	<div class="col-md-4">
+		@await Html.PartialAsync("_DashboardCard", new { Title = "Taskers", Number = ViewBag.TotalTaskers })
+	</div>
+	<div class="col-md-4">
+		@await Html.PartialAsync("_DashboardCard", new { Title = "Categories", Number = ViewBag.TotalCategories })
+	</div>
+</div>

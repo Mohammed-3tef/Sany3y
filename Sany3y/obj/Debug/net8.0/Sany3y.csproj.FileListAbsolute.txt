@@ -304,3 +304,5 @@ E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abst
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\itextsharp.dll

@@ -5,9 +5,23 @@
     Layout = "_AdminLayout";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1>@ViewData["Title"]</h1>
+    
+    <div>
+        <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-outline-primary">
+            <i class="fa-solid fa-user-plus me-1"></i> Create New User
+	    </a>
+        <a asp-controller="Admin" asp-action="ExportUsersPDF" class="btn btn-outline-danger">
+            <i class="fa-solid fa-file-pdf me-1"></i> Export as PDF
+        </a>
+        <a asp-controller="Admin" asp-action="ExportUsersCSV" class="btn btn-outline-success">
+            <i class="fa-solid fa-file-csv me-1"></i> Export as CSV
+        </a>
+    </div>
+</div>
 
-<table id="user-table" class="table table-striped table-bordered" width="100%">
+<table id="user-table" class="table table-striped dt-responsive table-bordered" width="100%">
     <thead>
         <tr>
             <th>National ID</th>
@@ -92,7 +106,7 @@
                 ordering: true,
                 info: true,
                 lengthChange: true,
-                responsive: true
+                responsive: true,
             });
 
             // عند الضغط على زر View
@@ -142,9 +156,7 @@
             });
         });
 
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/userStatusHub")
-            .build();
+        const connection = new signalR.HubConnectionBuilder().withUrl("/userStatusHub").build();
 
         connection.on("ReceiveUserStatus", function (userId, isOnline) {
             console.log(`User ${userId} is now ${isOnline ? 'Online' : 'Offline'}`);

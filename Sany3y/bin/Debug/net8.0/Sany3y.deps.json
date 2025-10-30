@@ -20,7 +20,8 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.11",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.11",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.7",
-          "Sany3y.Infrastructure": "1.0.0"
+          "Sany3y.Infrastructure": "1.0.0",
+          "iTextSharp": "5.5.13.4"
         },
         "runtime": {
           "Sany3y.dll": {}
@@ -58,6 +59,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.11.4.0",
             "fileVersion": "1.1100.424.31005"
+          }
+        }
+      },
+      "BouncyCastle.Cryptography/2.4.0": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.4.0.33771"
           }
         }
       },
@@ -598,6 +607,17 @@
         "resources": {
           "lib/net6.0/zh-Hant/Humanizer.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "iTextSharp/5.5.13.4": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.4.0"
+        },
+        "runtime": {
+          "lib/net461/itextsharp.dll": {
+            "assemblyVersion": "5.5.13.4",
+            "fileVersion": "5.5.13.4"
           }
         }
       },
@@ -2395,7 +2415,8 @@
           "Microsoft.AspNetCore.SignalR": "1.2.0",
           "Microsoft.EntityFrameworkCore": "8.0.20",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.20",
-          "Newtonsoft.Json": "13.0.4"
+          "Newtonsoft.Json": "13.0.4",
+          "iTextSharp": "5.5.13.4"
         },
         "runtime": {
           "Sany3y.Infrastructure.dll": {
@@ -2425,6 +2446,13 @@
       "sha512": "sha512-Sf4BoE6Q3jTgFkgBkx7qztYOFELBCo+wQgpYDwal/qJ1unBH73ywPztIJKXBXORRzAeNijsuxhk94h0TIMvfYg==",
       "path": "azure.identity/1.11.4",
       "hashPath": "azure.identity.1.11.4.nupkg.sha512"
+    },
+    "BouncyCastle.Cryptography/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SwXsAV3sMvAU/Nn31pbjhWurYSjJ+/giI/0n6tCrYoupEK34iIHCuk3STAd9fx8yudM85KkLSVdn951vTng/vQ==",
+      "path": "bouncycastle.cryptography/2.4.0",
+      "hashPath": "bouncycastle.cryptography.2.4.0.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",
@@ -2775,6 +2803,13 @@
       "sha512": "sha512-VIXB7HCUC34OoaGnO3HJVtSv2/wljPhjV7eKH4+TFPgQdJj2lvHNKY41Dtg0Bphu7X5UaXFR4zrYYyo+GNOjbA==",
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
+    },
+    "iTextSharp/5.5.13.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/cvCNv8AJ+XuD99u4NfHSSxkBJKTdvP36wcfQF9V1Cjzi1ycyFSa4vJ64a3DhFVUTKVO60WF8OmAqngQDTHgYA==",
+      "path": "itextsharp/5.5.13.4",
+      "hashPath": "itextsharp.5.5.13.4.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.3.0": {
       "type": "package",

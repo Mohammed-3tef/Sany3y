@@ -84,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FkbWluU2lkZWJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/Projects/Sany3y/Sany3y/Views/Admin/_DashboardCard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0Rhc2hib2FyZENhcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/Projects/Sany3y/Sany3y/Views/Admin/_ViewUserModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1ZpZXdVc2VyTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

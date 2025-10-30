@@ -5,7 +5,22 @@
     Layout = "_AdminLayout";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1>@ViewData["Title"]</h1>
+
+    <div>
+        <a asp-controller="Admin" asp-action="CreateCategory" class="btn btn-outline-primary">
+            <i class="fa-solid fa-plus me-1"></i> Create New Category
+        </a>
+        <a asp-controller="Admin" asp-action="ExportCategoriesPDF" class="btn btn-outline-danger">
+            <i class="fa-solid fa-file-pdf me-1"></i> Export as PDF
+        </a>
+        <a asp-controller="Admin" asp-action="ExportCategoriesCSV" class="btn btn-outline-success">
+            <i class="fa-solid fa-file-csv me-1"></i> Export as CSV
+        </a>
+    </div>
+</div>
+
 <table id="user-table" class="table table-striped table-bordered" width="100%">
     <thead>
         <tr>

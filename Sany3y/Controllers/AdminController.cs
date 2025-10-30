@@ -1,10 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Cryptography;
+using System.Threading.Tasks;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
+using Sany3y.Infrastructure.Services;
 
 namespace Sany3y.Controllers
 {
@@ -33,14 +37,35 @@ namespace Sany3y.Controllers
             _profilePictureRepository = profilePictureRepository;
         }
 
+        [HttpGet]
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
+            var totalUsers = await _userRepository.GetAll();
+            var totalUserCount = 0;
+            var totalTaskerCount = 0;
+
+            foreach (var user in totalUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("User"))
+                    totalUserCount++;
+                if (roles.Contains("Tasker"))
+                    totalTaskerCount++;
+            }
+
+            ViewBag.TotalUsers = totalUserCount;
+            ViewBag.TotalTaskers = totalTaskerCount;
+
+            var totalCategories = await _categoryRepository.GetAll();
+            ViewBag.TotalCategories = totalCategories.Count;
+
             return View();
         }
+
 
         [HttpGet]
         [Authorize]
@@ -120,6 +145,148 @@ namespace Sany3y.Controllers
             await _categoryRepository.Delete(category);
             TempData["Success"] = "Category deleted successfully.";
             return RedirectToAction("Categories");
+        }
+
+        [Authorize]
+        public IActionResult ExportUsersPDF()
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var users = _userRepository.GetAll().Result;
+
+            if (!users.Any())
+            {
+                TempData["Error"] = "No users available to export.";
+                return RedirectToAction("Users");
+            }
+
+            string[] headers = {
+                "National ID", "Username", "Full Name", "Gender", "Birth Date",
+                "Email", "Phone", "Role", "City", "Street"
+            };
+
+            var data = users.Select(u => new
+            {
+                u.NationalId,
+                u.UserName,
+                Name = u.FirstName + " " + u.LastName,
+                Gender = u.Gender == 'M' ? "Male" : "Female",
+                BirthDate = u.BirthDate.Date.ToString("dd/MM/yyyy"),
+                u.Email,
+                u.PhoneNumber,
+                Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
+                City = _addressRepository.GetById(u.AddressId).Result?.City ?? "N/A",
+                Street = _addressRepository.GetById(u.AddressId).Result?.Street ?? "N/A"
+            }).Where(u => u.Role != "Admin").ToList();
+
+            var exporter = new TableExporter();
+            return exporter.ExportToPDF(
+                data,
+                "Sany3y Users",
+                headers,
+                item => new object[] {
+                    item.NationalId, item.UserName, item.Name, item.Gender, item.BirthDate,
+                    item.Email, item.PhoneNumber, item.Role, item.City, item.Street
+                });
+        }
+
+        [Authorize]
+        public IActionResult ExportUsersCSV()
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var users = _userRepository.GetAll().Result;
+
+            if (!users.Any())
+            {
+                TempData["Error"] = "No users available to export.";
+                return RedirectToAction("Users");
+            }
+
+            string[] headers = {
+                "National ID", "Username", "Full Name", "Gender", "Birth Date",
+                "Email", "Phone", "Role", "City", "Street"
+            };
+
+            var data = users.Select(u => new
+            {
+                u.NationalId,
+                u.UserName,
+                Name = u.FirstName + " " + u.LastName,
+                Gender = u.Gender == 'M' ? "Male" : "Female",
+                BirthDate = u.BirthDate.Date.ToString("dd/MM/yyyy"),
+                u.Email,
+                u.PhoneNumber,
+                Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
+                City = _addressRepository.GetById(u.AddressId).Result?.City ?? "N/A",
+                Street = _addressRepository.GetById(u.AddressId).Result?.Street ?? "N/A"
+            }).Where(u => u.Role != "Admin").ToList();
+
+            var exporter = new TableExporter();
+            return exporter.ExportToCSV(
+                data,
+                "Sany3y Users",
+                headers,
+                item => new object[] {
+                    item.NationalId, item.UserName, item.Name, item.Gender, item.BirthDate,
+                    item.Email, item.PhoneNumber, item.Role, item.City, item.Street
+                });
+        }
+        
+        [Authorize]
+        public IActionResult ExportCategoriesPDF()
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var categories = _categoryRepository.GetAll().Result;
+
+            if (!categories.Any())
+            {
+                TempData["Error"] = "No categories available to export.";
+                return RedirectToAction("Categories");
+            }
+
+            string[] headers = { "ID", "Name", "Description" };
+
+            var data = categories.Select(c => new
+            {
+                c.Id, c.Name, c.Description
+            }).ToList();
+
+            var exporter = new TableExporter();
+            return exporter.ExportToPDF(data, "Sany3y Categories", headers,
+                item => new object[] { item.Id, item.Name, item.Description });
+        }
+
+        [Authorize]
+        public IActionResult ExportCategoriesCSV()
+        {
+            if (!User.IsInRole("Admin"))
+                return Forbid();
+
+            var categories = _categoryRepository.GetAll().Result;
+
+            if (!categories.Any())
+            {
+                TempData["Error"] = "No categories available to export.";
+                return RedirectToAction("Categories");
+            }
+
+            string[] headers = { "ID", "Name", "Description" };
+
+            var data = categories.Select(c => new
+            {
+                c.Id,
+                c.Name,
+                c.Description
+            }).ToList();
+
+            var exporter = new TableExporter();
+            return exporter.ExportToCSV(data, "Sany3y Categories", headers,
+                item => new object[] { item.Id, item.Name, item.Description });
         }
     }
 }
