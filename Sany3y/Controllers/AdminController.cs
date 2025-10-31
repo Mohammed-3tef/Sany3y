@@ -66,6 +66,39 @@ namespace Sany3y.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<JsonResult> GetMonthlyUserCounts()
+        {
+            var allUsers = await _userRepository.GetAll();
+            var nonAdminUsers = new List<User>();
+
+            foreach (var u in allUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(u);
+                if (!roles.Contains("Admin")) nonAdminUsers.Add(u);
+            }
+
+            var currentYear = DateTime.Now.Year;
+            var months = new List<string>
+            {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            };
+
+            var monthlyUserCounts = new List<object>();
+            for (int month = 1; month <= 12; month++)
+            {
+                var count = nonAdminUsers.Count(u => u.CreatedAt.Year == currentYear && u.CreatedAt.Month == month);
+                monthlyUserCounts.Add(new Dictionary<string, object>
+                {
+                    { "Month", months[month - 1] },
+                    { "UserCount", count }
+                });
+            }
+
+            return Json(monthlyUserCounts);
+        }
 
         [HttpGet]
         [Authorize]
