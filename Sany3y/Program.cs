@@ -28,6 +28,7 @@ namespace Sany3y
             builder.Services.AddScoped<IRepository<ProfilePicture>, ProfilePictureRepository>();
             builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
             builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();
+            builder.Services.AddScoped<IRepository<Sany3y.Infrastructure.Models.Task>, TaskRepository>();
 
             // Register services
             builder.Services.AddTransient<IEmailSender, EmailConfirm>();

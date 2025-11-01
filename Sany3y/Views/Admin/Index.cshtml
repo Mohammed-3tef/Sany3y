@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
 	ViewData["Title"] = "Admin Dashboard";
 	Layout = "_AdminLayout";
 }
@@ -20,16 +17,69 @@
 	</div>
 </div>
 
-<div class="row mt-3">
-	<div class="col-md-12">
+<div class="row mt-3 gy-3">
+	<div class="col-md-6">
 		<div class="card dashboard-card">
-			<div class="card-header d-flex justify-content-between align-items-center">
-				<h5>Monthly User Registrations in @DateTime.Now.Year</h5>
-				<button class="btn btn-sm btn-outline-secondary float-end" type="button" onclick="downloadUsers()">
+			<div class="card-header d-flex justify-content-between">
+				<h5 class="align-content-center mb-0">Gender Distribution</h5>
+				<button class="btn btn-sm btn-outline-secondary float-end" type="button" onclick="downloadChart(genderDistriution, 'Sany3y - Gender Distribution')">
 					<i class="fa-solid fa-download"></i>
 				</button>
 			</div>
-			<canvas id="get-monthly-user-counts" class="card-body"></canvas>
+
+			<canvas id="get-gender-distribution" class="card-body"></canvas>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="card dashboard-card h-100">
+			<div class="card-header d-flex justify-content-between">
+				<h5 class="align-content-center mb-0">Top Categories</h5>
+			</div>
+
+			<div class="card-body h-100" style="overflow-y: scroll;">
+				@{
+					if (ViewBag.TopCategories.Count == 0)
+					{
+						<div class="align-content-center h-100">
+							<p class="text-center">No categories found.</p>
+						</div>
+					}
+					else
+					{
+						<table class="">
+							<tr>
+								<th>Name</th>
+								<th>Tasks Count</th>
+							</tr>
+							@{
+								foreach (var category in ViewBag.TopCategories)
+								{
+									<tr>
+										<td style="padding: 10px; border-bottom: 1px solid #ddd;">@category.Name</td>
+										<td style="padding: 10px; border-bottom: 1px solid #ddd;">@category.Count</td>
+									</tr>
+								}
+							}
+						</table>
+					}
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row mt-3">
+	<div class="col-md-12">
+		<div class="card dashboard-card">
+			<div class="card-header d-flex justify-content-between">
+				<h5 class="align-content-center mb-0">Monthly User Registrations in @DateTime.Now.Year</h5>
+				<button class="btn btn-sm btn-outline-secondary float-end" type="button" onclick="downloadChart(monthlyUsersChart, 'Sany3y - Monthly User Registrations @DateTime.Now.Year')">
+					<i class="fa-solid fa-download"></i>
+				</button>
+			</div>
+
+			<canvas id="get-monthly-user-counts" class="card-body h-100"></canvas>
 		</div>
 	</div>
 </div>
@@ -40,58 +90,40 @@
 	}
 
 	.dashboard-card:hover {
-		transform: translateY(-5px);
+		transform: translateY(-2.5px);
 	}
 </style>
 
 @section Scripts {
+	<script src="~/js/charts.js"></script>
 	<script>
-		var monthlyUsersChart;
+		$(document).ready(async function () {
+	        monthlyUsersChart = await buildChart({
+				type: 'bar',
+	            url: '@Url.Action("GetMonthlyUserCounts", "Admin")',
+	            canvasId: "get-monthly-user-counts",
+	            label: "Monthly Users",
+	            labelProp: "month",
+	            dataProp: "userCount"
+	        });
 
-		$(document).ready(function () {
-			$.ajax({
-				url: '@Url.Action("GetMonthlyUserCounts", "Admin")',
-				type: 'POST',
-				data: JSON.stringify({}),
-				contentType: 'application/json; charset=utf-8',
-				success: OnSuccessResult,
-				dataType: 'json',
-				error: function () {
-					$('#get-monthly-user-counts').html('<p class="text-danger">Failed to load recent activities.</p>');
-				},
-				options: {
-					responsive: true
-				}
+			genderDistriution = await buildChart({
+				type: 'doughnut',
+				url: '@Url.Action("GetGenderDistribution", "Admin")',
+				canvasId: "get-gender-distribution",
+				label: "Count",
+				labelProp: "gender",
+				dataProp: "count"
 			});
-			
-			function OnSuccessResult(data) {
-				var _chartLabels = data.map(d => d["Month"]);
-				var _chartData = data.map(d => d["UserCount"]);
-				var barColors = [
-					"red", "green", "blue", "orange", "brown", "purple", "cyan", "magenta", "lime", "teal", "pink", "yellow"
-				];
 
-				var ctx = document.getElementById("get-monthly-user-counts").getContext("2d");
-
-				monthlyUsersChart = new Chart(ctx, {
-					type: "bar",
-					data: {
-						labels: _chartLabels,
-						datasets: [{
-							label: "Monthly Users",
-							backgroundColor: barColors,
-							data: _chartData
-						}]
-					},
-				})
-			}
-		});
-
-		function downloadUsers() {
-			const link = document.createElement('a');
-			link.download = `Sany3y - Monthly User Registrations ${new Date().getFullYear()}.png`;
-			link.href = monthlyUsersChart.toBase64Image();
-			link.click();
-		}
+			topCategories = await buildChart({
+				type: 'bar',
+				url: '@Url.Action("GetTopCategories", "Admin")',
+				canvasId: "get-top-categories",
+				label: "Number of Taskers",
+				labelProp: "category",
+				dataProp: "count"
+			});
+	    });
 	</script>
 }

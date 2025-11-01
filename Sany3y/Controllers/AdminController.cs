@@ -20,6 +20,7 @@ namespace Sany3y.Controllers
         private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<ProfilePicture> _profilePictureRepository;
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Sany3y.Infrastructure.Models.Task> _taskRepository;
 
         public AdminController(
             UserManager<User> userManager,
@@ -27,6 +28,7 @@ namespace Sany3y.Controllers
             SignInManager<User> signInManager,
             IRepository<Address> addressRepository,
             IRepository<Category> categoryRepository,
+            IRepository<Sany3y.Infrastructure.Models.Task> taskRepository,
             IRepository<ProfilePicture> profilePictureRepository)
         {
             _userManager = userManager;
@@ -34,7 +36,27 @@ namespace Sany3y.Controllers
             _signInManager = signInManager;
             _addressRepository = addressRepository;
             _categoryRepository = categoryRepository;
+            _taskRepository = taskRepository;
             _profilePictureRepository = profilePictureRepository;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        private async System.Threading.Tasks.Task GetTopCategories()
+        {
+            var allCategories = await _categoryRepository.GetAll();
+            var categoryCounts = new List<object>();
+            foreach (var category in allCategories)
+            {
+                var tasksInCategory = await _taskRepository.GetAll();
+                var count = tasksInCategory.Count(t => t.CategoryId == category.Id);
+                categoryCounts.Add(new { Name = category.Name, Count = count });
+            }
+
+            ViewBag.TopCategories = categoryCounts
+                .OrderByDescending(c => ((dynamic)c).TaskCount).ToList();
+
+            return;
         }
 
         [HttpGet]
@@ -63,10 +85,12 @@ namespace Sany3y.Controllers
             var totalCategories = await _categoryRepository.GetAll();
             ViewBag.TotalCategories = totalCategories.Count;
 
+            await GetTopCategories();
+
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<JsonResult> GetMonthlyUserCounts()
         {
@@ -90,14 +114,36 @@ namespace Sany3y.Controllers
             for (int month = 1; month <= 12; month++)
             {
                 var count = nonAdminUsers.Count(u => u.CreatedAt.Year == currentYear && u.CreatedAt.Month == month);
-                monthlyUserCounts.Add(new Dictionary<string, object>
-                {
-                    { "Month", months[month - 1] },
-                    { "UserCount", count }
+                monthlyUserCounts.Add( new {
+                    Month = months[month - 1],
+                    UserCount = count
                 });
             }
 
             return Json(monthlyUserCounts);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<JsonResult> GetGenderDistribution()
+        {
+            var allUsers = await _userRepository.GetAll();
+            var nonAdminUsers = new List<User>();
+            foreach (var u in allUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(u);
+                if (!roles.Contains("Admin")) nonAdminUsers.Add(u);
+            }
+
+            var maleCount = nonAdminUsers.Count(u => u.Gender == 'M');
+            var femaleCount = nonAdminUsers.Count(u => u.Gender == 'F');
+            var genderDistribution = new List<object>
+            {
+                new { Gender = "Male", Count = maleCount },
+                new { Gender = "Female", Count = femaleCount }
+            };
+
+            return Json(genderDistribution);
         }
 
         [HttpGet]
