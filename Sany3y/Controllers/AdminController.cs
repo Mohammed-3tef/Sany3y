@@ -243,8 +243,8 @@ namespace Sany3y.Controllers
             }
 
             string[] headers = {
-                "National ID", "Username", "Full Name", "Gender", "Birth Date",
-                "Email", "Phone", "Role", "City", "Street"
+                "الرقم القومي", "اسم المستخدم", "الاسم كامل", "النوع", "تاريخ الميلاد",
+                "البريد الالكتروني", "الهاتف", "الوظيفة", "المدينة", "الشارع"
             };
 
             var data = users.Select(u => new
@@ -262,14 +262,14 @@ namespace Sany3y.Controllers
             }).Where(u => u.Role != "Admin").ToList();
 
             var exporter = new TableExporter();
-            return exporter.ExportToPDF(
+            return exporter.ExportArabicToPDF(
                 data,
                 "Sany3y Users",
                 headers,
                 item => new object[] {
                     item.NationalId, item.UserName, item.Name, item.Gender, item.BirthDate,
                     item.Email, item.PhoneNumber, item.Role, item.City, item.Street
-                });
+            });
         }
 
         [Authorize]
@@ -330,7 +330,7 @@ namespace Sany3y.Controllers
                 return RedirectToAction("Categories");
             }
 
-            string[] headers = { "ID", "Name", "Description" };
+            string[] headers = { "ID", "الاسم", "الوصف" };
 
             var data = categories.Select(c => new
             {
@@ -338,7 +338,7 @@ namespace Sany3y.Controllers
             }).ToList();
 
             var exporter = new TableExporter();
-            return exporter.ExportToPDF(data, "Sany3y Categories", headers,
+            return exporter.ExportArabicToPDF(data, "Sany3y Categories", headers,
                 item => new object[] { item.Id, item.Name, item.Description });
         }
 
