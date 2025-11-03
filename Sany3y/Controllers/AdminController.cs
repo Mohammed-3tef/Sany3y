@@ -46,10 +46,12 @@ namespace Sany3y.Controllers
         {
             var allCategories = await _categoryRepository.GetAll();
             var categoryCounts = new List<object>();
+            var allTasks = await _taskRepository.GetAll();
+            if (allTasks.Count <= 0) return;
+            
             foreach (var category in allCategories)
             {
-                var tasksInCategory = await _taskRepository.GetAll();
-                var count = tasksInCategory.Count(t => t.CategoryId == category.Id);
+                var count = allTasks.Count(t => t.CategoryId == category.Id);
                 categoryCounts.Add(new { Name = category.Name, Count = count });
             }
 
@@ -106,8 +108,8 @@ namespace Sany3y.Controllers
             var currentYear = DateTime.Now.Year;
             var months = new List<string>
             {
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
+                "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+                "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
             };
 
             var monthlyUserCounts = new List<object>();
@@ -139,8 +141,8 @@ namespace Sany3y.Controllers
             var femaleCount = nonAdminUsers.Count(u => u.Gender == 'F');
             var genderDistribution = new List<object>
             {
-                new { Gender = "Male", Count = maleCount },
-                new { Gender = "Female", Count = femaleCount }
+                new { Gender = "ذكر", Count = maleCount },
+                new { Gender = "أنثي", Count = femaleCount }
             };
 
             return Json(genderDistribution);

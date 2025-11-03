@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|e:\\projects\\sany3y\\sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,9 @@
               "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\Index.cshtml",
               "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\Index.cshtml",
               "RelativeToolTip": "Sany3y\\Views\\Admin\\Index.cshtml",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAACcAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-01T10:37:00.985Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AdminController.cs",
-              "ToolTip": "E:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAkwDUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T10:36:54.768Z",
+              "WhenOpened": "2025-11-03T16:48:55.656Z",
               "EditorCaption": ""
             },
             {

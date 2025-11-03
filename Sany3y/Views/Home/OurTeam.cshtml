@@ -1,8 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Our Team";
+    ViewData["Title"] = "فريق العمل";
 }
 
-<h1 class="mb-4">Our Team</h1>
+<h1 class="my-4">@ViewData["Title"]</h1>
 
 <div class="row gy-5 justify-content-center">
     @await Html.PartialAsync("_TeamMemberCard", new {

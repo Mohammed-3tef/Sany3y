@@ -9,27 +9,26 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">الرئيسية</a>
                     </li>
 
                     @{
                         if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">تواصل معنا</a>
                             </li>
                         }
                     }
                 </ul>
-                @{
-                    await Html.RenderPartialAsync("_LoginPartial");
-                }
+
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>

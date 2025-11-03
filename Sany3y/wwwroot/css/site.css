@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 14px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -16,4 +16,27 @@ html {
 html {
   position: relative;
   min-height: 100%;
+}
+
+table.dataTable td, table.dataTable th, table.dataTable td p{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
+    margin: 0;
+}
+
+/* نخلي search على الشمال */
+div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start {
+    margin: 0;
+}
+
+.dataTables_wrapper {
+    direction: rtl;
+    text-align: right;
+}
+
+.close-btn {
+    margin-left: 0px !important;
 }

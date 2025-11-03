@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<(Sany3y.Infrastructure.Models.User User, IList<string> Roles)>
 
 @{
-    ViewData["Title"] = "User Management";
+    ViewData["Title"] = "إدارة المستخدمين";
     Layout = "_AdminLayout";
 }
 
@@ -10,13 +10,13 @@
     
     <div>
         <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-outline-primary">
-            <i class="fa-solid fa-user-plus me-1"></i> Create New User
+            <i class="fa-solid fa-user-plus me-1"></i> إضافة مستخدم جديد
 	    </a>
         <a asp-controller="Admin" asp-action="ExportUsersPDF" class="btn btn-outline-danger">
-            <i class="fa-solid fa-file-pdf me-1"></i> Export as PDF
+            <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
         </a>
         <a asp-controller="Admin" asp-action="ExportUsersCSV" class="btn btn-outline-success">
-            <i class="fa-solid fa-file-csv me-1"></i> Export as CSV
+            <i class="fa-solid fa-file-csv me-1"></i> تصدير CSV
         </a>
     </div>
 </div>
@@ -24,41 +24,39 @@
 <table id="user-table" class="table table-striped dt-responsive table-bordered" width="100%">
     <thead>
         <tr>
-            <th>National ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Active</th>
-            <th>Created at</th>
-            <th>Action</th>
+            <th>اسم المستخدم</th>
+            <th>البريد الإلكتروني</th>
+            <th>الدور</th>
+            <th>الحالة</th>
+            <th>تاريخ الإنشاء</th>
+            <th>الإجراءات</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr data-user-id="@item.User.Id">
-                <td>@item.User.NationalId</td>
                 <td>@item.User.UserName</td>
                 <td>@item.User.Email</td>
                 <td>@string.Join(", ", item.Roles)</td>
                 <td>
-                    <p class="user-status px-2 rounded-pill
+                    <p class="user-status px-2 rounded-pill text-center mb-0
                         @(item.User.IsOnline ? "text-success border border-success" : "text-danger border border-danger")"
                        data-username="@item.User.UserName">
-                        @(item.User.IsOnline ? "Online" : "Offline")
+                        @(item.User.IsOnline ? "متصل الآن" : "غير متصل")
                     </p>
                 </td>
-                <td>@item.User.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>@item.User.CreatedAt.ToString("yyyy/MM/dd")</td>
                 <td class="d-flex">
-                    <button type="button" class="btn btn-outline-primary w-100 view-user-btn" data-id="@item.User.Id">
+                    <button type="button" class="btn btn-outline-primary w-100 view-user-btn" data-id="@item.User.Id" title="عرض">
                         <i class="fa-solid fa-eye fa-sm"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-warning w-100 mx-2">
+                    <button type="button" class="btn btn-outline-warning w-100 mx-2" title="تعديل">
                         <i class="fa-solid fa-pen fa-sm"></i>
                     </button>
                     <button type="button"
                             class="btn btn-outline-danger w-100 delete-user-btn"
-                            data-id="@item.User.Id" data-username="@item.User.UserName">
+                            data-id="@item.User.Id" data-username="@item.User.UserName" title="حذف">
                         <i class="fa-solid fa-trash fa-sm"></i>
                     </button>
 
@@ -76,39 +74,29 @@
         <form id="deleteUserForm" method="post">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Delete Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="إغلاق" style="margin-right:auto"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete user <strong id="deleteUsername"></strong>?</p>
+                    <p>هل أنت متأكد أنك تريد حذف المستخدم <strong id="deleteUsername"></strong>؟</p>
                     <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Enter your password to confirm:</label>
-                        <input type="password" id="confirmPassword" class="form-control" placeholder="Password" required />
+                        <label for="confirmPassword" class="form-label">أدخل كلمة المرور للتأكيد:</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="كلمة المرور" required />
                         <div id="passwordError" class="text-danger mt-2 d-none"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#user-table').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true,
-                lengthChange: true,
-                responsive: true,
-            });
-
             // عند الضغط على زر View
             $('.view-user-btn').click(function () {
                 var userId = $(this).data('id');
@@ -174,5 +162,7 @@
         connection.start().then(() => {
             console.log("Connected to SignalR hub");
         }).catch(err => console.error("❌ SignalR Error:", err));
+
+        initArabicDataTable('#user-table');
     </script>
 }

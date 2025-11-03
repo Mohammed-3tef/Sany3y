@@ -9,7 +9,9 @@ E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Azure.Core.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Azure.Identity.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Humanizer.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\itextsharp.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll
@@ -45,11 +47,14 @@ E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.d
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Identity.Client.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
@@ -94,6 +99,7 @@ E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Configuration.ConfigurationMan
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Drawing.Common.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Memory.Data.dll
+E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Runtime.Caching.dll
 E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
@@ -300,9 +306,3 @@ E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 E:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-E:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\itextsharp.dll

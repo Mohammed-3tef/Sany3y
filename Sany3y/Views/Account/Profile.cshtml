@@ -3,7 +3,7 @@
 @model Sany3y.Infrastructure.DTOs.UserDTO
 
 @{
-    ViewData["Title"] = "Profile Overview";
+    ViewData["Title"] = "الملف الشخصي";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
 }
 
@@ -18,56 +18,56 @@
 
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label asp-for="FirstName" class="form-label"></label>
+                    <label asp-for="FirstName" class="form-label">الاسم الأول</label>
                     <input asp-for="FirstName" class="form-control" />
                     <span asp-validation-for="FirstName" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-6">
-                    <label asp-for="LastName" class="form-label"></label>
+                    <label asp-for="LastName" class="form-label">اسم العائلة</label>
                     <input asp-for="LastName" class="form-control" />
                     <span asp-validation-for="LastName" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-6">
-                    <label asp-for="UserName" class="form-label"></label>
-                    <input asp-for="UserName" class="form-control" readonly/>
+                    <label asp-for="UserName" class="form-label">اسم المستخدم</label>
+                    <input asp-for="UserName" class="form-control" readonly />
                     <span asp-validation-for="UserName" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-6">
-                    <label asp-for="BirthDate" class="form-label"></label>
-                    <input asp-for="BirthDate" type="date" class="form-control" />
+                    <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
+                    <input asp-for="BirthDate" type="date" class="form-control text-end" />
                     <span asp-validation-for="BirthDate" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-12">
-                    <label asp-for="Email" class="form-label"></label>
+                    <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
                     <input asp-for="Email" class="form-control" readonly />
                     <span asp-validation-for="Email" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-6">
-                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-6">
-                    <label asp-for="City" class="form-label"></label>
+                    <label asp-for="City" class="form-label">المدينة</label>
                     <input asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger small"></span>
                 </div>
 
                 <div class="col-md-12">
-                    <label asp-for="Street" class="form-label"></label>
+                    <label asp-for="Street" class="form-label">الشارع</label>
                     <input asp-for="Street" class="form-control" />
                     <span asp-validation-for="Street" class="text-danger small"></span>
                 </div>
-                
+
                 <div class="col-md-12">
-                    <label asp-for="Bio" class="form-label"></label>
-                    <textarea asp-for="Bio" class="form-control" ></textarea>
+                    <label asp-for="Bio" class="form-label">نبذة شخصية</label>
+                    <textarea asp-for="Bio" class="form-control"></textarea>
                     <span asp-validation-for="Bio" class="text-danger small"></span>
                 </div>
             </div>
@@ -75,12 +75,12 @@
             <div class="row form-group mt-4">
                 <div class="col-md-6">
                     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-danger w-100" data-show-loader="true">
-                        Cancel
+                        إلغاء
                     </a>
                 </div>
 
                 <div class="col-md-6">
-					<input type="submit" data-show-loader="true" value="Save" class="btn btn-primary w-100" />
+                    <input type="submit" data-show-loader="true" value="حفظ التعديلات" class="btn btn-primary w-100" />
                 </div>
             </div>
         </form>

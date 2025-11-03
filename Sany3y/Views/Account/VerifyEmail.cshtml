@@ -2,7 +2,7 @@
 @model VerifyEmailViewModel;
 
 @{
-    ViewData["Title"] = "Verify Email";
+    ViewData["Title"] = "تأكيد البريد الإلكتروني";
     Layout = "_ProfileLayout";
 }
 
@@ -13,11 +13,11 @@
             @Html.AntiForgeryToken()
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
+                <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <input type="submit" value="Verify" class="btn btn-success w-100 p-2" />
+            <input type="submit" value="تأكيد" class="btn btn-success w-100 p-2" />
         </form>
     </div>
 </div>

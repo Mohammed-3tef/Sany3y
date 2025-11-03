@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Resend Confirmation Email";
+    ViewData["Title"] = "إعادة إرسال بريد التفعيل";
 }
 
 <div class="container py-5">
@@ -11,12 +11,12 @@
                 <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
+                    <label for="email" class="form-label">البريد الإلكتروني</label>
                     <input type="email" name="email" id="email" class="form-control" required />
                 </div>
 
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Send Confirmation</button>
+                    <button type="submit" class="btn btn-primary">إرسال رابط التفعيل</button>
                 </div>
             </form>
         </div>

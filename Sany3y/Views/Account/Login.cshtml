@@ -1,7 +1,7 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.LoginUserViewModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "تسجيل الدخول";
 }
 
 <style>
@@ -13,8 +13,8 @@
         background: #eee;
     }
 
-    .hover-underline{
-		text-decoration: none;
+    .hover-underline {
+        text-decoration: none;
     }
 
     .hover-underline:hover {
@@ -32,58 +32,58 @@
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
             <div class="form-group mb-3">
-                <label asp-for="UserName" class="control-label"></label>
+                <label asp-for="UserName" class="control-label mb-1">اسم المستخدم</label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label mb-1">كلمة المرور</label>
                 <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <div class="row align-items-center mb-3 text-center text-sm-start">
+            <div class="row align-items-center mb-3 text-sm-start">
                 <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-                    <div class="form-check d-flex justify-content-center justify-content-sm-start">
-                        <input class="form-check-input me-2" asp-for="RememberMe" id="rememberMe" />
-                        <label class="form-check-label" for="rememberMe">
-                            @Html.DisplayNameFor(model => model.RememberMe)
+                    <div class="form-check d-flex justify-content-sm-start">
+						<input class="form-check-input ms-2" asp-for="RememberMe" id="rememberMe" />
+						<label class="form-check-label" for="rememberMe">
+                            تذكرني
                         </label>
                     </div>
                 </div>
 
                 <div class="col-12 col-sm-6">
-                    <div class="d-flex justify-content-center justify-content-sm-end">
+                    <div class="d-flex justify-content-start justify-content-sm-end">
                         <a asp-controller="Account" asp-action="ChangePassword" class="text-primary fw-semibold hover-underline">
-                            Forgot Password?
+                            نسيت كلمة المرور؟
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="form-group mb-3">
-                <input type="submit" data-show-loader="true" value="Login" class="btn btn-primary w-100" />
+                <input type="submit" data-show-loader="true" value="تسجيل الدخول" class="btn btn-primary w-100" />
             </div>
         </form>
 
         <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">أو</p>
         </div>
 
         <form asp-controller="Account" asp-action="ExternalLogin" method="post" class="mb-3">
             <button type="submit" name="provider" value="Google" class="btn btn-danger w-100">
-                <i class="fab fa-google"></i> <span class="mx-1">Continue with Google</span>
+                <i class="fab fa-google"></i> <span class="mx-1">الدخول باستخدام جوجل</span>
             </button>
         </form>
 
         <div class="">
             <p class="mb-0">
-                Don't have an account?
+                ليس لديك حساب؟
                 <a asp-controller="Account" asp-action="Register" class="text-primary fw-semibold hover-underline">
-                    Register here
+                    أنشئ حسابك الآن
                 </a>
-			</p>
+            </p>
         </div>
     </div>
 </div>

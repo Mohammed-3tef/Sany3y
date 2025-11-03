@@ -1,7 +1,7 @@
 ﻿@using Sany3y.Infrastructure.Models;
 @model IEnumerable<Sany3y.Infrastructure.Models.Category>
 @{
-    ViewData["Title"] = "Category Management";
+    ViewData["Title"] = "إدارة التصنيفات";
     Layout = "_AdminLayout";
 }
 
@@ -10,13 +10,13 @@
 
     <div>
         <a asp-controller="Admin" asp-action="CreateCategory" class="btn btn-outline-primary">
-            <i class="fa-solid fa-plus me-1"></i> Create New Category
+            <i class="fa-solid fa-plus me-1"></i> إنشاء تصنيف جديد
         </a>
         <a asp-controller="Admin" asp-action="ExportCategoriesPDF" class="btn btn-outline-danger">
-            <i class="fa-solid fa-file-pdf me-1"></i> Export as PDF
+            <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
         </a>
         <a asp-controller="Admin" asp-action="ExportCategoriesCSV" class="btn btn-outline-success">
-            <i class="fa-solid fa-file-csv me-1"></i> Export as CSV
+            <i class="fa-solid fa-file-csv me-1"></i> تصدير CSV
         </a>
     </div>
 </div>
@@ -24,10 +24,10 @@
 <table id="user-table" class="table table-striped table-bordered" width="100%">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Action</th>
+            <th>رقم</th>
+            <th>الاسم</th>
+            <th>الوصف</th>
+            <th>الإجراءات</th>
         </tr>
     </thead>
 
@@ -42,24 +42,22 @@
                         @{
                             if (string.IsNullOrEmpty(item.Description))
                             {
-								<p class="text-muted">No description</p>
+                                <p class="text-muted">لا يوجد وصف</p>
                             }
                             else
-							{
-								@item.Description
+                            {
+                                @item.Description
                             }
                         }
                     </td>
                     <td class="d-flex">
-                        <a asp-controller="Admin" asp-action="ViewCategory" class="btn btn-outline-primary w-100" data-show-loader="true">
-                            <i class="fa-solid fa-eye fa-sm"></i>
-                        </a>
                         <a asp-controller="Admin" asp-action="EditCategory" class="btn btn-outline-warning w-100 mx-2" data-show-loader="true">
                             <i class="fa-solid fa-pen fa-sm"></i>
                         </a>
-                        <a asp-controller="Admin" asp-action="DeleteCategory" class="btn btn-outline-danger w-100" data-show-loader="true">
+                        <button type="button" class="btn btn-outline-danger w-100 delete-category-btn"
+                                data-id="@item.Id" data-name="@item.Name">
                             <i class="fa-solid fa-trash fa-sm"></i>
-                        </a>
+                        </button>
                     </td>
                 </tr>
             }
@@ -67,17 +65,52 @@
     </tbody>
 </table>
 
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteCategoryModal" tabindex="-1" aria-labelledby="confirmDeleteCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="deleteCategoryForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteCategoryModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>هل أنت متأكد أنك تريد حذف التصنيف <strong id="deleteCategoryName"></strong>؟</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 @section Scripts {
     <script>
+        let selectedCategoryId = null;
+
         $(document).ready(function () {
-            $('#user-table').DataTable({
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true,
-                lengthChange: true,
-                responsive: true
+            // عند الضغط على delete
+            $('.delete-category-btn').on('click', function () {
+                selectedCategoryId = $(this).data('id');
+                const categoryName = $(this).data('name');
+                $('#deleteCategoryName').text(categoryName);
+                $('#confirmDeleteCategoryModal').modal('show');
             });
+
+            // submit
+            $('#deleteCategoryForm').on('submit', function (e) {
+                e.preventDefault();
+                const form = $(this);
+                form.attr('action', `/Admin/DeleteCategory?id=${selectedCategoryId}`);
+                form.off('submit').submit(); // send real POST
+            });
+
+            initArabicDataTable("#user-table");
         });
     </script>
 }
