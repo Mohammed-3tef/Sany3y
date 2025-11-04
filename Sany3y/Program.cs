@@ -1,11 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Sany3y.Extensions;
 using Sany3y.Hubs;
-using Sany3y.Infrastructure.Models;
-using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
 
 namespace Sany3y
@@ -20,33 +15,13 @@ namespace Sany3y
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            // Register repositories
-            builder.Services.AddScoped<UserRepository, UserRepository>();
-            builder.Services.AddScoped<IRepository<Address>, AddressRepository>();
-            builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
-            builder.Services.AddScoped<IRepository<Message>, MessageRepository>();
-            builder.Services.AddScoped<IRepository<ProfilePicture>, ProfilePictureRepository>();
-            builder.Services.AddScoped<IRepository<Notification>, NotificationRepository>();
-            builder.Services.AddScoped<IRepository<Rating>, RatingRepository>();
-            builder.Services.AddScoped<IRepository<Sany3y.Infrastructure.Models.Task>, TaskRepository>();
+            // Application Services
+            builder.Services.AddApplicationServices();            
 
-            // Register services
-            builder.Services.AddTransient<IEmailSender, EmailConfirm>();
+            // Infrastructure Service
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
-            // Register DbContext
-            builder.Services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("MainDB"));
-            });
-
-            builder.Services.AddIdentity<User, Role>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddEntityFrameworkStores<AppDbContext>()
-            .AddDefaultTokenProviders();
-
+            // Configure Google Authentication
             builder.Services.AddAuthentication().AddGoogle(options =>
             {
                 options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
