@@ -46,9 +46,6 @@ namespace Sany3y.Infrastructure.Services
 
             try
             {
-                //logger.LogInformation("Ensuring the database is created...");
-                //await context.Database.EnsureCreatedAsync();
-
                 // Seed roles
                 logger.LogInformation("Seeding roles...");
                 await SeedRolesAsync(roleManager, logger);
@@ -127,7 +124,7 @@ namespace Sany3y.Infrastructure.Services
         private static async System.Threading.Tasks.Task SeedCategoriesAsync(IRepository<Category> categoryRepository, ILogger logger)
         {
             var allCategories = await categoryRepository.GetAll();
-            if (allCategories.Count >= 0)
+            if (allCategories != null && allCategories.Count > 0)
                 return;
 
             foreach (var category in Categories)
@@ -135,12 +132,10 @@ namespace Sany3y.Infrastructure.Services
                 if (!allCategories.Any(c => c.Name == category["Name"]))
                 {
                     await categoryRepository.Add(new Category { Name = category["Name"], Description = category["Description"] });
-                    logger.LogInformation($"✅ Category '{category["Name"]}' added successfully.");
+                        logger.LogInformation($"✅ Category '{category["Name"]}' added successfully.");
                 }
                 else
-                {
                     logger.LogInformation($"⚠️ Category '{category["Name"]}' already exists.");
-                }
             }
         }
     }

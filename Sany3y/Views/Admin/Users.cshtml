@@ -135,12 +135,13 @@
                     return;
                 }
 
-                // تحقّق بسيط من كلمة المرور (client-side)
-                // في الواقع، المفروض تتحقّق في السيرفر لو حابب أضيفلك ده
-                // لكن دلوقتي مجرد مثال بسيط عشان نبعت POST لفانكشنك
-                const form = $(this);
-                form.attr('action', `/Admin/DeleteUser?id=${selectedUserId}`);
-                form.off('submit').submit(); // يرسل POST فعلي للفانكشن
+                $.ajax({
+                    url: `https://localhost:7178/api/User/Delete/${selectedUserId}`,
+                    type: 'DELETE',
+                    success: function (res) {
+                        window.location.reload();
+                    }
+                });
             });
         });
 

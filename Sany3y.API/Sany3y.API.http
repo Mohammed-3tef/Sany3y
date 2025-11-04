@@ -1,0 +1,6 @@
+@Sany3y.API_HostAddress = http://localhost:5265
+
+GET {{Sany3y.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

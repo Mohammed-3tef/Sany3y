@@ -17,12 +17,11 @@ namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly HttpClient _http;
         private readonly IHubContext<UserStatusHub> _hubContext;
+        private readonly UserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly UserRepository _userRepository;
-        private readonly IRepository<Address> _addressRepository;
-        private readonly IRepository<ProfilePicture> _profilePictureRepo;
         private readonly IEmailSender _emailSender;
 
         /// <summary>
@@ -57,21 +56,21 @@ namespace Sany3y.Controllers
         }
 
         public AccountController(
+            IHttpClientFactory httpClientFactory,
             IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
             UserManager<User> userManager,
             UserRepository userRepository,
-            SignInManager<User> signInManager,
-            IRepository<Address> addressRepository,
-            IRepository<ProfilePicture> profilePictureRepo)
+            SignInManager<User> signInManager)
         {
+            _http = httpClientFactory.CreateClient();
+            _http.BaseAddress = new Uri("https://localhost:7178/");
+
             _hubContext = hubContext;
             _emailSender = emailSender;
             _userManager = userManager;
             _userRepository = userRepository;
             _signInManager = signInManager;
-            _addressRepository = addressRepository;
-            _profilePictureRepo = profilePictureRepo;
         }
 
         [HttpGet]
@@ -84,14 +83,24 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Register", model);
 
-            if (await _userRepository.GetByNationalId(model.NationalId) != null)
+            var existingUser = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
+            if (existingUser.IsSuccessStatusCode)
             {
                 ModelState.AddModelError(string.Empty, "This National ID is already registered.");
                 return View("Register", model);
             }
 
             var address = new Address { City = model.City, Street = model.Street };
-            await _addressRepository.Add(address);
+            var response = await _http.PostAsJsonAsync("/api/Address/Create", address);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errors = await response.Content.ReadFromJsonAsync<List<string>>();
+                foreach (var e in errors)
+                    ModelState.AddModelError(string.Empty, e);
+                return View("Register", model);
+            }
+
+            var createdAddress = await response.Content.ReadFromJsonAsync<Address>();
 
             var user = new User
             {
@@ -104,14 +113,14 @@ namespace Sany3y.Controllers
                 BirthDate = model.BirthDate,
                 Gender = model.IsMale ? 'M' : 'F',
                 PasswordHash = model.Password,
-                AddressId = address.Id
+                AddressId = createdAddress.Id
             };
 
-            var result = await _userRepository.Add(user);
+            var result = await _userRepository.Add(user, model.Password);
 
             if (!result.Succeeded)
             {
-                await _addressRepository.Delete(address);
+                await _http.DeleteAsync($"/api/Address/Delete/{createdAddress.Id}");
                 foreach (var error in result.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
 
@@ -137,7 +146,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            var user = await _userRepository.GetByUsername(model.UserName);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{model.UserName}");
 
             if (user == null)
             {
@@ -161,10 +170,11 @@ namespace Sany3y.Controllers
             }
 
             // Make Account is online after login
-            user.IsOnline = true;
-            await _userManager.UpdateAsync(user);
+            var realUser = await _userManager.FindByNameAsync(model.UserName);
+            realUser.IsOnline = true;
+            await _userManager.UpdateAsync(realUser);
 
-            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, true);
+            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", realUser.Id, true);
             return RedirectToAction("Index", "Home");
         }
 
@@ -266,7 +276,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (await _userRepository.GetByNationalId(model.NationalId) != null)
+            if (await _http.GetFromJsonAsync<User>($"/api/User/GetByNationalId/{model.NationalId}") != null)
             {
                 ModelState.AddModelError(string.Empty, "This National ID is already registered.");
                 return View(model);
@@ -285,7 +295,7 @@ namespace Sany3y.Controllers
                 City = model.City,
                 Street = model.Street
             };
-            await _addressRepository.Add(address);
+            await _http.GetFromJsonAsync<Address>($"/api/Address/Create/{address}");
 
             // إنشاء المستخدم الجديد بناءً على البيانات اللي المستخدم كملها
             var user = new User
@@ -316,7 +326,7 @@ namespace Sany3y.Controllers
             if (!string.IsNullOrEmpty(model.Picture))
             {
                 var profilePic = new ProfilePicture { Path = model.Picture };
-                await _profilePictureRepo.Add(profilePic);
+                await _http.GetFromJsonAsync<ProfilePicture>($"/api/ProfilePicture/Create/{profilePic}");
 
                 user.ProfilePictureId = profilePic.Id;
                 await _userManager.UpdateAsync(user);
@@ -390,7 +400,7 @@ namespace Sany3y.Controllers
                 return View();
             }
 
-            var user = await _userRepository.GetByEmail(email);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{email}");
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "No account found with this email.");
@@ -425,7 +435,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{model.Email}");
 
             if (user == null)
             {
@@ -466,7 +476,7 @@ namespace Sany3y.Controllers
                 return View(model);
             }
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{model.Email}");
 
             if (user == null)
             {
@@ -494,12 +504,12 @@ namespace Sany3y.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Profile()
+        public async Task<IActionResult> ProfileAsync()
         {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
 
-            User currentUser = _userRepository.GetByUsername(User.Identity.Name).Result;
+            User currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{User.Identity.Name}");
             UserDTO userDTO = new UserDTO()
             {
                 FirstName = currentUser.FirstName,
@@ -508,8 +518,8 @@ namespace Sany3y.Controllers
                 BirthDate = currentUser.BirthDate,
                 Email = currentUser.Email,
                 PhoneNumber = currentUser.PhoneNumber.ToString(),
-                City = _addressRepository.GetById(currentUser.AddressId).Result.City,
-                Street = _addressRepository.GetById(currentUser.AddressId).Result.Street,
+                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.City ?? string.Empty,
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Street ?? string.Empty,
                 Bio = currentUser.Bio
             };
             return View(userDTO);
@@ -522,7 +532,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Profile", userDTO);
 
-            User currentUser = await _userRepository.GetByUsername(userDTO.UserName);
+            User currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{User.Identity.Name}");
             if (currentUser == null)
                 return View("Profile", userDTO);
 
@@ -532,7 +542,7 @@ namespace Sany3y.Controllers
                 City = userDTO.City,
                 Street = userDTO.Street
             };
-            await _addressRepository.Update(address);
+            await _http.GetFromJsonAsync<Address>($"/api/Address/Update/{address}");
 
             currentUser.FirstName = userDTO.FirstName;
             currentUser.LastName = userDTO.LastName;

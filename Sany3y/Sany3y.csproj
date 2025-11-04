@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sany3y.API\Sany3y.API.csproj" />
     <ProjectReference Include="..\Sany3y.Infrastructure\Sany3y.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Threading.Tasks;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,40 +10,25 @@ namespace Sany3y.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly HttpClient _http;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserRepository _userRepository;
-        private readonly IRepository<Address> _addressRepository;
-        private readonly IRepository<ProfilePicture> _profilePictureRepository;
-        private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<Sany3y.Infrastructure.Models.Task> _taskRepository;
 
-        public AdminController(
-            UserManager<User> userManager,
-            UserRepository userRepository,
-            SignInManager<User> signInManager,
-            IRepository<Address> addressRepository,
-            IRepository<Category> categoryRepository,
-            IRepository<Sany3y.Infrastructure.Models.Task> taskRepository,
-            IRepository<ProfilePicture> profilePictureRepository)
+        public AdminController(IHttpClientFactory httpClientFactory, UserManager<User> userManager)
         {
+            _http = httpClientFactory.CreateClient();
+            _http.BaseAddress = new Uri("https://localhost:7178/");
+
             _userManager = userManager;
-            _userRepository = userRepository;
-            _signInManager = signInManager;
-            _addressRepository = addressRepository;
-            _categoryRepository = categoryRepository;
-            _taskRepository = taskRepository;
-            _profilePictureRepository = profilePictureRepository;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         private async System.Threading.Tasks.Task GetTopCategories()
         {
-            var allCategories = await _categoryRepository.GetAll();
+            var allCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             var categoryCounts = new List<object>();
-            var allTasks = await _taskRepository.GetAll();
-            if (allTasks.Count <= 0) return;
+            var allTasks = await _http.GetFromJsonAsync<List<Infrastructure.Models.Task>>("/api/Task/GetAll");
+            if (allTasks.Count <= 0 || allCategories.Count <= 0) return;
             
             foreach (var category in allCategories)
             {
@@ -68,7 +49,7 @@ namespace Sany3y.Controllers
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var totalUsers = await _userRepository.GetAll();
+            var totalUsers = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
             var totalUserCount = 0;
             var totalTaskerCount = 0;
 
@@ -84,7 +65,7 @@ namespace Sany3y.Controllers
             ViewBag.TotalUsers = totalUserCount;
             ViewBag.TotalTaskers = totalTaskerCount;
 
-            var totalCategories = await _categoryRepository.GetAll();
+            var totalCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             ViewBag.TotalCategories = totalCategories.Count;
 
             await GetTopCategories();
@@ -96,7 +77,7 @@ namespace Sany3y.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<JsonResult> GetMonthlyUserCounts()
         {
-            var allUsers = await _userRepository.GetAll();
+            var allUsers = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
             var nonAdminUsers = new List<User>();
 
             foreach (var u in allUsers)
@@ -129,7 +110,7 @@ namespace Sany3y.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<JsonResult> GetGenderDistribution()
         {
-            var allUsers = await _userRepository.GetAll();
+            var allUsers = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
             var nonAdminUsers = new List<User>();
             foreach (var u in allUsers)
             {
@@ -156,7 +137,7 @@ namespace Sany3y.Controllers
                 return Forbid();
 
             var currentUser = await _userManager.GetUserAsync(User);
-            var users = (await _userRepository.GetAll()).Where(u => u.UserName != currentUser?.UserName);
+            var users = (await _http.GetFromJsonAsync<List<User>>($"/api/User/GetAll"))?.Where(u => u.UserName != currentUser?.UserName);
             var userRoles = new List<(User User, IList<string> Roles)>();
 
             foreach (var user in users)
@@ -175,12 +156,12 @@ namespace Sany3y.Controllers
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var user = await _userRepository.GetById(id);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");
             if (user == null)
                 return NotFound();
 
             var roles = await _userManager.GetRolesAsync(user);
-            ViewBag.Address = await _addressRepository.GetById(user.AddressId);
+            ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
             var viewModel = (User: user, Roles: roles);
             return PartialView("_ViewUserModal", viewModel);
         }
@@ -192,23 +173,23 @@ namespace Sany3y.Controllers
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var user = await _userRepository.GetById(id);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");
             if (user == null)
                 return NotFound();
 
-            await _userRepository.Delete(user);
+            await _http.GetFromJsonAsync<Address>($"/api/User/Delete/{user.Id}");
             TempData["Success"] = "User deleted successfully.";
             return RedirectToAction("Users");
         }
 
         [HttpGet]
         [Authorize]
-        public IActionResult Categories()
+        public async Task<IActionResult> Categories()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var categories = _categoryRepository.GetAll().Result;
+            var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             return View(categories);
         }
 
@@ -219,22 +200,22 @@ namespace Sany3y.Controllers
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var category = await _categoryRepository.GetById(id);
+            var category = _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{id}");
             if (category == null)
                 return NotFound();
 
-            await _categoryRepository.Delete(category);
+            await _http.GetFromJsonAsync<Address>($"/api/Address/Delete/{category.Id}");
             TempData["Success"] = "Category deleted successfully.";
             return RedirectToAction("Categories");
         }
 
         [Authorize]
-        public IActionResult ExportUsersPDF()
+        public async Task<IActionResult> ExportUsersPDFAsync()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var users = _userRepository.GetAll().Result;
+            var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
 
             if (!users.Any())
             {
@@ -257,8 +238,8 @@ namespace Sany3y.Controllers
                 u.Email,
                 u.PhoneNumber,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
-                City = _addressRepository.GetById(u.AddressId).Result?.City ?? "N/A",
-                Street = _addressRepository.GetById(u.AddressId).Result?.Street ?? "N/A"
+                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A"
             }).Where(u => u.Role != "Admin").ToList();
 
             var exporter = new TableExporter();
@@ -273,12 +254,12 @@ namespace Sany3y.Controllers
         }
 
         [Authorize]
-        public IActionResult ExportUsersCSV()
+        public async Task<IActionResult> ExportUsersCSVAsync()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var users = _userRepository.GetAll().Result;
+            var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
 
             if (!users.Any())
             {
@@ -301,8 +282,8 @@ namespace Sany3y.Controllers
                 u.Email,
                 u.PhoneNumber,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
-                City = _addressRepository.GetById(u.AddressId).Result?.City ?? "N/A",
-                Street = _addressRepository.GetById(u.AddressId).Result?.Street ?? "N/A"
+                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A"
             }).Where(u => u.Role != "Admin").ToList();
 
             var exporter = new TableExporter();
@@ -317,12 +298,12 @@ namespace Sany3y.Controllers
         }
         
         [Authorize]
-        public IActionResult ExportCategoriesPDF()
+        public async Task<IActionResult> ExportCategoriesPDF()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var categories = _categoryRepository.GetAll().Result;
+            var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
 
             if (!categories.Any())
             {
@@ -343,12 +324,12 @@ namespace Sany3y.Controllers
         }
 
         [Authorize]
-        public IActionResult ExportCategoriesCSV()
+        public async Task<IActionResult> ExportCategoriesCSVAsync()
         {
             if (!User.IsInRole("Admin"))
                 return Forbid();
 
-            var categories = _categoryRepository.GetAll().Result;
+            var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
 
             if (!categories.Any())
             {
@@ -360,9 +341,7 @@ namespace Sany3y.Controllers
 
             var data = categories.Select(c => new
             {
-                c.Id,
-                c.Name,
-                c.Description
+                c.Id, c.Name, c.Description
             }).ToList();
 
             var exporter = new TableExporter();

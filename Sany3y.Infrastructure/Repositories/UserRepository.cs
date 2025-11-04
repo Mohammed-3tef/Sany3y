@@ -21,9 +21,9 @@ namespace Sany3y.Infrastructure.Repositories
             this.userManager = _userManager;
         }
 
-        public async Task<IdentityResult> Add(User entity)
+        public async Task<IdentityResult> Add(User entity, string password)
         {
-            return await userManager.CreateAsync(entity, entity.PasswordHash);
+            return await userManager.CreateAsync(entity, password);
         }
 
         public async Task<IdentityResult> Delete(User entity)

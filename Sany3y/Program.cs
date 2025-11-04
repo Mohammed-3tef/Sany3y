@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Sany3y.Extensions;
 using Sany3y.Hubs;
-using Sany3y.Infrastructure.Services;
 
 namespace Sany3y
 {
@@ -10,6 +9,8 @@ namespace Sany3y
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddHttpClient();
             builder.Services.AddSignalR();
 
             // Add services to the container.
@@ -31,13 +32,7 @@ namespace Sany3y
             });
 
             var app = builder.Build();
-
-            // Seed the database with initial data.
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                SeedService.SeedDatabase(services).Wait();
-            }
+            app.UseCors("AllowAll");
 
             // Configure middleware
             if (!app.Environment.IsDevelopment())
@@ -55,6 +50,7 @@ namespace Sany3y
             app.UseAuthorization();
 
             app.MapHub<UserStatusHub>("/userStatusHub");
+            app.MapControllers();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"

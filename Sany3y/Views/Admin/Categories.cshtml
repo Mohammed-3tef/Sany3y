@@ -105,9 +105,13 @@
             // submit
             $('#deleteCategoryForm').on('submit', function (e) {
                 e.preventDefault();
-                const form = $(this);
-                form.attr('action', `/Admin/DeleteCategory?id=${selectedCategoryId}`);
-                form.off('submit').submit(); // send real POST
+                $.ajax({
+                    url: `https://localhost:7178/api/Category/Delete/${selectedCategoryId}`,
+                    type: 'DELETE',
+                    success: function (res) {
+                        window.location.reload();
+                    }
+                });
             });
 
             initArabicDataTable("#user-table");

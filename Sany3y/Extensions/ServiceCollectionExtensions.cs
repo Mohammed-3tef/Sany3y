@@ -18,6 +18,18 @@ namespace Sany3y.Extensions
             services.AddScoped<IRepository<Notification>, NotificationRepository>();
             services.AddScoped<IRepository<Rating>, RatingRepository>();
             services.AddScoped<IRepository<Infrastructure.Models.Task>, TaskRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             return services;
         }
     }
