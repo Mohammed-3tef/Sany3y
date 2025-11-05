@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sany3y.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c871fdf289621a5c0d00a8cb85003fdfbe25ac5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab6c5aab03ccf5494353e44c9bc889f3095978a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sany3y.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sany3y.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

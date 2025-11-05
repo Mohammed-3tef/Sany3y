@@ -9,7 +9,7 @@ namespace Sany3y.Controllers
             return View();
         }
 
-        public IActionResult Policy()
+        public IActionResult Policy()  
         {
             return View();
         }

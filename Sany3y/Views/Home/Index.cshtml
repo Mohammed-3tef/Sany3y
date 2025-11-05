@@ -1,5 +1,340 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    
+<style>
+    :root {
+        --primary-green: #004d00;
+        --accent-yellow: #ffb300;
+        --light-yellow: #ffc947;
+        --light-bg: #ffffff;
+    }
+
+    body {
+        background-color: var(--light-bg);
+        font-family: 'Cairo', sans-serif;
+    }
+
+    .hero-section {
+        background: url("https://nojomcon.com/images/blog/paintmualem.webp") no-repeat center;
+        background-size: cover;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1;
+    }
+
+    .hero-text {
+        position: relative;
+        z-index: 2;
+    }
+
+    .big-box {
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    .filter-box, .cards-box {
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        border: 1px solid #eee;
+    }
+
+    .cards-box {
+        height: 600px;
+        overflow: hidden !important;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+        .cards-box::-webkit-scrollbar {
+            display: none;
+        }
+
+    .speciality-card {
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        height: 180px;
+    }
+
+        .speciality-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+    .card-img-top {
+        height: 80px;
+        object-fit: contain;
+        background-color: #f9f9f9;
+    }
+
+    .step-card {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 77, 0, 0.1);
+        }
+
+    .icon-circle {
+        transition: all 0.3s ease;
+    }
+
+    .step-card:hover .icon-circle {
+        transform: scale(1.1);
+    }
+
+    .testimonial-card {
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid #e0e0e0 !important;
+    }
+
+    .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 77, 0, 0.1) !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: var(--primary-green) !important;
+    }
+
+    .swiper-pagination-bullet {
+        background: var(--primary-green);
+        opacity: 0.5;
+    }
+
+
+
+    .emergency {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    </style>
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center justify-content-center text-white text-center">
+    <div class="hero-text">
+        <h1>دور على صنايعي في ثواني</h1>
+        <p class="mb-3">"كل الخدمات في مكان واحد — سباكة، نجارة، كهرباء وغيرهم."</p>
+        <form class="search-form mt-4" method="get" action="@Url.Action("Search", "Services")">
+            <div class="row g-2 justify-content-center">
+                <div class="col-md-9">
+                    <input type="text" name="serviceType" class="form-control" placeholder="ابحث بنوع الخدمة (مثل: سباكة، كهرباء)">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-warning w-100">ابحث</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+    <!-- Specialities section -->
+    <section class="specialities py-5">
+        <div class="container">
+            <div class="big-box bg-white p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-bold m-0 text-primary" style="color: var(--primary-green) !important;">جميع التخصصات</h5>
+                    <a href="@Url.Action("Index", "Services")" style="color: var(--primary-green);">عرض المزيد</a>
+                </div>
+                <div class="row g-4">
+                    <!-- Filter Box -->
+                    <div class="col-lg-3 col-md-4">
+                        <div class="filter-box p-4 bg-white">
+                            <h6 class="fw-bold mb-3 text-center" style="color: var(--primary-green);">التصنيفات</h6>
+                            <div class="d-flex flex-column gap-2">
+                                @{
+                                    var categories = new List<string> { "سباكة", "كهرباء", "نجارة", "دهان", "تبريد وتكييف" };
+                                    var filters = new List<string> { "plumbing", "electrical", "carpentry", "painting", "hvac" };
+
+                                    for (int i = 0; i < categories.Count; i++)
+                                    {
+                                        <button class="btn btn-outline-primary filter-btn" data-filter="@filters[i]">@categories[i]</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cards Box -->
+                    <div class="col-lg-9 col-md-8">
+                        <div class="cards-box p-4 bg-white">
+                            <div class="row g-4">
+                                @for (int i = 1; i <= 9; i++)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 card-item plumbing">
+                                        <div class="card speciality-card text-center border-0 shadow-sm">
+                                            <img src="~/images/about-img.jpg" class="card-img-top rounded-top" alt="فني" />
+                                            <div class="card-body">
+                                                <h6 class="card-title mb-1 fw-bold">أمنية أشرف</h6>
+                                                <p class="card-text text-muted small mb-2">سباكة</p>
+                                                <p class="card-text text-muted small mb-1">
+                                                    <i class="fas fa-map-marker-alt"></i> مدينة نصر
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Order Section -->
+    <section class="how-to-order py-5">
+        <div class="container">
+            <div class="big-box bg-white p-4">
+                <h5 class="fw-bold mb-5 text-center" style="color: var(--primary-green);">كيف تطلب صنايعي في 3 خطوات</h5>
+
+                <div class="row g-4 text-center">
+                    @{
+                        var steps = new[]
+                        {
+                                        new { Icon = "fa-search", Title = "ابحث عن الخدمة", Description = "اختر نوع الخدمة التي تحتاجها", Color = "var(--primary-green)" },
+                                        new { Icon = "fa-user-check", Title = "اختر الصنايعي", Description = "اطلع على الملفات الشخصية للصنايعي واختر المناسب لك", Color = "var(--accent-yellow)" },
+                                        new { Icon = "fa-calendar-check", Title = "احجز الموعد", Description = "حدد الموعد المناسب واحصل على الخدمة", Color = "var(--primary-green)" }
+                                        };
+                    }
+
+                    @foreach (var step in steps)
+                    {
+                        <div class="col-md-4">
+                            <div class="step-card p-4">
+                                <div class="step-icon mb-3">
+                                    <div class="icon-circle mx-auto d-flex align-items-center justify-content-center" style="background: @step.Color; width: 80px; height: 80px; border-radius: 50%;">
+                                        <i class="fas @step.Icon fa-2x text-white"></i>
+                                    </div>
+                                </div>
+                                <h6 class="fw-bold mb-3" style="color: var(--primary-green);">@step.Title</h6>
+                                <p class="text-muted">@step.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section py-5" style="background: #ffffff;">
+        <div class="container">
+            <div class="big-box bg-white p-4">
+                <h5 class="fw-bold mb-4 text-center" style="color: var(--primary-green);">آراء عملائنا</h5>
+
+                <!-- Swiper -->
+                <div class="swiper mySwiper py-2">
+                    <div class="swiper-wrapper mb-5">
+                        @{
+                            var testimonials = new[]
+                            {
+                                                new { Name = "أحمد محمد", Comment = "\"خدمة ممتازة! لقيت سباك محترف في خلال دقائق\"" },
+                                                new { Name = "سارة محمود", Comment = "\"المنصة سهلة الاستخدام ووفرت علي وقت كبير\"" },
+                                                new { Name = "عمر علي", Comment = "\"فنيين محترفين ودعم عملاء رائع\"" },
+                                                new { Name = "مريم حسن", Comment = "\"أسعار مناسبة وجودة عمل عالية\"" }
+                                                };
+                        }
+
+                        @foreach (var testimonial in testimonials)
+                        {
+                            <div class="swiper-slide">
+                                <div class="testimonial-card text-center p-4 border rounded">
+                                    <div class="mb-3">
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            <i class="fas fa-star" style="color: var(--accent-yellow);"></i>
+                                        }
+                                    </div>
+                                    <p class="mb-3">@testimonial.Comment</p>
+                                    <h6 class="fw-bold mb-0" style="color: var(--primary-green);">@testimonial.Name</h6>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Box -->
+    <div class="page-center d-flex align-items-center justify-content-center py-5">
+        <div class="emergency container d-flex align-items-center justify-content-between bg-white rounded p-4 shadow-sm">
+            <div class="box-content">
+                <h2 class="mb-2" style="color: var(--primary-green);">حالات الطوارئ</h2>
+                <p class="mb-0 text-muted">لديك حالة طارئة! قدم مشكلتك الآن.</p>
+            </div>
+            <button class="btn" style="background-color: #edf8f3; color: var(--primary-green); border: 1px solid var(--primary-green);">اطلب الآن</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const cardsBox = document.querySelector(".cards-box");
+          cardsBox.classList.add("scroll-enabled");
+
+          const scrollStep = cardsBox.clientHeight;
+          const delay = 10000;
+
+          let currentScroll = 0;
+
+          function autoScroll() {
+            if (cardsBox.scrollTop + cardsBox.clientHeight >= cardsBox.scrollHeight - 10) {
+              cardsBox.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              });
+              currentScroll = 0;
+            } else {
+              currentScroll += scrollStep;
+              cardsBox.scrollTo({
+                top: currentScroll,
+                behavior: "smooth"
+              });
+            }
+          }
+
+          setInterval(autoScroll, delay);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 1,
+          spaceBetween: 30,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          },
+          autoplay: {
+            delay: 5000,
+          },
+        });
+    </script>
+

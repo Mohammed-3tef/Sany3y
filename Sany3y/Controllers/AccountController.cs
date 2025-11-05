@@ -146,7 +146,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{model.UserName}");
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user == null)
             {
