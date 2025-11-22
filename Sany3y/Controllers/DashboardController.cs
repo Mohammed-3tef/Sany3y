@@ -23,12 +23,6 @@ namespace Sany3y.Controllers
             return View();
         }
 
-        public IActionResult Profile()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewBag.UserId = userId;
-            ViewBag.ApiUrl = "https://localhost:7178";
-            return View();
-        }
+
     }
 }

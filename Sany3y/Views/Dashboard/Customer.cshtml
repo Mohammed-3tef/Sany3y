@@ -1,9 +1,9 @@
 @{
-    ViewData["Title"] = "Customer Dashboard";
+    ViewData["Title"] = "لوحة تحكم العميل";
 }
 
 <div class="container mt-4">
-    <h2>Customer Dashboard</h2>
+    <h2>لوحة تحكم العميل</h2>
     <div id="loading" class="text-center">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -14,13 +14,13 @@
         <!-- Profile Section -->
         <div class="card mb-4">
             <div class="card-header">
-                Profile Info
-                <a href="@Url.Action("Profile", "Dashboard")" class="btn btn-sm btn-primary float-end">Edit Profile</a>
+                معلومات الحساب
+                <a href="@Url.Action("Profile", "Account")" class="btn btn-sm btn-primary float-end">تعديل الحساب</a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 text-center">
-                        <img id="profile-pic" src="/img/default-profile.png" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;">
+                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
                     </div>
                     <div class="col-md-10">
                         <h4 id="user-name"></h4>
@@ -38,7 +38,7 @@
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header bg-info text-white">
-                        Upcoming Appointments
+                        المواعيد القادمة
                     </div>
                     <div class="card-body">
                         <ul id="upcoming-list" class="list-group list-group-flush">
@@ -53,13 +53,13 @@
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header bg-secondary text-white">
-                        Past Bookings
+                        الحجوزات السابقة
                     </div>
                     <div class="card-body">
                         <ul id="past-list" class="list-group list-group-flush">
                             <!-- Items will be appended here -->
                         </ul>
-                        <p id="no-past" class="text-muted mt-2" style="display:none;">No past bookings.</p>
+                        <p id="no-past" class="text-muted mt-2" style="display:none;">لا يوجد حجوزات سابقة.</p>
                     </div>
                 </div>
             </div>

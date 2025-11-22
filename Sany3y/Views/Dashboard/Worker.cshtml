@@ -1,9 +1,9 @@
 @{
-    ViewData["Title"] = "Worker Dashboard";
+    ViewData["Title"] = "لوحة تحكم العامل";
 }
 
 <div class="container mt-4">
-    <h2>Worker Dashboard</h2>
+    <h2>لوحة تحكم العامل</h2>
     <div id="loading" class="text-center">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
@@ -14,13 +14,13 @@
         <!-- Profile Section -->
         <div class="card mb-4">
             <div class="card-header">
-                Profile Info
-                <a href="@Url.Action("Profile", "Dashboard")" class="btn btn-sm btn-primary float-end">Edit Profile</a>
+                معلومات الحساب
+                <a href="@Url.Action("Profile", "Account")" class="btn btn-sm btn-primary float-end">تعديل الحساب</a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 text-center">
-                        <img id="profile-pic" src="/img/default-profile.png" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;">
+                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
                     </div>
                     <div class="col-md-10">
                         <h4 id="user-name"></h4>
@@ -29,7 +29,7 @@
                         <p><i class="fas fa-map-marker-alt"></i> <span id="user-location"></span></p>
                         <p id="user-bio" class="text-muted"></p>
                         <div class="alert alert-success d-inline-block mt-2">
-                            <strong>Total Earnings: </strong> <span id="total-earnings"></span> EGP
+                            <strong>الإجمالي: </strong> <span id="total-earnings"></span> جنيه
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header bg-warning text-dark">
-                        Received Requests
+                        الطلبات الواردة
                     </div>
                     <div class="card-body">
                         <ul id="requests-list" class="list-group list-group-flush">
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        Accepted Jobs
+                        الطلبات المقبولة
                     </div>
                     <div class="card-body">
                         <ul id="jobs-list" class="list-group list-group-flush">
@@ -71,10 +71,10 @@
         <!-- Chat Section Placeholder -->
         <div class="card mb-4">
             <div class="card-header">
-                Recent Chats
+                المحادثات الأخيرة
             </div>
             <div class="card-body">
-                <p class="text-muted">Chat functionality coming soon...</p>
+                <p class="text-muted">المحادثات قيد التطوير...</p>
             </div>
         </div>
     </div>

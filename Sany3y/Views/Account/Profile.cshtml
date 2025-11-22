@@ -3,87 +3,170 @@
 @model Sany3y.Infrastructure.DTOs.UserDTO
 
 @{
-    ViewData["Title"] = "الملف الشخصي";
+    ViewData["Title"] = "تعديل الملف الشخصي";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
 }
 
-<div class="d-flex justify-content-center align-items-center">
-    <div class="col-md-12">
-        <div class="text-center mb-4">
-            <h2>@ViewData["Title"]</h2>
+<style>
+    .profile-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        background: white;
+        overflow: hidden;
+    }
+    
+    .profile-header {
+        background: linear-gradient(135deg, #004d00 0%, #006400 100%);
+        padding: 20px;
+        color: white;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .form-control:focus {
+        border-color: #004d00;
+        box-shadow: 0 0 0 0.25rem rgba(0, 77, 0, 0.15);
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-color: #ced4da;
+        color: #004d00;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="profile-card">
+                <div class="profile-header d-flex align-items-center">
+                    <i class="fas fa-user-edit fa-2x me-3 ms-3"></i>
+                    <h3 class="mb-0">@ViewData["Title"]</h3>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form asp-controller="Account" asp-action="EditProfile">
+                        <div asp-validation-summary="All" class="alert alert-danger mb-4" role="alert" style="display:none;"></div>
+
+                        <div class="row g-4">
+                            <!-- Personal Info Section -->
+                            <div class="col-12">
+                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="FirstName" class="form-label">الاسم الأول</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="FirstName" class="form-control" placeholder="الاسم الأول" />
+                                </div>
+                                <span asp-validation-for="FirstName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="LastName" class="form-label">اسم العائلة</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="LastName" class="form-control" placeholder="اسم العائلة" />
+                                </div>
+                                <span asp-validation-for="LastName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="UserName" class="form-label">اسم المستخدم</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                    <input asp-for="UserName" class="form-control bg-light" readonly />
+                                </div>
+                                <span asp-validation-for="UserName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input asp-for="BirthDate" type="date" class="form-control text-end" />
+                                </div>
+                                <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Contact Info Section -->
+                            <div class="col-12 mt-4">
+                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-address-book me-2"></i> معلومات الاتصال</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input asp-for="Email" class="form-control bg-light" readonly />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input asp-for="PhoneNumber" class="form-control" placeholder="01xxxxxxxxx" />
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Address Section -->
+                            <div class="col-12 mt-4">
+                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-map-marker-alt me-2"></i> العنوان</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="City" class="form-label">المدينة</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                    <input asp-for="City" class="form-control" placeholder="المدينة" />
+                                </div>
+                                <span asp-validation-for="City" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Street" class="form-label">الشارع</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-road"></i></span>
+                                    <input asp-for="Street" class="form-control" placeholder="اسم الشارع" />
+                                </div>
+                                <span asp-validation-for="Street" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Bio Section -->
+                            <div class="col-12 mt-4">
+                                <label asp-for="Bio" class="form-label"><i class="fas fa-info-circle me-2"></i> نبذة شخصية</label>
+                                <textarea asp-for="Bio" class="form-control" rows="4" placeholder="اكتب نبذة مختصرة عنك..."></textarea>
+                                <span asp-validation-for="Bio" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="row mt-5 pt-3 border-top">
+                            <div class="col-md-6 mb-2 mb-md-0 order-md-2">
+                                <button type="submit" data-show-loader="true" class="btn btn-success w-100 py-2 fw-bold">
+                                    <i class="fas fa-save me-2"></i> حفظ التعديلات
+                                </button>
+                            </div>
+                            <div class="col-md-6 order-md-1">
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary w-100 py-2" data-show-loader="true">
+                                    <i class="fas fa-times me-2"></i> إلغاء
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <form asp-controller="Account" asp-action="EditProfile">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label asp-for="FirstName" class="form-label">الاسم الأول</label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="LastName" class="form-label">اسم العائلة</label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="UserName" class="form-label">اسم المستخدم</label>
-                    <input asp-for="UserName" class="form-control" readonly />
-                    <span asp-validation-for="UserName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
-                    <input asp-for="BirthDate" type="date" class="form-control text-end" />
-                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
-                    <input asp-for="Email" class="form-control" readonly />
-                    <span asp-validation-for="Email" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="City" class="form-label">المدينة</label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="Street" class="form-label">الشارع</label>
-                    <input asp-for="Street" class="form-control" />
-                    <span asp-validation-for="Street" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="Bio" class="form-label">نبذة شخصية</label>
-                    <textarea asp-for="Bio" class="form-control"></textarea>
-                    <span asp-validation-for="Bio" class="text-danger small"></span>
-                </div>
-            </div>
-
-            <div class="row form-group mt-4">
-                <div class="col-md-6">
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-danger w-100" data-show-loader="true">
-                        إلغاء
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <input type="submit" data-show-loader="true" value="حفظ التعديلات" class="btn btn-primary w-100" />
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 
@@ -91,4 +174,12 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // Show validation summary if it has errors
+        $(document).ready(function() {
+            if ($('.validation-summary-errors ul li').length > 0) {
+                $('.validation-summary-errors').closest('.alert').show();
+            }
+        });
+    </script>
 }
