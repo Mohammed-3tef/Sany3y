@@ -136,7 +136,7 @@ namespace Sany3y.API.Controllers
                     Phone = user.PhoneNumber,
                     Bio = user.Bio,
                     Location = user.Address != null ? $"{user.Address.City}, {user.Address.Street}" : "No Address",
-                    ProfilePictureUrl = user.ProfilePicture != null ? user.ProfilePicture.Url : null
+                    ProfilePictureUrl = user.ProfilePicture != null ? user.ProfilePicture.Path : null
                 },
                 ReceivedRequests = receivedRequests,
                 AcceptedJobs = acceptedJobs,
