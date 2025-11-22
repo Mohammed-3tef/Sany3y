@@ -36,6 +36,12 @@ namespace Sany3y.Infrastructure.Models
 
             modelBuilder.Entity<User>().Ignore(u => u.PhoneNumberConfirmed);
 
+            modelBuilder.Entity<User>()
+                .HasOne(t => t.Category)
+                .WithMany()
+                .HasForeignKey(t => t.CategoryID)
+                .OnDelete(DeleteBehavior.Restrict);  // أهم سطر
+
             modelBuilder.Entity<Address>()
                 .Property(a => a.Id)
                 .ValueGeneratedOnAdd();

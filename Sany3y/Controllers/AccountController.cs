@@ -130,7 +130,7 @@ namespace Sany3y.Controllers
             if (model.IsClient)
                 await _userManager.AddToRoleAsync(user, "Client");
             else
-                await _userManager.AddToRoleAsync(user, "Tasker");
+                await _userManager.AddToRoleAsync(user, "Technician");
 
             await SendEmailConfirmationAsync(user);
             return RedirectToAction(nameof(EmailConfirmationNotice));
@@ -335,7 +335,7 @@ namespace Sany3y.Controllers
             if (model.IsClient)
                 await _userManager.AddToRoleAsync(user, "Client");
             else
-                await _userManager.AddToRoleAsync(user, "Tasker");
+                await _userManager.AddToRoleAsync(user, "Technician");
 
             // تسجيل الدخول مباشرة بعد الإكمال
             await _signInManager.SignInAsync(user, isPersistent: true);

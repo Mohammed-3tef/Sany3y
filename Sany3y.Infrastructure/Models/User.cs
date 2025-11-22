@@ -54,5 +54,14 @@ namespace Sany3y.Infrastructure.Models
         [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address? Address { get; set; }
+
+        // For Technicians
+        public int? ExperienceYears { get; set; }
+        public decimal? Price { get; set; }
+        public double? Rating { get; set; }
+
+        [ForeignKey("Category")]
+        public int? CategoryID { get; set; }
+        public Category? Category { get; set; }
     }
 }

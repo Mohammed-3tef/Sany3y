@@ -100,7 +100,7 @@
                         data.upcomingAppointments.forEach(function (task) {
                             var item = '<li class="list-group-item">' +
                                 '<strong>' + task.title + '</strong><br/>' +
-                                '<small>Tasker: ' + task.otherPartyName + '</small><br/>' +
+                                '<small>Technician: ' + task.otherPartyName + '</small><br/>' +
                                 '<span class="badge bg-primary">' + task.status + '</span>' +
                                 '</li>';
                             $('#upcoming-list').append(item);
@@ -114,7 +114,7 @@
                         data.pastBookings.forEach(function (task) {
                             var item = '<li class="list-group-item">' +
                                 '<strong>' + task.title + '</strong><br/>' +
-                                '<small>Tasker: ' + task.otherPartyName + '</small><br/>' +
+                                '<small>Technician: ' + task.otherPartyName + '</small><br/>' +
                                 '<span class="badge bg-secondary">' + task.status + '</span>' +
                                 '</li>';
                             $('#past-list').append(item);

@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{FF7AB2C1-F061-4B7B-9601-BA55D550EFB5}|Sany3y.API\\Sany3y.API.csproj|d:\\projects\\sany3y\\sany3y.api\\controllers\\techniciancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF7AB2C1-F061-4B7B-9601-BA55D550EFB5}|Sany3y.API\\Sany3y.API.csproj|solutionrelative:sany3y.api\\controllers\\techniciancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "site.css",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "Sany3y\\wwwroot\\css\\site.css",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "Sany3y\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAABIAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-22T16:04:05.96Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_AdminLayout.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-22T16:03:53.192Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml.css",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Layout.cshtml.css",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_Layout.cshtml.css",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_Layout.cshtml.css",
-              "RelativeToolTip": "Sany3y\\Views\\Shared\\_Layout.cshtml.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-22T16:02:54.491Z",
+              "Title": "TechnicianController.cs",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y.API\\Controllers\\TechnicianController.cs",
+              "RelativeDocumentMoniker": "Sany3y.API\\Controllers\\TechnicianController.cs",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y.API\\Controllers\\TechnicianController.cs",
+              "RelativeToolTip": "Sany3y.API\\Controllers\\TechnicianController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAkwEYAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-22T21:26:01.439Z",
               "EditorCaption": ""
             }
           ]

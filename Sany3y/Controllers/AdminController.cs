@@ -58,7 +58,7 @@ namespace Sany3y.Controllers
                 var roles = await _userManager.GetRolesAsync(user);
                 if (roles.Contains("User"))
                     totalUserCount++;
-                if (roles.Contains("Tasker"))
+                if (roles.Contains("Technician"))
                     totalTaskerCount++;
             }
 
