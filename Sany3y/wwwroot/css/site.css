@@ -1,6 +1,6 @@
 ﻿html {
     font-size: 14px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -14,8 +14,9 @@
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 table.dataTable td, table.dataTable th, table.dataTable td p{
@@ -39,4 +40,8 @@ div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start {
 
 .close-btn {
     margin-left: 0px !important;
+}
+
+body {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

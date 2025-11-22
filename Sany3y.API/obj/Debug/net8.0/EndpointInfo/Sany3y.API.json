@@ -267,6 +267,128 @@
         }
       }
     },
+    "/api/Dashboard/customer/{userId}": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDashboardDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDashboardDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDashboardDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboard/worker/{userId}": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkerDashboardDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkerDashboardDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkerDashboardDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboard/profile/{userId}": {
+      "put": {
+        "tags": [
+          "Dashboard"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Message/GetAll": {
       "get": {
         "tags": [
@@ -1355,6 +1477,29 @@
         },
         "additionalProperties": false
       },
+      "CustomerDashboardDto": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/UserProfileDto"
+          },
+          "pastBookings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            },
+            "nullable": true
+          },
+          "upcomingAppointments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Message": {
         "required": [
           "content",
@@ -1590,6 +1735,67 @@
         },
         "additionalProperties": false
       },
+      "TaskDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "otherPartyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateProfileDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceDetails": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "User": {
         "required": [
           "birthDate",
@@ -1707,6 +1913,75 @@
           },
           "address": {
             "$ref": "#/components/schemas/Address"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserProfileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePictureUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceDetails": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkerDashboardDto": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/UserProfileDto"
+          },
+          "receivedRequests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            },
+            "nullable": true
+          },
+          "acceptedJobs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            },
+            "nullable": true
+          },
+          "totalEarnings": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

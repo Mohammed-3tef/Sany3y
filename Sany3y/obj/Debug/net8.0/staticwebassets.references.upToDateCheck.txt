@@ -167,3 +167,25 @@ C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
 D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
 D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
+D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json

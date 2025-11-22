@@ -158,6 +158,79 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sany3y.API.Controllers.DashboardController",
+    "Method": "GetCustomerDashboard",
+    "RelativePath": "api/Dashboard/customer/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sany3y.API.DTOs.CustomerDashboardDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.DashboardController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/Dashboard/profile/{userId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateDto",
+        "Type": "Sany3y.API.DTOs.UpdateProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.DashboardController",
+    "Method": "GetWorkerDashboard",
+    "RelativePath": "api/Dashboard/worker/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sany3y.API.DTOs.WorkerDashboardDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sany3y.API.Controllers.MessageController",
     "Method": "Create",
     "RelativePath": "api/Message/Create",
