@@ -193,3 +193,15 @@ C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfoInputs.cache
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfo.cs
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.CoreCompileInputs.cache
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cs
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cache
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.json
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
+D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb

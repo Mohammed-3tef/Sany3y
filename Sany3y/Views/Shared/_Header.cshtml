@@ -24,6 +24,21 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">تواصل معنا</a>
                             </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("Client"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Customer">لوحة العميل</a>
+                                    </li>
+                                }
+                                @if (User.IsInRole("Tasker"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Worker">لوحة الفني</a>
+                                    </li>
+                                }
+                            }
                         }
                     }
                 </ul>

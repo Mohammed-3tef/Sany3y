@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>Customer Dashboard</h2>
+    <div id="loading" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="dashboard-content" style="display:none;">
+        <!-- Profile Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Profile Info
+                <a href="@Url.Action("Profile", "Dashboard")" class="btn btn-sm btn-primary float-end">Edit Profile</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <img id="profile-pic" src="/img/default-profile.png" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="col-md-10">
+                        <h4 id="user-name"></h4>
+                        <p><i class="fas fa-envelope"></i> <span id="user-email"></span></p>
+                        <p><i class="fas fa-phone"></i> <span id="user-phone"></span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="user-location"></span></p>
+                        <p id="user-bio" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Upcoming Appointments -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        Upcoming Appointments
+                    </div>
+                    <div class="card-body">
+                        <ul id="upcoming-list" class="list-group list-group-flush">
+                            <!-- Items will be appended here -->
+                        </ul>
+                        <p id="no-upcoming" class="text-muted mt-2" style="display:none;">No upcoming appointments.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Past Bookings -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        Past Bookings
+                    </div>
+                    <div class="card-body">
+                        <ul id="past-list" class="list-group list-group-flush">
+                            <!-- Items will be appended here -->
+                        </ul>
+                        <p id="no-past" class="text-muted mt-2" style="display:none;">No past bookings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var userId = '@ViewBag.UserId';
+            var apiUrl = '@ViewBag.ApiUrl';
+
+            if (!userId) {
+                toastr.error("User ID not found. Please log in.");
+                return;
+            }
+
+            $.ajax({
+                url: apiUrl + '/api/dashboard/customer/' + userId,
+                method: 'GET',
+                success: function (data) {
+                    $('#loading').hide();
+                    $('#dashboard-content').fadeIn();
+
+                    // Populate Profile
+                    $('#user-name').text(data.profile.firstName + ' ' + data.profile.lastName);
+                    $('#user-email').text(data.profile.email);
+                    $('#user-phone').text(data.profile.phone);
+                    $('#user-location').text(data.profile.location);
+                    $('#user-bio').text(data.profile.bio);
+                    if (data.profile.profilePictureUrl) {
+                        $('#profile-pic').attr('src', data.profile.profilePictureUrl);
+                    }
+
+                    // Populate Upcoming
+                    if (data.upcomingAppointments && data.upcomingAppointments.length > 0) {
+                        data.upcomingAppointments.forEach(function (task) {
+                            var item = '<li class="list-group-item">' +
+                                '<strong>' + task.title + '</strong><br/>' +
+                                '<small>Tasker: ' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge bg-primary">' + task.status + '</span>' +
+                                '</li>';
+                            $('#upcoming-list').append(item);
+                        });
+                    } else {
+                        $('#no-upcoming').show();
+                    }
+
+                    // Populate Past
+                    if (data.pastBookings && data.pastBookings.length > 0) {
+                        data.pastBookings.forEach(function (task) {
+                            var item = '<li class="list-group-item">' +
+                                '<strong>' + task.title + '</strong><br/>' +
+                                '<small>Tasker: ' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge bg-secondary">' + task.status + '</span>' +
+                                '</li>';
+                            $('#past-list').append(item);
+                        });
+                    } else {
+                        $('#no-past').show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#loading').hide();
+                    toastr.error("Failed to load dashboard data.");
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+}

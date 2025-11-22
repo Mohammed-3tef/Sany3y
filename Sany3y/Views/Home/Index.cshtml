@@ -1,11 +1,17 @@
-﻿<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
-    
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+
 <style>
     :root {
         --primary-green: #004d00;
         --accent-yellow: #ffb300;
         --light-yellow: #ffc947;
-        --light-bg: #ffffff;
+        --light-bg: #f8f9fa;
+        --text-dark: #2c3e50;
     }
 
     body {
@@ -13,328 +19,434 @@
         font-family: 'Cairo', sans-serif;
     }
 
+    /* Hero Section */
     .hero-section {
-        background: url("https://nojomcon.com/images/blog/paintmualem.webp") no-repeat center;
+        background: linear-gradient(rgba(0, 77, 0, 0.7), rgba(0, 77, 0, 0.5)), url("https://nojomcon.com/images/blog/paintmualem.webp");
         background-size: cover;
+        background-position: center;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
-        min-height: 100vh;
+        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
     }
 
-    .hero-section::before {
-        content: "";
+    .hero-content {
+        z-index: 2;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.9;
+    }
+
+    .search-box {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-input {
+        border: none;
+        background: transparent;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        width: 100%;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .search-btn {
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+        transform: scale(1.05);
+    }
+
+    /* Section Headers */
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title {
+        color: var(--primary-green);
+        font-weight: 800;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background-color: var(--accent-yellow);
+        border-radius: 2px;
+    }
+
+    /* Categories / Filter */
+    .filter-btn {
+        border-radius: 25px;
+        padding: 8px 20px;
+        margin: 0 5px;
+        border: 2px solid var(--primary-green);
+        color: var(--primary-green);
+        font-weight: 600;
+        transition: all 0.3s;
+        background: white;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+        background: var(--primary-green);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,77,0,0.2);
+    }
+
+    /* Technician Cards */
+    .tech-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .tech-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .tech-img-wrapper {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .tech-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .tech-card:hover .tech-img {
+        transform: scale(1.1);
+    }
+
+    .tech-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        padding: 20px;
+        color: white;
+    }
+
+    /* Steps Section */
+    .step-card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .step-card::before {
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.45);
-        z-index: 1;
-    }
-
-    .hero-text {
-        position: relative;
-        z-index: 2;
-    }
-
-    .big-box {
-        border-radius: 15px;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-    }
-
-    .filter-box, .cards-box {
-        border-radius: 12px;
-        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        border: 1px solid #eee;
-    }
-
-    .cards-box {
-        height: 600px;
-        overflow: hidden !important;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-        .cards-box::-webkit-scrollbar {
-            display: none;
-        }
-
-    .speciality-card {
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        height: 180px;
-    }
-
-        .speciality-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-    .card-img-top {
-        height: 80px;
-        object-fit: contain;
-        background-color: #f9f9f9;
-    }
-
-    .step-card {
-        transition: all 0.3s ease;
-        border-radius: 12px;
-    }
-
-        .step-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 77, 0, 0.1);
-        }
-
-    .icon-circle {
-        transition: all 0.3s ease;
-    }
-
-    .step-card:hover .icon-circle {
-        transform: scale(1.1);
-    }
-
-    .testimonial-card {
-        transition: all 0.3s ease;
-        height: 100%;
-        border: 1px solid #e0e0e0 !important;
-    }
-
-    .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 77, 0, 0.1) !important;
-    }
-
-    .swiper-pagination-bullet-active {
-        background: var(--primary-green) !important;
-    }
-
-    .swiper-pagination-bullet {
+        height: 0;
         background: var(--primary-green);
-        opacity: 0.5;
+        z-index: -1;
+        transition: all 0.4s ease;
+        border-radius: 20px;
     }
 
-
-
-    .emergency {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+    .step-card:hover::before {
+        height: 100%;
     }
 
-    </style>
+    .step-card:hover h5, .step-card:hover p {
+        color: white !important;
+    }
+
+    .step-icon-box {
+        width: 80px;
+        height: 80px;
+        background: var(--light-bg);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        transition: all 0.3s;
+    }
+
+    .step-card:hover .step-icon-box {
+        background: white;
+        transform: rotateY(180deg);
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        position: relative;
+        margin: 20px;
+    }
+
+    .quote-icon {
+        color: var(--accent-yellow);
+        font-size: 2rem;
+        opacity: 0.3;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    /* Emergency Box */
+    .emergency-box {
+        background: linear-gradient(45deg, var(--primary-green), #006400);
+        border-radius: 20px;
+        padding: 40px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .emergency-btn {
+        background: white;
+        color: var(--primary-green);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .emergency-btn:hover {
+        background: var(--accent-yellow);
+        color: white;
+        transform: scale(1.05);
+    }
+</style>
+
 <!-- Hero Section -->
-<section class="hero-section d-flex align-items-center justify-content-center text-white text-center">
-    <div class="hero-text">
-        <h1>دور على صنايعي في ثواني</h1>
-        <p class="mb-3">"كل الخدمات في مكان واحد — سباكة، نجارة، كهرباء وغيرهم."</p>
-        <form class="search-form mt-4" method="get" action="@Url.Action("Search", "Services")">
-            <div class="row g-2 justify-content-center">
-                <div class="col-md-9">
-                    <input type="text" name="serviceType" class="form-control" placeholder="ابحث بنوع الخدمة (مثل: سباكة، كهرباء)">
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-warning w-100">ابحث</button>
-                </div>
+<section class="hero-section text-white text-center animate__animated animate__fadeIn">
+    <div class="hero-content">
+        <h1 class="hero-title animate__animated animate__fadeInDown">دور على صنايعي في ثواني</h1>
+        <p class="hero-subtitle animate__animated animate__fadeInUp">كل الخدمات في مكان واحد — سباكة، نجارة، كهرباء وغيرهم</p>
+        
+        <form class="search-form mt-5 animate__animated animate__fadeInUp animate__delay-1s" method="get" action="@Url.Action("Search", "Services")">
+            <div class="search-box">
+                <i class="fas fa-search text-muted align-self-center ms-3"></i>
+                <input type="text" name="serviceType" class="search-input" placeholder="ابحث بنوع الخدمة (مثل: سباكة، كهرباء)">
+                <button type="submit" class="btn btn-warning search-btn">ابحث الآن</button>
             </div>
         </form>
     </div>
 </section>
-    <!-- Specialities section -->
-    <section class="specialities py-5">
-        <div class="container">
-            <div class="big-box bg-white p-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="fw-bold m-0 text-primary" style="color: var(--primary-green) !important;">جميع التخصصات</h5>
-                    <a href="@Url.Action("Index", "Services")" style="color: var(--primary-green);">عرض المزيد</a>
-                </div>
-                <div class="row g-4">
-                    <!-- Filter Box -->
-                    <div class="col-lg-3 col-md-4">
-                        <div class="filter-box p-4 bg-white">
-                            <h6 class="fw-bold mb-3 text-center" style="color: var(--primary-green);">التصنيفات</h6>
-                            <div class="d-flex flex-column gap-2">
-                                @{
-                                    var categories = new List<string> { "سباكة", "كهرباء", "نجارة", "دهان", "تبريد وتكييف" };
-                                    var filters = new List<string> { "plumbing", "electrical", "carpentry", "painting", "hvac" };
 
-                                    for (int i = 0; i < categories.Count; i++)
-                                    {
-                                        <button class="btn btn-outline-primary filter-btn" data-filter="@filters[i]">@categories[i]</button>
-                                    }
-                                }
+<!-- Categories & Technicians -->
+<section class="py-5">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">تصفح حسب التخصص</h2>
+        </div>
+
+        <!-- Filters -->
+        <div class="d-flex justify-content-center flex-wrap mb-5 gap-2">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="plumbing">سباكة</button>
+            <button class="filter-btn" data-filter="electrical">كهرباء</button>
+            <button class="filter-btn" data-filter="carpentry">نجارة</button>
+            <button class="filter-btn" data-filter="painting">دهانات</button>
+            <button class="filter-btn" data-filter="hvac">تكييف</button>
+        </div>
+
+        <!-- Technicians Grid -->
+        <div class="row g-4">
+            @for (int i = 1; i <= 8; i++)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="tech-card h-100">
+                        <div class="tech-img-wrapper">
+                            <img src="~/images/about-img.jpg" class="tech-img" alt="فني" onerror="this.onerror=null;this.src='https://placehold.co/300x200?text=Technician';"/>
+                            <div class="tech-overlay">
+                                <span class="badge bg-warning text-dark mb-2">سباكة</span>
                             </div>
                         </div>
-                    </div>
-                    <!-- Cards Box -->
-                    <div class="col-lg-9 col-md-8">
-                        <div class="cards-box p-4 bg-white">
-                            <div class="row g-4">
-                                @for (int i = 1; i <= 9; i++)
-                                {
-                                    <div class="col-lg-3 col-md-4 col-sm-6 card-item plumbing">
-                                        <div class="card speciality-card text-center border-0 shadow-sm">
-                                            <img src="~/images/about-img.jpg" class="card-img-top rounded-top" alt="فني" />
-                                            <div class="card-body">
-                                                <h6 class="card-title mb-1 fw-bold">أمنية أشرف</h6>
-                                                <p class="card-text text-muted small mb-2">سباكة</p>
-                                                <p class="card-text text-muted small mb-1">
-                                                    <i class="fas fa-map-marker-alt"></i> مدينة نصر
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                        <div class="card-body p-3 text-center">
+                            <h5 class="fw-bold mb-1">أحمد محمد</h5>
+                            <p class="text-muted small mb-2"><i class="fas fa-map-marker-alt text-primary me-1"></i> القاهرة، مدينة نصر</p>
+                            <div class="d-flex justify-content-center gap-1 mb-3">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star-half-alt text-warning"></i>
                             </div>
+                            <a href="#" class="btn btn-outline-success btn-sm w-100 rounded-pill">عرض الملف الشخصي</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
-    </section>
-
-    <!-- How to Order Section -->
-    <section class="how-to-order py-5">
-        <div class="container">
-            <div class="big-box bg-white p-4">
-                <h5 class="fw-bold mb-5 text-center" style="color: var(--primary-green);">كيف تطلب صنايعي في 3 خطوات</h5>
-
-                <div class="row g-4 text-center">
-                    @{
-                        var steps = new[]
-                        {
-                                        new { Icon = "fa-search", Title = "ابحث عن الخدمة", Description = "اختر نوع الخدمة التي تحتاجها", Color = "var(--primary-green)" },
-                                        new { Icon = "fa-user-check", Title = "اختر الصنايعي", Description = "اطلع على الملفات الشخصية للصنايعي واختر المناسب لك", Color = "var(--accent-yellow)" },
-                                        new { Icon = "fa-calendar-check", Title = "احجز الموعد", Description = "حدد الموعد المناسب واحصل على الخدمة", Color = "var(--primary-green)" }
-                                        };
-                    }
-
-                    @foreach (var step in steps)
-                    {
-                        <div class="col-md-4">
-                            <div class="step-card p-4">
-                                <div class="step-icon mb-3">
-                                    <div class="icon-circle mx-auto d-flex align-items-center justify-content-center" style="background: @step.Color; width: 80px; height: 80px; border-radius: 50%;">
-                                        <i class="fas @step.Icon fa-2x text-white"></i>
-                                    </div>
-                                </div>
-                                <h6 class="fw-bold mb-3" style="color: var(--primary-green);">@step.Title</h6>
-                                <p class="text-muted">@step.Description</p>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section py-5" style="background: #ffffff;">
-        <div class="container">
-            <div class="big-box bg-white p-4">
-                <h5 class="fw-bold mb-4 text-center" style="color: var(--primary-green);">آراء عملائنا</h5>
-
-                <!-- Swiper -->
-                <div class="swiper mySwiper py-2">
-                    <div class="swiper-wrapper mb-5">
-                        @{
-                            var testimonials = new[]
-                            {
-                                                new { Name = "أحمد محمد", Comment = "\"خدمة ممتازة! لقيت سباك محترف في خلال دقائق\"" },
-                                                new { Name = "سارة محمود", Comment = "\"المنصة سهلة الاستخدام ووفرت علي وقت كبير\"" },
-                                                new { Name = "عمر علي", Comment = "\"فنيين محترفين ودعم عملاء رائع\"" },
-                                                new { Name = "مريم حسن", Comment = "\"أسعار مناسبة وجودة عمل عالية\"" }
-                                                };
-                        }
-
-                        @foreach (var testimonial in testimonials)
-                        {
-                            <div class="swiper-slide">
-                                <div class="testimonial-card text-center p-4 border rounded">
-                                    <div class="mb-3">
-                                        @for (int i = 0; i < 5; i++)
-                                        {
-                                            <i class="fas fa-star" style="color: var(--accent-yellow);"></i>
-                                        }
-                                    </div>
-                                    <p class="mb-3">@testimonial.Comment</p>
-                                    <h6 class="fw-bold mb-0" style="color: var(--primary-green);">@testimonial.Name</h6>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Emergency Box -->
-    <div class="page-center d-flex align-items-center justify-content-center py-5">
-        <div class="emergency container d-flex align-items-center justify-content-between bg-white rounded p-4 shadow-sm">
-            <div class="box-content">
-                <h2 class="mb-2" style="color: var(--primary-green);">حالات الطوارئ</h2>
-                <p class="mb-0 text-muted">لديك حالة طارئة! قدم مشكلتك الآن.</p>
-            </div>
-            <button class="btn" style="background-color: #edf8f3; color: var(--primary-green); border: 1px solid var(--primary-green);">اطلب الآن</button>
+        
+        <div class="text-center mt-5">
+            <a href="@Url.Action("Index", "Services")" class="btn btn-primary rounded-pill px-5 py-2">عرض جميع الفنيين</a>
         </div>
     </div>
+</section>
 
+<!-- How it Works -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">كيف تطلب صنايعي؟</h2>
+        </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const cardsBox = document.querySelector(".cards-box");
-          cardsBox.classList.add("scroll-enabled");
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-icon-box">
+                        <i class="fas fa-search fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--primary-green);">1. ابحث عن الخدمة</h5>
+                    <p class="text-muted">اختر نوع الخدمة التي تحتاجها من بين مجموعة واسعة من التخصصات.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-icon-box">
+                        <i class="fas fa-user-check fa-2x text-warning"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--primary-green);">2. اختر الصنايعي</h5>
+                    <p class="text-muted">قارن بين الفنيين بناءً على التقييمات والأسعار واختر الأنسب لك.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card">
+                    <div class="step-icon-box">
+                        <i class="fas fa-calendar-check fa-2x text-success"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3" style="color: var(--primary-green);">3. احجز الموعد</h5>
+                    <p class="text-muted">تواصل مع الفني وحدد الموعد المناسب لإتمام المهمة.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-          const scrollStep = cardsBox.clientHeight;
-          const delay = 10000;
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">آراء عملائنا</h2>
+        </div>
 
-          let currentScroll = 0;
+        <div class="swiper mySwiper pb-5">
+            <div class="swiper-wrapper">
+                @for(int i=0; i<5; i++) {
+                    <div class="swiper-slide">
+                        <div class="testimonial-card text-center">
+                            <i class="fas fa-quote-right quote-icon"></i>
+                            <img src="https://randomuser.me/api/portraits/men/@(i+10).jpg" class="rounded-circle mb-3" width="80" height="80" alt="Client">
+                            <h5 class="fw-bold mb-1">محمد علي</h5>
+                            <p class="text-muted small mb-3">عميل مميز</p>
+                            <p class="fst-italic text-muted">"تجربة ممتازة جداً، الفني وصل في الموعد وأنجز العمل باحترافية عالية. أنصح الجميع باستخدام الموقع."</p>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
 
-          function autoScroll() {
-            if (cardsBox.scrollTop + cardsBox.clientHeight >= cardsBox.scrollHeight - 10) {
-              cardsBox.scrollTo({
-                top: 0,
-                behavior: "smooth"
-              });
-              currentScroll = 0;
-            } else {
-              currentScroll += scrollStep;
-              cardsBox.scrollTo({
-                top: currentScroll,
-                behavior: "smooth"
-              });
-            }
-          }
+<!-- Emergency CTA -->
+<section class="py-5">
+    <div class="container">
+        <div class="emergency-box d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <div class="mb-3 mb-md-0">
+                <h2 class="fw-bold mb-2"><i class="fas fa-exclamation-circle me-2"></i> عندك حالة طارئة؟</h2>
+                <p class="mb-0 opacity-75 fs-5">لا تتردد! عندنا فنيين جاهزين لخدمتك 24 ساعة.</p>
+            </div>
+            <button class="emergency-btn">اطلب خدمة طارئة</button>
+        </div>
+    </div>
+</section>
 
-          setInterval(autoScroll, delay);
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+    });
+
+    // Simple filter script (demo)
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // In a real app, filter the grid items here
         });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-          slidesPerView: 1,
-          spaceBetween: 30,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          breakpoints: {
-            640: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          },
-          autoplay: {
-            delay: 5000,
-          },
-        });
-    </script>
-
+    });
+</script>

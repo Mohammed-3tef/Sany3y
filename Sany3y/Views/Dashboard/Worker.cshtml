@@ -1,0 +1,148 @@
+@{
+    ViewData["Title"] = "Worker Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>Worker Dashboard</h2>
+    <div id="loading" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="dashboard-content" style="display:none;">
+        <!-- Profile Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Profile Info
+                <a href="@Url.Action("Profile", "Dashboard")" class="btn btn-sm btn-primary float-end">Edit Profile</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <img id="profile-pic" src="/img/default-profile.png" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;">
+                    </div>
+                    <div class="col-md-10">
+                        <h4 id="user-name"></h4>
+                        <p><i class="fas fa-envelope"></i> <span id="user-email"></span></p>
+                        <p><i class="fas fa-phone"></i> <span id="user-phone"></span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="user-location"></span></p>
+                        <p id="user-bio" class="text-muted"></p>
+                        <div class="alert alert-success d-inline-block mt-2">
+                            <strong>Total Earnings: </strong> <span id="total-earnings"></span> EGP
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Received Requests -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        Received Requests
+                    </div>
+                    <div class="card-body">
+                        <ul id="requests-list" class="list-group list-group-flush">
+                            <!-- Items will be appended here -->
+                        </ul>
+                        <p id="no-requests" class="text-muted mt-2" style="display:none;">No new requests.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accepted Jobs -->
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        Accepted Jobs
+                    </div>
+                    <div class="card-body">
+                        <ul id="jobs-list" class="list-group list-group-flush">
+                            <!-- Items will be appended here -->
+                        </ul>
+                        <p id="no-jobs" class="text-muted mt-2" style="display:none;">No active jobs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Section Placeholder -->
+        <div class="card mb-4">
+            <div class="card-header">
+                Recent Chats
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Chat functionality coming soon...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var userId = '@ViewBag.UserId';
+            var apiUrl = '@ViewBag.ApiUrl';
+
+            if (!userId) {
+                toastr.error("User ID not found. Please log in.");
+                return;
+            }
+
+            $.ajax({
+                url: apiUrl + '/api/dashboard/worker/' + userId,
+                method: 'GET',
+                success: function (data) {
+                    $('#loading').hide();
+                    $('#dashboard-content').fadeIn();
+
+                    // Populate Profile
+                    $('#user-name').text(data.profile.firstName + ' ' + data.profile.lastName);
+                    $('#user-email').text(data.profile.email);
+                    $('#user-phone').text(data.profile.phone);
+                    $('#user-location').text(data.profile.location);
+                    $('#user-bio').text(data.profile.bio);
+                    $('#total-earnings').text(data.totalEarnings);
+                    if (data.profile.profilePictureUrl) {
+                        $('#profile-pic').attr('src', data.profile.profilePictureUrl);
+                    }
+
+                    // Populate Requests
+                    if (data.receivedRequests && data.receivedRequests.length > 0) {
+                        data.receivedRequests.forEach(function (task) {
+                            var item = '<li class="list-group-item">' +
+                                '<strong>' + task.title + '</strong><br/>' +
+                                '<small>Client: ' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge bg-warning text-dark">' + task.status + '</span>' +
+                                '</li>';
+                            $('#requests-list').append(item);
+                        });
+                    } else {
+                        $('#no-requests').show();
+                    }
+
+                    // Populate Accepted Jobs
+                    if (data.acceptedJobs && data.acceptedJobs.length > 0) {
+                        data.acceptedJobs.forEach(function (task) {
+                            var item = '<li class="list-group-item">' +
+                                '<strong>' + task.title + '</strong><br/>' +
+                                '<small>Client: ' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge bg-success">' + task.status + '</span>' +
+                                '</li>';
+                            $('#jobs-list').append(item);
+                        });
+                    } else {
+                        $('#no-jobs').show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#loading').hide();
+                    toastr.error("Failed to load dashboard data.");
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+}
