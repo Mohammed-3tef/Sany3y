@@ -840,12 +840,12 @@ D:\VS Projects\grad\Sany3y\Sany3y\obj\Debug\net8.0\staticwebassets.upToDateCheck
 D:\VS Projects\grad\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.csproj.Up2Date
 D:\VS Projects\grad\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 D:\VS Projects\grad\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\appsettings.Development.json
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\appsettings.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.deps.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.exe
+D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\appsettings.Development.json
+D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\appsettings.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.staticwebassets.runtime.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.staticwebassets.endpoints.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.exe

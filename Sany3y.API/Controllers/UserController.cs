@@ -13,13 +13,17 @@ namespace Sany3y.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IRepository<ProfilePicture> _pictureRepository;
+        private IRepository<Address> _addressRepository;
         private UserRepository _userRepository;
         private UserManager<User> _userManager;
 
-        public UserController(UserRepository repository, UserManager<User> manager)
+        public UserController(IRepository<Address> addressRepository, IRepository<ProfilePicture> pictureRepository, UserRepository repository, UserManager<User> manager)
         {
             _userRepository = repository;
             _userManager = manager;
+            _addressRepository = addressRepository;
+            _pictureRepository = pictureRepository;
         }
 
         [HttpGet("GetAll")]
@@ -65,6 +69,7 @@ namespace Sany3y.API.Controllers
             return Ok(user);
         }
 
+<<<<<<< Updated upstream
         [HttpGet("GetTaskers")]
         public async Task<IActionResult> GetTaskers()
         {
@@ -84,28 +89,79 @@ namespace Sany3y.API.Controllers
         //        PhoneNumber = registerUser.PhoneNumber,
         //        BirthDate = registerUser.BirthDate,
         //    };
+=======
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create(RegisterUserViewModel userDto)
+        {
+            var newAddress = new Address
+            {
+                City = userDto.City,
+                Street = userDto.Street
+            };
+            await _addressRepository.Add(newAddress);
+>>>>>>> Stashed changes
 
-            //var result = await _userManager.CreateAsync(user, registerUser.Password);
+            var newPicture = new ProfilePicture();
+            
+            if (!string.IsNullOrEmpty(userDto.Picture))
+            {
+                newPicture.Path = userDto.Picture;
+                await _pictureRepository.Add(newPicture);
+            }
 
-            //if (!result.Succeeded)
-            //    return BadRequest(result.Errors);
+            var user = new User
+            {
+                NationalId = userDto.NationalId,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                UserName = userDto.UserName,
+                Email = userDto.Email,
+                Gender = userDto.IsMale ? 'M' : 'F',
+                PhoneNumber = userDto.PhoneNumber,
+                BirthDate = userDto.BirthDate,
+                AddressId = newAddress.Id,
+                ProfilePictureId = newPicture.Id != 0 ? newPicture.Id : null,
+            };
 
-        //    return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
-        //}
+            var result = await _userManager.CreateAsync(user, userDto.Password);
 
-        //[HttpPut("Update/{id}")]
-        //public async Task<IActionResult> Update(int id, User user)
-        //{
-        //    if (id != user.Id)
-        //        return BadRequest();
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
 
-        //    var existingUser = await _userRepository.GetById(id);
-        //    if (existingUser == null)
-        //        return NotFound();
+            return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
+        }
 
-        //    await _userRepository.Update(user);
-        //    return NoContent();
-        //}
+        [HttpPut("UpdateState/{id}")]
+        public async Task<IActionResult> UpdateState(int id, [FromBody] bool isOnline)
+        {
+            var existingUser = await _userRepository.GetById(id);
+            if (existingUser == null)
+                return NotFound();
+
+            existingUser.IsOnline = isOnline;
+            await _userRepository.Update(existingUser);
+            return Ok(existingUser);
+        }
+
+        [HttpPut("Update/{id}")]
+        public async Task<IActionResult> Update(int id, UserCreateDTO userDto)
+        {
+            var existingUser = await _userRepository.GetById(id);
+
+            if (existingUser == null)
+                return NotFound();
+
+            if (existingUser.NationalId != userDto.NationalID)
+                return BadRequest();
+
+            existingUser.FirstName = userDto.FirstName;
+            existingUser.LastName = userDto.LastName;
+            existingUser.PhoneNumber = userDto.PhoneNumber;
+            existingUser.BirthDate = userDto.BirthDate.ToDateTime(TimeOnly.MinValue);
+
+            await _userRepository.Update(existingUser);
+            return NoContent();
+        }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)

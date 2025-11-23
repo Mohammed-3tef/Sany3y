@@ -1,17 +1,16 @@
-﻿using System.Security.Claims;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.IdentityModel.Tokens;
 using Sany3y.Hubs;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
-using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.ViewModels;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Sany3y.Controllers
 {
@@ -19,10 +18,53 @@ namespace Sany3y.Controllers
     {
         private readonly HttpClient _http;
         private readonly IHubContext<UserStatusHub> _hubContext;
-        private readonly UserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+
+        private async System.Threading.Tasks.Task UpdateUserOnlineStatus(User user, bool isOnline)
+        {
+            var content = JsonContent.Create(isOnline);
+
+            var response = await _http.PutAsync($"/api/User/UpdateState/{user.Id}", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errors = await SafeReadErrors(response);
+                foreach (var e in errors)
+                    ModelState.AddModelError(string.Empty, e);
+            }
+
+            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, isOnline);
+        }
+
+        private async Task<List<string>> SafeReadErrors(HttpResponseMessage response)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(content))
+                return new List<string> { "Unknown server error." };
+
+            try
+            {
+                return JsonSerializer.Deserialize<List<string>>(content)
+                       ?? new List<string> { "Unknown server error." };
+            }
+            catch
+            {
+                return new List<string> { content };
+            }
+        }
+
+        private async Task<bool> HandleResponseErrors(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode)
+                return true; // مفيش مشكلة
+
+            var errors = await SafeReadErrors(response);
+            foreach (var e in errors)
+                ModelState.AddModelError(string.Empty, e);
+
+            return false;
+        }
 
         /// <summary>
         /// Checks if the user’s profile is incomplete (example logic).
@@ -60,7 +102,6 @@ namespace Sany3y.Controllers
             IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
             UserManager<User> userManager,
-            UserRepository userRepository,
             SignInManager<User> signInManager)
         {
             _http = httpClientFactory.CreateClient();
@@ -69,7 +110,6 @@ namespace Sany3y.Controllers
             _hubContext = hubContext;
             _emailSender = emailSender;
             _userManager = userManager;
-            _userRepository = userRepository;
             _signInManager = signInManager;
         }
 
@@ -83,6 +123,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Register", model);
 
+            // Check if National ID is already registered
             var existingUser = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
             if (existingUser.IsSuccessStatusCode)
             {
@@ -90,48 +131,31 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            // Create Address first
             var address = new Address { City = model.City, Street = model.Street };
             var response = await _http.PostAsJsonAsync("/api/Address/Create", address);
-            if (!response.IsSuccessStatusCode)
+            if (!await HandleResponseErrors(response))
             {
-                var errors = await response.Content.ReadFromJsonAsync<List<string>>();
-                foreach (var e in errors)
-                    ModelState.AddModelError(string.Empty, e);
                 return View("Register", model);
             }
-
             var createdAddress = await response.Content.ReadFromJsonAsync<Address>();
 
-            var user = new User
-            {
-                NationalId = model.NationalId,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                BirthDate = model.BirthDate,
-                Gender = model.IsMale ? 'M' : 'F',
-                PasswordHash = model.Password,
-                AddressId = createdAddress.Id
-            };
-
-            var result = await _userRepository.Add(user, model.Password);
-
-            if (!result.Succeeded)
+            // Create User
+            response = await _http.PostAsJsonAsync("/api/User/Create", model);
+            if (!await HandleResponseErrors(response))
             {
                 await _http.DeleteAsync($"/api/Address/Delete/{createdAddress.Id}");
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
-
                 return View("Register", model);
             }
 
+            // Assign Role
+            var user = await response.Content.ReadFromJsonAsync<User>();
             if (model.IsClient)
                 await _userManager.AddToRoleAsync(user, "Client");
             else
                 await _userManager.AddToRoleAsync(user, "Technician");
 
+            // Send Email Confirmation
             await SendEmailConfirmationAsync(user);
             return RedirectToAction(nameof(EmailConfirmationNotice));
         }
@@ -146,14 +170,16 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            var user = await _userManager.FindByNameAsync(model.UserName);
-
-            if (user == null)
+            // Check if username exists
+            var response = await _http.GetAsync($"/api/User/GetByUsername/{model.UserName}");
+            if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View("Login", model);
             }
+            var user = await response.Content.ReadFromJsonAsync<User>();
 
+            // Check if email is confirmed
             if (!user.EmailConfirmed)
             {
                 await SendEmailConfirmationAsync(user);
@@ -161,20 +187,16 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(EmailConfirmationNotice));
             }
 
+            // Attempt to sign in the user with the provided credentials
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-
             if (!result.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return View("Login", model);
             }
 
-            // Make Account is online after login
-            var realUser = await _userManager.FindByNameAsync(model.UserName);
-            realUser.IsOnline = true;
-            await _userManager.UpdateAsync(realUser);
-
-            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", realUser.Id, true);
+            // Make Account online after login
+            await UpdateUserOnlineStatus(user, true);
             return RedirectToAction("Index", "Home");
         }
 
@@ -223,9 +245,11 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
-            var existingUser = await _userManager.FindByEmailAsync(email);
-            if (existingUser != null)
+            var response = await _http.GetAsync($"/api/User/GetByEmail/{email}");
+            if (response.IsSuccessStatusCode)
             {
+                var existingUser = await response.Content.ReadFromJsonAsync<User>();
+
                 // Auto confirm email for external login
                 if (!existingUser.EmailConfirmed)
                 {
@@ -239,10 +263,8 @@ namespace Sany3y.Controllers
                     await _userManager.AddLoginAsync(existingUser, info);
 
                 // Make Account is online after login
-                existingUser.IsOnline = true;
-                await _userManager.UpdateAsync(existingUser);
+                await UpdateUserOnlineStatus(existingUser, true);
                 await _signInManager.SignInAsync(existingUser, isPersistent: true);
-                await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", existingUser.Id, true);
 
                 if (IsProfileIncomplete(existingUser))
                     return RedirectToAction("CompleteProfile", "Account");
@@ -276,15 +298,16 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (await _http.GetFromJsonAsync<User>($"/api/User/GetByNationalId/{model.NationalId}") != null)
+            var response = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
+            if (response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError(string.Empty, "This National ID is already registered.");
                 return View(model);
             }
 
             // تأكد إن الإيميل لسه مش مستخدم
-            var existingUser = await _userManager.FindByEmailAsync(model.Email);
-            if (existingUser != null)
+            response = await _http.GetAsync($"/api/User/GetByEmail/{model.Email}");
+            if (response.IsSuccessStatusCode)
             {
                 TempData["Error"] = "This email is already registered.";
                 return RedirectToAction(nameof(Login));
@@ -292,41 +315,27 @@ namespace Sany3y.Controllers
 
             Address address = new Address
             {
-                City = model.City,
-                Street = model.Street
+                City = model.City, Street = model.Street
             };
-            await _http.GetFromJsonAsync<Address>($"/api/Address/Create/{address}");
-
-            // إنشاء المستخدم الجديد بناءً على البيانات اللي المستخدم كملها
-            var user = new User
+            response = await _http.PostAsJsonAsync("/api/Address/Create", address);
+            if (!await HandleResponseErrors(response))
             {
-                NationalId = model.NationalId,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Email = model.Email,
-                EmailConfirmed = true,
-                PhoneNumber = model.PhoneNumber,
-                BirthDate = model.BirthDate,
-                Gender = model.IsMale ? 'M' : 'F',
-                PasswordHash = model.Password,
-                AddressId = address.Id
-            };
-
-            // إنشاء المستخدم فعلاً
-            var createResult = await _userManager.CreateAsync(user, model.Password);
-            if (!createResult.Succeeded)
-            {
-                foreach (var error in createResult.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
                 return View(model);
             }
+
+            // إنشاء المستخدم فعلاً
+            response = await _http.PostAsJsonAsync("/api/User/Create", model);
+            if (!await HandleResponseErrors(response))
+            {
+                return View(model);
+            }
+            var user = await response.Content.ReadFromJsonAsync<User>();
 
             // حفظ صورة البروفايل لو جت من Google
             if (!string.IsNullOrEmpty(model.Picture))
             {
                 var profilePic = new ProfilePicture { Path = model.Picture };
-                await _http.GetFromJsonAsync<ProfilePicture>($"/api/ProfilePicture/Create/{profilePic}");
+                response = await _http.PostAsJsonAsync("/api/ProfilePicture/Create", profilePic);
 
                 user.ProfilePictureId = profilePic.Id;
                 await _userManager.UpdateAsync(user);
@@ -341,10 +350,7 @@ namespace Sany3y.Controllers
             await _signInManager.SignInAsync(user, isPersistent: true);
 
             // Make Account is online after login
-            user.IsOnline = true;
-            await _userManager.UpdateAsync(user);
-            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, true);
-
+            await UpdateUserOnlineStatus(user, true);
             return RedirectToAction("Index", "Home");
         }
 
@@ -353,12 +359,11 @@ namespace Sany3y.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
+            var response = await _http.GetAsync($"/api/User/GetByUsername/{User.Identity?.Name}");
+            if (response.IsSuccessStatusCode)
             {
-                user.IsOnline = false;
-                await _userManager.UpdateAsync(user);
-                await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, false);
+                var user = await _userManager.GetUserAsync(User);
+                await UpdateUserOnlineStatus(user, false);
                 await _signInManager.SignOutAsync();
             }
 
@@ -373,7 +378,7 @@ namespace Sany3y.Controllers
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
                 return RedirectToAction("Index", "Home");
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{userId}");
             if (user == null)
                 return NotFound($"User with ID '{userId}' was not found.");
 
@@ -400,12 +405,13 @@ namespace Sany3y.Controllers
                 return View();
             }
 
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{email}");
-            if (user == null)
+            var response = await _http.GetAsync($"/api/User/GetByEmail/{email}");
+            if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError(string.Empty, "No account found with this email.");
                 return View();
             }
+            var user = await response.Content.ReadFromJsonAsync<User>();
 
             if (user.EmailConfirmed)
             {
@@ -435,9 +441,8 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{model.Email}");
-
-            if (user == null)
+            var response = await _http.GetAsync($"/api/User/GetByEmail/{model.Email}");
+            if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError("", "User not found!");
                 return View(model);
@@ -450,7 +455,6 @@ namespace Sany3y.Controllers
                 $"<a href='{Url.Action("ChangePassword", "Account", new { email = model.Email }, Request.Scheme)}'>Change Password</a>");
 
             TempData["Info"] = "A password change link has been sent to your email.";
-
             return View(model);
         }
 
@@ -476,13 +480,13 @@ namespace Sany3y.Controllers
                 return View(model);
             }
 
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByEmail/{model.Email}");
-
-            if (user == null)
+            var response = await _http.GetAsync($"/api/User/GetByEmail/{model.Email}");
+            if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError("", "User not found!");
                 return View(model);
             }
+            var user = await response.Content.ReadFromJsonAsync<User>();
 
             var result = await _userManager.RemovePasswordAsync(user);
             if (result.Succeeded)
@@ -494,10 +498,7 @@ namespace Sany3y.Controllers
             else
             {
                 foreach (var error in result.Errors)
-                {
                     ModelState.AddModelError("", error.Description);
-                }
-
                 return View(model);
             }
         }
@@ -532,9 +533,13 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Profile", userDTO);
 
-            User currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{User.Identity.Name}");
-            if (currentUser == null)
+            var response = await _http.GetAsync($"/api/User/GetByUsername/{User.Identity.Name}");
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(string.Empty, "User not found.");
                 return View("Profile", userDTO);
+            }
+            var currentUser = await response.Content.ReadFromJsonAsync<User>();
 
             Address address = new Address
             {
@@ -542,7 +547,12 @@ namespace Sany3y.Controllers
                 City = userDTO.City,
                 Street = userDTO.Street
             };
-            await _http.GetFromJsonAsync<Address>($"/api/Address/Update/{address}");
+
+            response = await _http.PutAsync($"/api/Address/Update/{address}", null);
+            if (!await HandleResponseErrors(response))
+            {
+                return View("Profile", userDTO);
+            }
 
             currentUser.FirstName = userDTO.FirstName;
             currentUser.LastName = userDTO.LastName;

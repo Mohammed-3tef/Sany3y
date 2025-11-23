@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Sany3y.Infrastructure.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Sany3y.Infrastructure.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace Sany3y.Infrastructure.Repositories
@@ -24,6 +25,11 @@ namespace Sany3y.Infrastructure.Repositories
         public async Task<IdentityResult> Add(User entity, string password)
         {
             return await userManager.CreateAsync(entity, password);
+        }
+
+        public async Task<IdentityResult> Update(User entity)
+        {
+            return await userManager.UpdateAsync(entity);
         }
 
         public async Task<IdentityResult> Delete(User entity)

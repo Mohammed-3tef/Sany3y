@@ -43,7 +43,7 @@
                     <p class="user-status px-2 rounded-pill text-center mb-0
                         @(item.User.IsOnline ? "text-success border border-success" : "text-danger border border-danger")"
                        data-username="@item.User.UserName">
-                        @(item.User.IsOnline ? "متصل الآن" : "غير متصل")
+                        @(item.User.IsOnline ? "متصل الأن" : "غير متصل")
                     </p>
                 </td>
                 <td>@item.User.CreatedAt.ToString("yyyy/MM/dd")</td>
@@ -152,7 +152,7 @@
 
             const statusElement = document.querySelector(`tr[data-user-id='${userId}'] .user-status`);
             if (statusElement) {
-                statusElement.textContent = isOnline ? "Online" : "Offline";
+                statusElement.textContent = isOnline ? "متصل الأن" : "غير متصل";
                 statusElement.classList.toggle("text-success", isOnline);
                 statusElement.classList.toggle("border-success", isOnline);
                 statusElement.classList.toggle("text-danger", !isOnline);
