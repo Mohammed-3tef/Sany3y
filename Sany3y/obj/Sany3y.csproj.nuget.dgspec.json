@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VS Projects\\grad\\Sany3y\\Sany3y\\Sany3y.csproj": {}
+    "D:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj": {}
   },
   "projects": {
-    "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
+    "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
+        "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
         "projectName": "Sany3y.API",
-        "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
-        "packagesPath": "C:\\Users\\steve\\.nuget\\packages\\",
-        "outputPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\obj\\",
+        "projectPath": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Sany3y\\Sany3y.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
-                "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
+              "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
               }
             }
           }
@@ -54,6 +54,12 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.20, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -78,24 +84,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+    "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
         "projectName": "Sany3y.Infrastructure",
-        "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\steve\\.nuget\\packages\\",
-        "outputPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\obj\\",
+        "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -144,6 +150,12 @@
               "target": "Package",
               "version": "[8.0.20, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.20, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.20, )"
@@ -179,24 +191,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\VS Projects\\grad\\Sany3y\\Sany3y\\Sany3y.csproj": {
+    "D:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS Projects\\grad\\Sany3y\\Sany3y\\Sany3y.csproj",
+        "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj",
         "projectName": "Sany3y",
-        "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y\\Sany3y.csproj",
-        "packagesPath": "C:\\Users\\steve\\.nuget\\packages\\",
-        "outputPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y\\obj\\",
+        "projectPath": "D:\\Projects\\Sany3y\\Sany3y\\Sany3y.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Sany3y\\Sany3y\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -211,11 +223,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
-                "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj"
+              "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
+                "projectPath": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj"
               },
-              "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
-                "projectPath": "D:\\VS Projects\\grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
+              "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
               }
             }
           }
@@ -312,7 +324,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

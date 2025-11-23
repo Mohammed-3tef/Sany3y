@@ -32,7 +32,7 @@
                                         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Customer">لوحة العميل</a>
                                     </li>
                                 }
-                                @if (User.IsInRole("Tasker"))
+                                @if (User.IsInRole("Technician"))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Worker">لوحة الفني</a>

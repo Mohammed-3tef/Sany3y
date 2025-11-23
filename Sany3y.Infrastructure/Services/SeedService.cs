@@ -12,7 +12,7 @@ namespace Sany3y.Infrastructure.Services
 {
     public class SeedService
     {
-        private static readonly List<string> Roles = new() { "Admin", "Tasker", "Client" };
+        private static readonly List<string> Roles = new() { "Admin", "Technician", "Client" };
         private static readonly List<Dictionary<string, string>> Categories = new()
         {
             new() { { "Name", "بناء وتشييد" }, { "Description", "أعمال تأسيس وبناء المنازل والعمارات وتجهيز الأساسات." } },
