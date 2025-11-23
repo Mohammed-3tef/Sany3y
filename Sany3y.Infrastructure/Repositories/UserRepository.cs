@@ -64,6 +64,7 @@ namespace Sany3y.Infrastructure.Repositories
         {
             return await userManager.FindByNameAsync(username);
         }
+
         public async Task<List<User>> GetUsersByRole(string roleName)
         {
             var usersInRole = await userManager.GetUsersInRoleAsync(roleName);

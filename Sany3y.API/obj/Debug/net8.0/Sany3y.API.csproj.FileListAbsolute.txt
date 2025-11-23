@@ -205,10 +205,10 @@ D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.jso
 D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
 D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
 D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
+D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.deps.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.dll

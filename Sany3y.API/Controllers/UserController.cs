@@ -68,28 +68,7 @@ namespace Sany3y.API.Controllers
                 return NotFound();
             return Ok(user);
         }
-
-<<<<<<< Updated upstream
-        [HttpGet("GetTaskers")]
-        public async Task<IActionResult> GetTaskers()
-        {
-            var users = await _userRepository.GetUsersByRole("Tasker");
-            return Ok(users);
-        }
-
-        //[HttpPost("Create")]
-        //public async Task<IActionResult> Create(UserDTO registerUser)
-        //{
-        //    var user = new User
-        //    {
-        //        FirstName = registerUser.FirstName,
-        //        LastName = registerUser.LastName,
-        //        UserName = registerUser.UserName,
-        //        Email = registerUser.Email,
-        //        PhoneNumber = registerUser.PhoneNumber,
-        //        BirthDate = registerUser.BirthDate,
-        //    };
-=======
+        
         [HttpPost("Create")]
         public async Task<IActionResult> Create(RegisterUserViewModel userDto)
         {
@@ -99,7 +78,6 @@ namespace Sany3y.API.Controllers
                 Street = userDto.Street
             };
             await _addressRepository.Add(newAddress);
->>>>>>> Stashed changes
 
             var newPicture = new ProfilePicture();
             
