@@ -65,6 +65,13 @@ namespace Sany3y.API.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetTaskers")]
+        public async Task<IActionResult> GetTaskers()
+        {
+            var users = await _userRepository.GetUsersByRole("Tasker");
+            return Ok(users);
+        }
+
         //[HttpPost("Create")]
         //public async Task<IActionResult> Create(UserDTO registerUser)
         //{

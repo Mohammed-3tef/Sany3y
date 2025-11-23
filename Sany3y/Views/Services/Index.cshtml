@@ -1,0 +1,503 @@
+@model IEnumerable<Sany3y.Infrastructure.Models.User>
+
+@{
+    ViewData["Title"] = "احجز مع أفضل الصنايعية";
+}
+
+<style>
+    :root {
+        --primary-green: #004d00;
+        --secondary-green: #006400;
+        --accent-yellow: #ffb300;
+        --light-bg: #f0f2f5;
+        --text-dark: #2c3e50;
+        --border-color: #e0e0e0;
+    }
+
+    body {
+        background-color: var(--light-bg);
+    }
+
+    /* Search Bar Section */
+    .search-section {
+        background: var(--primary-green);
+        padding: 20px 0;
+        color: white;
+        margin-bottom: 30px;
+    }
+
+    .search-container {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .search-item {
+        flex: 1;
+        min-width: 200px;
+        border-left: 1px solid #eee; /* RTL: border-left acts as separator */
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .search-item:last-child {
+        border-left: none;
+    }
+
+    .search-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search-select {
+        width: 100%;
+        border: none;
+        font-weight: bold;
+        color: var(--text-dark);
+        outline: none;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .search-btn {
+        background: var(--accent-yellow);
+        color: white;
+        border: none;
+        padding: 0 40px;
+        font-weight: bold;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+        background: #e6a200;
+    }
+
+    /* Sidebar Filters */
+    .filter-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .filter-header {
+        background: #007bff; /* Vezeeta Blue for header, or stick to Green? Let's use Blue to match 'Like this' request slightly, or Green for brand. Sticking to Green for consistency but layout is key. */
+        background: var(--primary-green);
+        color: white;
+        padding: 15px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter-body {
+        padding: 15px;
+    }
+
+    .filter-group {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .filter-group:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .filter-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.95rem;
+    }
+
+    .form-check-label {
+        font-size: 0.9rem;
+        color: #555;
+        cursor: pointer;
+    }
+
+    /* Technician Card */
+    .tech-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tech-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    @@media (min-width: 768px) {
+        .tech-card {
+            flex-direction: row;
+        }
+    }
+
+    /* Tech Info (Right Side) */
+    .tech-info-section {
+        padding: 20px;
+        flex: 1.5;
+        border-left: 1px solid #eee;
+    }
+
+    .tech-header {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .tech-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #eee;
+    }
+
+    .tech-details h4 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--primary-green);
+    }
+
+    .tech-title {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 5px;
+    }
+
+    .tech-rating {
+        color: var(--accent-yellow);
+        font-size: 0.8rem;
+    }
+
+    .tech-meta {
+        font-size: 0.85rem;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .tech-meta i {
+        color: var(--primary-green);
+        width: 20px;
+        text-align: center;
+    }
+
+    /* Booking Section (Left Side) */
+    .booking-section {
+        flex: 1;
+        padding: 15px;
+        background: #fcfcfc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top: 1px solid #eee;
+    }
+
+    @@media (min-width: 768px) {
+        .booking-section {
+            border-top: none;
+        }
+    }
+
+    .booking-header {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: white;
+        background: var(--primary-green);
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    .booking-slots {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        justify-content: center;
+    }
+
+    .slot-card {
+        background: white;
+        border: 1px solid var(--primary-green);
+        border-radius: 4px;
+        min-width: 100px;
+        text-align: center;
+        padding: 10px 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .slot-card:hover {
+        background: var(--primary-green);
+        color: white;
+    }
+
+    .slot-day {
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .slot-time {
+        font-size: 0.75rem;
+    }
+
+    .btn-book {
+        background: #d9534f; /* Red like Vezeeta booking button */
+        color: white;
+        width: 100%;
+        border: none;
+        padding: 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .btn-book:hover {
+        background: #c9302c;
+    }
+
+    /* Scrollbar for slots */
+    .booking-slots::-webkit-scrollbar {
+        height: 4px;
+    }
+    .booking-slots::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+</style>
+
+<!-- Top Search Section -->
+<div class="search-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3 text-center d-none d-md-block">احجز مع أفضل الصنايعية في مصر</h2>
+                <form action="@Url.Action("Search", "Services")" method="get">
+                    <div class="search-container">
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-tools"></i> التخصص</label>
+                            <select name="serviceType" class="search-select">
+                                <option value="">اختر التخصص</option>
+                                <option value="plumbing">سباكة</option>
+                                <option value="electrical">كهرباء</option>
+                                <option value="carpentry">نجارة</option>
+                                <option value="painting">نقاشة</option>
+                            </select>
+                        </div>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-map-marker-alt"></i> المحافظة</label>
+                            <select class="search-select">
+                                <option value="">اختر المحافظة</option>
+                                <option>القاهرة</option>
+                                <option>الجيزة</option>
+                                <option>الإسكندرية</option>
+                            </select>
+                        </div>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-map-pin"></i> المنطقة</label>
+                            <select class="search-select">
+                                <option value="">اختر المنطقة</option>
+                                <option>مدينة نصر</option>
+                                <option>المعادي</option>
+                                <option>التجمع الخامس</option>
+                            </select>
+                        </div>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-user"></i> اسم الصنايعي</label>
+                            <input type="text" class="search-select" placeholder="ابحث بالاسم..." style="border-bottom: 1px solid #eee;">
+                        </div>
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i> ابحث</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Filters (Right Side) -->
+        <div class="col-lg-3 order-lg-2 mb-4">
+            <div class="filter-card">
+                <div class="filter-header">
+                    <span><i class="fas fa-filter me-2"></i> حدد بحثك</span>
+                </div>
+                <div class="filter-body">
+                    <div class="filter-group">
+                        <div class="filter-title"><i class="fas fa-user-tag"></i> اللقب</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="role1">
+                            <label class="form-check-label" for="role1">أسطى</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="role2">
+                            <label class="form-check-label" for="role2">مهندس</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="role3">
+                            <label class="form-check-label" for="role3">فني</label>
+                        </div>
+                    </div>
+
+
+                    <div class="filter-group">
+                        <div class="filter-title"><i class="fas fa-money-bill-wave"></i> السعر</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price1">
+                            <label class="form-check-label" for="price1">أقل من 50 ج.م</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price2">
+                            <label class="form-check-label" for="price2">من 50 إلى 100 ج.م</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="price3">
+                            <label class="form-check-label" for="price3">أكثر من 100 ج.م</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content (Left Side) -->
+        <div class="col-lg-9 order-lg-1">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold">كل التخصصات <span class="text-muted fs-6">(@(Model?.Count() ?? 0) صنايعي)</span></h5>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        الترتيب: الأكثر تطابقاً
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">الأعلى تقييماً</a></li>
+                        <li><a class="dropdown-item" href="#">الأقل سعراً</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var user in Model)
+                {
+                    <div class="tech-card animate__animated animate__fadeInUp">
+                        <!-- Info Section -->
+                        <div class="tech-info-section">
+                            <div class="tech-header">
+                                <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=User")" 
+                                     class="tech-img" 
+                                     alt="@user.FirstName"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=User';"/>
+                                <div class="tech-details">
+                                    <h4>@user.FirstName @user.LastName</h4>
+                                    <p class="tech-title">صنايعي عام ومحترف في الصيانة المنزلية</p>
+                                    <div class="tech-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span class="text-dark ms-1 fw-bold">4.5</span>
+                                        <span class="text-muted ms-1">(150 تقييم)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tech-meta">
+                                <div><i class="fas fa-stethoscope"></i> متخصص في: <span class="fw-bold text-dark">صيانة عامة</span></div>
+                                <div><i class="fas fa-map-marker-alt"></i> العنوان: @(user.Address?.City ?? "القاهرة")، @(user.Address?.Street ?? "غير محدد")</div>
+                                <div><i class="fas fa-money-bill-alt"></i> سعر المعاينة: <span class="fw-bold text-success">50 ج.م</span></div>
+                                <div><i class="fas fa-phone-alt"></i> 16676 - سعر مكالمة عادية</div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Section -->
+                        <div class="booking-section">
+                            <div class="booking-header">المواعيد المتاحة</div>
+                            
+                            <!-- Carousel for slots -->
+                            <div id="carousel-@user.Id" class="carousel slide" data-bs-ride="false">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="booking-slots">
+                                            <div class="slot-card">
+                                                <div class="slot-day">اليوم</div>
+                                                <div class="slot-time">02:00 م</div>
+                                            </div>
+                                            <div class="slot-card">
+                                                <div class="slot-day">اليوم</div>
+                                                <div class="slot-time">04:00 م</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="booking-slots">
+                                            <div class="slot-card">
+                                                <div class="slot-day">غداً</div>
+                                                <div class="slot-time">10:00 ص</div>
+                                            </div>
+                                            <div class="slot-card">
+                                                <div class="slot-day">غداً</div>
+                                                <div class="slot-time">12:00 م</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@user.Id" data-bs-slide="prev" style="width: 20px; background: #ccc; border-radius: 0 4px 4px 0;">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 10px;"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@user.Id" data-bs-slide="next" style="width: 20px; background: #ccc; border-radius: 4px 0 0 4px;">
+                                    <span class="carousel-control-next-icon" aria-hidden="true" style="width: 10px;"></span>
+                                </button>
+                            </div>
+
+                            <div class="text-center mt-2 text-muted small">
+                                حجز أونلاين، الدفع في الموقع
+                            </div>
+                            <button class="btn-book">احجز الآن</button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    لا يوجد صنايعية متاحين حالياً في هذا التصنيف.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Initialize carousels manually if needed, or rely on data-bs attributes
+    </script>
+}

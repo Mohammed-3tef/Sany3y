@@ -58,5 +58,16 @@ namespace Sany3y.Infrastructure.Repositories
         {
             return await userManager.FindByNameAsync(username);
         }
+        public async Task<List<User>> GetUsersByRole(string roleName)
+        {
+            var usersInRole = await userManager.GetUsersInRoleAsync(roleName);
+            var userIds = usersInRole.Select(u => u.Id).ToList();
+
+            return await context.Users
+                .Include(u => u.Address)
+                .Include(u => u.ProfilePicture)
+                .Where(u => userIds.Contains(u.Id))
+                .ToListAsync();
+        }
     }
 }
