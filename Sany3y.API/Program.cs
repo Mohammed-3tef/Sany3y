@@ -1,4 +1,5 @@
-
+using Sany3y.API.Extensions;
+using Sany3y.Extensions;
 using Sany3y.Infrastructure.Extensions;
 using Sany3y.Infrastructure.Services;
 
@@ -23,6 +24,10 @@ namespace Sany3y.API
             // Infrastructure Service
             builder.Services.AddInfrastructureServices(builder.Configuration);
 
+            // JWT Authentication Service
+            builder.Services.AddJwtAuthentication(builder.Configuration);
+            builder.Services.AddSwaggerWithJwt();
+
             var app = builder.Build();
             app.UseCors("AllowAll");
 
@@ -42,8 +47,8 @@ namespace Sany3y.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
             app.Run();

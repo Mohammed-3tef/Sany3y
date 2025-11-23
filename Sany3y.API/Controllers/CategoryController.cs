@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
@@ -34,6 +35,7 @@ namespace Sany3y.API.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Category category)
         {
             await _categoryRepository.Add(category);
@@ -41,6 +43,7 @@ namespace Sany3y.API.Controllers
         }
 
         [HttpPut("Update/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, Category category)
         {
             if (id != category.Id)
@@ -48,13 +51,17 @@ namespace Sany3y.API.Controllers
 
             var existingCategory = await _categoryRepository.GetById(id);
             if (existingCategory == null)
-                return NotFound();
+                return NotFound("Category not found");
 
-            await _categoryRepository.Update(category);
-            return NoContent();
+            existingCategory.Name = category.Name;
+            existingCategory.Description = category.Description;
+
+            await _categoryRepository.Update(existingCategory);
+            return Ok(existingCategory);
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var category = await _categoryRepository.GetById(id);

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Sany3y.Extensions;
 using Sany3y.Hubs;
+using System.Text;
 
 namespace Sany3y
 {
@@ -31,6 +32,8 @@ namespace Sany3y
                 options.ClaimActions.MapJsonKey("picture", "picture", "url");
             });
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             var app = builder.Build();
             app.UseCors("AllowAll");
 
@@ -45,6 +48,7 @@ namespace Sany3y
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.IdentityModel.Tokens;
 using Sany3y.Hubs;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -21,6 +24,29 @@ namespace Sany3y.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+
+        private string GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("22a1vxCtrW72z/Zs7/u4GaNOge8+rlp3tQ7LKaWRtmM="));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: "jwt-Sana3y-Api",
+                audience: "jwt-Sana3y-WebClient",
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(60),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
         private async System.Threading.Tasks.Task UpdateUserOnlineStatus(User user, bool isOnline)
         {
@@ -197,6 +223,9 @@ namespace Sany3y.Controllers
 
             // Make Account online after login
             await UpdateUserOnlineStatus(user, true);
+            var token = GenerateJwtToken(user);
+            Console.WriteLine("JWT Token: " + token);
+            HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
 

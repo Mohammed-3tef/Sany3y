@@ -146,6 +146,7 @@ namespace Sany3y.Controllers
                 userRoles.Add((user, roles));
             }
 
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return View(userRoles);
         }
 
@@ -190,6 +191,7 @@ namespace Sany3y.Controllers
                 return Forbid();
 
             var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return View(categories);
         }
 

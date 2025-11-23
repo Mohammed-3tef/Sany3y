@@ -3,15 +3,18 @@
 @{
     ViewData["Title"] = "إدارة التصنيفات";
     Layout = "_AdminLayout";
+    var jwtToken = ViewBag.JwtToken as string;
 }
+
 
 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-2">
     <h1 class="mb-3">@ViewData["Title"]</h1>
+    <input type="hidden" id="jwtToken" value="@TempData["JwtToken"]" />
 
     <div>
-        <a asp-controller="Admin" asp-action="CreateCategory" class="btn btn-outline-primary">
+        <button type="button" class="btn btn-outline-primary" id="openCreateCategoryModal">
             <i class="fa-solid fa-plus me-1"></i> إنشاء تصنيف جديد
-        </a>
+        </button>
         <a asp-controller="Admin" asp-action="ExportCategoriesPDF" class="btn btn-outline-danger">
             <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
         </a>
@@ -51,9 +54,11 @@
                         }
                     </td>
                     <td class="d-flex">
-                        <a asp-controller="Admin" asp-action="EditCategory" class="btn btn-outline-warning w-100 mx-2" data-show-loader="true">
+                        <button type="button" class="btn btn-outline-warning w-100 mx-2 edit-category-btn"
+                                data-id="@item.Id" data-name="@item.Name" data-description="@(item.Description ?? "")">
                             <i class="fa-solid fa-pen fa-sm"></i>
-                        </a>
+                        </button>
+
                         <button type="button" class="btn btn-outline-danger w-100 delete-category-btn"
                                 data-id="@item.Id" data-name="@item.Name">
                             <i class="fa-solid fa-trash fa-sm"></i>
@@ -65,6 +70,71 @@
     </tbody>
 </table>
 
+<!-- Create Category Modal -->
+<div class="modal fade" id="createCategoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="createCategoryForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">إنشاء تصنيف جديد</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">اسم التصنيف</label>
+                        <input type="text" id="createCategoryName" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">الوصف</label>
+                        <textarea id="createCategoryDescription" class="form-control" rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">إنشاء</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="editCategoryForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title">تعديل التصنيف</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="editCategoryId" />
+
+                    <div class="mb-3">
+                        <label class="form-label">اسم التصنيف</label>
+                        <input type="text" id="editCategoryName" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">الوصف</label>
+                        <textarea id="editCategoryDescription" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-warning">حفظ التعديل</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="confirmDeleteCategoryModal" tabindex="-1" aria-labelledby="confirmDeleteCategoryModalLabel" aria-hidden="true">
@@ -94,7 +164,66 @@
         let selectedCategoryId = null;
 
         $(document).ready(function () {
-            // عند الضغط على delete
+            $('#openCreateCategoryModal').on('click', function () {
+                $('#createCategoryModal').modal('show');
+            });
+
+            $('#createCategoryForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const newCategory = {
+                    name: $('#createCategoryName').val(),
+                    description: $('#createCategoryDescription').val()
+                };
+
+                $.ajax({
+                    url: `https://localhost:7178/api/Category/Create`,
+                    type: 'POST',
+                    contentType: "application/json",
+                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
+                    data: JSON.stringify(newCategory),
+                    success: function (response) {
+                        $('#createCategoryModal').modal('hide');
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $('.edit-category-btn').on('click', function () {
+                const id = $(this).data('id');
+                const name = $(this).data('name');
+                const description = $(this).data('description');
+
+                $('#editCategoryId').val(id);
+                $('#editCategoryName').val(name);
+                $('#editCategoryDescription').val(description);
+
+                $('#editCategoryModal').modal('show');
+            });
+
+            $('#editCategoryForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const id = $('#editCategoryId').val();
+                const updatedData = {
+                    id: id,
+                    name: $('#editCategoryName').val(),
+                    description: $('#editCategoryDescription').val()
+                };
+
+                $.ajax({
+                    url: `https://localhost:7178/api/Category/Update/${id}`,
+                    type: 'PUT',
+                    contentType: "application/json",
+                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
+                    data: JSON.stringify(updatedData),
+                    success: function (response) {
+                        $('#editCategoryModal').modal('hide');
+                        window.location.reload();
+                    }
+                });
+            });
+
             $('.delete-category-btn').on('click', function () {
                 selectedCategoryId = $(this).data('id');
                 const categoryName = $(this).data('name');
@@ -102,11 +231,11 @@
                 $('#confirmDeleteCategoryModal').modal('show');
             });
 
-            // submit
             $('#deleteCategoryForm').on('submit', function (e) {
                 e.preventDefault();
                 $.ajax({
                     url: `https://localhost:7178/api/Category/Delete/${selectedCategoryId}`,
+                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
                     type: 'DELETE',
                     success: function (res) {
                         window.location.reload();

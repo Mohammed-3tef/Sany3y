@@ -860,6 +860,7 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Humanizer.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\itextsharp.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Facebook.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
