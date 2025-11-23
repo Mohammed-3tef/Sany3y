@@ -9,7 +9,7 @@ namespace Sany3y.Extensions
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("Jwt");
-            var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]!);
+            var key = Convert.FromBase64String(jwtSettings["Key"]!);
 
             services.AddAuthentication(options =>
             {

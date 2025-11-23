@@ -9,7 +9,6 @@
 
 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-2">
     <h1 class="mb-3">@ViewData["Title"]</h1>
-    <input type="hidden" id="jwtToken" value="@TempData["JwtToken"]" />
 
     <div>
         <button type="button" class="btn btn-outline-primary" id="openCreateCategoryModal">
@@ -162,6 +161,7 @@
 @section Scripts {
     <script>
         let selectedCategoryId = null;
+        const jwtToken = '@jwtToken';
 
         $(document).ready(function () {
             $('#openCreateCategoryModal').on('click', function () {
@@ -180,7 +180,7 @@
                     url: `https://localhost:7178/api/Category/Create`,
                     type: 'POST',
                     contentType: "application/json",
-                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
                     data: JSON.stringify(newCategory),
                     success: function (response) {
                         $('#createCategoryModal').modal('hide');
@@ -215,7 +215,7 @@
                     url: `https://localhost:7178/api/Category/Update/${id}`,
                     type: 'PUT',
                     contentType: "application/json",
-                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
                     data: JSON.stringify(updatedData),
                     success: function (response) {
                         $('#editCategoryModal').modal('hide');
@@ -235,7 +235,7 @@
                 e.preventDefault();
                 $.ajax({
                     url: `https://localhost:7178/api/Category/Delete/${selectedCategoryId}`,
-                    headers: { 'Authorization': 'Bearer ' + '@jwtToken' },
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
                     type: 'DELETE',
                     success: function (res) {
                         window.location.reload();

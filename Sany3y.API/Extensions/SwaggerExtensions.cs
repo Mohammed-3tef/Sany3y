@@ -27,9 +27,12 @@ namespace Sany3y.API.Extensions
                             {
                                 Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
-                            }
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
                         },
-                        new string[] {}
+                        new List<string>()
                     }
                 });
             });

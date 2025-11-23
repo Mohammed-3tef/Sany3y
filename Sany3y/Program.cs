@@ -36,6 +36,7 @@ namespace Sany3y
 
             var app = builder.Build();
             app.UseCors("AllowAll");
+            app.UseSession();
 
             // Configure middleware
             if (!app.Environment.IsDevelopment())
@@ -48,7 +49,6 @@ namespace Sany3y
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

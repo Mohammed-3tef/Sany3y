@@ -43,12 +43,9 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var totalUsers = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
             var totalUserCount = 0;
             var totalTaskerCount = 0;
@@ -130,12 +127,9 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Users()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var currentUser = await _userManager.GetUserAsync(User);
             var users = (await _http.GetFromJsonAsync<List<User>>($"/api/User/GetAll"))?.Where(u => u.UserName != currentUser?.UserName);
             var userRoles = new List<(User User, IList<string> Roles)>();
@@ -151,12 +145,9 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> ViewUser(int id)
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");
             if (user == null)
                 return NotFound();
@@ -167,56 +158,18 @@ namespace Sany3y.Controllers
             return PartialView("_ViewUserModal", viewModel);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");
-            if (user == null)
-                return NotFound();
-
-            await _http.GetFromJsonAsync<Address>($"/api/User/Delete/{user.Id}");
-            TempData["Success"] = "User deleted successfully.";
-            return RedirectToAction("Users");
-        }
-
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Categories()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return View(categories);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> DeleteCategory(int id)
-        {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
-            var category = _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{id}");
-            if (category == null)
-                return NotFound();
-
-            await _http.GetFromJsonAsync<Address>($"/api/Address/Delete/{category.Id}");
-            TempData["Success"] = "Category deleted successfully.";
-            return RedirectToAction("Categories");
-        }
-
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ExportUsersPDFAsync()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
 
             if (!users.Any())
@@ -255,12 +208,9 @@ namespace Sany3y.Controllers
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ExportUsersCSVAsync()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
 
             if (!users.Any())
@@ -298,13 +248,10 @@ namespace Sany3y.Controllers
                     item.Email, item.PhoneNumber, item.Role, item.City, item.Street
                 });
         }
-        
-        [Authorize]
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ExportCategoriesPDF()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
 
             if (!categories.Any())
@@ -325,12 +272,9 @@ namespace Sany3y.Controllers
                 item => new object[] { item.Id, item.Name, item.Description });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ExportCategoriesCSVAsync()
         {
-            if (!User.IsInRole("Admin"))
-                return Forbid();
-
             var categories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
 
             if (!categories.Any())

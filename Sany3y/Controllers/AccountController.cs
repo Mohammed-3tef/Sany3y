@@ -19,29 +19,36 @@ namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly HttpClient _http;
         private readonly IHubContext<UserStatusHub> _hubContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
 
-        private string GenerateJwtToken(User user)
+        private string GenerateJwtToken(User user, IConfiguration configuration)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, _userManager.GetRolesAsync(user).Result.FirstOrDefault() ?? "User")
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("22a1vxCtrW72z/Zs7/u4GaNOge8+rlp3tQ7LKaWRtmM="));
+            // قراءة الـ Key من appsettings.json وتحويله من Base64
+            var key = new SymmetricSecurityKey(
+                Convert.FromBase64String(configuration["Jwt:Key"])
+            );
+
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "jwt-Sana3y-Api",
-                audience: "jwt-Sana3y-WebClient",
+                issuer: configuration["Jwt:Issuer"],
+                audience: configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(60),
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["Jwt:ExpiresInMinutes"])),
                 signingCredentials: creds
             );
 
@@ -124,12 +131,14 @@ namespace Sany3y.Controllers
         }
 
         public AccountController(
+            IConfiguration configuration,
             IHttpClientFactory httpClientFactory,
             IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
             UserManager<User> userManager,
             SignInManager<User> signInManager)
         {
+            _configuration = configuration;
             _http = httpClientFactory.CreateClient();
             _http.BaseAddress = new Uri("https://localhost:7178/");
 
@@ -223,8 +232,7 @@ namespace Sany3y.Controllers
 
             // Make Account online after login
             await UpdateUserOnlineStatus(user, true);
-            var token = GenerateJwtToken(user);
-            Console.WriteLine("JWT Token: " + token);
+            var token = GenerateJwtToken(user, _configuration);
             HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
@@ -380,6 +388,8 @@ namespace Sany3y.Controllers
 
             // Make Account is online after login
             await UpdateUserOnlineStatus(user, true);
+            var token = GenerateJwtToken(user, _configuration);
+            HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
 
@@ -393,6 +403,7 @@ namespace Sany3y.Controllers
             {
                 var user = await _userManager.GetUserAsync(User);
                 await UpdateUserOnlineStatus(user, false);
+                HttpContext.Session.Remove("JwtToken");
                 await _signInManager.SignOutAsync();
             }
 
