@@ -19,4 +19,16 @@
     <ProjectReference Include="..\Sany3y.Infrastructure\Sany3y.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="py\app.py">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="py\detect_arabic_numbers.pt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="py\detect_id_card.pt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

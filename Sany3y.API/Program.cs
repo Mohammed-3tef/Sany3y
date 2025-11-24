@@ -1,7 +1,8 @@
-using Sany3y.API.Extensions;
+﻿using Sany3y.API.Extensions;
 using Sany3y.Extensions;
 using Sany3y.Infrastructure.Extensions;
 using Sany3y.Infrastructure.Services;
+using System.Diagnostics;
 
 namespace Sany3y.API
 {
@@ -14,6 +15,7 @@ namespace Sany3y.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddHttpClient();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -26,6 +28,17 @@ namespace Sany3y.API
             // JWT Authentication Service
             builder.Services.AddJwtAuthentication(builder.Configuration);
             builder.Services.AddSwaggerWithJwt();
+
+            // شغل FastAPI
+            var psi = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = "/c python -m uvicorn app:app --host 0.0.0.0 --port 8000",
+                WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "py"),
+                UseShellExecute = false,
+                CreateNoWindow = false
+            };
+            Process.Start(psi);
 
             var app = builder.Build();
             app.UseCors("AllowAll");

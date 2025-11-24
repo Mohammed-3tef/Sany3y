@@ -705,6 +705,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sany3y.API.Controllers.ServicesController",
+    "Method": "Predict",
+    "RelativePath": "api/Services/predict",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sany3y.API.Controllers.TaskController",
     "Method": "Create",
     "RelativePath": "api/Task/Create",
