@@ -1042,6 +1042,22 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.UserController",
+    "Method": "GetTasker",
+    "RelativePath": "api/User/GetTasker/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.UserController",
     "Method": "Update",
     "RelativePath": "api/User/Update/{id}",
     "HttpMethod": "PUT",

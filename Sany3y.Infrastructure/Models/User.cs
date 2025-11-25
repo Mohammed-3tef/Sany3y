@@ -40,7 +40,7 @@ namespace Sany3y.Infrastructure.Models
 
         [Required]
         [Display(Name = "Online Now?")]
-        public bool IsOnline{ get; set; } = false;
+        public bool IsOnline { get; set; } = false;
 
         [Required]
         [Display(Name = "Created at")]

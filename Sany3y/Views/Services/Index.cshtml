@@ -43,9 +43,9 @@
         position: relative;
     }
 
-    .search-item:last-child {
-        border-left: none;
-    }
+        .search-item:last-child {
+            border-left: none;
+        }
 
     .search-label {
         display: block;
@@ -78,9 +78,9 @@
         transition: all 0.3s;
     }
 
-    .search-btn:hover {
-        background: #e6a200;
-    }
+        .search-btn:hover {
+            background: #e6a200;
+        }
 
     /* Sidebar Filters */
     .filter-card {
@@ -112,11 +112,11 @@
         margin-bottom: 15px;
     }
 
-    .filter-group:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
+        .filter-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
 
     .filter-title {
         font-weight: bold;
@@ -145,9 +145,9 @@
         flex-direction: column;
     }
 
-    .tech-card:hover {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+        .tech-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
     @@media (min-width: 768px) {
         .tech-card {
@@ -202,11 +202,11 @@
         gap: 8px;
     }
 
-    .tech-meta i {
-        color: var(--primary-green);
-        width: 20px;
-        text-align: center;
-    }
+        .tech-meta i {
+            color: var(--primary-green);
+            width: 20px;
+            text-align: center;
+        }
 
     /* Booking Section (Left Side) */
     .booking-section {
@@ -255,10 +255,10 @@
         transition: all 0.2s;
     }
 
-    .slot-card:hover {
-        background: var(--primary-green);
-        color: white;
-    }
+        .slot-card:hover {
+            background: var(--primary-green);
+            color: white;
+        }
 
     .slot-day {
         font-size: 0.8rem;
@@ -281,14 +281,15 @@
         margin-top: 10px;
     }
 
-    .btn-book:hover {
-        background: #c9302c;
-    }
+        .btn-book:hover {
+            background: #c9302c;
+        }
 
     /* Scrollbar for slots */
     .booking-slots::-webkit-scrollbar {
         height: 4px;
     }
+
     .booking-slots::-webkit-scrollbar-thumb {
         background: #ccc;
         border-radius: 4px;
@@ -342,6 +343,49 @@
         </div>
     </div>
 </div>
+
+<!-- 🔍 Filter Form (Connected to MVC Controller) -->
+<form method="get" action="/Services/Index"
+      style="margin:20px 0; padding:15px; background:#fff; border-radius:10px; box-shadow:0 2px 6px #ddd; direction:rtl">
+
+    <div style="display:flex; gap:15px; flex-wrap:wrap">
+
+        <!-- Category -->
+        <select name="categoryId" style="padding:10px; border-radius:8px; min-width:150px;">
+            <option value="">اختار الفئة</option>
+            <option value="1">سباكة</option>
+            <option value="2">كهرباء</option>
+            <option value="3">نجارة</option>
+        </select>
+
+        <!-- City -->
+        <input type="text" name="city" placeholder="المدينة"
+               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
+
+        <!-- Min Price -->
+        <input type="number" name="minPrice" placeholder="اقل سعر"
+               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
+
+        <!-- Max Price -->
+        <input type="number" name="maxPrice" placeholder="اعلى سعر"
+               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
+        <!-- Rating -->
+        <select name="rating" style="padding:10px; border-radius:8px; min-width:150px">
+            <option value="">تقييم</option>
+            <option value="1">1★+</option>
+            <option value="2">2★+</option>
+            <option value="3">3★+</option>
+            <option value="4">4★+</option>
+        </select>
+
+        <button type="submit"
+                style="padding:10px 20px; border:none; border-radius:8px; background:#0b6e28; color:#fff; font-weight:bold">
+            ابحث 🔍
+        </button>
+
+    </div>
+</form>
+
 
 <div class="container">
     <div class="row">
@@ -402,19 +446,18 @@
                     </ul>
                 </div>
             </div>
-
             @if (Model != null && Model.Any())
             {
                 @foreach (var user in Model)
                 {
-                    <div class="tech-card animate__animated animate__fadeInUp">
+                    <div class="tech-card animate_animated animate_fadeInUp">
                         <!-- Info Section -->
                         <div class="tech-info-section">
                             <div class="tech-header">
-                                <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=User")" 
-                                     class="tech-img" 
+                                <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=User")"
+                                     class="tech-img"
                                      alt="@user.FirstName"
-                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=User';"/>
+                                     onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=User';" />
                                 <div class="tech-details">
                                     <h4>@user.FirstName @user.LastName</h4>
                                     <p class="tech-title">صنايعي عام ومحترف في الصيانة المنزلية</p>
@@ -429,7 +472,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tech-meta">
                                 <div><i class="fas fa-stethoscope"></i> متخصص في: <span class="fw-bold text-dark">صيانة عامة</span></div>
                                 <div><i class="fas fa-map-marker-alt"></i> العنوان: @(user.Address?.City ?? "القاهرة")، @(user.Address?.Street ?? "غير محدد")</div>
@@ -437,11 +480,10 @@
                                 <div><i class="fas fa-phone-alt"></i> 16676 - سعر مكالمة عادية</div>
                             </div>
                         </div>
-
                         <!-- Booking Section -->
                         <div class="booking-section">
                             <div class="booking-header">المواعيد المتاحة</div>
-                            
+
                             <!-- Carousel for slots -->
                             <div id="carousel-@user.Id" class="carousel slide" data-bs-ride="false">
                                 <div class="carousel-inner">

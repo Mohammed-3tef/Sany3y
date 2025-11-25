@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
@@ -13,12 +11,16 @@ namespace Sany3y.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IRepository<ProfilePicture> _pictureRepository;
         private IRepository<Address> _addressRepository;
+        private IRepository<ProfilePicture> _pictureRepository;
         private UserRepository _userRepository;
         private UserManager<User> _userManager;
 
-        public UserController(IRepository<Address> addressRepository, IRepository<ProfilePicture> pictureRepository, UserRepository repository, UserManager<User> manager)
+        public UserController(
+            IRepository<Address> addressRepository,
+            IRepository<ProfilePicture> pictureRepository,
+            UserRepository repository,
+            UserManager<User> manager)
         {
             _userRepository = repository;
             _userManager = manager;
@@ -68,7 +70,23 @@ namespace Sany3y.API.Controllers
                 return NotFound();
             return Ok(user);
         }
-        
+
+
+        // --------------------------------------
+        // 🔵 NEW: Get a single Tasker by ID
+        // --------------------------------------
+        [HttpGet("GetTasker/{id}")]
+        public async Task<IActionResult> GetTasker(int id)
+        {
+            var user = await _userRepository.GetById(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create(RegisterUserViewModel userDto)
         {
@@ -80,7 +98,7 @@ namespace Sany3y.API.Controllers
             await _addressRepository.Add(newAddress);
 
             var newPicture = new ProfilePicture();
-            
+
             if (!string.IsNullOrEmpty(userDto.Picture))
             {
                 newPicture.Path = userDto.Picture;
@@ -105,9 +123,9 @@ namespace Sany3y.API.Controllers
 
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
-
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
+
 
         [HttpPut("UpdateState/{id}")]
         public async Task<IActionResult> UpdateState(int id, [FromBody] bool isOnline)

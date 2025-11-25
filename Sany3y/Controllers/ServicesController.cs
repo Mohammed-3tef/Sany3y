@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Sany3y.Controllers
 {
@@ -17,30 +14,57 @@ namespace Sany3y.Controllers
             _http.BaseAddress = new Uri("https://localhost:7178/");
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+     int? categoryId,
+     string? city,
+     decimal? minPrice,
+     decimal? maxPrice,
+     double? rating)
+
         {
+            // Get all technicians
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
+
+            // Filtering
+            if (categoryId != null)
+                users = users.Where(u => u.CategoryID == categoryId).ToList();
+
+            if (!string.IsNullOrEmpty(city))
+                users = users.Where(u => u.Address != null && u.Address.City.Contains(city)).ToList();
+
+            if (minPrice.HasValue)
+                users = users.Where(u => u.Price >= minPrice.Value).ToList();
+
+            if (maxPrice.HasValue)
+                users = users.Where(u => u.Price <= maxPrice.Value).ToList();
+
+            if (rating != null)
+                users = users.Where(u => u.Rating >= rating.Value).ToList();
+
+
+
             return View(users);
         }
 
+
         public async Task<IActionResult> Search(string serviceType)
         {
-            // For now, just redirect to Index or filter if we had the logic.
-            // Ideally, we would call an API with the search term.
-            // Let's just get all and filter in memory for now as a simple start, 
-            // or just return all if serviceType is empty.
-
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
-
-            if (!string.IsNullOrEmpty(serviceType))
-            {
-                // This is a naive filter. In reality, we'd filter by Category/Service.
-                // But User model doesn't seem to have ServiceType directly on it?
-                // It has Bio, maybe we search there? Or maybe we need to join with another table.
-                // For now, let's just return the list.
-            }
-
             return View("Index", users);
+        }
+
+
+        // -------------------------------------------------------------
+        // 🔵 NEW: Service Details Page
+        // -------------------------------------------------------------
+        public async Task<IActionResult> Details(int id)
+        {
+            var user = await _http.GetFromJsonAsync<User>($"api/Technician/GetAll/{id}");
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
         }
     }
 }
