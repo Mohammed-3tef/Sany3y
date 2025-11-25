@@ -21,9 +21,18 @@ namespace Sany3y.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<List<User>?> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            return await _userManager.GetUsersInRoleAsync("Technician") as List<User>;
+            var technicians = await _userManager.GetUsersInRoleAsync("Technician");
+            var techIds = technicians.Select(t => t.Id).ToList();
+            
+            var usersWithDetails = await _context.Users
+                .Include(u => u.Address)
+                .Include(u => u.ProfilePicture)
+                .Where(u => techIds.Contains(u.Id))
+                .ToListAsync();
+
+            return usersWithDetails;
         }
 
         [HttpGet("GetByID/{id}")]
@@ -109,7 +118,21 @@ namespace Sany3y.API.Controllers
 
             return NoContent();
         }
+//تجيب Technicians حسب CategoryID
+     [HttpGet("GetByCategory/{categoryId}")]
+     public async Task<ActionResult<List<User>>> GetByCategory(int categoryId)
+    {
+         var allTechnicians = await _userManager.GetUsersInRoleAsync("Technician");
 
+         if (categoryId == 0) // لو المستخدم اختار "الكل"
+              return allTechnicians.ToList();
+
+         var filtered = allTechnicians
+                         .Where(t => t.CategoryID == categoryId)
+                         .ToList();
+
+         return filtered;
+    }
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

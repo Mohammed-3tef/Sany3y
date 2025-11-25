@@ -863,6 +863,32 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.TechnicianController",
+    "Method": "GetByCategory",
+    "RelativePath": "api/Technician/GetByCategory/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Sany3y.Infrastructure.Models.User, Sany3y.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianController",
     "Method": "GetByID",
     "RelativePath": "api/Technician/GetByID/{id}",
     "HttpMethod": "GET",

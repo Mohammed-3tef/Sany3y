@@ -19,7 +19,7 @@ namespace Sany3y.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var users = await _http.GetFromJsonAsync<List<User>>("api/User/GetTaskers");
+            var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
             return View(users);
         }
 
@@ -30,7 +30,7 @@ namespace Sany3y.Controllers
             // Let's just get all and filter in memory for now as a simple start, 
             // or just return all if serviceType is empty.
             
-            var users = await _http.GetFromJsonAsync<List<User>>("api/User/GetTaskers");
+            var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
             
             if (!string.IsNullOrEmpty(serviceType))
             {
