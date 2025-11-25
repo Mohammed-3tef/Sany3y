@@ -9619,23 +9619,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\steve\\.nuget\\packages\\": {},
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\final grad\\Sany3y\\Sany3y.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Sany3y.csproj",
       "projectName": "Sany3y",
-      "projectPath": "D:\\final grad\\Sany3y\\Sany3y.csproj",
-      "packagesPath": "C:\\Users\\steve\\.nuget\\packages\\",
-      "outputPath": "D:\\final grad\\Sany3y\\obj\\",
+      "projectPath": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Sany3y.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -9650,11 +9650,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\final grad\\Sany3y.API\\Sany3y.API.csproj": {
-              "projectPath": "D:\\final grad\\Sany3y.API\\Sany3y.API.csproj"
+            "C:\\Users\\lenovo\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Sany3y\\Sany3y.API\\Sany3y.API.csproj"
             },
-            "D:\\final grad\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
-              "projectPath": "D:\\final grad\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
+            "C:\\Users\\lenovo\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
             }
           }
         }
@@ -9669,7 +9669,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -9751,7 +9751,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.2.25502.107/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

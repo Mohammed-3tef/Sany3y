@@ -29,9 +29,9 @@ namespace Sany3y.Controllers
             // Ideally, we would call an API with the search term.
             // Let's just get all and filter in memory for now as a simple start, 
             // or just return all if serviceType is empty.
-            
+
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
-            
+
             if (!string.IsNullOrEmpty(serviceType))
             {
                 // This is a naive filter. In reality, we'd filter by Category/Service.

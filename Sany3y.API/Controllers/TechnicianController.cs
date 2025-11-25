@@ -103,7 +103,6 @@ namespace Sany3y.API.Controllers
             existingTechnician.Price = technician.Price;
 
             _context.Entry(existingTechnician).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -118,21 +117,22 @@ namespace Sany3y.API.Controllers
 
             return NoContent();
         }
-//تجيب Technicians حسب CategoryID
-     [HttpGet("GetByCategory/{categoryId}")]
-     public async Task<ActionResult<List<User>>> GetByCategory(int categoryId)
-    {
-         var allTechnicians = await _userManager.GetUsersInRoleAsync("Technician");
 
-         if (categoryId == 0) // لو المستخدم اختار "الكل"
-              return allTechnicians.ToList();
+        [HttpGet("GetByCategory/{categoryId}")]
+        public async Task<ActionResult<List<User>>> GetByCategory(int categoryId)
+        {
+            var allTechnicians = await _userManager.GetUsersInRoleAsync("Technician");
 
-         var filtered = allTechnicians
-                         .Where(t => t.CategoryID == categoryId)
-                         .ToList();
+            if (categoryId == 0) // لو المستخدم اختار "الكل"
+                return allTechnicians.ToList();
 
-         return filtered;
-    }
+            var filtered = allTechnicians
+                            .Where(t => t.CategoryID == categoryId)
+                            .ToList();
+
+            return filtered;
+        }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

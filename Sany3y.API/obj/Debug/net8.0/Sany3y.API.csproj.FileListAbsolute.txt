@@ -1,104 +1,7 @@
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.json
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.deps.json
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.pdb
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Core.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Identity.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\itextsharp.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Newtonsoft.Json.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.ClientModel.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Drawing.Common.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Memory.Data.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Runtime.Caching.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Permissions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Windows.Extensions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.dll
-E:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.GeneratedMSBuildEditorConfig.editorconfig
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfoInputs.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfo.cs
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.CoreCompileInputs.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cs
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\scopedcss\bundle\Sany3y.API.styles.css
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.development.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.Up2Date
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
-E:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
-C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.json
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.deps.json
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.dll
@@ -106,20 +9,28 @@ C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.pdb
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Humanizer.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\itextsharp.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
@@ -140,11 +51,18 @@ C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Token
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.ClientModel.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.CodeDom.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Convention.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Hosting.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Runtime.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.TypedParts.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
@@ -154,6 +72,58 @@ C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
@@ -193,343 +163,3 @@ C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
 C:\Users\lenovo\Sany3y\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfoInputs.cache
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfo.cs
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.CoreCompileInputs.cache
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cs
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cache
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.json
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
-D:\VS Projects\grad\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.json
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.deps.json
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.pdb
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Core.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Azure.Identity.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Humanizer.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\itextsharp.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Newtonsoft.Json.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.ClientModel.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.CodeDom.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.AttributedModel.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Convention.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Hosting.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Runtime.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.TypedParts.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Drawing.Common.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Memory.Data.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Runtime.Caching.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Windows.Extensions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfoInputs.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfo.cs
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.CoreCompileInputs.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cs
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\scopedcss\bundle\Sany3y.API.styles.css
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.development.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.Up2Date
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
-D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
-D:\final grad\Sany3y.API\bin\Debug\net8.0\appsettings.json
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.deps.json
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.API.pdb
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Azure.Core.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Azure.Identity.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Humanizer.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\itextsharp.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Mono.TextTemplating.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Newtonsoft.Json.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.ClientModel.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.CodeDom.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Composition.AttributedModel.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Composition.Convention.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Composition.Hosting.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Composition.Runtime.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Composition.TypedParts.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Drawing.Common.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Memory.Data.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Runtime.Caching.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\System.Windows.Extensions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\rpswa.dswa.cache.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.GeneratedMSBuildEditorConfig.editorconfig
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfoInputs.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.AssemblyInfo.cs
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.CoreCompileInputs.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cs
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.MvcApplicationPartsAssemblyInfo.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.sourcelink.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\scopedcss\bundle\Sany3y.API.styles.css
-D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.json.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.development.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.Up2Date
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.dll
-D:\final grad\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
-D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
-D:\final grad\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll

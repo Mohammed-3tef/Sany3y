@@ -7,28 +7,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\Policy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Home\\Policy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\OurTeam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Home\\OurTeam.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\AboutUs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Home\\AboutUs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\ContactUs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Home\\ContactUs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sany3y\\Views\\Services\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,85 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\_ViewImports.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:58:09.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_ViewStart.cshtml",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewStart.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\_ViewStart.cshtml",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\_ViewStart.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\_ViewStart.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:58:07.529Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "Sany3y\\wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "Sany3y\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-11-05T12:57:41.146Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "OurTeam.cshtml",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\OurTeam.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\OurTeam.cshtml",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\OurTeam.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Home\\OurTeam.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:57:10.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AboutUs.cshtml",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\AboutUs.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\AboutUs.cshtml",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\AboutUs.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Home\\AboutUs.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:56:33.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ContactUs.cshtml",
-              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\ContactUs.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\ContactUs.cshtml",
-              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\ContactUs.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Home\\ContactUs.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:56:30.95Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
@@ -126,9 +36,35 @@
               "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "Sany3y\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAKIBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T22:17:35.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Policy.cshtml",
+              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\Policy.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Home\\Policy.cshtml",
+              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Home\\Policy.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Home\\Policy.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T12:56:26.136Z",
+              "WhenOpened": "2025-11-24T22:16:48.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Services\\Index.cshtml",
+              "ToolTip": "C:\\Users\\lenovo\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Services\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T22:13:36.174Z",
               "EditorCaption": ""
             }
           ]

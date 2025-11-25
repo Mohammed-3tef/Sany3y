@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Sany3y.Infrastructure.Models.User>
+
+@{
+    ViewData["Title"] = "احجز مع أفضل الصنايعية";
+}
+
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">الفنيين المتاحين</h2>
+
+    <div class="row">
+
+        @foreach (var user in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+
+                    <!-- صورة الفني -->
+                    <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/300x200?text=No+Image")"
+                         class="card-img-top"
+                         style="height: 220px; object-fit: cover;"
+                         onerror="this.onerror=null;this.src='https://placehold.co/300x200?text=No+Image';" />
+
+
+                    <div class="card-body">
+
+                        <!-- اسم الفني -->
+                        <h5 class="card-title">@user.FirstName + LastName</h5>
+
+                        <!-- التخصص -->
+                        <p class="card-text">
+                            <strong>التخصص:</strong> @user.Category?.Name
+
+                        </p>
+
+                        <!-- المدينة -->
+                        <p>المدينة: @user.Address?.City</p>
+
+
+                        <!-- التقييم -->
+                        <p class="card-text">
+                            <strong>التقييم:</strong>
+                            ⭐ @user.Rating
+                        </p>
+
+                        <!-- زرار يفتح صفحة التفاصيل -->
+                        <button>احجز الان </button>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

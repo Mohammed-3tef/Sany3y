@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github",
+    "\\docs",
+    "\\Sany3y",
+    "\\Sany3y.API",
+    "\\Sany3y\\Views",
+    "\\Sany3y\\Views\\Home",
+    "\\Sany3y\\Views\\Services"
   ],
-  "SelectedNode": "\\Sany3y.sln",
+  "SelectedNode": "\\Sany3y\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
