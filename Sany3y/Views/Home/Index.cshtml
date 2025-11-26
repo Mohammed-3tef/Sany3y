@@ -296,7 +296,7 @@
         @model Sany3y.Infrastructure.ViewModels.HomeIndexViewModel
 
         <div class="d-flex justify-content-center flex-wrap mb-5 gap-2">
-            <button class="filter-btn active" data-id="all">الكل</button>
+            <button class="filter-btn active" id="all-technicians" data-id="all">الكل</button>
             @foreach (var category in Model.Categories)
             {
                 <button class="filter-btn" data-id="@category.Id">@category.Name</button>
@@ -309,37 +309,12 @@
 
 
         <!-- Technicians Grid -->
-        <div class="row g-4">
-            @for (int i = 1; i <= 8; i++)
-            {
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="tech-card h-100">
-                        <div class="tech-img-wrapper">
-                            <img src="~/images/about-img.jpg" class="tech-img" alt="فني" onerror="this.onerror=null;this.src='https://placehold.co/300x200?text=Technician';"/>
-                            <div class="tech-overlay">
-                                <span class="badge bg-warning text-dark mb-2">سباكة</span>
-                            </div>
-                        </div>
-                        <div class="card-body p-3 text-center">
-                            <h5 class="fw-bold mb-1">"اتتتت"</h5>
-                            <p class="text-muted small mb-2"><i class="fas fa-map-marker-alt text-primary me-1"></i> القاهرة، مدينة نصر</p>
-                            <div class="d-flex justify-content-center gap-1 mb-3">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star-half-alt text-warning"></i>
-                            </div>
-                            <a href="#" class="btn btn-outline-success btn-sm w-100 rounded-pill">عرض الملف الشخصي</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+       
         
         <div class="text-center mt-5">
-            <a href="@Url.Action("Index", "Services")" class="btn btn-primary rounded-pill px-5 py-2">عرض جميع الفنيين</a>
+            <a href="@Url.Action("Index", "Services")" class="btn btn-primary rounded-pill px-5 py-2">  احجز الان </a>
         </div>
+
     </div>
 </section>
 
@@ -383,24 +358,30 @@
 </section>
 
 <!-- Testimonials -->
+<!-- Testimonials -->
 <section class="py-5">
     <div class="container">
-        <div class="section-header">
+        <div class="section-header text-center mb-4">
             <h2 class="section-title">آراء عملائنا</h2>
         </div>
 
         <div class="swiper mySwiper pb-5">
             <div class="swiper-wrapper">
-                @for(int i=0; i<5; i++) {
+                @for (int i = 0; i < 5; i++)
+                {
                     <div class="swiper-slide">
-                        <div class="testimonial-card text-center">
-                            <i class="fas fa-quote-right quote-icon"></i>
-                            <img src="https://randomuser.me/api/portraits/men/@(i+10).jpg" class="rounded-circle mb-3" width="80" height="80" alt="Client">
+                        <div class="testimonial-card text-center p-4 border rounded shadow-sm">
+                            <i class="fas fa-quote-right quote-icon mb-2"></i>
+                            <img src="https://randomuser.me/api/portraits/men/@(i + 10).jpg" class="rounded-circle mb-3" width="80" height="80" alt="Client">
                             <h5 class="fw-bold mb-1">محمد علي</h5>
                             <p class="text-muted small mb-3">عميل مميز</p>
                             <p class="fst-italic text-muted">"تجربة ممتازة جداً، الفني وصل في الموعد وأنجز العمل باحترافية عالية. أنصح الجميع باستخدام الموقع."</p>
                             <div class="text-warning">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
@@ -410,6 +391,32 @@
         </div>
     </div>
 </section>
+
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            576: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            992: { slidesPerView: 3 },
+            1200: { slidesPerView: 4 },
+        }
+    });
+</script>
 
 @* <!-- Emergency CTA -->
 <section class="py-5">
@@ -426,149 +433,94 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<script>
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      breakpoints: {
-        640: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-      },
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-    });
-
-    // Simple filter script (demo)
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            // In a real app, filter the grid items here
-        });
-    });
-</script>
+               
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.filter-btn').click(function() {
-                $('.filter-btn').removeClass('active');
-                $(this).addClass('active');
 
-                var categoryId = $(this).data('id');
+    <script>
+        $(document).ready(function () {
+
+            $(".filter-btn").click(function () {
+
+                $(".filter-btn").removeClass("active");
+                $(this).addClass("active");
+
+                let categoryId = $(this).data("id");
 
                 $.ajax({
-                    url: '/api/Technician/GetByCategory/' + categoryId,
-                    method: 'GET',
-                    success: function(technicians) {
-                        var grid = $('#technicians-grid');
-                        grid.empty(); // نمسح القديم
-                        technicians.forEach(function(t) {
-                            var card = `
-                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                <div class="tech-card h-100">
-                                    <div class="tech-img-wrapper">
-                                        <img src="${t.profilePicture || 'https://placehold.co/300x200?text=Technician'}" class="tech-img" />
-                                        <div class="tech-overlay">
-                                            <span class="badge bg-warning text-dark">${t.categoryName}</span>
+                    url: "/api/Technician/GetByCategory/" + categoryId,
+                    method: "GET",
+                    success: function (technicians) {
+                        let grid = $("#technicians-grid");
+                        grid.empty();
+
+                        technicians.slice(0, 8).forEach(t => {
+                            let card = `
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="tech-card h-100">
+                                        <div class="tech-img-wrapper">
+                                            <img src="${t.profilePicture || 'https://placehold.co/300x200?text=Technician'}"
+                                                 class="tech-img" />
+                                            <div class="tech-overlay">
+                                                <span class="badge bg-warning text-dark mb-2">${t.categoryName || ''}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3 text-center">
+                                            <h5 class="fw-bold mb-1">${t.firstName} ${t.lastName}</h5>
+                                            <p class="text-muted small mb-2">${t.city || ''}</p>
+                                            <a href="/User/Details/${t.id}" class="btn btn-outline-success btn-sm w-100 rounded-pill">
+                                                عرض الملف الشخصي
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="card-body p-3 text-center">
-                                        <h5 class="fw-bold mb-1">${t.firstName} ${t.lastName}</h5>
-                                        <p class="text-muted small mb-2">${t.city}</p>
-                                        <div class="d-flex justify-content-center gap-1 mb-3">
-                                            ${getStars(t.rating)}
-                                        </div>
-                                        <a href="/User/Details/${t.id}" class="btn btn-outline-success btn-sm w-100 rounded-pill">عرض الملف الشخصي</a>
-                                    </div>
-                                </div>
-                            </div>`;
+                                </div>`;
+
                             grid.append(card);
                         });
                     }
                 });
             });
 
-            function getStars(rating) {
-                var stars = '';
-                for(var i=0;i<5;i++){
-                    if(i<Math.floor(rating)) stars += '<i class="fas fa-star text-warning"></i>';
-                    else if(i<rating) stars += '<i class="fas fa-star-half-alt text-warning"></i>';
-                    else stars += '<i class="far fa-star text-warning"></i>';
-                }
-                return stars;
-            }
+            $("#all-technicians").click(function (){
+                $(".filter-btn").removeClass("active");
+                $(this).addClass("active");
+
+                $.ajax({
+                    url: "/api/Technician/GetAll",
+                    method: "GET",
+                    success: function (technicians) {
+                        let grid = $("#technicians-grid");
+                        grid.empty();
+                        technicians.slice(0, 8).forEach(t => {
+                            let card = `
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="tech-card h-100">
+                                        <div class="tech-img-wrapper">
+                                            <img src="${t.profilePicture || 'https://placehold.co/300x200?text=Technician'}"
+                                                    class="tech-img" />
+                                            <div class="tech-overlay">
+                                                <span class="badge bg-warning text-dark mb-2">${t.categoryName || ''}</span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3 text-center">
+                                            <h5 class="fw-bold mb-1">${t.firstName} ${t.lastName}</h5>
+                                            <p class="text-muted small mb-2">${t.city || ''}</p>
+                                            <a href="/User/Details/${t.id}" class="btn btn-outline-success btn-sm w-100 rounded-pill">
+                                                عرض الملف الشخصي
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>`;
+
+                            grid.append(card);
+                        });
+
+                    }
+                });
+            });
+
+            // تحميل الكل أول ما الصفحة تفتح
+            $(".filter-btn[data-id='all']").click();
         });
     </script>
 }
-<script>
-    // عناصر DOM
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const techGrid = document.getElementById('technicians-grid');
-
-    // عند الضغط على أي زر فلتر
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-            // إزالة active من كل الأزرار وإضافة للزر اللي اتضغط
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const categoryId = btn.getAttribute('data-filter');
-
-            // جلب البيانات من API
-            const response = await fetch(`/api/Technician/GetByCategory/${categoryId}`);
-            const technicians = await response.json();
-
-            // مسح الكروت القديمة
-            techGrid.innerHTML = '';
-
-            // إعادة إنشاء الكروت حسب الـ JSON اللي جاي من API
-            technicians.forEach(t => {
-                const card = document.createElement('div');
-                card.classList.add('col-lg-3','col-md-4','col-sm-6');
-                card.innerHTML = `
-                    <div class="tech-card h-100">
-                        <div class="tech-img-wrapper">
-                            <img src="${t.profileImage || 'https://placehold.co/300x200?text=Technician'}" class="tech-img" alt="فني"/>
-                            <div class="tech-overlay">
-                                <span class="badge bg-warning text-dark mb-2">${t.categoryName || ''}</span>
-                            </div>
-                        </div>
-                        <div class="card-body p-3 text-center">
-                            <h5 class="fw-bold mb-1">${t.firstName} ${t.lastName}</h5>
-                            <p class="text-muted small mb-2"><i class="fas fa-map-marker-alt text-primary me-1"></i>${t.city || ''}</p>
-                            <div class="d-flex justify-content-center gap-1 mb-3">
-                                ${generateStars(t.rating)}
-                            </div>
-                            <a href="#" class="btn btn-outline-success btn-sm w-100 rounded-pill">عرض الملف الشخصي</a>
-                        </div>
-                    </div>
-                `;
-                techGrid.appendChild(card);
-            });
-        });
-    });
-
-    // دالة مساعدة لتوليد النجوم
-    function generateStars(rating) {
-        let starsHtml = '';
-        for (let i = 1; i <= 5; i++) {
-            if(i <= Math.floor(rating)) starsHtml += '<i class="fas fa-star text-warning"></i>';
-            else if(i - rating < 1) starsHtml += '<i class="fas fa-star-half-alt text-warning"></i>';
-            else starsHtml += '<i class="far fa-star text-warning"></i>';
-        }
-        return starsHtml;
-    }
-
-    // تفعيل الفلتر الافتراضي عند تحميل الصفحة
-    document.querySelector('.filter-btn.active').click();
-</script>
