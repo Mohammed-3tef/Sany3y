@@ -46,10 +46,46 @@ namespace Sany3y.Controllers
             return View(users);
         }
 
-
+        //---- ----دا للسيرش---------------فالهوم
         public async Task<IActionResult> Search(string serviceType)
         {
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
+
+            if (!string.IsNullOrEmpty(serviceType))
+            {
+                // تحويل الـ serviceType للقيم الخاصة بالـ Category
+                // لازم نعرف CategoryID لكل نوع خدمة:
+                int? categoryId = serviceType.ToLower() switch
+                {
+                    "بناء وتشييد" => 1,
+                    "كهرباء" => 2,
+                    "سباكة" => 3,
+                    "دهانات و تشطيبات" => 4,
+                    "نجارة" => 5,
+                    "حدادة" => 6,
+                    "ألوميتال" => 7,
+                    "مقاولات عامة" => 8,
+                    "رخام وسيراميك" => 9,
+                    "نقاشة" => 10,
+                    "تكييف وتبريد" => 11,
+                    "صيانة أجهزة" => 12,
+                    "تركيبات" => 13,
+                    "تنظيف وتجهيز" => 14,
+                    "نقل عفش وخدمات لوجستية" => 15,
+                    "خدمات أخرى" => 16,
+                    
+                 
+
+
+                    _ => null
+                };
+
+                if (categoryId != null)
+                {
+                    users = users.Where(u => u.CategoryID == categoryId).ToList();
+                }
+            }
+
             return View("Index", users);
         }
 
@@ -64,6 +100,10 @@ namespace Sany3y.Controllers
             if (user == null)
                 return NotFound();
 
+            var userAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
+            var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+            ViewBag.UserAddress = userAddress;
+            ViewBag.UserCategory = userCategory;
             return View(user);
         }
     }

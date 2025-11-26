@@ -1,24 +1,23 @@
-﻿@model IEnumerable<Sany3y.Infrastructure.Models.User>
+﻿@model Sany3y.Infrastructure.Models.User
 
 @{
-    ViewData["Title"] = "احجز مع أفضل الصنايعية";
+    ViewData["Title"] = "احجز معانا افضل الفنيين";
 }
-
-ودا اللي موجود فصفحه الديتيلز
 
 
 <div class="container mt-4">
-    <h2 class="mb-4">الفنيين المتاحين</h2>
+    <h2 class="mb-4">الملف الشخصي</h2>
+</div>
 
-    <div class="row">
 
-        @foreach (var user in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
+           <div class="row">
+            <div class="col-md-15 col-lg-15 square-div d-flex justify-content-center align-items-center">       
+             <div class="card shadow-sm">
+
+
 
                     <!-- صورة الفني -->
-                    <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/300x200?text=No+Image")"
+                <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/300x200?text=No+Image")"
                          class="card-img-top"
                          style="height: 220px; object-fit: cover;"
                          onerror="this.onerror=null;this.src='https://placehold.co/300x200?text=No+Image';" />
@@ -29,32 +28,30 @@
                     <div class="card-body">
 
                         <!-- اسم الفني -->
-                        <h5 class="card-title">@user.FirstName + LastName</h5>
+                    <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
 
                         <!-- التخصص -->
-                        <p class="card-text">
-                            <strong>التخصص:</strong> @user.Category?.Name
-
-                        </p>
+                    <p>التصنيف: @(ViewBag.UserCategory?.Name ?? "غير محدد")</p>
 
                         <!-- المدينة -->
-                        <p>المدينة: @user.Address?.City</p>
+                    <p>@ViewBag.UserAddress.City</p>
+
+                    <p>@ViewBag.UserAddress.Street</p>
 
 
                         <!-- التقييم -->
                         <p class="card-text">
                             <strong>التقييم:</strong>
-                            ⭐ @user.Rating
+                        ⭐ @Model.Rating
                         </p>
 
                         <!-- زرار يفتح صفحة التفاصيل -->
                         <button>احجز الان </button>
 
                     </div>
-                </div>
-            </div>
-        }
-
+           
+                </div></div>
+          </div>
     </div>
-</div> }
-}
+</div> 
+

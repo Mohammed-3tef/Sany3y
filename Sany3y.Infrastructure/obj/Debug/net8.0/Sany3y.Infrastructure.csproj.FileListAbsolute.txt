@@ -13,21 +13,6 @@ C:\Users\Lenovo\OneDrive\Desktop\Main sanay3y\Sany3y.Infrastructure\obj\Debug\ne
 C:\Users\Lenovo\OneDrive\Desktop\Main sanay3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
 C:\Users\Lenovo\OneDrive\Desktop\Main sanay3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
 C:\Users\Lenovo\OneDrive\Desktop\Main sanay3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.deps.json
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.runtimeconfig.json
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.dll
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.AssemblyReference.cache
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfo.cs
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.sourcelink.json
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.dll
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\refint\Sany3y.Infrastructure.dll
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
-C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll
 D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.deps.json
 D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.runtimeconfig.json
 D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.dll
@@ -43,3 +28,18 @@ D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\refint\Sany3y.Infrastr
 D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
 D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
 D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.deps.json
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.runtimeconfig.json
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.dll
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfo.cs
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.sourcelink.json
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.dll
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\refint\Sany3y.Infrastructure.dll
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
+C:\Users\lenovo\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll
