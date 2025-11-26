@@ -2,6 +2,7 @@
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
+using Sany3y.Services;
 
 namespace Sany3y.Extensions
 {
@@ -18,6 +19,20 @@ namespace Sany3y.Extensions
             services.AddScoped<IRepository<Notification>, NotificationRepository>();
             services.AddScoped<IRepository<Rating>, RatingRepository>();
             services.AddScoped<IRepository<Infrastructure.Models.Task>, TaskRepository>();
+
+            services.AddScoped<JwtTokenService>();
+            services.AddScoped<EmailService>();
+            services.AddScoped<OcrService>();
+
+            services.AddHttpClient<JwtTokenService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7178/"); // غيّرها حسب API
+            });
+            
+            services.AddHttpClient<OcrService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7178/"); // غيّرها حسب API
+            });
 
             services.AddCors(options =>
             {

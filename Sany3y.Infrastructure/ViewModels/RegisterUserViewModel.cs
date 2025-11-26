@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -63,5 +64,8 @@ namespace Sany3y.Infrastructure.ViewModels
         public bool IsClient { get; set; }
 
         public string? Picture { get; set; }
+
+        [Display(Name = "National ID Image")]
+        public IFormFile? NationalIdImage { get; set; }
     }
 }

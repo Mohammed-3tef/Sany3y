@@ -296,7 +296,7 @@
         @model Sany3y.Infrastructure.ViewModels.HomeIndexViewModel
 
         <div class="d-flex justify-content-center flex-wrap mb-5 gap-2">
-            <button class="filter-btn active" id="all-technicians" data-id="all">الكل</button>
+            <button class="filter-btn active" id="all-technicians" data-id="0">الكل</button>
             @foreach (var category in Model.Categories)
             {
                 <button class="filter-btn" data-id="@category.Id">@category.Name</button>
@@ -435,8 +435,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
                
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
     <script>
         $(document).ready(function () {
 
@@ -481,46 +479,8 @@
                 });
             });
 
-            $("#all-technicians").click(function (){
-                $(".filter-btn").removeClass("active");
-                $(this).addClass("active");
-
-                $.ajax({
-                    url: "/api/Technician/GetAll",
-                    method: "GET",
-                    success: function (technicians) {
-                        let grid = $("#technicians-grid");
-                        grid.empty();
-                        technicians.slice(0, 8).forEach(t => {
-                            let card = `
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <div class="tech-card h-100">
-                                        <div class="tech-img-wrapper">
-                                            <img src="${t.profilePicture || 'https://placehold.co/300x200?text=Technician'}"
-                                                    class="tech-img" />
-                                            <div class="tech-overlay">
-                                                <span class="badge bg-warning text-dark mb-2">${t.categoryName || ''}</span>
-                                            </div>
-                                        </div>
-                                        <div class="card-body p-3 text-center">
-                                            <h5 class="fw-bold mb-1">${t.firstName} ${t.lastName}</h5>
-                                            <p class="text-muted small mb-2">${t.city || ''}</p>
-                                            <a href="/User/Details/${t.id}" class="btn btn-outline-success btn-sm w-100 rounded-pill">
-                                                عرض الملف الشخصي
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>`;
-
-                            grid.append(card);
-                        });
-
-                    }
-                });
-            });
-
             // تحميل الكل أول ما الصفحة تفتح
-            $(".filter-btn[data-id='all']").click();
+            $(".filter-btn[data-id='0']").click();
         });
     </script>
 }

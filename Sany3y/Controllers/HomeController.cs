@@ -1,23 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
-using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.ViewModels; // لو حطينا الـ HomeIndexViewModel هنا
 
 namespace Sany3y.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly HttpClient _http;
 
-        public HomeController(IRepository<Category> categoryRepository)
+        public HomeController(HttpClient http, IHttpClientFactory httpClientFactory)
         {
-            _categoryRepository = categoryRepository;
+            _http = http;
+            _http = httpClientFactory.CreateClient();
+            _http.BaseAddress = new Uri("https://localhost:7178/");
         }
 
         public async Task<IActionResult> Index()
         {
             // جلب أول 8 كاتيجوريز من قاعدة البيانات
-            var categories = await _categoryRepository.GetAll();
+            var response = await _http.GetAsync("/api/Category/GetAll");
+            if (response == null)
+                return View();
+            
+            var categories = await response.Content.ReadFromJsonAsync<List<Category>>();
+
             var model = new HomeIndexViewModel
             {
                 Categories = categories.Take(8).ToList()

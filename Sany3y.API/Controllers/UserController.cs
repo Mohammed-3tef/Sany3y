@@ -71,22 +71,6 @@ namespace Sany3y.API.Controllers
             return Ok(user);
         }
 
-
-        // --------------------------------------
-        // 🔵 NEW: Get a single Tasker by ID
-        // --------------------------------------
-        [HttpGet("GetTasker/{id}")]
-        public async Task<IActionResult> GetTasker(int id)
-        {
-            var user = await _userRepository.GetById(id);
-
-            if (user == null)
-                return NotFound();
-
-            return Ok(user);
-        }
-
-
         [HttpPost("Create")]
         public async Task<IActionResult> Create(RegisterUserViewModel userDto)
         {

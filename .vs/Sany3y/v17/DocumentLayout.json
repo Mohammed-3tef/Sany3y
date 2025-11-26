@@ -1,24 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|c:\\users\\lenovo\\onedrive\\desktop\\main sanay3y\\sany3y\\controllers\\servicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\servicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF7AB2C1-F061-4B7B-9601-BA55D550EFB5}|Sany3y.API\\Sany3y.API.csproj|c:\\users\\lenovo\\onedrive\\desktop\\main sanay3y\\sany3y.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF7AB2C1-F061-4B7B-9601-BA55D550EFB5}|Sany3y.API\\Sany3y.API.csproj|solutionrelative:sany3y.api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|c:\\users\\lenovo\\onedrive\\desktop\\main sanay3y\\sany3y.infrastructure\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|solutionrelative:sany3y.infrastructure\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|c:\\users\\lenovo\\onedrive\\desktop\\main sanay3y\\sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -26,67 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y.Infrastructure\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Sany3y.Infrastructure\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y.Infrastructure\\Models\\User.cs",
-              "RelativeToolTip": "Sany3y.Infrastructure\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T16:17:53.614Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y.API\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Sany3y.API\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y.API\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Sany3y.API\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T16:16:42.895Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ViewState": "AgIAAAYCAAAAAAAAAAAAABsCAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-25T16:03:31.891Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ServicesController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y\\Controllers\\ServicesController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\ServicesController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main sanay3y\\Sany3y\\Controllers\\ServicesController.cs*",
-              "RelativeToolTip": "Sany3y\\Controllers\\ServicesController.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T15:50:54.151Z",
-              "EditorCaption": ""
             }
           ]
         }

@@ -47,6 +47,21 @@ namespace Sany3y.API.Controllers
             return technician;
         }
 
+        [HttpGet("GetByCategory/{categoryId}")]
+        public async Task<ActionResult<List<User>>> GetByCategory(int categoryId)
+        {
+            var allTechnicians = await _userManager.GetUsersInRoleAsync("Technician");
+
+            if (categoryId == 0) // لو المستخدم اختار "الكل"
+                return allTechnicians.ToList();
+
+            var filtered = allTechnicians
+                            .Where(t => t.CategoryID == categoryId)
+                            .ToList();
+
+            return filtered;
+        }
+
         [HttpPost("Create")]
         public async Task<ActionResult<User>> Create(TechnicianViewModel technician)
         {
@@ -116,21 +131,6 @@ namespace Sany3y.API.Controllers
             }
 
             return NoContent();
-        }
-
-        [HttpGet("GetByCategory/{categoryId}")]
-        public async Task<ActionResult<List<User>>> GetByCategory(int categoryId)
-        {
-            var allTechnicians = await _userManager.GetUsersInRoleAsync("Technician");
-
-            if (categoryId == 0) // لو المستخدم اختار "الكل"
-                return allTechnicians.ToList();
-
-            var filtered = allTechnicians
-                            .Where(t => t.CategoryID == categoryId)
-                            .ToList();
-
-            return filtered;
         }
 
         [HttpDelete("Delete/{id}")]

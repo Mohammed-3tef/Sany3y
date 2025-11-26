@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
-using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
 
 namespace Sany3y.Controllers
@@ -130,7 +128,7 @@ namespace Sany3y.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Users()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUserName/{User?.Identity?.Name}");
             var users = (await _http.GetFromJsonAsync<List<User>>($"/api/User/GetAll"))?.Where(u => u.UserName != currentUser?.UserName);
             var userRoles = new List<(User User, IList<string> Roles)>();
 

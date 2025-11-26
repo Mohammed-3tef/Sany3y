@@ -943,9 +943,79 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userDto",
-        "Type": "Sany3y.Infrastructure.ViewModels.RegisterUserViewModel",
-        "IsRequired": true
+        "Name": "NationalId",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "FirstName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LastName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BirthDate",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsMale",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PhoneNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ConfirmPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "City",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Street",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsClient",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "Picture",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "NationalIdImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1035,22 +1105,6 @@
       {
         "Name": "userName",
         "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Sany3y.API.Controllers.UserController",
-    "Method": "GetTasker",
-    "RelativePath": "api/User/GetTasker/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

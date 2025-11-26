@@ -1416,6 +1416,55 @@
         }
       }
     },
+    "/api/Technician/GetByCategory/{categoryId}": {
+      "get": {
+        "tags": [
+          "Technician"
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Technician/Create": {
       "post": {
         "tags": [
@@ -1502,55 +1551,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Technician/GetByCategory/{categoryId}": {
-      "get": {
-        "tags": [
-          "Technician"
-        ],
-        "parameters": [
-          {
-            "name": "categoryId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -1680,49 +1680,146 @@
         }
       }
     },
-    "/api/User/GetTasker/{id}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/User/Create": {
       "post": {
         "tags": [
           "User"
         ],
+        "parameters": [
+          {
+            "name": "NationalId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "maximum": 99999999999999,
+              "minimum": 10000000000000,
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "FirstName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "LastName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "UserName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "BirthDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "IsMale",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PhoneNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "password"
+            }
+          },
+          {
+            "name": "ConfirmPassword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "password"
+            }
+          },
+          {
+            "name": "City",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Street",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IsClient",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Picture",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterUserViewModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterUserViewModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterUserViewModel"
+                "type": "object",
+                "properties": {
+                  "NationalIdImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "NationalIdImage": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -2069,85 +2166,6 @@
           },
           "tasker": {
             "$ref": "#/components/schemas/User"
-          }
-        },
-        "additionalProperties": false
-      },
-      "RegisterUserViewModel": {
-        "required": [
-          "birthDate",
-          "city",
-          "confirmPassword",
-          "email",
-          "firstName",
-          "isClient",
-          "isMale",
-          "lastName",
-          "nationalId",
-          "password",
-          "phoneNumber",
-          "street",
-          "userName"
-        ],
-        "type": "object",
-        "properties": {
-          "nationalId": {
-            "maximum": 99999999999999,
-            "minimum": 10000000000000,
-            "type": "integer",
-            "format": "int64"
-          },
-          "firstName": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "lastName": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "userName": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "birthDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isMale": {
-            "type": "boolean"
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "phoneNumber": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "password": {
-            "minLength": 1,
-            "type": "string",
-            "format": "password"
-          },
-          "confirmPassword": {
-            "minLength": 1,
-            "type": "string",
-            "format": "password"
-          },
-          "city": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "street": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "isClient": {
-            "type": "boolean"
-          },
-          "picture": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

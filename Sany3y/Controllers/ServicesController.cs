@@ -59,7 +59,7 @@ namespace Sany3y.Controllers
         // -------------------------------------------------------------
         public async Task<IActionResult> Details(int id)
         {
-            var user = await _http.GetFromJsonAsync<User>($"api/Technician/GetAll/{id}");
+            var user = await _http.GetFromJsonAsync<User>($"/api/Technician/GetByID/{id}");
 
             if (user == null)
                 return NotFound();

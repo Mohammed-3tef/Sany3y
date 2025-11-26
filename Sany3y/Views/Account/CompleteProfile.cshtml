@@ -10,7 +10,7 @@
             <h1>@ViewData["Title"]</h1>
         </div>
 
-        <form asp-action="CompleteProfilePost">
+        <form asp-action="CompleteProfilePost" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
             <div class="row g-3">
@@ -97,6 +97,12 @@
                     <label asp-for="ConfirmPassword" class="form-label">تأكيد كلمة السر</label>
                     <input asp-for="ConfirmPassword" type="password" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label">صورة البطاقة</label>
+                    <input type="file" name="NationalIdImage" class="form-control" accept="image/*" />
+                    <span class="text-danger small"></span>
                 </div>
 
                 <div class="d-md-flex col-md-12 align-items-center">

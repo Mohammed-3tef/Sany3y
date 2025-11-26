@@ -3,17 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.IdentityModel.Tokens;
 using Sany3y.Hubs;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.ViewModels;
-using System.IdentityModel.Tokens.Jwt;
+using Sany3y.Services;
 using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Sany3y.Controllers
 {
@@ -26,78 +21,11 @@ namespace Sany3y.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
 
-        private string GenerateJwtToken(User user, IConfiguration configuration)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, _userManager.GetRolesAsync(user).Result.FirstOrDefault() ?? "User")
-            };
+        private readonly JwtTokenService _jwtService;
+        private readonly EmailService _emailService;
+        private readonly OcrService _ocrService;
 
-            // قراءة الـ Key من appsettings.json وتحويله من Base64
-            var key = new SymmetricSecurityKey(
-                Convert.FromBase64String(configuration["Jwt:Key"])
-            );
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["Jwt:ExpiresInMinutes"])),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private async System.Threading.Tasks.Task UpdateUserOnlineStatus(User user, bool isOnline)
-        {
-            var content = JsonContent.Create(isOnline);
-
-            var response = await _http.PutAsync($"/api/User/UpdateState/{user.Id}", content);
-            if (!response.IsSuccessStatusCode)
-            {
-                var errors = await SafeReadErrors(response);
-                foreach (var e in errors)
-                    ModelState.AddModelError(string.Empty, e);
-            }
-
-            await _hubContext.Clients.All.SendAsync("ReceiveUserStatus", user.Id, isOnline);
-        }
-
-        private async Task<List<string>> SafeReadErrors(HttpResponseMessage response)
-        {
-            var content = await response.Content.ReadAsStringAsync();
-            if (string.IsNullOrWhiteSpace(content))
-                return new List<string> { "Unknown server error." };
-
-            try
-            {
-                return JsonSerializer.Deserialize<List<string>>(content)
-                       ?? new List<string> { "Unknown server error." };
-            }
-            catch
-            {
-                return new List<string> { content };
-            }
-        }
-
-        private async Task<bool> HandleResponseErrors(HttpResponseMessage response)
-        {
-            if (response.IsSuccessStatusCode)
-                return true; // مفيش مشكلة
-
-            var errors = await SafeReadErrors(response);
-            foreach (var e in errors)
-                ModelState.AddModelError(string.Empty, e);
-
-            return false;
-        }
+        #region Helpers
 
         /// <summary>
         /// Checks if the user’s profile is incomplete (example logic).
@@ -117,18 +45,15 @@ namespace Sany3y.Controllers
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.Action(
-                nameof(ConfirmEmail),
+                "ConfirmEmail",
                 "Account",
                 new { userId = user.Id, token },
                 protocol: Request.Scheme);
 
-            var message = $@"
-                <h2>Welcome to Sany3y!</h2>
-                <p>Click below to confirm your email:</p>
-                <p><a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>Confirm Email</a></p>";
-
-            await _emailSender.SendEmailAsync(user.Email, "Confirm your account", message);
+            await _emailService.SendConfirmationAsync(user, callbackUrl);
         }
+        
+        #endregion
 
         public AccountController(
             IConfiguration configuration,
@@ -136,7 +61,11 @@ namespace Sany3y.Controllers
             IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
             UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            JwtTokenService jwtService,
+            EmailService emailService,
+            OcrService ocrService
+            )
         {
             _configuration = configuration;
             _http = httpClientFactory.CreateClient();
@@ -146,6 +75,10 @@ namespace Sany3y.Controllers
             _emailSender = emailSender;
             _userManager = userManager;
             _signInManager = signInManager;
+
+            _jwtService = jwtService;
+            _emailService = emailService;
+            _ocrService = ocrService;
         }
 
         [HttpGet]
@@ -166,10 +99,30 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            // Using OCR to Check the National ID
+            if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
+            {
+                ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
+                return View(model);
+            }
+            string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
+
+            if (string.IsNullOrEmpty(extractedId))
+            {
+                ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
+                return View("Register", model);
+            }
+
+            if (extractedId != model.NationalId.ToString())
+            {
+                ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
+                return View("Register", model);
+            }
+
             // Create Address first
             var address = new Address { City = model.City, Street = model.Street };
             var response = await _http.PostAsJsonAsync("/api/Address/Create", address);
-            if (!await HandleResponseErrors(response))
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 return View("Register", model);
             }
@@ -177,7 +130,7 @@ namespace Sany3y.Controllers
 
             // Create User
             response = await _http.PostAsJsonAsync("/api/User/Create", model);
-            if (!await HandleResponseErrors(response))
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 await _http.DeleteAsync($"/api/Address/Delete/{createdAddress.Id}");
                 return View("Register", model);
@@ -231,8 +184,8 @@ namespace Sany3y.Controllers
             }
 
             // Make Account online after login
-            await UpdateUserOnlineStatus(user, true);
-            var token = GenerateJwtToken(user, _configuration);
+            await UserStatusUpdater.UpdateUserOnlineStatus(user, true, _http, _hubContext, this);
+            var token = await _jwtService.GenerateTokenAsync(user);
             HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
@@ -300,7 +253,7 @@ namespace Sany3y.Controllers
                     await _userManager.AddLoginAsync(existingUser, info);
 
                 // Make Account is online after login
-                await UpdateUserOnlineStatus(existingUser, true);
+                await UserStatusUpdater.UpdateUserOnlineStatus(existingUser, true, _http, _hubContext, this);
                 await _signInManager.SignInAsync(existingUser, isPersistent: true);
 
                 if (IsProfileIncomplete(existingUser))
@@ -350,19 +303,39 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
+            // Using OCR to Check the National ID
+            if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
+            {
+                ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
+                return View(model);
+            }
+            string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
+
+            if (string.IsNullOrEmpty(extractedId))
+            {
+                ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
+                return View("Register", model);
+            }
+
+            if (extractedId != model.NationalId.ToString())
+            {
+                ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
+                return View("Register", model);
+            }
+
             Address address = new Address
             {
                 City = model.City, Street = model.Street
             };
             response = await _http.PostAsJsonAsync("/api/Address/Create", address);
-            if (!await HandleResponseErrors(response))
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 return View(model);
             }
 
             // إنشاء المستخدم فعلاً
             response = await _http.PostAsJsonAsync("/api/User/Create", model);
-            if (!await HandleResponseErrors(response))
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 return View(model);
             }
@@ -387,8 +360,8 @@ namespace Sany3y.Controllers
             await _signInManager.SignInAsync(user, isPersistent: true);
 
             // Make Account is online after login
-            await UpdateUserOnlineStatus(user, true);
-            var token = GenerateJwtToken(user, _configuration);
+            await UserStatusUpdater.UpdateUserOnlineStatus(user, true, _http, _hubContext, this);
+            var token = await _jwtService.GenerateTokenAsync(user);
             HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
@@ -402,7 +375,7 @@ namespace Sany3y.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var user = await _userManager.GetUserAsync(User);
-                await UpdateUserOnlineStatus(user, false);
+                await UserStatusUpdater.UpdateUserOnlineStatus(user, false, _http, _hubContext, this);
                 HttpContext.Session.Remove("JwtToken");
                 await _signInManager.SignOutAsync();
             }
@@ -589,7 +562,7 @@ namespace Sany3y.Controllers
             };
 
             response = await _http.PutAsync($"/api/Address/Update/{address}", null);
-            if (!await HandleResponseErrors(response))
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 return View("Profile", userDTO);
             }
