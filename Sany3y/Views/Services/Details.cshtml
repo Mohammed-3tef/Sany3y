@@ -1,57 +1,177 @@
 ﻿@model Sany3y.Infrastructure.Models.User
 
 @{
-    ViewData["Title"] = "احجز معانا افضل الفنيين";
+    ViewData["Title"] = "تفاصيل الفني";
 }
 
-
 <div class="container mt-4">
-    <h2 class="mb-4">الملف الشخصي</h2>
+    <h2 class="mb-4">الملف الشخصي للفني</h2>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            <div class="card shadow-sm">
+
+                <!-- صورة -->
+                <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/600x300?text=No+Image")"
+                     class="card-img-top"
+                     style="height: 230px; object-fit: cover;" />
+
+                <div class="card-body">
+
+                    <h4>@Model.FirstName @Model.LastName</h4>
+
+                    <p><strong>الفئة:</strong> @(ViewBag.UserCategory?.Name ?? "غير محدد")</p>
+
+                    <p>
+                        <strong>العنوان:</strong>
+                        @ViewBag.UserAddress?.City - @ViewBag.UserAddress?.Street
+                    </p>
+
+                    <p><strong>التقييم:</strong> ⭐ @Model.Rating</p>
+
+                    <!-- زر المواعيد -->
+                    <button class="btn btn-primary w-100 mt-3" id="btnShowSchedule">
+                        عرض المواعيد المتاحة
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 
-           <div class="row">
-            <div class="col-md-15 col-lg-15 square-div d-flex justify-content-center align-items-center">       
-             <div class="card shadow-sm">
+<!-- ⭐⭐⭐ Hidden Input لحفظ الـ UserId الحقيقي ⭐⭐⭐ -->
+<input type="hidden" id="CurrentUserId" value="@ViewBag.CurrentUserId" />
 
 
+<!-- --------------------------------------------------------- -->
+<!-- ⭐⭐⭐⭐⭐    Modal - Schedule    ⭐⭐⭐⭐⭐ -->
+<div class="modal fade" id="scheduleModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg rounded-3">
 
-                    <!-- صورة الفني -->
-                <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/300x200?text=No+Image")"
-                         class="card-img-top"
-                         style="height: 220px; object-fit: cover;"
-                         onerror="this.onerror=null;this.src='https://placehold.co/300x200?text=No+Image';" />
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">المواعيد المتاحة للحجز</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
 
+            <div class="modal-body">
 
+                <!-- ⭐ رسالة نجاح الحجز ⭐ -->
+                <div id="bookingSuccessMsg" class="alert alert-success text-center" style="display:none;">
+                    ✔️ تم تأكيد الحجز بنجاح!
+                </div>
 
+                <!-- Loading -->
+                <div id="loadingSpinner" class="text-center my-3" style="display:none;">
+                    <div class="spinner-border text-primary"></div>
+                    <p class="mt-2">جارٍ تحميل المواعيد...</p>
+                </div>
 
-                    <div class="card-body">
+                <table class="table table-hover text-center mt-3">
+                    <thead class="table-light">
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>من</th>
+                            <th>إلى</th>
+                            <th>حجز</th>
+                        </tr>
+                    </thead>
 
-                        <!-- اسم الفني -->
-                    <h5 class="card-title">@Model.FirstName @Model.LastName</h5>
+                    <tbody id="scheduleTableBody"></tbody>
+                </table>
 
-                        <!-- التخصص -->
-                    <p>التصنيف: @(ViewBag.UserCategory?.Name ?? "غير محدد")</p>
+            </div>
 
-                        <!-- المدينة -->
-                    <p>@ViewBag.UserAddress.City</p>
-
-                    <p>@ViewBag.UserAddress.Street</p>
-
-
-                        <!-- التقييم -->
-                        <p class="card-text">
-                            <strong>التقييم:</strong>
-                        ⭐ @Model.Rating
-                        </p>
-
-                        <!-- زرار يفتح صفحة التفاصيل -->
-                        <button>احجز الان </button>
-
-                    </div>
-           
-                </div></div>
-          </div>
+        </div>
     </div>
-</div> 
+</div>
+
+
+
+<!-- ⭐⭐⭐⭐⭐    JavaScript    ⭐⭐⭐⭐⭐ -->
+<script>
+    const technicianId = "@Model.Id";                    // رقم الفني
+    const currentUserId = @ViewBag.CurrentUserId;        // رقم المستخدم الحقيقي من اللوجين
+
+    // -----------------------------
+    // 🔵 زر عرض المواعيد
+    // -----------------------------
+    document.getElementById("btnShowSchedule").addEventListener("click", function () {
+
+        document.getElementById("loadingSpinner").style.display = "block";
+
+        fetch(`/api/TechnicianSchedule/GetSchedule/${technicianId}`)
+            .then(res => res.json())
+            .then(data => {
+
+                const tbody = document.getElementById("scheduleTableBody");
+                tbody.innerHTML = "";
+                document.getElementById("loadingSpinner").style.display = "none";
+
+                if (data.length === 0) {
+                    tbody.innerHTML =
+                        `<tr>
+                            <td colspan="4" class="text-danger fw-bold">لا توجد مواعيد متاحة</td>
+                         </tr>`;
+                }
+
+                data.forEach(slot => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${slot.date}</td>
+                            <td>${slot.startTime}</td>
+                            <td>${slot.endTime}</td>
+                            <td>
+                                <button class="btn btn-success btnBook" data-id="${slot.id}">
+                                    حجز
+                                </button>
+                            </td>
+                        </tr>`;
+                });
+
+                new bootstrap.Modal(document.getElementById('scheduleModal')).show();
+            });
+    });
+
+
+    // -----------------------------
+    // 🔵 زر الحجز
+    // -----------------------------
+    document.addEventListener("click", function (e) {
+
+        if (e.target.classList.contains("btnBook")) {
+
+            let scheduleId = e.target.getAttribute("data-id");
+
+            fetch(`/api/TechnicianSchedule/BookSlot`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    scheduleId: scheduleId,
+                    customerId: currentUserId
+                })
+            })
+                .then(res => res.text())
+                .then(msg => {
+
+                    // ❇️ إظهار رسالة النجاح
+                    const successMsg = document.getElementById("bookingSuccessMsg");
+                    successMsg.style.display = "block";
+                    successMsg.innerText = "✔️ تم تأكيد الحجز بنجاح!";
+
+                    // ❇️ حذف الصف
+                    e.target.closest("tr").remove();
+
+                    // ❇️ اخفاء الرسالة بعد ثانيتين
+                    setTimeout(() => {
+                        successMsg.style.display = "none";
+                    }, 2000);
+                });
+        }
+    });
+</script>
 

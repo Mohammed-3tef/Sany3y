@@ -21,10 +21,9 @@ namespace Sany3y.Infrastructure.Models
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<TechnicianSchedule> TechnicianSchedules { get; set; }
 
-        public AppDbContext() : base()
-        {
-        }
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

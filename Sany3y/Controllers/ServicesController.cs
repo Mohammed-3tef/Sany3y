@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
 
-
 namespace Sany3y.Controllers
 {
     public class ServicesController : Controller
@@ -15,17 +14,14 @@ namespace Sany3y.Controllers
         }
 
         public async Task<IActionResult> Index(
-     int? categoryId,
-     string? city,
-     decimal? minPrice,
-     decimal? maxPrice,
-     double? rating)
-
+            int? categoryId,
+            string? city,
+            decimal? minPrice,
+            decimal? maxPrice,
+            double? rating)
         {
-            // Get all technicians
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
 
-            // Filtering
             if (categoryId != null)
                 users = users.Where(u => u.CategoryID == categoryId).ToList();
 
@@ -41,20 +37,16 @@ namespace Sany3y.Controllers
             if (rating != null)
                 users = users.Where(u => u.Rating >= rating.Value).ToList();
 
-
-
             return View(users);
         }
 
-        //---- ----دا للسيرش---------------فالهوم
+        //--------------- البحث من الهوم -----------------
         public async Task<IActionResult> Search(string serviceType)
         {
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
 
             if (!string.IsNullOrEmpty(serviceType))
             {
-                // تحويل الـ serviceType للقيم الخاصة بالـ Category
-                // لازم نعرف CategoryID لكل نوع خدمة:
                 int? categoryId = serviceType.ToLower() switch
                 {
                     "بناء وتشييد" => 1,
@@ -73,25 +65,18 @@ namespace Sany3y.Controllers
                     "تنظيف وتجهيز" => 14,
                     "نقل عفش وخدمات لوجستية" => 15,
                     "خدمات أخرى" => 16,
-                    
-                 
-
-
                     _ => null
                 };
 
                 if (categoryId != null)
-                {
                     users = users.Where(u => u.CategoryID == categoryId).ToList();
-                }
             }
 
             return View("Index", users);
         }
 
-
         // -------------------------------------------------------------
-        // 🔵 NEW: Service Details Page
+        // 🔵 صفحة تفاصيل الفني
         // -------------------------------------------------------------
         public async Task<IActionResult> Details(int id)
         {
@@ -102,8 +87,17 @@ namespace Sany3y.Controllers
 
             var userAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
             var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+
             ViewBag.UserAddress = userAddress;
             ViewBag.UserCategory = userCategory;
+
+            // --------------------------------------------------------------------
+            // إضافة الـ CurrentUserId من الـ Login الحقيقي
+            // --------------------------------------------------------------------
+            ViewBag.CurrentUserId = User.Identity.IsAuthenticated
+                ? long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value)
+                : 0;
+
             return View(user);
         }
     }

@@ -935,6 +935,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "BookSlot",
+    "RelativePath": "api/TechnicianSchedule/BookSlot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Sany3y.API.Controllers.BookingRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "GetSchedule",
+    "RelativePath": "api/TechnicianSchedule/GetSchedule/{technicianId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "technicianId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sany3y.API.Controllers.UserController",
     "Method": "Create",
     "RelativePath": "api/User/Create",
