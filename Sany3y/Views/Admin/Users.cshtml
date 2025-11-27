@@ -3,15 +3,16 @@
 @{
     ViewData["Title"] = "إدارة المستخدمين";
     Layout = "_AdminLayout";
+    var jwtToken = ViewBag.JwtToken as string;
 }
 
 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-2">
     <h1 class="mb-3">@ViewData["Title"]</h1>
     
     <div>
-        <a asp-controller="Admin" asp-action="CreateUser" class="btn btn-outline-primary">
+        <button class="btn btn-outline-primary add-user-btn">
             <i class="fa-solid fa-user-plus me-1"></i> إضافة مستخدم جديد
-	    </a>
+        </button>
         <a asp-controller="Admin" asp-action="ExportUsersPDF" class="btn btn-outline-danger">
             <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
         </a>
@@ -48,6 +49,9 @@
                 </td>
                 <td>@item.User.CreatedAt.ToString("yyyy/MM/dd")</td>
                 <td class="d-flex">
+                    <button type="button" class="btn btn-outline-success w-100 chat-btn" data-id="@item.User.Id" title="شات">
+                        <i class="fa-solid fa-comments fa-sm"></i>
+                    </button>
                     <button type="button" class="btn btn-outline-primary w-100 view-user-btn" data-id="@item.User.Id" title="عرض">
                         <i class="fa-solid fa-eye fa-sm"></i>
                     </button>
@@ -92,6 +96,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            const jwtToken = `@jwtToken`;
             initArabicDataTable('#user-table');
 
             $(document).on('click', '.view-user-btn', function () {
@@ -111,6 +116,20 @@
                 });
             });
 
+            $(document).on('click', '.add-user-btn', function () {
+                $.ajax({
+                    url: `/Admin/AddUser`,
+                    type: 'GET',
+                    success: function (html) {
+                        $('#userModalContainer').html(html);
+                        $('#addUserModal').modal('show');
+                    },
+                    error: function () {
+                        alert('Error loading user details.');
+                    }
+                });
+            });
+            
             $(document).on('click', '.edit-user-btn', function () {
                 var userId = $(this).data('id');
 

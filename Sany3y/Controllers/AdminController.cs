@@ -174,6 +174,16 @@ namespace Sany3y.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddUser()
+        {
+            var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
+            ViewBag.Roles = roles?.Select(r => r.Name).ToList();
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
+            return PartialView("_AddUserModal");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> EditUser(int id)
         {
             var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");

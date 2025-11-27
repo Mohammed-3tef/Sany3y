@@ -1,0 +1,180 @@
+﻿@model Sany3y.Infrastructure.Models.User
+
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">إضافة مستخدم جديد</h5>
+                <button type="button" class="btn-close close-left" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <form id="addUserForm">
+
+                    <div class="row">
+
+                        <!-- Profile Image -->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 text-center">
+                                    <img id="previewAddImg"
+                                         src="/images/default-user.png"
+                                         class="img-thumbnail"
+                                         style="height: 120px; border-radius: 50%;" />
+
+                                    <input type="file" id="AddProfilePicFile" class="form-control mt-2" />
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label">الرقم القومي</label>
+                                        <input type="text" name="NationalId" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label">اسم المستخدم</label>
+                                        <input type="text" name="UserName" class="form-control" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الاسم الأول</label>
+                            <input type="text" name="FirstName" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الاسم الأخير</label>
+                            <input type="text" name="LastName" class="form-control" />
+                        </div>
+
+                        <!-- BirthDate & Gender -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">تاريخ الميلاد</label>
+                            <input type="date" name="BirthDate" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">النوع</label>
+                            <select name="Gender" class="form-select">
+                                <option value="M">ذكر</option>
+                                <option value="F">أنثى</option>
+                            </select>
+                        </div>
+
+                        <!-- Email & Phone -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" name="Email" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">رقم الهاتف</label>
+                            <input type="text" name="PhoneNumber" class="form-control" />
+                        </div>
+
+                        <!-- Roles -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الدور</label>
+                            <select id="addRoleSelect" name="Role" class="form-select">
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    <option value="@role">@role</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">المدينة</label>
+                            <input type="text" name="City" class="form-control" />
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">الشارع</label>
+                            <input type="text" name="Street" class="form-control" />
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">نبذة</label>
+                            <textarea name="Bio" class="form-control" rows="3"></textarea>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" id="createUserBtn" class="btn btn-primary">إضافة المستخدم</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .close-left {
+        margin-left: 0 !important;
+    }
+</style>
+
+<script>
+
+    $("#AddProfilePicFile").on("change", function () {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $("#previewAddImg").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    // ----- Create New User -----
+    $("#createUserBtn").on("click", function () {
+
+        let userObj = {
+            FirstName: $("input[name='FirstName']").val(),
+            LastName: $("input[name='LastName']").val(),
+            UserName: $("input[name='UserName']").val(),
+            NationalId: $("input[name='NationalId']").val(),
+            Email: $("input[name='Email']").val(),
+            PhoneNumber: $("input[name='PhoneNumber']").val(),
+            BirthDate: $("input[name='BirthDate']").val(),
+            Gender: $("select[name='Gender']").val(),
+            City: $("input[name='City']").val(),
+            Street: $("input[name='Street']").val(),
+            Bio: $("textarea[name='Bio']").val()
+        };
+
+        let formData = new FormData();
+        formData.append("user", JSON.stringify(userObj));
+        formData.append("role", $("#addRoleSelect").val());
+
+        let file = $("#AddProfilePicFile")[0].files[0];
+        if (file) formData.append("profilePicture", file);
+
+        $.ajax({
+            url: "/Admin/AddUser",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                location.reload();
+            },
+            error: function (xhr) {
+                toastr.error("حدث خطأ أثناء الإضافة!");
+            }
+        });
+    });
+</script>
