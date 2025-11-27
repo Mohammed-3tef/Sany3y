@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
@@ -110,6 +111,30 @@ namespace Sany3y.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
+        [HttpPut("UpdateRole/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateRole(int id, [FromBody] string newRole)
+        {
+            if (string.IsNullOrWhiteSpace(newRole))
+                return BadRequest("Role cannot be empty.");
+
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+                return NotFound();
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+
+            var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            if (!removeResult.Succeeded)
+                return BadRequest("Failed to remove user from current roles.");
+
+            var addResult = await _userManager.AddToRoleAsync(user, newRole);
+            if (!addResult.Succeeded)
+                return BadRequest("Failed to add user to the new role.");
+
+            return Ok(new { message = $"User role updated to {newRole}" });
+        }
+
 
         [HttpPut("UpdateState/{id}")]
         public async Task<IActionResult> UpdateState(int id, [FromBody] bool isOnline)
@@ -124,23 +149,24 @@ namespace Sany3y.API.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> Update(int id, UserCreateDTO userDto)
+        public async Task<IActionResult> Update(int id, UserUpdateDTO userDto)
         {
             var existingUser = await _userRepository.GetById(id);
 
             if (existingUser == null)
                 return NotFound();
 
-            if (existingUser.NationalId != userDto.NationalID)
+            if (existingUser.Id != userDto.Id)
                 return BadRequest();
 
             existingUser.FirstName = userDto.FirstName;
             existingUser.LastName = userDto.LastName;
             existingUser.PhoneNumber = userDto.PhoneNumber;
             existingUser.BirthDate = userDto.BirthDate.ToDateTime(TimeOnly.MinValue);
+            existingUser.Bio = userDto.Bio;
 
             await _userRepository.Update(existingUser);
-            return NoContent();
+            return CreatedAtAction(nameof(GetById), new { id = existingUser.Id }, existingUser);
         }
 
         [HttpDelete("Delete/{id}")]

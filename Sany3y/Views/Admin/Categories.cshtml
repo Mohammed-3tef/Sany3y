@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<table id="user-table" class="table table-striped table-bordered" width="100%">
+<table id="category-table" class="table table-striped table-bordered" width="100%">
     <thead>
         <tr>
             <th>رقم</th>
@@ -164,10 +164,18 @@
         const jwtToken = '@jwtToken';
 
         $(document).ready(function () {
+
+            // Bootstrap 5 Modal instances
+            const createModal = new bootstrap.Modal(document.getElementById('createCategoryModal'));
+            const editModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+            const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteCategoryModal'));
+
+            // فتح مودال الإنشاء
             $('#openCreateCategoryModal').on('click', function () {
-                $('#createCategoryModal').modal('show');
+                createModal.show();
             });
 
+            // إنشاء تصنيف جديد
             $('#createCategoryForm').on('submit', function (e) {
                 e.preventDefault();
 
@@ -182,25 +190,23 @@
                     contentType: "application/json",
                     headers: { 'Authorization': 'Bearer ' + jwtToken },
                     data: JSON.stringify(newCategory),
-                    success: function (response) {
-                        $('#createCategoryModal').modal('hide');
+                    success: function () {
+                        createModal.hide();
                         window.location.reload();
                     }
                 });
             });
 
+            // فتح مودال التعديل
             $('.edit-category-btn').on('click', function () {
-                const id = $(this).data('id');
-                const name = $(this).data('name');
-                const description = $(this).data('description');
+                $('#editCategoryId').val($(this).data('id'));
+                $('#editCategoryName').val($(this).data('name'));
+                $('#editCategoryDescription').val($(this).data('description'));
 
-                $('#editCategoryId').val(id);
-                $('#editCategoryName').val(name);
-                $('#editCategoryDescription').val(description);
-
-                $('#editCategoryModal').modal('show');
+                editModal.show();
             });
 
+            // تعديل التصنيف
             $('#editCategoryForm').on('submit', function (e) {
                 e.preventDefault();
 
@@ -217,33 +223,37 @@
                     contentType: "application/json",
                     headers: { 'Authorization': 'Bearer ' + jwtToken },
                     data: JSON.stringify(updatedData),
-                    success: function (response) {
-                        $('#editCategoryModal').modal('hide');
+                    success: function () {
+                        editModal.hide();
                         window.location.reload();
                     }
                 });
             });
 
+            // فتح مودال الحذف
             $('.delete-category-btn').on('click', function () {
                 selectedCategoryId = $(this).data('id');
-                const categoryName = $(this).data('name');
-                $('#deleteCategoryName').text(categoryName);
-                $('#confirmDeleteCategoryModal').modal('show');
+                $('#deleteCategoryName').text($(this).data('name'));
+                deleteModal.show();
             });
 
+            // تأكيد الحذف
             $('#deleteCategoryForm').on('submit', function (e) {
                 e.preventDefault();
+
                 $.ajax({
                     url: `https://localhost:7178/api/Category/Delete/${selectedCategoryId}`,
-                    headers: { 'Authorization': 'Bearer ' + jwtToken },
                     type: 'DELETE',
-                    success: function (res) {
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
+                    success: function () {
+                        deleteModal.hide();
                         window.location.reload();
                     }
                 });
             });
 
-            initArabicDataTable("#user-table");
+            // DataTable
+            initArabicDataTable("#category-table");
         });
     </script>
 }

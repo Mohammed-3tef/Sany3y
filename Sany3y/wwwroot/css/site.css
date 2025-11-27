@@ -19,23 +19,44 @@ html {
     font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-table.dataTable td, table.dataTable th, table.dataTable td p{
+/* كل الـ td و th و أي p جوه الجدول يتوسّطوا عموديًا وأفقيًا */
+table.dataTable td, table.dataTable th, table.dataTable td p {
     text-align: center !important;
     vertical-align: middle !important;
 }
 
-div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
-    margin: 0;
+/* محاذاة عناصر الـ DataTables layout */
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    margin: 0; /* يشيل أي مسافات زائدة */
 }
 
-/* نخلي search على الشمال */
-div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start {
-    margin: 0;
-}
-
+/* RTL support */
 .dataTables_wrapper {
     direction: rtl;
     text-align: right;
+}
+
+/* نخلي input البحث على الشمال */
+.dataTables_wrapper .dataTables_filter {
+    float: left; /* Search box على الشمال */
+    text-align: left; /* نص البحث على الشمال */
+    margin: 0 0 10px 0; /* مسافة بسيطة أسفل */
+}
+
+/* Buttons و Responsive details */
+.dataTables_wrapper .dt-buttons {
+    float: right; /* زرار Export على اليمين */
+    margin-bottom: 10px;
+}
+
+/* تحسين الـ responsive details icon */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    left: auto;
+    right: 10px; /* يضع أيقونة التفاصيل على يمين الجدول */
 }
 
 .close-btn {

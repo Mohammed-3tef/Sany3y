@@ -1157,7 +1157,28 @@
       },
       {
         "Name": "userDto",
-        "Type": "Sany3y.Infrastructure.DTOs.UserCreateDTO",
+        "Type": "Sany3y.Infrastructure.DTOs.UserUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.UserController",
+    "Method": "UpdateRole",
+    "RelativePath": "api/User/UpdateRole/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newRole",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

@@ -546,7 +546,7 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Profile", userDTO);
 
-            var response = await _http.GetAsync($"/api/User/GetByUsername/{User.Identity.Name}");
+            var response = await _http.GetAsync($"/api/User/GetByUsername/{User?.Identity?.Name}");
             if (!response.IsSuccessStatusCode)
             {
                 ModelState.AddModelError(string.Empty, "User not found.");

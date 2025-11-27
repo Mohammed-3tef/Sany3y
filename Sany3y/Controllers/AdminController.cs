@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Services;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace Sany3y.Controllers
 {
@@ -150,10 +154,113 @@ namespace Sany3y.Controllers
             if (user == null)
                 return NotFound();
 
-            var roles = await _userManager.GetRolesAsync(user);
             ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
+
+            var response = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var profilePicture = await response.Content.ReadFromJsonAsync<ProfilePicture>();
+                ViewBag.UserProfilePictureUrl = profilePicture?.Path ?? "https://placehold.co/100x100?text=Profile";
+            }
+            else
+            {
+                ViewBag.UserProfilePictureUrl = "https://placehold.co/100x100?text=Profile";
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
             var viewModel = (User: user, Roles: roles);
             return PartialView("_ViewUserModal", viewModel);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditUser(int id)
+        {
+            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{id}");
+            if (user == null)
+                return NotFound();
+
+            ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
+
+            var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
+            ViewBag.Roles = roles?.Select(r => r.Name).ToList();
+            var userRole = await _userManager.GetRolesAsync(user);
+            ViewBag.UserRole = userRole.FirstOrDefault()?.ToString();
+
+            var response = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var profilePicture = await response.Content.ReadFromJsonAsync<ProfilePicture>();
+                ViewBag.UserProfilePictureUrl = profilePicture?.Path ?? "https://placehold.co/100x100?text=Profile";
+            }
+            else
+            {
+                ViewBag.UserProfilePictureUrl = "https://placehold.co/100x100?text=Profile";
+            }
+
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
+            return PartialView("_EditUserModal", user);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUser([FromForm] string user, [FromForm] string address, [FromForm] IFormFile profilePicture, [FromForm] string role)
+        {
+            var userObj = JsonSerializer.Deserialize<UserUpdateDTO>(user);
+            var addressObj = JsonSerializer.Deserialize<Address>(address);
+
+            if (userObj == null)
+                return BadRequest("User is null");
+
+            // ----- التعامل مع الصورة -----
+            if (profilePicture != null)
+            {
+                // رفع صورة جديدة أو تحديث الصورة الحالية
+                var pictureEntity = new ProfilePicture { Path = profilePicture.FileName };
+                var picResponse = await _http.PostAsJsonAsync("/api/ProfilePicture/Create", pictureEntity);
+                if (picResponse.IsSuccessStatusCode)
+                {
+                    var createdPicture = await picResponse.Content.ReadFromJsonAsync<ProfilePicture>();
+                    userObj.ProfilePictureUrl = createdPicture?.Path;
+                }
+                else
+                {
+                    TempData["Error"] = "Failed to upload profile picture.";
+                    return RedirectToAction("Users");
+                }
+            }
+
+            // ----- التعامل مع العنوان -----
+            var existingAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{addressObj?.Id}");
+            var addressCreateResponse = await _http.PutAsJsonAsync($"/api/Address/Update/{existingAddress?.Id}", addressObj);
+            if (!addressCreateResponse.IsSuccessStatusCode)
+            {
+                TempData["Error"] = "Failed to create/update address.";
+                return RedirectToAction("Users");
+            }
+
+            // ----- تحديث بيانات المستخدم -----
+            var response = await _http.PutAsJsonAsync($"/api/User/Update/{userObj.Id}", userObj);
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["Error"] = "Failed to update user.";
+                return RedirectToAction("Users");
+            }
+
+            // ----- تحديث الدور -----
+            var updatedUser = await response.Content.ReadFromJsonAsync<User>();
+            if (updatedUser != null)
+            {
+                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JwtToken"));
+                var roleResponse = await _http.PutAsJsonAsync($"/api/User/UpdateRole/{updatedUser.Id}", role);
+                if (!roleResponse.IsSuccessStatusCode)
+                {
+                    TempData["Error"] = "Failed to update user role.";
+                    return RedirectToAction("Users");
+                }
+            }
+
+            return RedirectToAction("Users");
         }
 
         [HttpGet]

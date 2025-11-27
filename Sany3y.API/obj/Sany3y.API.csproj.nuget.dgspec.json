@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.API\\Sany3y.API.csproj": {}
+    "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.API\\Sany3y.API.csproj": {
+    "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.API\\Sany3y.API.csproj",
+        "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
         "projectName": "Sany3y.API",
-        "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.API\\Sany3y.API.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.API\\obj\\",
+        "projectPath": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Sany3y\\Sany3y.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
+              "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
               }
             }
           }
@@ -88,24 +88,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+    "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
         "projectName": "Sany3y.Infrastructure",
-        "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\Main Sanay3y\\Sany3y.Infrastructure\\obj\\",
+        "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -195,7 +195,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

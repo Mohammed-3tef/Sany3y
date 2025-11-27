@@ -1,22 +1,28 @@
 ﻿function initArabicDataTable(selector, options) {
     // Arabic language config
     var arabicLang = {
-        "sEmptyTable":     "لا توجد بيانات متاحة في الجدول",
-        "sLoadingRecords": "جارٍ التحميل...",
-        "sProcessing":     "جارٍ المعالجة...",
-        "sLengthMenu":     "أظهر _MENU_ سجلات",
-        "sZeroRecords":    "لم يتم العثور على نتائج",
-        "sInfo":           "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
-        "sInfoEmpty":      "يعرض 0 إلى 0 من أصل 0 سجل",
-        "sInfoFiltered":   "(منتقاة من مجموع _MAX_ سجل)",
-        "sSearch":         "ابحث:",
-        "oAria": {
-            "sSortAscending":  ": تفعيل لترتيب العمود تصاعدياً",
-            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+        emptyTable: "لا توجد بيانات متاحة في الجدول",
+        loadingRecords: "جارٍ التحميل...",
+        processing: "جارٍ المعالجة...",
+        lengthMenu: "أظهر _MENU_ سجلات",
+        zeroRecords: "لم يتم العثور على نتائج",
+        info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ سجل",
+        infoEmpty: "يعرض 0 إلى 0 من أصل 0 سجل",
+        infoFiltered: "(منتقاة من مجموع _MAX_ سجل)",
+        search: "ابحث:",
+        paginate: {
+            first: "الأول",
+            last: "الأخير",
+            next: "التالي",
+            previous: "السابق"
+        },
+        aria: {
+            sortAscending: ": تفعيل لترتيب العمود تصاعدياً",
+            sortDescending: ": تفعيل لترتيب العمود تنازلياً"
         }
     };
 
-    // Merge options if exist
+    // Default configuration
     var config = Object.assign({
         paging: true,
         searching: true,
@@ -24,7 +30,8 @@
         info: true,
         lengthChange: true,
         responsive: true,
-        language: arabicLang
+        autoWidth: false,
+        language: arabicLang,
     }, options || {});
 
     return $(selector).DataTable(config);

@@ -90,18 +90,7 @@
     </div>
 </div>
 
-<style>
-    .dashboard-card {
-        transition: all 0.3s ease-in-out;
-    }
-
-    .dashboard-card:hover {
-        transform: translateY(-2.5px);
-    }
-</style>
-
 @section Scripts {
-    <script src="~/js/charts.js"></script>
     <script>
         $(document).ready(async function () {
             monthlyUsersChart = await buildChart({

@@ -17,165 +17,169 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Sany3y
 build_property.RootNamespace = Sany3y
-build_property.ProjectDir = C:\Users\Lenovo\OneDrive\Desktop\Main Sanay3y\Sany3y\
+build_property.ProjectDir = D:\Projects\Sany3y\Sany3y\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Lenovo\OneDrive\Desktop\Main Sanay3y\Sany3y
+build_property.MSBuildProjectDirectory = D:\Projects\Sany3y\Sany3y
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/ChangePassword.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/CompleteProfile.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/CompleteProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb21wbGV0ZVByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/ConfirmEmail.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/EmailConfirmationNotice.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/EmailConfirmationNotice.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxFbWFpbENvbmZpcm1hdGlvbk5vdGljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/Login.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/Profile.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/Register.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/ResendConfirmation.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/ResendConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNlbmRDb25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/VerifyEmail.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/VerifyEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxWZXJpZnlFbWFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Account/_ProfileSideBar.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Account/_ProfileSideBar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfUHJvZmlsZVNpZGVCYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/Categories.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/Categories.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2F0ZWdvcmllcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/Index.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/Users.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/_AdminSidebar.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/_AdminSidebar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FkbWluU2lkZWJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/_DashboardCard.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/_DashboardCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0Rhc2hib2FyZENhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Admin/_ViewUserModal.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Admin/_EditUserModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0VkaXRVc2VyTW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/Sany3y/Sany3y/Views/Admin/_ViewUserModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1ZpZXdVc2VyTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Dashboard/Customer.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Dashboard/Customer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEN1c3RvbWVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Dashboard/Worker.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Dashboard/Worker.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXFdvcmtlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/AboutUs.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/AboutUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dFVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/ContactUs.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/ContactUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0VXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/Index.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/OurTeam.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/OurTeam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxPdXJUZWFtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/Policy.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/Policy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQb2xpY3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Home/_TeamMemberCard.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Home/_TeamMemberCard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfVGVhbU1lbWJlckNhcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Services/Details.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Services/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Services/Index.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Services/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/Error.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_AdminLayout.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_Footer.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_Header.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_LoginPartial.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_Notification.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_Notification.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob3RpZmljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_ProfileLayout.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_ProfileLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9maWxlTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/_ViewImports.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/_ViewStart.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_Layout.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-6pw0wxqce2
 
-[C:/Users/Lenovo/OneDrive/Desktop/Main Sanay3y/Sany3y/Views/Shared/_Loader.cshtml]
+[D:/Projects/Sany3y/Sany3y/Views/Shared/_Loader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2FkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-0xrn8edqt7

@@ -37,6 +37,9 @@ function buildChart({ type, url, canvasId, label, labelProp, dataProp }) {
                 });
 
                 resolve(chart);
+            },
+            error: function (xhr) {
+                reject("AJAX Error: " + xhr.status + " - " + xhr.statusText);
             }
         });
     });

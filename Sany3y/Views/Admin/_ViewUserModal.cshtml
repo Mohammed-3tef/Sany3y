@@ -10,22 +10,34 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">الرقم القومي</label>
-                        <input type="text" value="@Model.User.NationalId" class="form-control" readonly />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mb-3 text-center align-content-center">
+                                <img src="@ViewBag.UserProfilePictureUrl"
+                                     alt="User Image" class="img-thumbnail"
+                                     style="height: 150px; border-radius: 50%" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">الرقم القومي</label>
+                                    <input type="text" value="@Model.User.NationalId" class="form-control" readonly />
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">اسم المستخدم</label>
+                                    <input type="text" value="@Model.User.UserName" class="form-control" readonly />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label">اسم المستخدم</label>
-                        <input type="text" value="@Model.User.UserName" class="form-control" readonly />
-                    </div>
-
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="form-label">الاسم الأول</label>
                         <input type="text" value="@Model.User.FirstName" class="form-control" readonly />
                     </div>
 
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label class="form-label">الاسم الأخير</label>
                         <input type="text" value="@Model.User.LastName" class="form-control" readonly />
                     </div>
@@ -98,27 +110,3 @@
         margin-left: 0px !important;
     }
 </style>
-
-
-@* @section Scripts {
-    <script>
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/userStatusHub")
-            .build();
-
-        connection.on("ReceiveUserStatus", function (userId, isOnline) {
-            console.log(`User ${userId} is now ${isOnline ? 'Online' : 'Offline'}`);
-
-            const userStatusElement = document.querySelector(`#userStatus_${userId}`);
-            if (userStatusElement) {
-                userStatusElement.textContent = isOnline ? "Online" : "Offline";
-                userStatusElement.classList.toggle("text-success", isOnline);
-                userStatusElement.classList.toggle("text-secondary", !isOnline);
-            }
-        });
-
-        connection.start().then(() => {
-            console.log("Connected to SignalR hub");
-        }).catch(err => console.error("❌ SignalR Error:", err));
-    </script>
-} *@

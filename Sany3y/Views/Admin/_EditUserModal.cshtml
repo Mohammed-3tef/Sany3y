@@ -1,0 +1,197 @@
+﻿@model Sany3y.Infrastructure.Models.User
+
+@{
+    var jwtToken = ViewBag.JwtToken as string;
+}
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">تعديل بيانات @Model.UserName</h5>
+                <button type="button" class="btn-close close-left" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <form id="editUserForm">
+
+                    <input type="hidden" name="Id" value="@Model.Id" />
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 text-center">
+                                    <img id="previewImg"
+                                         src="@ViewBag.UserProfilePictureUrl"
+                                         alt="User Image" class="img-thumbnail"
+                                         style="height: 120px; border-radius: 50%;" />
+
+                                    <input type="file" id="ProfilePicFile" class="form-control mt-2" />
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label">الرقم القومي</label>
+                                        <input type="text" name="NationalId" value="@Model.NationalId" class="form-control" readonly/>
+                                    </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label">اسم المستخدم</label>
+                                        <input type="text" name="UserName" value="@Model.UserName" class="form-control" readonly />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الاسم الأول</label>
+                            <input type="text" name="FirstName" value="@Model.FirstName" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الاسم الأخير</label>
+                            <input type="text" name="LastName" value="@Model.LastName" class="form-control" />
+                        </div>
+
+                        <!-- BirthDate & Gender -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">تاريخ الميلاد</label>
+                            <input type="date" name="BirthDate" value="@Model.BirthDate.ToString("yyyy-MM-dd")" class="form-control" readonly/>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">النوع</label>
+                            <select name="Gender" class="form-select" disabled>
+                                <option value="M" selected="@(Model.Gender == 'M' ? "selected" : null)" >ذكر</option>
+                                <option value="F" selected="@(Model.Gender == 'F' ? "selected" : null)" >أنثى</option>
+                            </select>
+                        </div>
+
+                        <!-- Email & Phone -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" name="Email" value="@Model.Email" class="form-control" readonly />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">رقم الهاتف</label>
+                            <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" />
+                        </div>
+
+                        <!-- Roles -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الأدوار</label>
+                            <select id="roleSelect" name="Roles" class="form-select">
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    if (role != ViewBag.UserRole)
+                                    {
+                                        <option value="@role">@role</option>
+                                        continue;
+                                    }
+                                    <option selected value="@role">@role</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">المدينة</label>
+                            <input type="text" name="City" value="@(ViewBag.Address?.City)" class="form-control" />
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">الشارع</label>
+                            <input type="text" name="Street" value="@(ViewBag.Address?.Street)" class="form-control" />
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">نبذة</label>
+                            <textarea name="Bio" class="form-control" rows="3">@Model.Bio</textarea>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="button" id="saveUserBtn" class="btn btn-primary">حفظ التعديلات</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .close-left {
+        margin-left: 0 !important;
+    }
+</style>
+
+<script>
+    const jwtToken = '@jwtToken';
+
+    // ----- Preview Image -----
+    $("#ProfilePicFile").on("change", function (e) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            $("#previewImg").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(this.files[0]);
+    });
+
+    // ----- Save -----
+    $("#saveUserBtn").on("click", function () {
+        let userObj = {
+            Id: Number("@Model.Id"),
+            FirstName: $("input[name='FirstName']").val(),
+            LastName: $("input[name='LastName']").val(),
+            Email: $("input[name='Email']").val(),
+            PhoneNumber: $("input[name='PhoneNumber']").val(),
+            BirthDate: $("input[name='BirthDate']").val(),
+            City: $("input[name='City']").val(),
+            Street: $("input[name='Street']").val(),
+            Bio: $("textarea[name='Bio']").val(),
+            ProfilePictureUrl: ""
+        };
+
+        let addressObj = {
+            Id: Number("@(ViewBag.Address?.Id ?? 0)"),
+            City: $("input[name='City']").val(),
+            Street: $("input[name='Street']").val()
+        };
+
+        let formData = new FormData();
+        formData.append("user", JSON.stringify(userObj));
+        formData.append("address", JSON.stringify(addressObj));
+        formData.append("role", $("#roleSelect").val());
+
+        let file = $("#ProfilePicFile")[0].files[0];
+        if (file) formData.append("profilePicture", file);
+
+        $.ajax({
+            url: "/Admin/EditUser",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                location.reload();
+            },
+            error: function (xhr) {
+                let message = "حدث خطأ أثناء حفظ البيانات";
+                toastr.error(message);
+            }
+        });
+    });
+</script>
