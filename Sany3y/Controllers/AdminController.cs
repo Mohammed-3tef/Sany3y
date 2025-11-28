@@ -203,7 +203,7 @@ namespace Sany3y.Controllers
 
             // Boolean
             form.Add(new StringContent(user.IsMale.ToString()), "IsMale");
-            form.Add(new StringContent(user.IsClient.ToString()), "IsClient");
+            form.Add(new StringContent((role == "Client").ToString()), "IsClient");
 
             // بقية البيانات
             form.Add(new StringContent(user.Email), "Email");
@@ -233,7 +233,7 @@ namespace Sany3y.Controllers
             var createdUser = await response.Content.ReadFromJsonAsync<User>();
 
             // إضافة الدور
-            if (createdUser != null)
+            if (createdUser != null && role == "Admin")
             {
                 _http.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JwtToken"));

@@ -91,50 +91,80 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Register", model);
 
-            // Check if National ID is already registered
-            var existingUser = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
-            if (existingUser.IsSuccessStatusCode)
-            {
-                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
-                return View("Register", model);
-            }
-
-            // Using OCR to Check the National ID
+            // تحقق من الرقم القومي باستخدام OCR
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
             {
                 ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
                 return View(model);
             }
             string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
-
             if (string.IsNullOrEmpty(extractedId))
             {
                 ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
-                return View("Register", model);
+                return View(model);
             }
-
             if (extractedId != model.NationalId.ToString())
             {
                 ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
                 return View("Register", model);
             }
 
-            // Create User
-            var response = await _http.PostAsJsonAsync("/api/User/Create", model);
-            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
+            // إرسال البيانات للـ API باستخدام MultipartFormDataContent
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent(model.NationalId.ToString()), "NationalId");
+            form.Add(new StringContent(model.FirstName ?? ""), "FirstName");
+            form.Add(new StringContent(model.LastName ?? ""), "LastName");
+            form.Add(new StringContent(model.UserName ?? ""), "UserName");
+            form.Add(new StringContent(model.Email ?? ""), "Email");
+            form.Add(new StringContent(model.PhoneNumber ?? ""), "PhoneNumber");
+            form.Add(new StringContent(model.BirthDate.ToString("yyyy-MM-dd")), "BirthDate");
+            form.Add(new StringContent(model.IsMale.ToString()), "IsMale");
+            form.Add(new StringContent(model.City ?? ""), "City");
+            form.Add(new StringContent(model.Street ?? ""), "Street");
+            form.Add(new StringContent(model.Password ?? ""), "Password");
+            form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
+            form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
+
+            // الملف
+            if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
             {
+                var stream = new StreamContent(model.NationalIdImage.OpenReadStream());
+                stream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(model.NationalIdImage.ContentType);
+                form.Add(stream, "NationalIdImage", model.NationalIdImage.FileName);
+            }
+
+            var response = await _http.PostAsync("/api/User/Create", form);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // التعامل مع الأخطاء من الـ API
+                var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, string[]>>();
+                if (errors != null)
+                {
+                    foreach (var key in errors.Keys)
+                    {
+                        ModelState.AddModelError(key, string.Join(", ", errors[key]));
+                    }
+                }
+                return View(model);
+            }
+
+            // قراءة المستخدم الناتج
+            var apiResult = await _userManager.FindByNameAsync(model.UserName);
+            if (apiResult == null)
+            {
+                ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم عبر API.");
                 return View("Register", model);
             }
 
-            // Assign Role
-            var user = await response.Content.ReadFromJsonAsync<User>();
+            // إضافة الدور
             if (model.IsClient)
-                await _userManager.AddToRoleAsync(user, "Client");
+                await _userManager.AddToRoleAsync(apiResult, "Client");
             else
-                await _userManager.AddToRoleAsync(user, "Technician");
+                await _userManager.AddToRoleAsync(apiResult, "Technician");
 
-            // Send Email Confirmation
-            await SendEmailConfirmationAsync(user);
+            // إرسال تأكيد البريد
+            await SendEmailConfirmationAsync(apiResult);
             return RedirectToAction(nameof(EmailConfirmationNotice));
         }
 
@@ -313,23 +343,35 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
-            Address address = new Address
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent(model.NationalId.ToString()), "NationalId");
+            form.Add(new StringContent(model.FirstName ?? ""), "FirstName");
+            form.Add(new StringContent(model.LastName ?? ""), "LastName");
+            form.Add(new StringContent(model.UserName ?? ""), "UserName");
+            form.Add(new StringContent(model.Email ?? ""), "Email");
+            form.Add(new StringContent(model.PhoneNumber ?? ""), "PhoneNumber");
+            form.Add(new StringContent(model.BirthDate.ToString("yyyy-MM-dd")), "BirthDate");
+            form.Add(new StringContent(model.IsMale.ToString()), "IsMale");
+            form.Add(new StringContent(model.City ?? ""), "City");
+            form.Add(new StringContent(model.Street ?? ""), "Street");
+            form.Add(new StringContent(model.Password ?? ""), "Password");
+            form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
+            form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
+
+            // الملف
+            if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
             {
-                City = model.City, Street = model.Street
-            };
-            response = await _http.PostAsJsonAsync("/api/Address/Create", address);
-            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
-            {
-                return View(model);
+                var stream = new StreamContent(model.NationalIdImage.OpenReadStream());
+                stream.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(model.NationalIdImage.ContentType);
+                form.Add(stream, "NationalIdImage", model.NationalIdImage.FileName);
             }
 
-            // إنشاء المستخدم فعلاً
-            response = await _http.PostAsJsonAsync("/api/User/Create", model);
+            response = await _http.PostAsync("/api/User/Create", form);
             if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
                 return View(model);
             }
-            var user = await response.Content.ReadFromJsonAsync<User>();
+            var user = await _userManager.FindByNameAsync(model.UserName);
 
             // حفظ صورة البروفايل لو جت من Google
             if (!string.IsNullOrEmpty(model.Picture))
@@ -381,7 +423,7 @@ namespace Sany3y.Controllers
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
                 return RedirectToAction("Index", "Home");
 
-            var user = await _http.GetFromJsonAsync<User>($"/api/User/GetByID/{userId}");
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 return NotFound($"User with ID '{userId}' was not found.");
 

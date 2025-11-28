@@ -45,8 +45,7 @@ namespace Sany3y.Infrastructure.Repositories
 
         public async Task<User?> GetById(long id)
         {
-            User? user = await context.Users.FirstOrDefaultAsync(a => a.Id == id);
-            return user;
+            return await userManager.FindByIdAsync(id.ToString());
         }
 
         public async Task<User?> GetByNationalId(long nationalId)
