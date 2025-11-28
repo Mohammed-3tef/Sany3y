@@ -36,30 +36,33 @@
         <li class="nav-item ms-2">
             <a class="btn btn-warning text-dark fw-bold rounded-pill px-4" asp-controller="Account" asp-action="Register">حساب جديد</a>
         </li>
-        
-        <style>
-            .nav-btn-login {
-                border-color: rgba(0,0,0,0.1);
-                color: var(--text-dark);
-            }
-            .nav-btn-login:hover {
-                background: var(--primary-green);
-                color: white;
-                border-color: var(--primary-green);
-            }
-            
-            .navbar-transparent .nav-btn-login {
-                border-color: rgba(255,255,255,0.5);
-                color: white;
-            }
-            .navbar-transparent.scrolled .nav-btn-login {
-                border-color: var(--primary-green);
-                color: var(--primary-green);
-            }
-            .navbar-transparent.scrolled .nav-btn-login:hover {
-                background: var(--primary-green);
-                color: white;
-            }
-        </style>
     }
 </ul>
+
+<style>
+    .nav-btn-login {
+        border-color: rgba(0,0,0,0.1);
+        color: var(--text-dark);
+    }
+
+    .nav-btn-login:hover {
+        background: var(--primary-green);
+        color: white;
+        border-color: var(--primary-green);
+    }
+
+    .navbar-transparent .nav-btn-login {
+        border-color: rgba(255,255,255,0.5);
+        color: white;
+    }
+
+    .navbar-transparent.scrolled .nav-btn-login {
+        border-color: var(--primary-green);
+        color: var(--primary-green);
+    }
+
+    .navbar-transparent.scrolled .nav-btn-login:hover {
+        background: var(--primary-green);
+        color: white;
+    }
+</style>

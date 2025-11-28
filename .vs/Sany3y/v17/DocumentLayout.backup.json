@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|d:\\projects\\sany3y\\sany3y.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF92378B-061C-41E8-86A1-94D5F013FC65}|Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj|solutionrelative:sany3y.infrastructure\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,37 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeDocumentMoniker": "Sany3y.Infrastructure\\Repositories\\UserRepository.cs",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Repositories\\UserRepository.cs",
-              "RelativeToolTip": "Sany3y.Infrastructure\\Repositories\\UserRepository.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAIA5wC8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T10:44:01.584Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAGYBAAAAAAAAAAAuwHABAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T10:38:16.157Z",
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAACIAAAAAAAAAAAAQwDMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-28T12:03:02.279Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
