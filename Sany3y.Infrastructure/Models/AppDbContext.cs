@@ -23,7 +23,10 @@ namespace Sany3y.Infrastructure.Models
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<TechnicianSchedule> TechnicianSchedules { get; set; }
 
-
+        // Province, Governorates and Cities
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<Governorate> Governorates { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -34,6 +37,14 @@ namespace Sany3y.Infrastructure.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>().Ignore(u => u.PhoneNumberConfirmed);
+
+            modelBuilder.Entity<Province>()
+                .Property(p => p.Id)
+                .ValueGeneratedNever();
+
+            modelBuilder.Entity<Governorate>()
+                .Property(g => g.Id)
+                .ValueGeneratedNever();
 
             modelBuilder.Entity<User>()
                 .HasOne(t => t.Category)

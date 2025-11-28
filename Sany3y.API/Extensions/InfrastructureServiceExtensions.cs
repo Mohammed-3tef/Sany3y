@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Sany3y.Infrastructure.Models;
 
-namespace Sany3y.Infrastructure.Extensions
+namespace Sany3y.API.Extensions
 {
     public static class InfrastructureServiceExtensions
     {

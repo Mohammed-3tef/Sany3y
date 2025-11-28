@@ -178,6 +178,7 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> AddUser()
         {
             var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
+            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
             ViewBag.Roles = roles?.Select(r => r.Name).ToList();
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return PartialView("_AddUserModal");
@@ -210,6 +211,7 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(user.PhoneNumber), "PhoneNumber");
             form.Add(new StringContent(user.Password), "Password");
             form.Add(new StringContent(user.ConfirmPassword), "ConfirmPassword");
+            form.Add(new StringContent(user.Governorate), "Governorate");
             form.Add(new StringContent(user.City), "City");
             form.Add(new StringContent(user.Street), "Street");
 
@@ -233,7 +235,7 @@ namespace Sany3y.Controllers
             var createdUser = await response.Content.ReadFromJsonAsync<User>();
 
             // إضافة الدور
-            if (createdUser != null && role == "Admin")
+            if (createdUser != null)
             {
                 _http.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JwtToken"));
@@ -258,6 +260,7 @@ namespace Sany3y.Controllers
             if (user == null)
                 return NotFound();
 
+            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
             ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
 
             var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
@@ -377,7 +380,8 @@ namespace Sany3y.Controllers
                 u.PhoneNumber,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
                 City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
-                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A"
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A",
+                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Governorate ?? "N/A"
             }).Where(u => u.Role != "Admin").ToList();
 
             var exporter = new TableExporter();

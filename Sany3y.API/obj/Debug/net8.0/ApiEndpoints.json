@@ -158,6 +158,138 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetAllCities",
+    "RelativePath": "api/CountryServices/GetAllCities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetAllGovernorates",
+    "RelativePath": "api/CountryServices/GetAllGovernorates",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "provinceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetAllProvinces",
+    "RelativePath": "api/CountryServices/GetAllProvinces",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetCitiesByGovernorateId",
+    "RelativePath": "api/CountryServices/GetCitiesByGovernorateId/{governorateId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "governorateId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetCitiesByProvinceId",
+    "RelativePath": "api/CountryServices/GetCitiesByProvinceId/{provinceId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "provinceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetCityById",
+    "RelativePath": "api/CountryServices/GetCityById/{cityId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cityId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetGovernorateById",
+    "RelativePath": "api/CountryServices/GetGovernorateById/{governorateId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "governorateId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetGovernoratesByProvinceId",
+    "RelativePath": "api/CountryServices/GetGovernoratesByProvinceId/{provinceId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "provinceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.CountryServicesController",
+    "Method": "GetProvinceById",
+    "RelativePath": "api/CountryServices/GetProvinceById/{provinceId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "provinceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sany3y.API.Controllers.DashboardController",
     "Method": "GetCustomerDashboard",
     "RelativePath": "api/Dashboard/customer/{userId}",
@@ -239,7 +371,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "address",
+        "Name": "message",
         "Type": "Sany3y.Infrastructure.Models.Message",
         "IsRequired": true
       }
@@ -1058,6 +1190,11 @@
       },
       {
         "Name": "ConfirmPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Governorate",
         "Type": "System.String",
         "IsRequired": false
       },

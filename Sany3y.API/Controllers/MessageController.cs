@@ -20,8 +20,8 @@ namespace Sany3y.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var address = await _messageRepository.GetAll();
-            return Ok(address);
+            var messages = await _messageRepository.GetAll();
+            return Ok(messages);
         }
 
         [HttpGet("GetByID/{id}")]
@@ -46,10 +46,10 @@ namespace Sany3y.API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Message address)
+        public async Task<IActionResult> Create(Message message)
         {
-            await _messageRepository.Add(address);
-            return CreatedAtAction(nameof(GetById), new { id = address.Id }, address);
+            await _messageRepository.Add(message);
+            return CreatedAtAction(nameof(GetById), new { id = message.Id }, message);
         }
 
         [HttpPut("Update/{id}")]

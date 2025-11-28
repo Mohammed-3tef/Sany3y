@@ -2,13 +2,19 @@
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
+using Sany3y.API.Services.CountryServices;
 
-namespace Sany3y.Infrastructure.Extensions
+namespace Sany3y.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            // Provinces, Governorates, and Cities Services
+            services.AddScoped<ProvinceServices>();
+            services.AddScoped<GovernorateServices>();
+            services.AddScoped<CityServices>();
+
             services.AddScoped<IEmailSender, EmailConfirm>();
             services.AddScoped<UserRepository, UserRepository>();
             services.AddScoped<IRepository<Address>, AddressRepository>();

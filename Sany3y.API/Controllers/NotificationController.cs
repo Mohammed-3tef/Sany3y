@@ -27,10 +27,10 @@ namespace Sany3y.API.Controllers
         [HttpGet("GetByID/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var address = await _notificationRepository.GetById(id);
-            if (address == null)
+            var notification = await _notificationRepository.GetById(id);
+            if (notification == null)
                 return NotFound();
-            return Ok(address);
+            return Ok(notification);
         }
 
         [HttpPost("Create")]

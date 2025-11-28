@@ -1,6 +1,4 @@
 ﻿using Sany3y.API.Extensions;
-using Sany3y.Extensions;
-using Sany3y.Infrastructure.Extensions;
 using Sany3y.Infrastructure.Services;
 using System.Diagnostics;
 

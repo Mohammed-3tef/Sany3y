@@ -82,7 +82,11 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Register()
+        {
+            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,6 +113,9 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            var userGovernorate = await _http.GetFromJsonAsync<Governorate>($"/api/CountryServices/GetGovernorateById/{model.Governorate}");
+            var userCity = await _http.GetFromJsonAsync<City>($"/api/CountryServices/GetCityByID/{model.City}");
+
             // إرسال البيانات للـ API باستخدام MultipartFormDataContent
             using var form = new MultipartFormDataContent();
             form.Add(new StringContent(model.NationalId.ToString()), "NationalId");
@@ -119,7 +126,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.PhoneNumber ?? ""), "PhoneNumber");
             form.Add(new StringContent(model.BirthDate.ToString("yyyy-MM-dd")), "BirthDate");
             form.Add(new StringContent(model.IsMale.ToString()), "IsMale");
-            form.Add(new StringContent(model.City ?? ""), "City");
+            form.Add(new StringContent(userGovernorate?.ArabicName ?? ""), "Governorate");
+            form.Add(new StringContent(userCity?.ArabicName ?? ""), "City");
             form.Add(new StringContent(model.Street ?? ""), "Street");
             form.Add(new StringContent(model.Password ?? ""), "Password");
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
@@ -137,15 +145,13 @@ namespace Sany3y.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                // التعامل مع الأخطاء من الـ API
-                var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, string[]>>();
-                if (errors != null)
+                // استخدام SafeReadErrors عشان نتعامل مع أي شكل من أشكال response
+                var errors = await ErrorResponseHandler.SafeReadErrors(response);
+                foreach (var error in errors)
                 {
-                    foreach (var key in errors.Keys)
-                    {
-                        ModelState.AddModelError(key, string.Join(", ", errors[key]));
-                    }
+                    ModelState.AddModelError(string.Empty, error);
                 }
+
                 return View(model);
             }
 
@@ -343,6 +349,9 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            var userGovernorate = await _http.GetFromJsonAsync<Governorate>($"/api/CountryServices/GetGovernorateById/{model.Governorate}");
+            var userCity = await _http.GetFromJsonAsync<City>($"/api/CountryServices/GetCityByID/{model.City}");
+
             using var form = new MultipartFormDataContent();
             form.Add(new StringContent(model.NationalId.ToString()), "NationalId");
             form.Add(new StringContent(model.FirstName ?? ""), "FirstName");
@@ -352,7 +361,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.PhoneNumber ?? ""), "PhoneNumber");
             form.Add(new StringContent(model.BirthDate.ToString("yyyy-MM-dd")), "BirthDate");
             form.Add(new StringContent(model.IsMale.ToString()), "IsMale");
-            form.Add(new StringContent(model.City ?? ""), "City");
+            form.Add(new StringContent(userGovernorate?.ArabicName ?? ""), "Governorate");
+            form.Add(new StringContent(userCity?.ArabicName ?? ""), "City");
             form.Add(new StringContent(model.Street ?? ""), "Street");
             form.Add(new StringContent(model.Password ?? ""), "Password");
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
@@ -566,6 +576,7 @@ namespace Sany3y.Controllers
                 PhoneNumber = currentUser.PhoneNumber.ToString(),
                 City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.City ?? string.Empty,
                 Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Street ?? string.Empty,
+                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Governorate ?? string.Empty,
                 Bio = currentUser.Bio
             };
             return View(userDTO);
@@ -589,6 +600,7 @@ namespace Sany3y.Controllers
             Address address = new Address
             {
                 Id = currentUser.AddressId,
+                Governorate = userDTO.Governorate,
                 City = userDTO.City,
                 Street = userDTO.Street
             };

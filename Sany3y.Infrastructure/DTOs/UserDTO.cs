@@ -34,6 +34,9 @@ namespace Sany3y.Infrastructure.DTOs
         public string PhoneNumber { get; set; }
 
         [Required]
+        public string Governorate { get; set; }
+
+        [Required]
         public string City { get; set; }
 
         [Required]

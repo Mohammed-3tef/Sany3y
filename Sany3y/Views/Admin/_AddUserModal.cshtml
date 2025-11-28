@@ -85,7 +85,21 @@
                         <!-- Address -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">المدينة</label>
-                            <input type="text" name="City" class="form-control" />
+                            <select name="Government" class="form-select" id="Governorate">
+                                <option value="">اختر المحافظة</option>
+                                @foreach (var governorate in ViewBag.AllGovernorates)
+                                {
+                                    <option value="@governorate.Id">@governorate.ArabicName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">المدينة</label>
+                            <select name="City" class="form-select" id="City">
+                                <option value="">اختر المدينة</option>
+                                @* Cities will be populated dynamically based on selected governorate *@
+                            </select>
                         </div>
 
                         <div class="col-md-12 mb-3">
@@ -147,7 +161,8 @@
         formData.append("IsClient", "true");
 
         // City, Street
-        formData.append("City", $("input[name='City']").val());
+        formData.append("Governorate", $("#Governorate option:selected").text());
+        formData.append("City", $("#City option:selected").text());
         formData.append("Street", $("input[name='Street']").val());
 
         // Passwords
@@ -170,6 +185,37 @@
             error: function (err) {
                 toastr.error(err.message);
             }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#Governorate').change(function () {
+            var governorateId = $(this).val();
+
+            if (!governorateId) {
+                $('#City').empty().append('<option value="">اختر المدينة</option>');
+                return;
+            }
+
+            $.ajax({
+                url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
+                type: 'GET',
+                success: function (cities) {
+                    var citySelect = $('#City');
+                    citySelect.empty();
+                    citySelect.append('<option value="">اختر المدينة</option>');
+
+                    if (cities && cities.length > 0) {
+                        $.each(cities, function (index, city) {
+                            citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', status, error); // فقط log في console
+                    // alert('حدث خطأ أثناء جلب المدن.');  <-- ممكن تشيله
+                }
+            });
         });
     });
 </script>

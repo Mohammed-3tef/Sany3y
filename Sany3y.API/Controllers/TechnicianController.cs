@@ -68,7 +68,8 @@ namespace Sany3y.API.Controllers
             var newAddress = new Address
             {
                 Street = technician.Street,
-                City = technician.City
+                City = technician.City,
+                Governorate = technician.Governorate
             };
             await _context.Addresses.AddAsync(newAddress);
             await _context.SaveChangesAsync();

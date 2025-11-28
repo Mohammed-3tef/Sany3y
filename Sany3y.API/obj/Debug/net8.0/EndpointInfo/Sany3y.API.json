@@ -267,6 +267,190 @@
         }
       }
     },
+    "/api/CountryServices/GetAllProvinces": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetAllGovernorates": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetAllCities": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetGovernoratesByProvinceId/{provinceId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetCitiesByProvinceId/{provinceId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetCitiesByGovernorateId/{governorateId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "governorateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetProvinceById/{provinceId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "provinceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetGovernorateById/{governorateId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "governorateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CountryServices/GetCityById/{cityId}": {
+      "get": {
+        "tags": [
+          "CountryServices"
+        ],
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Dashboard/customer/{userId}": {
       "get": {
         "tags": [
@@ -1882,6 +2066,14 @@
             }
           },
           {
+            "name": "Governorate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "City",
             "in": "query",
             "required": true,
@@ -2095,6 +2287,7 @@
       "Address": {
         "required": [
           "city",
+          "governorate",
           "street"
         ],
         "type": "object",
@@ -2108,6 +2301,10 @@
             "type": "string"
           },
           "city": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "governorate": {
             "minLength": 1,
             "type": "string"
           }
@@ -2448,6 +2645,7 @@
           "email",
           "experienceYears",
           "firstName",
+          "governorate",
           "isMale",
           "lastName",
           "nationalId",
@@ -2506,6 +2704,10 @@
             "minLength": 1,
             "type": "string",
             "format": "password"
+          },
+          "governorate": {
+            "minLength": 1,
+            "type": "string"
           },
           "city": {
             "minLength": 1,

@@ -54,6 +54,9 @@ namespace Sany3y.Infrastructure.ViewModels
         public string ConfirmPassword { get; set; }
 
         [Required]
+        public string Governorate { get; set; }
+
+        [Required]
         public string City { get; set; }
 
         [Required]

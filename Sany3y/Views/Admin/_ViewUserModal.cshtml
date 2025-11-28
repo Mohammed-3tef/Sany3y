@@ -68,6 +68,11 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
+                        <label class="form-label">المحافظة</label>
+                        <input type="text" value="@(ViewBag.Address?.Governorate)" class="form-control" readonly />
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
                         <label class="form-label">المدينة</label>
                         <input type="text" value="@(ViewBag.Address?.City)" class="form-control" readonly />
                     </div>

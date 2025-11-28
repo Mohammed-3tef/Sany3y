@@ -91,7 +91,7 @@ namespace Sany3y.Infrastructure.Services
                 return;
             }
 
-            var address = new Address { City = "Cairo", Street = "Cairo" };
+            var address = new Address { Governorate = "القاهرة", City = "القاهرة الجديدة", Street = "القاهرة الجديدة" };
             await addressRepository.Add(address);
 
             var adminUser = new User

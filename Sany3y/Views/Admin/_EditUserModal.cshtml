@@ -103,7 +103,27 @@
                         <!-- Address -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">المدينة</label>
-                            <input type="text" name="City" value="@(ViewBag.Address?.City)" class="form-control" />
+                            <select name="Government" class="form-select" id="Governorate">
+                                <option value="">اختر المحافظة</option>
+                                @foreach (var governorate in ViewBag.AllGovernorates)
+                                {
+                                    if (governorate.ArabicName == ViewBag.Address.Governorate)
+                                    {
+                                        <option selected value="@governorate.Id">@governorate.ArabicName</option>
+                                        continue;
+                                    }
+
+                                    <option value="@governorate.Id">@governorate.ArabicName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">المدينة</label>
+                            <select name="City" class="form-select" id="City">
+                                <option value="">اختر المدينة</option>
+                                @* Cities will be populated dynamically based on selected governorate *@
+                            </select>
                         </div>
 
                         <div class="col-md-12 mb-3">
@@ -141,6 +161,47 @@
 <script>
     const jwtToken = '@jwtToken';
 
+    $(document).ready(function () {
+        function loadCities() {
+            var governorateId = $('#Governorate').val();
+            var selectedCity = '@Html.Raw(ViewBag.Address?.City ?? "")';
+
+            if (!governorateId) {
+                $('#City').empty().append('<option value="">اختر المدينة</option>');
+                return;
+            }
+
+            $.ajax({
+                url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
+                type: 'GET',
+                success: function (cities) {
+                    var citySelect = $('#City');
+                    citySelect.empty();
+                    citySelect.append('<option value="">اختر المدينة</option>');
+
+                    if (cities && cities.length > 0) {
+                        $.each(cities, function (index, city) {
+                            if (city.arabicName.trim() == selectedCity.trim()) {
+                                citySelect.append('<option selected value="' + city.id + '">' + city.arabicName + '</option>');
+                            } else {
+                                citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        }
+
+        // عند تغيير المحافظة
+        $('#Governorate').change(loadCities);
+
+        // عند تحميل الصفحة
+        loadCities();
+    });
+
     // ----- Preview Image -----
     $("#ProfilePicFile").on("change", function (e) {
         let reader = new FileReader();
@@ -159,7 +220,8 @@
             Email: $("input[name='Email']").val(),
             PhoneNumber: $("input[name='PhoneNumber']").val(),
             BirthDate: $("input[name='BirthDate']").val(),
-            City: $("input[name='City']").val(),
+            Governorate: $("#Governorate option:selected").text(),
+            City: $("#City option:selected").text(),
             Street: $("input[name='Street']").val(),
             Bio: $("textarea[name='Bio']").val(),
             ProfilePictureUrl: ""
@@ -167,7 +229,8 @@
 
         let addressObj = {
             Id: Number("@(ViewBag.Address?.Id ?? 0)"),
-            City: $("input[name='City']").val(),
+            Governorate: $("#Governorate option:selected").text(),
+            City: $("#City option:selected").text(),
             Street: $("input[name='Street']").val()
         };
 

@@ -78,7 +78,8 @@ namespace Sany3y.API.Controllers
             var newAddress = new Address
             {
                 City = userDto.City,
-                Street = userDto.Street
+                Street = userDto.Street,
+                Governorate = userDto.Governorate,
             };
             await _addressRepository.Add(newAddress);
 

@@ -16,5 +16,8 @@ namespace Sany3y.Infrastructure.Models
 
         [Required]
         public string City { get; set; }
+
+        [Required]
+        public string Governorate { get; set; }
     }
 }

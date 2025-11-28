@@ -240,12 +240,26 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input asp-for="City" class="form-control" placeholder="المدينة" />
-                                        <label asp-for="City">المدينة / المحافظة</label>
+                                        <select asp-for="Governorate" class="form-select" id="Governorate">
+                                            <option value="">اختر المحافظة</option>
+                                            @foreach (var governorate in ViewBag.AllGovernorates)
+                                            {
+                                                <option value="@governorate.Id">@governorate.ArabicName</option>
+                                            }
+                                        </select>
                                     </div>
                                     <span asp-validation-for="City" class="text-danger small"></span>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <select asp-for="City" class="form-select" id="City">
+                                            <option value="">اختر المدينة</option>
+                                            @* Cities will be populated via JavaScript based on selected governorate *@
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="City" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-floating">
                                         <input asp-for="Street" class="form-control" placeholder="العنوان بالتفصيل" />
                                         <label asp-for="Street">الشارع / المنطقة</label>
@@ -346,6 +360,35 @@
             if ($(".validation-summary-errors").length > 0) {
                 $(".alert-danger").show();
             }
+
+            $('#Governorate').change(function () {
+                var governorateId = $(this).val();
+
+                if (!governorateId) {
+                    $('#City').empty().append('<option value="">اختر المدينة</option>');
+                    return;
+                }
+
+                $.ajax({
+                    url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
+                    type: 'GET',
+                    success: function (cities) {
+                        var citySelect = $('#City');
+                        citySelect.empty();
+                        citySelect.append('<option value="">اختر المدينة</option>');
+
+                        if (cities && cities.length > 0) {
+                            $.each(cities, function (index, city) {
+                                citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX Error:', status, error); // فقط log في console
+                        // alert('حدث خطأ أثناء جلب المدن.');  <-- ممكن تشيله
+                    }
+                });
+            });
         });
     </script>
 }

@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Sany3y.Extensions
+namespace Sany3y.API.Extensions
 {
     public static class JwtAuthenticationExtensions
     {
