@@ -16,6 +16,7 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> Index(
             int? categoryId,
             string? city,
+            string? name,
             decimal? minPrice,
             decimal? maxPrice,
             double? rating)
@@ -27,6 +28,9 @@ namespace Sany3y.Controllers
 
             if (!string.IsNullOrEmpty(city))
                 users = users.Where(u => u.Address != null && u.Address.City.Contains(city)).ToList();
+
+            if (!string.IsNullOrEmpty(name))
+                users = users.Where(u => (u.FirstName + " " + u.LastName).Contains(name) || u.FirstName.Contains(name) || u.LastName.Contains(name)).ToList();
 
             if (minPrice.HasValue)
                 users = users.Where(u => u.Price >= minPrice.Value).ToList();
@@ -87,9 +91,11 @@ namespace Sany3y.Controllers
 
             var userAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
             var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+            var userRatings = await _http.GetFromJsonAsync<List<Rating>>($"/api/Rating/GetByTaskerId/{id}");
 
             ViewBag.UserAddress = userAddress;
             ViewBag.UserCategory = userCategory;
+            ViewBag.UserRatings = userRatings;
 
             // --------------------------------------------------------------------
             // إضافة الـ CurrentUserId من الـ Login الحقيقي
@@ -99,6 +105,38 @@ namespace Sany3y.Controllers
                 : 0;
 
             return View(user);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSchedule(int technicianId)
+        {
+            var schedule = await _http.GetFromJsonAsync<List<TechnicianSchedule>>($"/api/TechnicianSchedule/GetSchedule/{technicianId}");
+            return Json(schedule);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BookSlot([FromBody] BookingRequest request)
+        {
+            var response = await _http.PostAsJsonAsync("/api/TechnicianSchedule/BookSlot", request);
+            if (response.IsSuccessStatusCode)
+            {
+                return Ok("Booked successfully");
+            }
+            return BadRequest("Booking failed");
+        }
+
+        public class BookingRequest
+        {
+            public int ScheduleId { get; set; }
+            public int CustomerId { get; set; }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetConversation(long otherUserId)
+        {
+            var currentUserId = long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var messages = await _http.GetFromJsonAsync<List<Message>>($"/api/Message/GetConversation/{currentUserId}/{otherUserId}");
+            return Json(messages);
         }
     }
 }

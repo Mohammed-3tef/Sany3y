@@ -160,6 +160,15 @@
         padding: 20px;
         flex: 1.5;
         border-left: 1px solid #eee;
+        text-decoration: none; /* Remove underline */
+        color: inherit; /* Inherit text color */
+        transition: background-color 0.2s ease;
+        display: block; /* Ensure it behaves like a block for layout */
+    }
+
+    .tech-info-section:hover {
+        background-color: #f9f9f9; /* Subtle hover effect */
+        cursor: pointer;
     }
 
     .tech-header {
@@ -302,25 +311,37 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="mb-3 text-center d-none d-md-block">احجز مع أفضل الصنايعية في مصر</h2>
-                <form action="@Url.Action("Search", "Services")" method="get">
+                <form action="@Url.Action("Index", "Services")" method="get">
                     <div class="search-container">
                         <div class="search-item">
                             <label class="search-label"><i class="fas fa-tools"></i> التخصص</label>
-                            <select name="serviceType" class="search-select">
+                            <select name="categoryId" class="search-select">
                                 <option value="">اختر التخصص</option>
-                                <option value="plumbing">سباكة</option>
-                                <option value="electrical">كهرباء</option>
-                                <option value="carpentry">نجارة</option>
-                                <option value="painting">نقاشة</option>
+                                <option value="1">بناء وتشييد</option>
+                                <option value="2">كهرباء</option>
+                                <option value="3">سباكة</option>
+                                <option value="4">دهانات و تشطيبات</option>
+                                <option value="5">نجارة</option>
+                                <option value="6">حدادة</option>
+                                <option value="7">ألوميتال</option>
+                                <option value="8">مقاولات عامة</option>
+                                <option value="9">رخام وسيراميك</option>
+                                <option value="10">نقاشة</option>
+                                <option value="11">تكييف وتبريد</option>
+                                <option value="12">صيانة أجهزة</option>
+                                <option value="13">تركيبات</option>
+                                <option value="14">تنظيف وتجهيز</option>
+                                <option value="15">نقل عفش وخدمات لوجستية</option>
+                                <option value="16">خدمات أخرى</option>
                             </select>
                         </div>
                         <div class="search-item">
                             <label class="search-label"><i class="fas fa-map-marker-alt"></i> المحافظة</label>
-                            <select class="search-select">
+                            <select name="city" class="search-select">
                                 <option value="">اختر المحافظة</option>
-                                <option>القاهرة</option>
-                                <option>الجيزة</option>
-                                <option>الإسكندرية</option>
+                                <option value="القاهرة">القاهرة</option>
+                                <option value="الجيزة">الجيزة</option>
+                                <option value="الإسكندرية">الإسكندرية</option>
                             </select>
                         </div>
                         <div class="search-item">
@@ -334,7 +355,7 @@
                         </div>
                         <div class="search-item">
                             <label class="search-label"><i class="fas fa-user"></i> اسم الصنايعي</label>
-                            <input type="text" class="search-select" placeholder="ابحث بالاسم..." style="border-bottom: 1px solid #eee;">
+                            <input type="text" name="name" class="search-select" placeholder="ابحث بالاسم..." style="border-bottom: 1px solid #eee;">
                         </div>
                         <button type="submit" class="search-btn"><i class="fas fa-search"></i> ابحث</button>
                     </div>
@@ -344,96 +365,13 @@
     </div>
 </div>
 
-<!-- 🔍 Filter Form (Connected to MVC Controller) -->
-<form method="get" action="/Services/Index"
-      style="margin:20px 0; padding:15px; background:#fff; border-radius:10px; box-shadow:0 2px 6px #ddd; direction:rtl">
 
-    <div style="display:flex; gap:15px; flex-wrap:wrap">
-
-        <!-- Category -->
-        <select name="categoryId" style="padding:10px; border-radius:8px; min-width:150px;">
-            <option value="">اختار الفئة</option>
-            <option value="1">سباكة</option>
-            <option value="2">كهرباء</option>
-            <option value="3">نجارة</option>
-        </select>
-
-        <!-- City -->
-        <input type="text" name="city" placeholder="المدينة"
-               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
-
-        <!-- Min Price -->
-        <input type="number" name="minPrice" placeholder="اقل سعر"
-               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
-
-        <!-- Max Price -->
-        <input type="number" name="maxPrice" placeholder="اعلى سعر"
-               style="padding:10px; border-radius:8px; border:1px solid #ccc; min-width:150px" />
-        <!-- Rating -->
-        <select name="rating" style="padding:10px; border-radius:8px; min-width:150px">
-            <option value="">تقييم</option>
-            <option value="1">1★+</option>
-            <option value="2">2★+</option>
-            <option value="3">3★+</option>
-            <option value="4">4★+</option>
-        </select>
-
-        <button type="submit"
-                style="padding:10px 20px; border:none; border-radius:8px; background:#0b6e28; color:#fff; font-weight:bold">
-            ابحث 🔍
-        </button>
-
-    </div>
-</form>
 
 
 <div class="container">
     <div class="row">
-        <!-- Sidebar Filters (Right Side) -->
-        <div class="col-lg-3 order-lg-2 mb-4">
-            <div class="filter-card">
-                <div class="filter-header">
-                    <span><i class="fas fa-filter me-2"></i> حدد بحثك</span>
-                </div>
-                <div class="filter-body">
-                    <div class="filter-group">
-                        <div class="filter-title"><i class="fas fa-user-tag"></i> اللقب</div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="role1">
-                            <label class="form-check-label" for="role1">أسطى</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="role2">
-                            <label class="form-check-label" for="role2">مهندس</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="role3">
-                            <label class="form-check-label" for="role3">فني</label>
-                        </div>
-                    </div>
-
-
-                    <div class="filter-group">
-                        <div class="filter-title"><i class="fas fa-money-bill-wave"></i> السعر</div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="price1">
-                            <label class="form-check-label" for="price1">أقل من 50 ج.م</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="price2">
-                            <label class="form-check-label" for="price2">من 50 إلى 100 ج.م</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="price3">
-                            <label class="form-check-label" for="price3">أكثر من 100 ج.م</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Content (Left Side) -->
-        <div class="col-lg-9 order-lg-1">
+        <!-- Main Content (Full Width) -->
+        <div class="col-lg-12">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5 class="fw-bold">كل التخصصات <span class="text-muted fs-6">(@(Model?.Count() ?? 0) صنايعي)</span></h5>
                 <div class="dropdown">
@@ -451,8 +389,8 @@
                 @foreach (var user in Model)
                 {
                     <div class="tech-card animate_animated animate_fadeInUp">
-                        <!-- Info Section -->
-                        <div class="tech-info-section">
+                        <!-- Info Section (Clickable) -->
+                        <a href="/Services/Details/@user.Id" class="tech-info-section text-decoration-none text-reset">
                             <div class="tech-header">
                                 <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=User")"
                                      class="tech-img"
@@ -479,7 +417,7 @@
                                 <div><i class="fas fa-money-bill-alt"></i> سعر المعاينة: <span class="fw-bold text-success">50 ج.م</span></div>
                                 <div><i class="fas fa-phone-alt"></i> 16676 - سعر مكالمة عادية</div>
                             </div>
-                        </div>
+                        </a>
                         <!-- Booking Section -->
                         <div class="booking-section">
                             <div class="booking-header">المواعيد المتاحة</div>

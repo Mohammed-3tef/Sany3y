@@ -33,6 +33,14 @@ namespace Sany3y.API.Controllers
             return Ok(rating);
         }
 
+        [HttpGet("GetByTaskerId/{taskerId}")]
+        public async Task<IActionResult> GetByTaskerId(long taskerId)
+        {
+            var allRatings = await _ratingRepository.GetAll();
+            var taskerRatings = allRatings.Where(r => r.TaskerId == taskerId).ToList();
+            return Ok(taskerRatings);
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Rating rating)
         {

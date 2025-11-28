@@ -54,6 +54,7 @@ namespace Sany3y
             app.UseAuthorization();
 
             app.MapHub<UserStatusHub>("/userStatusHub");
+            app.MapHub<ChatHub>("/chatHub");
             app.MapControllers();
             app.MapControllerRoute(
                 name: "default",

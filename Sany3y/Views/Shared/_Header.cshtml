@@ -1,46 +1,135 @@
-﻿<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+﻿@{
+    var path = Context.Request.Path.Value?.ToLower();
+    var isHomePage = path == "/" || path == "/home" || path == "/home/index";
+    var navClass = isHomePage ? "navbar-transparent" : "navbar-solid shadow-sm";
+}
+
+<style>
+    /* Navbar Styles */
+    .navbar {
+        transition: all 0.3s ease;
+        padding: 15px 0;
+    }
+
+    .navbar-brand {
+        font-weight: 800;
+        font-size: 1.8rem;
+        color: var(--primary-green) !important;
+        letter-spacing: -1px;
+    }
+
+    .nav-link {
+        font-weight: 600;
+        font-size: 1rem;
+        margin: 0 10px;
+        color: var(--text-dark) !important;
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--primary-green) !important;
+    }
+
+    /* Transparent Navbar (Home Page Initial State) */
+    .navbar-transparent {
+        background: transparent !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+    }
+    
+    .navbar-transparent .nav-link, 
+    .navbar-transparent .navbar-brand {
+        color: white !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .navbar-transparent.scrolled {
+        background: white !important;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.1) !important;
+        padding: 10px 0;
+    }
+
+    .navbar-transparent.scrolled .nav-link,
+    .navbar-transparent.scrolled .navbar-brand {
+        color: var(--text-dark) !important;
+        text-shadow: none;
+    }
+
+    .navbar-transparent.scrolled .navbar-brand {
+        color: var(--primary-green) !important;
+    }
+
+    /* Solid Navbar (Other Pages) */
+    .navbar-solid {
+        background: white !important;
+    }
+
+    /* Mobile Toggler */
+    .navbar-toggler {
+        border: none;
+        padding: 0;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+    
+    .navbar-transparent .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-transparent.scrolled .navbar-toggler-icon,
+    .navbar-solid .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+</style>
+
+<header>
+    <nav class="navbar navbar-expand-lg fixed-top @navClass" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sany3y</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-tools me-2 text-warning"></i>Sany3y
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">الرئيسية</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">الرئيسية</a>
                     </li>
-
-                    @{
-                        if (User.IsInRole("Admin"))
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Services" asp-action="Index">خدماتنا</a>
+                    </li>
+                    
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
+                        </li>
+                    }
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Client"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Customer">لوحتي</a>
                             </li>
                         }
-                        else
+                        @if (User.IsInRole("Technician"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">تواصل معنا</a>
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Worker">لوحتي</a>
                             </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                @if (User.IsInRole("Client"))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Customer">لوحة العميل</a>
-                                    </li>
-                                }
-                                @if (User.IsInRole("Technician"))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Worker">لوحة الفني</a>
-                                    </li>
-                                }
-                            }
                         }
                     }
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="ContactUs">تواصل معنا</a>
+                    </li>
                 </ul>
 
                 @await Html.PartialAsync("_LoginPartial")
@@ -48,3 +137,17 @@
         </div>
     </nav>
 </header>
+
+@if (isHomePage)
+{
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+}

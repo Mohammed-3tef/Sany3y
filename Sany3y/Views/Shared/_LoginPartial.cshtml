@@ -7,22 +7,59 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="Account" asp-action="Profile" title="Manage">مرحباً @UserManager.GetUserName(User)!</a>
-        </li>
-        <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">تسجيل الخروج</button>
-            </form>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                <i class="fas fa-user-circle me-1"></i> @UserManager.GetUserName(User)
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow" style="z-index: 1050;">
+                <li>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                        <i class="fas fa-cog me-2 text-muted"></i> الإعدادات
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button id="logout" type="submit" class="dropdown-item text-danger">
+                            <i class="fas fa-sign-out-alt me-2"></i> تسجيل الخروج
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-controller="Account" asp-action="Register">إنشاء حساب</a>
+        <li class="nav-item ms-2">
+            <a class="btn btn-outline-light rounded-pill px-4 nav-btn-login" asp-controller="Account" asp-action="Login">دخول</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-controller="Account" asp-action="Login">تسجيل الدخول</a>
+        <li class="nav-item ms-2">
+            <a class="btn btn-warning text-dark fw-bold rounded-pill px-4" asp-controller="Account" asp-action="Register">حساب جديد</a>
         </li>
+        
+        <style>
+            .nav-btn-login {
+                border-color: rgba(0,0,0,0.1);
+                color: var(--text-dark);
+            }
+            .nav-btn-login:hover {
+                background: var(--primary-green);
+                color: white;
+                border-color: var(--primary-green);
+            }
+            
+            .navbar-transparent .nav-btn-login {
+                border-color: rgba(255,255,255,0.5);
+                color: white;
+            }
+            .navbar-transparent.scrolled .nav-btn-login {
+                border-color: var(--primary-green);
+                color: var(--primary-green);
+            }
+            .navbar-transparent.scrolled .nav-btn-login:hover {
+                background: var(--primary-green);
+                color: white;
+            }
+        </style>
     }
 </ul>

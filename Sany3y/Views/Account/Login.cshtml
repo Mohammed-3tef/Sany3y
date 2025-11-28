@@ -5,89 +5,201 @@
 }
 
 <style>
-    .divider:after,
-    .divider:before {
-        content: "";
-        flex: 1;
-        height: 2px;
-        background: #eee;
+    .login-container {
+        min-height: 100vh;
+        background: white;
     }
 
-    .hover-underline {
+    .login-image-side {
+        background-image: url('/img/login-bg.png');
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    .login-image-side::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,100,0,0.4));
+    }
+
+    .login-content-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        min-height: 100vh;
+    }
+
+    .login-form-wrapper {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .brand-logo {
+        color: var(--primary-green);
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 30px;
+        display: inline-block;
         text-decoration: none;
     }
 
-    .hover-underline:hover {
-        text-decoration: underline;
+    .form-floating > label {
+        right: 0;
+        left: auto;
+        transform-origin: 100% 0;
+        padding-right: 1.5rem;
+    }
+
+    .form-floating > .form-control {
+        padding-right: 1.5rem;
+        padding-left: 0.75rem;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+    }
+
+    .form-floating > .form-control:focus {
+        background-color: white;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.15);
+    }
+
+    .btn-login {
+        padding: 12px;
+        font-weight: 600;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+    }
+
+    .btn-google {
+        background: white;
+        border: 1px solid #ddd;
+        color: #333;
+        font-weight: 600;
+        padding: 12px;
+        border-radius: 10px;
+        transition: all 0.3s;
+    }
+
+    .btn-google:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 25px 0;
+        color: #aaa;
+    }
+
+    .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #eee;
+    }
+
+    .divider span {
+        padding: 0 15px;
+        font-size: 0.9rem;
+    }
+
+    .welcome-text {
+        position: absolute;
+        bottom: 50px;
+        right: 50px;
+        color: white;
+        z-index: 1;
+        text-align: right;
     }
 </style>
 
-<div class="container my-5 d-flex justify-content-center align-items-center">
-    <div class="col-md-6 col-lg-4">
-        <div class="text-center mb-4">
-            <h1>@ViewData["Title"]</h1>
+<div class="container-fluid p-0 overflow-hidden">
+    <div class="row g-0">
+        <!-- Right Side: Image (Hidden on mobile) -->
+        <div class="col-lg-7 d-none d-lg-block login-image-side animate__animated animate__fadeIn">
+            <div class="welcome-text">
+                <h1 class="display-4 fw-bold mb-3">مرحباً بك في صنايعي</h1>
+                <p class="lead opacity-75">منصتك الأولى لخدمات الصيانة المنزلية الموثوقة</p>
+            </div>
         </div>
 
-        <form asp-controller="Account" asp-action="Login">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
-            <div class="form-group mb-3">
-                <label asp-for="UserName" class="control-label mb-1">اسم المستخدم</label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Password" class="control-label mb-1">كلمة المرور</label>
-                <input asp-for="Password" class="form-control" type="password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-
-            <div class="row align-items-center mb-3 text-sm-start">
-                <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-                    <div class="form-check d-flex justify-content-sm-start">
-						<input class="form-check-input ms-2" asp-for="RememberMe" id="rememberMe" />
-						<label class="form-check-label" for="rememberMe">
-                            تذكرني
-                        </label>
-                    </div>
+        <!-- Left Side: Form -->
+        <div class="col-lg-5 login-content-side animate__animated animate__fadeInLeft">
+            <div class="login-form-wrapper">
+                <div class="text-center mb-5">
+                    <a href="/" class="brand-logo">
+                        <i class="fas fa-tools me-2 text-warning"></i>Sany3y
+                    </a>
+                    <h3 class="fw-bold mb-2">تسجيل الدخول</h3>
+                    <p class="text-muted">أهلاً بعودتك! الرجاء إدخال بياناتك</p>
                 </div>
 
-                <div class="col-12 col-sm-6">
-                    <div class="d-flex justify-content-start justify-content-sm-end">
-                        <a asp-controller="Account" asp-action="ChangePassword" class="text-primary fw-semibold hover-underline">
-                            نسيت كلمة المرور؟
-                        </a>
+                <form asp-controller="Account" asp-action="Login">
+                    <div asp-validation-summary="All" class="alert alert-danger mb-4" role="alert" style="display:none;"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" placeholder="اسم المستخدم" />
+                        <label asp-for="UserName">اسم المستخدم</label>
+                        <span asp-validation-for="UserName" class="text-danger small"></span>
                     </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" />
+                        <label asp-for="Password">كلمة المرور</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="RememberMe" id="rememberMe" />
+                            <label class="form-check-label text-muted" for="rememberMe">تذكرني</label>
+                        </div>
+                        <a asp-controller="Account" asp-action="ChangePassword" class="text-primary text-decoration-none small fw-bold">نسيت كلمة المرور؟</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 btn-login mb-3">تسجيل الدخول</button>
+                </form>
+
+                <div class="divider">
+                    <span>أو</span>
+                </div>
+
+                <form asp-controller="Account" asp-action="ExternalLogin" method="post" class="mb-4">
+                    <button type="submit" name="provider" value="Google" class="btn btn-google w-100">
+                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="20" class="me-2">
+                        الدخول باستخدام جوجل
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <p class="text-muted mb-0">
+                        ليس لديك حساب؟
+                        <a asp-controller="Account" asp-action="Register" class="text-primary fw-bold text-decoration-none">أنشئ حسابك الآن</a>
+                    </p>
                 </div>
             </div>
-
-            <div class="form-group mb-3">
-                <input type="submit" data-show-loader="true" value="تسجيل الدخول" class="btn btn-primary w-100" />
-            </div>
-        </form>
-
-        <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">أو</p>
-        </div>
-
-        <form asp-controller="Account" asp-action="ExternalLogin" method="post" class="mb-3">
-            <button type="submit" name="provider" value="Google" class="btn btn-danger w-100">
-                <i class="fab fa-google"></i> <span class="mx-1">الدخول باستخدام جوجل</span>
-            </button>
-        </form>
-
-        <div class="">
-            <p class="mb-0">
-                ليس لديك حساب؟
-                <a asp-controller="Account" asp-action="Register" class="text-primary fw-semibold hover-underline">
-                    أنشئ حسابك الآن
-                </a>
-            </p>
         </div>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            if ($(".validation-summary-errors").length > 0) {
+                $(".alert-danger").show();
+            }
+        });
+    </script>
 }

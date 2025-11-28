@@ -18,8 +18,14 @@
         <partial name="_Notification" />
     }
 
-    <div class="pt-5">
-        <main role="main" class="pb-3">
+    @{
+        var path = Context.Request.Path.Value?.ToLower();
+        var isHomePage = path == "/" || path == "/home" || path == "/home/index";
+        var mainClass = isHomePage ? "pb-3" : "pt-5 pb-3 mt-5";
+    }
+
+    <div class="@mainClass">
+        <main role="main">
             @RenderBody()
         </main>
     </div>

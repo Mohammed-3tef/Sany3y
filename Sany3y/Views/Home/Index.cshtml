@@ -21,53 +21,68 @@
 
     /* Hero Section */
     .hero-section {
-        background: linear-gradient(rgba(0, 77, 0, 0.7), rgba(0, 77, 0, 0.5)), url("https://nojomcon.com/images/blog/paintmualem.webp");
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("/img/hero-bg.png");
         background-size: cover;
         background-position: center;
-        min-height: 85vh;
+        min-height: 90vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        /* clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); */ /* Removed for a cleaner look */
     }
 
     .hero-content {
         z-index: 2;
-        max-width: 800px;
+        max-width: 900px;
         padding: 20px;
+        text-align: center;
     }
 
     .hero-title {
-        font-size: 3.5rem;
-        font-weight: 800;
+        font-size: 4rem;
+        font-weight: 900;
         margin-bottom: 1.5rem;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        letter-spacing: -1px;
     }
 
     .hero-subtitle {
-        font-size: 1.25rem;
-        margin-bottom: 2.5rem;
-        opacity: 0.9;
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+        opacity: 0.95;
+        font-weight: 500;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
 
+    /* Glassmorphism Search Box */
     .search-box {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 10px;
         border-radius: 50px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
         display: flex;
         gap: 10px;
+        max-width: 700px;
+        margin: 0 auto;
     }
 
     .search-input {
         border: none;
         background: transparent;
-        padding: 10px 20px;
+        padding: 15px 25px;
         font-size: 1.1rem;
         width: 100%;
+        color: white;
     }
     
+    .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
     .search-input:focus {
         outline: none;
         box-shadow: none;
@@ -75,14 +90,20 @@
 
     .search-btn {
         border-radius: 50px;
-        padding: 10px 30px;
+        padding: 12px 40px;
         font-weight: bold;
         font-size: 1.1rem;
         transition: all 0.3s;
+        background: var(--accent-yellow);
+        color: var(--text-dark);
+        border: none;
+        white-space: nowrap;
     }
 
     .search-btn:hover {
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 179, 0, 0.4);
+        background: #ffc107;
     }
 
     /* Section Headers */
@@ -275,11 +296,11 @@
         <h1 class="hero-title animate__animated animate__fadeInDown">دور على صنايعي في ثواني</h1>
         <p class="hero-subtitle animate__animated animate__fadeInUp">كل الخدمات في مكان واحد — سباكة، نجارة، كهرباء وغيرهم</p>
         
-        <form class="search-form mt-5 animate__animated animate__fadeInUp animate__delay-1s" method="get" action="@Url.Action("Search", "Services")">
+        <form class="search-form mt-5 animate__animated animate__fadeInUp animate__delay-1s" method="get" action="@Url.Action("Index", "Services")">
             <div class="search-box">
-                <i class="fas fa-search text-muted align-self-center ms-3"></i>
-                <input type="text" name="serviceType" class="search-input" placeholder="ابحث بنوع الخدمة (مثل: سباكة، كهرباء)">
-                <button type="submit" class="btn btn-warning search-btn">ابحث الآن</button>
+                <i class="fas fa-search text-white align-self-center ms-3 opacity-75"></i>
+                <input type="text" name="name" class="search-input" placeholder="ابحث عن صنايعي (مثال: أحمد، محمد...)">
+                <button type="submit" class="search-btn">ابحث الآن</button>
             </div>
         </form>
     </div>
@@ -431,8 +452,7 @@
     </div>
 </section> *@
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
                
 @section Scripts {
     <script>

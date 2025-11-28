@@ -1,154 +1,352 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.RegisterUserViewModel
 
 @{
-    ViewData["Title"] = "إنشاء حساب";
+    ViewData["Title"] = "إنشاء حساب جديد";
 }
 
 <style>
-    .hover-underline {
-        text-decoration: none;
+    .register-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        padding: 40px 0;
     }
 
-    .hover-underline:hover {
-        text-decoration: underline;
+    .register-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        overflow: hidden;
+        background: white;
+    }
+
+    .register-header {
+        background: linear-gradient(135deg, var(--primary-green), #006400);
+        padding: 40px 20px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .register-header::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+        width: 20px;
+        height: 20px;
+        background: white;
+    }
+
+    .role-selector .btn-check:checked + .role-card {
+        border-color: var(--primary-green);
+        background-color: #e8f5e9;
+        color: var(--primary-green);
+    }
+
+    .role-selector .btn-check:checked + .role-card .role-icon {
+        color: var(--primary-green);
+        transform: scale(1.1);
+    }
+
+    .role-card {
+        border: 2px solid #eee;
+        border-radius: 15px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: white;
+    }
+
+    .role-card:hover {
+        border-color: var(--accent-yellow);
+        background-color: #fffde7;
+        transform: translateY(-2px);
+    }
+
+    .role-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #ccc;
+        transition: all 0.3s;
+    }
+
+    .form-floating > label {
+        right: 0;
+        left: auto;
+        transform-origin: 100% 0;
+        padding-right: 1.5rem;
+    }
+
+    .form-floating > .form-control {
+        padding-right: 1.5rem;
+        padding-left: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        transform: scale(.85) translateY(-.5rem) translateX(.15rem);
+    }
+
+    .step-title {
+        color: var(--primary-green);
+        font-weight: 700;
+        margin: 25px 0 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1rem;
+    }
+
+    .step-icon {
+        width: 30px;
+        height: 30px;
+        background: var(--accent-yellow);
+        color: var(--text-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    .custom-file-upload {
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: #fafafa;
+    }
+
+    .custom-file-upload:hover {
+        border-color: var(--primary-green);
+        background: #f1f8e9;
     }
 </style>
 
-<div class="container my-5 d-flex justify-content-center align-items-center">
-    <div class="col-md-8 col-lg-6">
-        <div class="text-center mb-4">
-            <h1>@ViewData["Title"]</h1>
-        </div>
-
-        <form asp-action="Register" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
-
-            <div class="row g-3">
-                <div class="col-md-12">
-                    <label asp-for="NationalId" class="form-label">الرقم القومي</label>
-                    <input asp-for="NationalId" min="0" class="form-control" />
-                    <span asp-validation-for="NationalId" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="FirstName" class="form-label">الاسم الأول</label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="LastName" class="form-label">الاسم الأخير</label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="UserName" class="form-label">اسم المستخدم</label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger small"></span>
-                </div>
-
-                <div class="col-md-6">
-                    <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
-                    <input asp-for="BirthDate" type="date" class="form-control text-end" />
-                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
-                </div>
-
-                <div class="d-md-flex col-md-12 align-items-center">
-                    <label class="form-label d-block col-md-2">النوع</label>
-
-                    <div class="d-flex gap-4 flex-wrap col-md-10">
-                        <div class="form-check col-md-5 p-0 d-flex flex-row">
-                            <input asp-for="IsMale" class="form-check-input ms-2" type="radio" value="true" id="genderMale" />
-                            <label class="form-check-label" for="genderMale">ذكر</label>
-                        </div>
-
-                        <div class="form-check col-md-5 p-0 d-flex flex-row">
-                            <input asp-for="IsMale" class="form-check-input ms-2" type="radio" value="false" id="genderFemale" />
-                            <label class="form-check-label" for="genderFemale">أنثى</label>
-                        </div>
+<div class="register-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="register-card animate__animated animate__fadeInUp">
+                    <div class="register-header">
+                        <h2 class="fw-bold mb-2">إنشاء حساب جديد</h2>
+                        <p class="mb-0 opacity-75">انضم إلينا الآن وابدأ رحلتك مع صنايعي</p>
                     </div>
 
-                    <span asp-validation-for="IsMale" class="text-danger small"></span>
-                </div>
+                    <div class="p-4 p-md-5">
+                        <form asp-action="Register" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="alert alert-danger mb-4" role="alert" style="display:none;"></div>
 
-                <div class="col-md-12">
-                    <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger small"></span>
-                </div>
+                            <!-- 1. Account Type -->
+                            <div class="mb-5">
+                                <h5 class="text-center mb-4 fw-bold text-muted">اختر نوع الحساب</h5>
+                                <div class="row g-3 role-selector justify-content-center">
+                                    <div class="col-6 col-md-4">
+                                        <input type="radio" asp-for="IsClient" value="true" id="roleClient" class="btn-check" checked>
+                                        <label class="role-card" for="roleClient">
+                                            <i class="fas fa-user role-icon"></i>
+                                            <h5 class="fw-bold mb-1">عميل</h5>
+                                            <small class="text-muted">أبحث عن خدمات</small>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <input type="radio" asp-for="IsClient" value="false" id="roleTechnician" class="btn-check">
+                                        <label class="role-card" for="roleTechnician">
+                                            <i class="fas fa-tools role-icon"></i>
+                                            <h5 class="fw-bold mb-1">فني</h5>
+                                            <small class="text-muted">أقدم خدمات</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col-md-6">
-                    <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-                </div>
+                            <!-- 2. Personal Info -->
+                            <div class="step-title">
+                                <span class="step-icon"><i class="fas fa-id-card"></i></span>
+                                البيانات الشخصية
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="FirstName" class="form-control" placeholder="الاسم الأول" />
+                                        <label asp-for="FirstName">الاسم الأول</label>
+                                    </div>
+                                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="LastName" class="form-control" placeholder="الاسم الأخير" />
+                                        <label asp-for="LastName">الاسم الأخير</label>
+                                    </div>
+                                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input asp-for="NationalId" type="number" class="form-control" placeholder="الرقم القومي" />
+                                        <label asp-for="NationalId">الرقم القومي (14 رقم)</label>
+                                    </div>
+                                    <span asp-validation-for="NationalId" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="BirthDate" type="date" class="form-control" placeholder="تاريخ الميلاد" />
+                                        <label asp-for="BirthDate">تاريخ الميلاد</label>
+                                    </div>
+                                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-control h-100 d-flex align-items-center justify-content-around border-0 bg-light rounded-3">
+                                        <div class="form-check">
+                                            <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" checked />
+                                            <label class="form-check-label" for="genderMale"><i class="fas fa-male me-1"></i> ذكر</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input asp-for="IsMale" class="form-check-input" type="radio" value="false" id="genderFemale" />
+                                            <label class="form-check-label" for="genderFemale"><i class="fas fa-female me-1"></i> أنثى</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="col-md-6">
-                    <label asp-for="City" class="form-label">المدينة</label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger small"></span>
-                </div>
+                            <!-- 3. Contact Info -->
+                            <div class="step-title">
+                                <span class="step-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                بيانات التواصل
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="Email" type="email" class="form-control" placeholder="البريد الإلكتروني" />
+                                        <label asp-for="Email">البريد الإلكتروني</label>
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="رقم الهاتف" />
+                                        <label asp-for="PhoneNumber">رقم الهاتف</label>
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="City" class="form-control" placeholder="المدينة" />
+                                        <label asp-for="City">المدينة / المحافظة</label>
+                                    </div>
+                                    <span asp-validation-for="City" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="Street" class="form-control" placeholder="العنوان بالتفصيل" />
+                                        <label asp-for="Street">الشارع / المنطقة</label>
+                                    </div>
+                                    <span asp-validation-for="Street" class="text-danger small"></span>
+                                </div>
+                            </div>
 
-                <div class="col-md-12">
-                    <label asp-for="Street" class="form-label">العنوان</label>
-                    <input asp-for="Street" class="form-control" />
-                    <span asp-validation-for="Street" class="text-danger small"></span>
-                </div>
+                            <!-- 4. Security -->
+                            <div class="step-title">
+                                <span class="step-icon"><i class="fas fa-lock"></i></span>
+                                بيانات الحساب
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input asp-for="UserName" class="form-control" placeholder="اسم المستخدم" />
+                                        <label asp-for="UserName">اسم المستخدم (للدخول)</label>
+                                    </div>
+                                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="كلمة المرور" />
+                                        <label asp-for="Password">كلمة المرور</label>
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="تأكيد كلمة المرور" />
+                                        <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
+                                    </div>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                                </div>
+                            </div>
 
-                <div class="col-md-6">
-                    <label asp-for="Password" class="form-label">كلمة المرور</label>
-                    <input asp-for="Password" type="password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger small"></span>
-                </div>
+                            <!-- 5. Verification -->
+                            <div class="step-title">
+                                <span class="step-icon"><i class="fas fa-camera"></i></span>
+                                التحقق من الهوية
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label mb-2">صورة البطاقة الشخصية (للتحقق)</label>
+                                <label class="custom-file-upload d-block w-100">
+                                    <input type="file" name="NationalIdImage" accept="image/*" style="display: none;" onchange="previewImage(this)" />
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <h6 class="text-muted">اضغط هنا لرفع صورة البطاقة</h6>
+                                    <p class="small text-muted mb-0">يرجى التأكد من وضوح الصورة والأرقام</p>
+                                    <div id="image-preview" class="mt-3 d-none">
+                                        <img src="" alt="Preview" style="max-height: 150px; border-radius: 10px;" />
+                                        <p class="text-success small mt-1"><i class="fas fa-check-circle"></i> تم اختيار الصورة</p>
+                                    </div>
+                                </label>
+                                <span class="text-danger small" id="file-error"></span>
+                            </div>
 
-                <div class="col-md-6">
-                    <label asp-for="ConfirmPassword" class="form-label">تأكيد كلمة المرور</label>
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
-                </div>
+                            <div class="d-grid gap-2 mt-5">
+                                <button type="submit" class="btn btn-warning btn-lg fw-bold text-dark rounded-pill shadow-sm">
+                                    <i class="fas fa-user-plus me-2"></i> إنشاء الحساب
+                                </button>
+                            </div>
+                        </form>
 
-                <div class="col-md-12">
-                    <label class="form-label">صورة البطاقة</label>
-                    <input type="file" name="NationalIdImage" class="form-control" accept="image/*" />
-                    <span class="text-danger small"></span>
-                </div>
-
-                <div class="d-md-flex col-md-12 align-items-center">
-                    <label class="form-label d-block col-md-2">أنا</label>
-
-                    <div class="d-flex gap-4 flex-wrap col-md-10">
-                        <div class="form-check col-md-5 p-0 p-0 d-flex flex-row">
-                            <input asp-for="IsClient" class="form-check-input ms-2" type="radio" value="true" id="client" />
-                            <label class="form-check-label" for="client">عميل</label>
-                        </div>
-
-                        <div class="form-check col-md-5 p-0 d-flex flex-row">
-                            <input asp-for="IsClient" class="form-check-input ms-2" type="radio" value="false" id="tasker" />
-                            <label class="form-check-label" for="tasker">مزود خدمة</label>
+                        <div class="text-center mt-4">
+                            <p class="text-muted">
+                                لديك حساب بالفعل؟
+                                <a asp-controller="Account" asp-action="Login" class="text-primary fw-bold text-decoration-none">
+                                    سجل الدخول الآن
+                                </a>
+                            </p>
                         </div>
                     </div>
-
-                    <span asp-validation-for="IsClient" class="text-danger small"></span>
                 </div>
             </div>
-
-            <div class="form-group mt-4">
-                <input type="submit" data-show-loader="true" value="إنشاء الحساب" class="btn btn-primary w-100" />
-            </div>
-        </form>
-
-        <div class="">
-            <p class="mt-3">
-                لديك حساب بالفعل؟
-                <a asp-controller="Account" asp-action="Login" class="text-primary fw-semibold hover-underline">
-                    سجل الدخول من هنا
-                </a>
-            </p>
         </div>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var preview = document.getElementById('image-preview');
+                    preview.classList.remove('d-none');
+                    preview.querySelector('img').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        // Show validation summary if it has errors
+        $(document).ready(function() {
+            if ($(".validation-summary-errors").length > 0) {
+                $(".alert-danger").show();
+            }
+        });
+    </script>
 }

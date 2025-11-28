@@ -33,6 +33,18 @@ namespace Sany3y.API.Controllers
             return Ok(message);
         }
 
+        [HttpGet("GetConversation/{userId}/{otherUserId}")]
+        public async Task<IActionResult> GetConversation(long userId, long otherUserId)
+        {
+            var allMessages = await _messageRepository.GetAll();
+            var conversation = allMessages
+                .Where(m => (m.SenderId == userId && m.ReceiverId == otherUserId) ||
+                            (m.SenderId == otherUserId && m.ReceiverId == userId))
+                .OrderBy(m => m.SentAt)
+                .ToList();
+            return Ok(conversation);
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create(Message address)
         {
