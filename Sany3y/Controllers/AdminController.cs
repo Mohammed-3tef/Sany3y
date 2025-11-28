@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Services;
+using Sany3y.Infrastructure.ViewModels;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -180,6 +181,73 @@ namespace Sany3y.Controllers
             ViewBag.Roles = roles?.Select(r => r.Name).ToList();
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return PartialView("_AddUserModal");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddUser([FromForm] RegisterUserViewModel user, [FromForm] string role)
+        {
+            if (!ModelState.IsValid)
+                return View("Users", user);
+
+            using var form = new MultipartFormDataContent();
+
+            // نصوص وأرقام
+            form.Add(new StringContent(user.NationalId.ToString()), "NationalId");
+            form.Add(new StringContent(user.FirstName), "FirstName");
+            form.Add(new StringContent(user.LastName), "LastName");
+            form.Add(new StringContent(user.UserName), "UserName");
+
+            // تاريخ بصيغة متوافقة
+            form.Add(new StringContent(user.BirthDate.ToString("yyyy-MM-ddTHH:mm:ss")), "BirthDate");
+
+            // Boolean
+            form.Add(new StringContent(user.IsMale.ToString()), "IsMale");
+            form.Add(new StringContent(user.IsClient.ToString()), "IsClient");
+
+            // بقية البيانات
+            form.Add(new StringContent(user.Email), "Email");
+            form.Add(new StringContent(user.PhoneNumber), "PhoneNumber");
+            form.Add(new StringContent(user.Password), "Password");
+            form.Add(new StringContent(user.ConfirmPassword), "ConfirmPassword");
+            form.Add(new StringContent(user.City), "City");
+            form.Add(new StringContent(user.Street), "Street");
+
+            // Picture لو موجود
+            if (!string.IsNullOrEmpty(user.Picture))
+                form.Add(new StringContent(user.Picture), "Picture");
+
+            // الملف
+            if (user.NationalIdImage != null)
+            {
+                var fileContent = new StreamContent(user.NationalIdImage.OpenReadStream());
+                fileContent.Headers.ContentType = new MediaTypeHeaderValue(user.NationalIdImage.ContentType);
+                form.Add(fileContent, "NationalIdImage", user.NationalIdImage.FileName);
+            }
+
+            // إرسال البيانات للـ API
+            var response = await _http.PostAsync("/api/User/Create", form);
+            if (!response.IsSuccessStatusCode)
+                return BadRequest(new { error = "Failed to create user." });
+
+            var createdUser = await response.Content.ReadFromJsonAsync<User>();
+
+            // إضافة الدور
+            if (createdUser != null)
+            {
+                _http.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JwtToken"));
+
+                var roleResponse = await _http.PutAsJsonAsync(
+                    $"/api/User/UpdateRole/{createdUser.Id}",
+                    role
+                );
+
+                if (!roleResponse.IsSuccessStatusCode)
+                    return BadRequest(new { error = "Failed to assign user role." });
+            }
+
+            return Ok(new { success = true, message = "User created successfully." });
         }
 
         [HttpGet]

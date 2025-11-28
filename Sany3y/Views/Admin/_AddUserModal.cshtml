@@ -15,33 +15,14 @@
                 <form id="addUserForm">
 
                     <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الرقم القومي</label>
+                            <input type="text" name="NationalId" class="form-control" />
+                        </div>
 
-                        <!-- Profile Image -->
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6 mb-3 text-center">
-                                    <img id="previewAddImg"
-                                         src="/images/default-user.png"
-                                         class="img-thumbnail"
-                                         style="height: 120px; border-radius: 50%;" />
-
-                                    <input type="file" id="AddProfilePicFile" class="form-control mt-2" />
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="col-md-12 mb-3">
-                                        <label class="form-label">الرقم القومي</label>
-                                        <input type="text" name="NationalId" class="form-control" />
-                                    </div>
-
-                                    <div class="col-md-12 mb-3">
-                                        <label class="form-label">اسم المستخدم</label>
-                                        <input type="text" name="UserName" class="form-control" />
-                                    </div>
-
-                                </div>
-                            </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">اسم المستخدم</label>
+                            <input type="text" name="UserName" class="form-control" />
                         </div>
 
                         <!-- Name -->
@@ -78,6 +59,16 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">رقم الهاتف</label>
                             <input type="text" name="PhoneNumber" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" name="Password" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" name="ConfirmPassword" class="form-control" />
                         </div>
 
                         <!-- Roles -->
@@ -131,37 +122,40 @@
 
 <script>
 
-    $("#AddProfilePicFile").on("change", function () {
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            $("#previewAddImg").attr("src", e.target.result);
-        };
-        reader.readAsDataURL(this.files[0]);
-    });
-
     // ----- Create New User -----
     $("#createUserBtn").on("click", function () {
 
-        let userObj = {
-            FirstName: $("input[name='FirstName']").val(),
-            LastName: $("input[name='LastName']").val(),
-            UserName: $("input[name='UserName']").val(),
-            NationalId: $("input[name='NationalId']").val(),
-            Email: $("input[name='Email']").val(),
-            PhoneNumber: $("input[name='PhoneNumber']").val(),
-            BirthDate: $("input[name='BirthDate']").val(),
-            Gender: $("select[name='Gender']").val(),
-            City: $("input[name='City']").val(),
-            Street: $("input[name='Street']").val(),
-            Bio: $("textarea[name='Bio']").val()
-        };
-
         let formData = new FormData();
-        formData.append("user", JSON.stringify(userObj));
-        formData.append("role", $("#addRoleSelect").val());
 
-        let file = $("#AddProfilePicFile")[0].files[0];
-        if (file) formData.append("profilePicture", file);
+        // أرقام طويلة زي NationalId لازم تتحول String الأول
+        formData.append("NationalId", $("input[name='NationalId']").val());
+
+        // نصوص عادية
+        formData.append("FirstName", $("input[name='FirstName']").val());
+        formData.append("LastName", $("input[name='LastName']").val());
+        formData.append("UserName", $("input[name='UserName']").val());
+        formData.append("Email", $("input[name='Email']").val());
+        formData.append("PhoneNumber", $("input[name='PhoneNumber']").val());
+
+        // BirthDate لازم يبقى yyyy-MM-dd
+        formData.append("BirthDate", $("input[name='BirthDate']").val());
+
+        // Gender → IsMale (true / false)
+        formData.append("IsMale", $("select[name='Gender']").val() === "M");
+
+        // IsClient → checkbox
+        formData.append("IsClient", "true");
+
+        // City, Street
+        formData.append("City", $("input[name='City']").val());
+        formData.append("Street", $("input[name='Street']").val());
+
+        // Passwords
+        formData.append("Password", $("input[name='Password']").val());
+        formData.append("ConfirmPassword", $("input[name='ConfirmPassword']").val());
+
+        // Role خارج ViewModel
+        formData.append("role", $("#addRoleSelect").val());
 
         $.ajax({
             url: "/Admin/AddUser",
@@ -169,11 +163,12 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function () {
-                location.reload();
+            success: function (res) {
+                location.reload()
+                toastr.success(res.message);
             },
-            error: function (xhr) {
-                toastr.error("حدث خطأ أثناء الإضافة!");
+            error: function (err) {
+                toastr.error(err.message);
             }
         });
     });
