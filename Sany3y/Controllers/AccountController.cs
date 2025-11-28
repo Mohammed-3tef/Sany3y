@@ -119,20 +119,10 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
-            // Create Address first
-            var address = new Address { City = model.City, Street = model.Street };
-            var response = await _http.PostAsJsonAsync("/api/Address/Create", address);
-            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
-            {
-                return View("Register", model);
-            }
-            var createdAddress = await response.Content.ReadFromJsonAsync<Address>();
-
             // Create User
-            response = await _http.PostAsJsonAsync("/api/User/Create", model);
+            var response = await _http.PostAsJsonAsync("/api/User/Create", model);
             if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
             {
-                await _http.DeleteAsync($"/api/Address/Delete/{createdAddress.Id}");
                 return View("Register", model);
             }
 

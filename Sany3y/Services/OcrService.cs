@@ -21,23 +21,32 @@ namespace Sany3y.Services
         public async Task<string> DetectNationalIdAsync(IFormFile file)
         {
             using var content = new MultipartFormDataContent();
-            using var stream = file.OpenReadStream();
 
-            var sc = new StreamContent(stream);
-            sc.Headers.ContentType =
-                new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+            // Copy file to MemoryStream
+            await using var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            ms.Position = 0;
 
-            content.Add(sc, "image", file.FileName);
+            var sc = new StreamContent(ms);
+            sc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+            // ⚠ Parameter name MUST match API ("file")
+            content.Add(sc, "file", file.FileName);
+
+            // Optional: send a model_type string if needed by API
+            content.Add(new StringContent("arabic_numbers"), "model_type");
 
             var response = await _http.PostAsync("/api/Services/predict", content);
-            if (!response.IsSuccessStatusCode) 
-                return null;
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"API error: {response.StatusCode} - {error}");
+            }
 
             var json = await response.Content.ReadAsStringAsync();
-
             using var doc = JsonDocument.Parse(json);
 
-            return doc.RootElement.GetProperty("national_id").GetString();
+            return doc.RootElement.GetProperty("id_number").GetString();
         }
     }
 }
