@@ -296,10 +296,10 @@
         <h1 class="hero-title animate__animated animate__fadeInDown">دور على صنايعي في ثواني</h1>
         <p class="hero-subtitle animate__animated animate__fadeInUp">كل الخدمات في مكان واحد — سباكة، نجارة، كهرباء وغيرهم</p>
         
-        <form class="search-form mt-5 animate__animated animate__fadeInUp animate__delay-1s" method="get" action="@Url.Action("Index", "Services")">
+        <form class="search-form mt-5 animate__animated animate__fadeInUp animate__delay-1s" method="get" action="@Url.Action("Search", "Services")">
             <div class="search-box">
                 <i class="fas fa-search text-white align-self-center ms-3 opacity-75"></i>
-                <input type="text" name="name" class="search-input" placeholder="ابحث عن صنايعي (مثال: أحمد، محمد...)">
+                <input type="text" name="serviceType" class="search-input" placeholder="ابحث عن خدمة (مثال: سباكة، كهرباء...)">
                 <button type="submit" class="search-btn">ابحث الآن</button>
             </div>
         </form>
