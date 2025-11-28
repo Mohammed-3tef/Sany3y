@@ -1,13 +1,37 @@
-﻿<div class="card">
-    <ul class="list-group list-group-flush px-0">
-        <li class="list-group-item">
-            <a asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
-        </li>
-        <li class="list-group-item">
-            <a asp-controller="Admin" asp-action="Users">إدارة المستخدمين</a>
-        </li>
-        <li class="list-group-item">
-            <a asp-controller="Admin" asp-action="Categories">إدارة التصنيفات</a>
-        </li>
-    </ul>
-</div>
+﻿@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<nav class="nav flex-column">
+    <div class="px-4 mb-2 text-uppercase text-muted small fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">الرئيسية</div>
+    
+    <a class="nav-link @(currentAction == "Index" ? "active" : "")" asp-controller="Admin" asp-action="Index">
+        <i class="fas fa-th-large"></i>
+        <span>لوحة التحكم</span>
+    </a>
+
+    <div class="px-4 mt-4 mb-2 text-uppercase text-muted small fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">الإدارة</div>
+
+    <a class="nav-link @(currentAction == "Users" ? "active" : "")" asp-controller="Admin" asp-action="Users">
+        <i class="fas fa-users"></i>
+        <span>المستخدمين</span>
+    </a>
+    
+    <a class="nav-link @(currentAction == "Categories" ? "active" : "")" asp-controller="Admin" asp-action="Categories">
+        <i class="fas fa-tags"></i>
+        <span>التصنيفات</span>
+    </a>
+
+    <div class="px-4 mt-4 mb-2 text-uppercase text-muted small fw-bold" style="font-size: 0.75rem; letter-spacing: 1px;">التقارير</div>
+    
+    <a class="nav-link" asp-controller="Admin" asp-action="ExportUsersPDF">
+        <i class="fas fa-file-pdf"></i>
+        <span>تقرير المستخدمين (PDF)</span>
+    </a>
+    
+    <a class="nav-link" asp-controller="Admin" asp-action="ExportCategoriesCSV">
+        <i class="fas fa-file-csv"></i>
+        <span>تقرير التصنيفات (CSV)</span>
+    </a>
+</nav>

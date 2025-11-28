@@ -1,95 +1,208 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sany3y</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-
-    <!-- DataTables Bootstrap5 CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
-
-    <!-- DataTables Responsive CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" />
-
-    <!-- DataTables Buttons CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" />
-
-    <!-- Local CSS -->
-    <link rel="stylesheet" href="~/Sany3y.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - لوحة تحكم صنايعي</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    
+    <style>
+        :root {
+            --admin-sidebar-width: 280px;
+            --admin-header-height: 70px;
+            --primary-green: #28a745;
+            --dark-sidebar: #1e293b;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: var(--admin-sidebar-width);
+            background-color: var(--dark-sidebar);
+            color: white;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            height: var(--admin-header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-brand {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-brand:hover {
+            color: var(--primary-green);
+        }
+
+        .sidebar-content {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--admin-header-height));
+        }
+
+        /* Main Content Styles */
+        .admin-main {
+            margin-right: var(--admin-sidebar-width);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            height: var(--admin-header-height);
+            background: white;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+
+        /* Responsive */
+        @@media (max-width: 992px) {
+            .admin-sidebar {
+                transform: translateX(100%);
+            }
+            
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-right: 0;
+            }
+        }
+
+        /* Utility */
+        .nav-link {
+            color: rgba(255,255,255,0.7);
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.05);
+            border-right-color: var(--primary-green);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
+<body>
 
-<body dir="rtl">
-
-    @{
-        <partial name="_Loader" />
-        <partial name="_Notification" />
-        await Html.RenderPartialAsync("_Header");
-    }
-
-    <div class="container mt-5">
-        <div class="row my-4 g-3">
-
-            <aside class="col-lg-2">
-                @{
-                    await Html.RenderPartialAsync("_AdminSidebar", "Admin");
-                }
-            </aside>
-
-            <div class="container col-lg-10">
-                <main role="main" class="card py-5 px-3 px-md-5">
-                    @RenderBody()
-                </main>
-            </div>
-
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <a href="/" class="sidebar-brand">
+                <i class="fas fa-tools text-warning"></i>
+                <span>Sany3y Admin</span>
+            </a>
+            <button class="btn text-white d-lg-none ms-auto" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-    </div>
+        
+        <div class="sidebar-content">
+            <partial name="~/Views/Admin/_AdminSidebar.cshtml" />
+        </div>
+    </aside>
 
-    @{
-        await Html.RenderPartialAsync("_Footer");
-    }
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <button class="btn btn-link text-dark d-lg-none" id="sidebarToggle">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            
+            <div class="d-flex align-items-center gap-3 ms-auto">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="fw-bold d-none d-md-block">Admin</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow">
+                        <li><a class="dropdown-item" href="/">العودة للموقع</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                <button type="submit" class="dropdown-item text-danger">تسجيل الخروج</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
 
-    <!-- Bootstrap JS Bundle -->
+        <div class="admin-content">
+            @RenderBody()
+        </div>
+    </main>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
-    <!-- Arabic DataTable Init -->
-    <script src="~/js/datatable-ar.js"></script>
-
-    <!-- Site JS -->
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/js/charts.js"></script>
-
-    <!-- SignalR -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-    <script src="~/js/signalr-notifications.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        await RenderSectionAsync("Scripts", required: false);
-    }
+    <script>
+        // Sidebar Toggle Logic
+        $(document).ready(function() {
+            $('#sidebarToggle, #sidebarClose').on('click', function() {
+                $('#adminSidebar').toggleClass('active');
+            });
 
+            // Close sidebar when clicking outside on mobile
+            $(document).on('click', function(e) {
+                if ($(window).width() < 992) {
+                    if (!$(e.target).closest('#adminSidebar, #sidebarToggle').length) {
+                        $('#adminSidebar').removeClass('active');
+                    }
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -9,106 +9,269 @@
     Layout = "_AdminLayout";
 }
 
-<h1>مرحبًا بعودتك مرة أخرى يا @UserManager.GetUserName(User)!</h1>
+<style>
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-<div class="row mt-3 gy-3">
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+    }
+
+    .bg-soft-primary { background-color: rgba(13, 110, 253, 0.1); color: #0d6efd; }
+    .bg-soft-success { background-color: rgba(25, 135, 84, 0.1); color: #198754; }
+    .bg-soft-warning { background-color: rgba(255, 193, 7, 0.1); color: #ffc107; }
+    .bg-soft-info { background-color: rgba(13, 202, 240, 0.1); color: #0dcaf0; }
+
+    .chart-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.05);
+        height: 100%;
+    }
+
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+</style>
+
+<div class="mb-4">
+    <h2 class="fw-bold text-dark">نظرة عامة</h2>
+    <p class="text-muted">مرحبًا @UserManager.GetUserName(User)، إليك ملخص لما يحدث اليوم.</p>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-4 mb-4">
     <div class="col-md-4">
-        @await Html.PartialAsync("_DashboardCard", new { Title = "المستخدمين", Number = ViewBag.TotalUsers })
+        <div class="stat-card">
+            <div>
+                <h6 class="text-muted mb-2">إجمالي المستخدمين</h6>
+                <h3 class="fw-bold mb-0">@ViewBag.TotalUsers</h3>
+            </div>
+            <div class="stat-icon bg-soft-primary">
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        @await Html.PartialAsync("_DashboardCard", new { Title = "الصنايعية", Number = ViewBag.TotalTaskers })
+        <div class="stat-card">
+            <div>
+                <h6 class="text-muted mb-2">عدد الفنيين</h6>
+                <h3 class="fw-bold mb-0">@ViewBag.TotalTaskers</h3>
+            </div>
+            <div class="stat-icon bg-soft-success">
+                <i class="fas fa-tools"></i>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        @await Html.PartialAsync("_DashboardCard", new { Title = "التصنيفات", Number = ViewBag.TotalCategories })
+        <div class="stat-card">
+            <div>
+                <h6 class="text-muted mb-2">التصنيفات</h6>
+                <h3 class="fw-bold mb-0">@ViewBag.TotalCategories</h3>
+            </div>
+            <div class="stat-icon bg-soft-warning">
+                <i class="fas fa-tags"></i>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row mt-3 gy-3">
-    <div class="col-md-6">
-        <div class="card dashboard-card">
-            <div class="card-header d-flex justify-content-between">
-                <h5 class="align-content-center mb-0">توزيع الجنس</h5>
-                <button class="btn btn-sm btn-outline-secondary float-end" type="button" onclick="downloadChart(genderDistriution, 'Sany3y - Gender Distribution')">
-                    <i class="fa-solid fa-download"></i>
+<!-- Charts Row -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5 class="fw-bold mb-0">نمو المستخدمين شهريًا (@DateTime.Now.Year)</h5>
+                <button class="btn btn-sm btn-light rounded-circle" onclick="downloadChart(monthlyUsersChart, 'Users-Growth')">
+                    <i class="fas fa-download text-muted"></i>
                 </button>
             </div>
-
-            <canvas id="get-gender-distribution" class="card-body"></canvas>
+            <div style="position: relative; height: 300px; width: 100%;">
+                <canvas id="monthlyUsersChart"></canvas>
+            </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="card dashboard-card h-100">
-            <div class="card-header d-flex justify-content-between">
-                <h5 class="align-content-center mb-0">أكثر التصنيفات</h5>
+    <div class="col-lg-4">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5 class="fw-bold mb-0">توزيع المستخدمين</h5>
+                <button class="btn btn-sm btn-light rounded-circle" onclick="downloadChart(genderChart, 'Gender-Dist')">
+                    <i class="fas fa-download text-muted"></i>
+                </button>
             </div>
+            <div style="position: relative; height: 300px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                <canvas id="genderChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <div class="card-body h-100" style="overflow-y: scroll;">
-                @{
-                    if (ViewBag.TopCategories == null)
-                    {
-                        <div class="align-content-center h-100">
-                            <p class="text-center">لا يوجد تصنيفات.</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <table class="">
-                            <tr>
-                                <th>الاسم</th>
-                                <th>عدد المهام</th>
-                            </tr>
-                            @{
-                                foreach (var category in ViewBag.TopCategories)
-                                {
-                                    <tr>
-                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@category.Name</td>
-                                        <td style="padding: 10px; border-bottom: 1px solid #ddd;">@category.Count</td>
-                                    </tr>
-                                }
+<!-- Top Categories Table -->
+<div class="row g-4">
+    <div class="col-12">
+        <div class="chart-card">
+            <div class="chart-header">
+                <h5 class="fw-bold mb-0">أكثر التصنيفات طلبًا</h5>
+                <a asp-action="Categories" class="btn btn-sm btn-outline-primary rounded-pill px-3">عرض الكل</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="border-0 rounded-start">اسم التصنيف</th>
+                            <th class="border-0">عدد المهام</th>
+                            <th class="border-0 rounded-end text-end">الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.TopCategories != null)
+                        {
+                            foreach (var category in ViewBag.TopCategories)
+                            {
+                                <tr>
+                                    <td class="fw-bold">@category.Name</td>
+                                    <td>@category.Count</td>
+                                    <td class="text-end">
+                                        <span class="badge bg-soft-success text-success rounded-pill">نشط</span>
+                                    </td>
+                                </tr>
                             }
-                        </table>
-                    }
-                }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center py-4 text-muted">لا توجد بيانات متاحة</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row mt-3">
-    <div class="col-md-12">
-        <div class="card dashboard-card">
-            <div class="card-header d-flex justify-content-between">
-                <h5 class="align-content-center mb-0">تسجيلات المستخدمين الشهرية في سنة @DateTime.Now.Year</h5>
-                <button class="btn btn-sm btn-outline-secondary float-end" type="button" onclick="downloadChart(monthlyUsersChart, 'Sany3y - Monthly User Registrations @DateTime.Now.Year')">
-                    <i class="fa-solid fa-download"></i>
-                </button>
-            </div>
-
-            <canvas id="get-monthly-user-counts" class="card-body h-100"></canvas>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
+        // Helper to download chart
+        function downloadChart(chart, fileName) {
+            var a = document.createElement('a');
+            a.href = chart.toBase64Image();
+            a.download = fileName + '.png';
+            a.click();
+        }
+
+        // Chart Configuration
+        Chart.defaults.font.family = "'Cairo', sans-serif";
+        Chart.defaults.color = '#6c757d';
+
         $(document).ready(async function () {
-            monthlyUsersChart = await buildChart({
-                type: 'bar',
-                url: '@Url.Action("GetMonthlyUserCounts", "Admin")',
-                canvasId: "get-monthly-user-counts",
-                label: "المستخدمين شهريًا",
-                labelProp: "month",
-                dataProp: "userCount"
+            // 1. Monthly Users Chart
+            const monthlyCtx = document.getElementById('monthlyUsersChart').getContext('2d');
+            
+            // Fetch Data
+            const monthlyData = await $.get('@Url.Action("GetMonthlyUserCounts", "Admin")');
+            
+            const labels = monthlyData.map(d => d.month);
+            const data = monthlyData.map(d => d.userCount);
+
+            window.monthlyUsersChart = new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'المستخدمين الجدد',
+                        data: data,
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#28a745',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { borderDash: [2, 4], color: '#f0f0f0' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
             });
 
-            genderDistriution = await buildChart({
+            // 2. Gender Distribution Chart
+            const genderCtx = document.getElementById('genderChart').getContext('2d');
+            
+            // Fetch Data
+            const genderData = await $.get('@Url.Action("GetGenderDistribution", "Admin")');
+            
+            const gLabels = genderData.map(d => d.gender);
+            const gData = genderData.map(d => d.count);
+
+            window.genderChart = new Chart(genderCtx, {
                 type: 'doughnut',
-                url: '@Url.Action("GetGenderDistribution", "Admin")',
-                canvasId: "get-gender-distribution",
-                label: "العدد",
-                labelProp: "gender",
-                dataProp: "count"
+                data: {
+                    labels: gLabels,
+                    datasets: [{
+                        data: gData,
+                        backgroundColor: ['#0d6efd', '#e83e8c'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20 } }
+                    },
+                    cutout: '75%'
+                }
             });
         });
     </script>
