@@ -290,6 +290,27 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.MessageController",
+    "Method": "GetConversation",
+    "RelativePath": "api/Message/GetConversation/{userId}/{otherUserId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "otherUserId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.MessageController",
     "Method": "Update",
     "RelativePath": "api/Message/Update/{id}",
     "HttpMethod": "PUT",
@@ -599,6 +620,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.RatingController",
+    "Method": "GetByTaskerId",
+    "RelativePath": "api/Rating/GetByTaskerId/{taskerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskerId",
+        "Type": "System.Int64",
         "IsRequired": true
       }
     ],

@@ -42,6 +42,31 @@ namespace Sany3y.Controllers
                 users = users.Where(u => u.Rating >= rating.Value).ToList();
 
             return View(users);
+
+
+        }
+
+        //--------------------------------------
+
+        public static string NormalizeArabic(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            string normalized = text;
+
+            normalized = normalized.Replace("أ", "ا")
+                                   .Replace("إ", "ا")
+                                   .Replace("آ", "ا")
+                                   .Replace("ة", "ه")
+                                   .Replace("ى", "ي")
+                                   .Replace("ؤ", "و")
+                                   .Replace("ئ", "ي");
+
+            string diacritics = @"[\u064B-\u0652]";
+            normalized = System.Text.RegularExpressions.Regex.Replace(normalized, diacritics, "");
+
+            return normalized;
         }
 
         //--------------- البحث من الهوم -----------------
@@ -51,29 +76,34 @@ namespace Sany3y.Controllers
 
             if (!string.IsNullOrEmpty(serviceType))
             {
-                int? categoryId = serviceType.ToLower() switch
+                // Normalize input
+                serviceType = NormalizeArabic(serviceType);
+
+                int? categoryId = serviceType switch
                 {
                     "بناء وتشييد" => 1,
-                    "كهرباء" => 2,
-                    "سباكة" => 3,
+                    "كهربا" => 2,
+                    "سباكه" => 3,
                     "دهانات و تشطيبات" => 4,
-                    "نجارة" => 5,
-                    "حدادة" => 6,
-                    "ألوميتال" => 7,
-                    "مقاولات عامة" => 8,
+                    "نجاره" => 5,
+                    "حداده" => 6,
+                    "الوميتال" => 7,
+                    "مقاولات عامه" => 8,
                     "رخام وسيراميك" => 9,
-                    "نقاشة" => 10,
+                    "نقاشه" => 10,
                     "تكييف وتبريد" => 11,
-                    "صيانة أجهزة" => 12,
+                    "صيانه اجهزه" => 12,
                     "تركيبات" => 13,
                     "تنظيف وتجهيز" => 14,
-                    "نقل عفش وخدمات لوجستية" => 15,
-                    "خدمات أخرى" => 16,
+                    "نقل عفش وخدمات لوجستيه" => 15,
+                    "خدمات اخرى" => 16,
                     _ => null
                 };
 
                 if (categoryId != null)
+                {
                     users = users.Where(u => u.CategoryID == categoryId).ToList();
+                }
             }
 
             return View("Index", users);

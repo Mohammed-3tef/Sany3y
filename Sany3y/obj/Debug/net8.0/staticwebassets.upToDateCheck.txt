@@ -1,5 +1,7 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\img\hero-bg.png
+wwwroot\img\login-bg.png
 wwwroot\img\team_members\kenzi.jpg
 wwwroot\img\team_members\mohammed.jpg
 wwwroot\img\team_members\omnia.jpg
