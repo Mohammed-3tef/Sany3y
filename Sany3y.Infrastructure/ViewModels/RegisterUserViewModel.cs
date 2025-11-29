@@ -70,5 +70,7 @@ namespace Sany3y.Infrastructure.ViewModels
 
         [Display(Name = "National ID Image")]
         public IFormFile? NationalIdImage { get; set; }
+
+        public int? CategoryId { get; set; }
     }
 }

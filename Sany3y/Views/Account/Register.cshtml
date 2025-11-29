@@ -247,6 +247,7 @@
                                                 <option value="@governorate.Id">@governorate.ArabicName</option>
                                             }
                                         </select>
+                                        <label asp-for="Governorate">المحافظة</label>
                                     </div>
                                     <span asp-validation-for="City" class="text-danger small"></span>
                                 </div>
@@ -256,6 +257,7 @@
                                             <option value="">اختر المدينة</option>
                                             @* Cities will be populated via JavaScript based on selected governorate *@
                                         </select>
+                                        <label asp-for="City">المدينة</label>
                                     </div>
                                     <span asp-validation-for="City" class="text-danger small"></span>
                                 </div>
@@ -296,8 +298,32 @@
                                     <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                                 </div>
                             </div>
+                            
+                            <!-- 5. Category --></>
+                            <div class="mb-5" id="categorySection" style="display:none;">
+                                <div class="step-title">
+                                    <span class="step-icon"><i class="fas fa-layer-group"></i></span>
+                                    التخصص
+                                </div>                                
+                                <div class="form-floating">
+                                    <select asp-for="CategoryId" class="form-select">
+                                        <option value="">اختر التخصص</option>
+                                        @{
+                                            if (ViewBag.AllCategories != null)
+                                            {
+                                                foreach (var category in ViewBag.AllCategories)
+                                                {
+                                                    <option value="@category.Id">@category.Name</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    <label asp-for="CategoryId">التخصص</label>
+                                </div>
+                                <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                            </div>
 
-                            <!-- 5. Verification -->
+                            <!-- 6. Verification -->
                             <div class="step-title">
                                 <span class="step-icon"><i class="fas fa-camera"></i></span>
                                 التحقق من الهوية
@@ -360,6 +386,14 @@
             if ($(".validation-summary-errors").length > 0) {
                 $(".alert-danger").show();
             }
+
+            $('input[name="IsClient"]').on('change', function () {
+                if ($('#roleTechnician').is(':checked')) {
+                    $('#categorySection').show();
+                } else {
+                    $('#categorySection').hide();
+                }
+            });
 
             $('#Governorate').change(function () {
                 var governorateId = $(this).val();

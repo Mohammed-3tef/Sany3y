@@ -103,6 +103,7 @@ namespace Sany3y.API.Controllers
                 BirthDate = userDto.BirthDate,
                 AddressId = newAddress.Id,
                 ProfilePictureId = newPicture.Id != 0 ? newPicture.Id : null,
+                CategoryID = userDto.IsClient ? null : userDto.CategoryId,
             };
 
             var result = await _userManager.CreateAsync(user, userDto.Password);

@@ -6,6 +6,7 @@ using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Services;
 using Sany3y.Infrastructure.ViewModels;
+using Sany3y.Services;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -15,6 +16,21 @@ namespace Sany3y.Controllers
     {
         private readonly HttpClient _http;
         private readonly UserManager<User> _userManager;
+
+        #region Helpers
+
+        private async System.Threading.Tasks.Task PopulateGovernoratesAsync()
+        {
+            var governorates = await _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates");
+            ViewBag.AllGovernorates = governorates?.OrderBy(g => g.ArabicName).ToList();
+        }
+
+        private async System.Threading.Tasks.Task GetAllCategories()
+        {
+            ViewBag.AllCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
+        }
+
+        #endregion
 
         public AdminController(IHttpClientFactory httpClientFactory, UserManager<User> userManager)
         {
@@ -156,6 +172,8 @@ namespace Sany3y.Controllers
                 return NotFound();
 
             ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
+            var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+            ViewBag.UserCategory = userCategory?.Name;
 
             var response = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
             if (response.IsSuccessStatusCode)
@@ -178,9 +196,10 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> AddUser()
         {
             var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
-            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
             ViewBag.Roles = roles?.Select(r => r.Name).ToList();
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
+            await PopulateGovernoratesAsync();
+            await GetAllCategories();
             return PartialView("_AddUserModal");
         }
 
@@ -205,6 +224,8 @@ namespace Sany3y.Controllers
             // Boolean
             form.Add(new StringContent(user.IsMale.ToString()), "IsMale");
             form.Add(new StringContent((role == "Client").ToString()), "IsClient");
+            if (!string.IsNullOrEmpty(user.CategoryId.ToString()))
+                form.Add(new StringContent(user.CategoryId.ToString()), "CategoryId");
 
             // بقية البيانات
             form.Add(new StringContent(user.Email), "Email");
@@ -240,11 +261,7 @@ namespace Sany3y.Controllers
                 _http.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("JwtToken"));
 
-                var roleResponse = await _http.PutAsJsonAsync(
-                    $"/api/User/UpdateRole/{createdUser.Id}",
-                    role
-                );
-
+                var roleResponse = await _http.PutAsJsonAsync($"/api/User/UpdateRole/{createdUser.Id}", role);
                 if (!roleResponse.IsSuccessStatusCode)
                     return BadRequest(new { error = "Failed to assign user role." });
             }
@@ -260,7 +277,6 @@ namespace Sany3y.Controllers
             if (user == null)
                 return NotFound();
 
-            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
             ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
 
             var roles = await _http.GetFromJsonAsync<List<Role>>($"/api/Role/GetAll");
@@ -279,6 +295,8 @@ namespace Sany3y.Controllers
                 ViewBag.UserProfilePictureUrl = "https://placehold.co/100x100?text=Profile";
             }
 
+            await PopulateGovernoratesAsync();
+            await GetAllCategories();
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
             return PartialView("_EditUserModal", user);
         }

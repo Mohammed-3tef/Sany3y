@@ -73,6 +73,6 @@ namespace Sany3y.Services
             ";
 
             await _emailSender.SendEmailAsync(user.Email, "تأكيد حسابك في صنايعي", msg);
-    }
+        }
     }
 }

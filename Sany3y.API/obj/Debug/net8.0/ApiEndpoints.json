@@ -1104,6 +1104,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/Technician/UpdateCategory/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "categoryId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
     "Method": "BookSlot",
     "RelativePath": "api/TechnicianSchedule/BookSlot",
@@ -1221,6 +1242,11 @@
       {
         "Name": "NationalIdImage",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],

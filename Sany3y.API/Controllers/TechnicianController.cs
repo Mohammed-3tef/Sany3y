@@ -134,6 +134,21 @@ namespace Sany3y.API.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        [Route("UpdateCategory/{id}")]
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] int categoryId)
+        {
+            var allTechnician = await _userManager.GetUsersInRoleAsync("Technician");
+            var existingTechnician = allTechnician.FirstOrDefault(t => t.Id == id);
+            if (existingTechnician == null)
+                return NotFound();
+
+            existingTechnician.CategoryID = categoryId;
+            _context.Entry(existingTechnician).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

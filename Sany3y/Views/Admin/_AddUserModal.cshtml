@@ -81,10 +81,27 @@
                                 }
                             </select>
                         </div>
+                        
+                        <!-- Category -->
+                        <div class="col-md-6 mb-3" id="categorySection" style="display:none;">
+                            <label class="form-label">التخصص</label>
+                            <select id="CategoryId" name="Category" class="form-select">
+                                <option value="">اختر التخصص</option>
+                                @{
+                                    if (ViewBag.AllCategories != null)
+                                    {
+                                        foreach (var category in ViewBag.AllCategories)
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
 
                         <!-- Address -->
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">المدينة</label>
+                            <label class="form-label">المحافظة</label>
                             <select name="Government" class="form-select" id="Governorate">
                                 <option value="">اختر المحافظة</option>
                                 @foreach (var governorate in ViewBag.AllGovernorates)
@@ -138,6 +155,16 @@
 
     // ----- Create New User -----
     $("#createUserBtn").on("click", function () {
+        let selectedRole = $("#addRoleSelect").val();
+        let selectedCategory = $("#CategoryId").val();
+
+        if (selectedRole === "Technician") {
+            // والتحقق إن مفيش تخصص متختار
+            if (selectedCategory === "" || selectedCategory == null) {
+                toastr.error("يجب اختيار التخصص قبل تسجيل الفني!");
+                return;
+            }
+        }
 
         let formData = new FormData();
 
@@ -158,7 +185,7 @@
         formData.append("IsMale", $("select[name='Gender']").val() === "M");
 
         // IsClient → checkbox
-        formData.append("IsClient", "true");
+        formData.append("IsClient", selectedRole !== "Technician");
 
         // City, Street
         formData.append("Governorate", $("#Governorate option:selected").text());
@@ -170,7 +197,10 @@
         formData.append("ConfirmPassword", $("input[name='ConfirmPassword']").val());
 
         // Role خارج ViewModel
-        formData.append("role", $("#addRoleSelect").val());
+        formData.append("role", selectedRole);
+        if (selectedRole === "Technician") {
+            formData.append("CategoryId", selectedCategory);
+        }
 
         $.ajax({
             url: "/Admin/AddUser",
@@ -189,6 +219,16 @@
     });
 
     $(document).ready(function() {
+        $('#addRoleSelect').on('change', function () {
+            let selectedRole = $(this).val();
+
+            if (selectedRole === "Technician") {
+                $('#categorySection').show();
+            } else {
+                $('#categorySection').hide();
+            }
+        });
+
         $('#Governorate').change(function () {
             var governorateId = $(this).val();
 

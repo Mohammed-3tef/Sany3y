@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -58,6 +59,11 @@ namespace Sany3y.Controllers
             var governorates = await _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates");
             ViewBag.AllGovernorates = governorates?.OrderBy(g => g.ArabicName).ToList();
         }
+        
+        private async System.Threading.Tasks.Task GetAllCategories()
+        {
+            ViewBag.AllCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
+        }
 
         #endregion
 
@@ -90,6 +96,7 @@ namespace Sany3y.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
+            await GetAllCategories();
             await PopulateGovernoratesAsync();
             return View();
         }
@@ -100,6 +107,23 @@ namespace Sany3y.Controllers
         {
             if (!ModelState.IsValid)
             {
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
+
+            if (model.BirthDate >= DateTime.Now)
+            {
+                ModelState.AddModelError("BirthDate", "تاريخ الميلاد غير صالح.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
+
+            if (!model.IsClient && model.CategoryId == null)
+            {
+                ModelState.AddModelError("CategoryId", "يرجى اختيار فئة فني.");
+                await GetAllCategories();
                 await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
@@ -108,19 +132,23 @@ namespace Sany3y.Controllers
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
             {
                 ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
+                await GetAllCategories();
                 await PopulateGovernoratesAsync();
                 return View(model);
             }
+
             string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
             if (string.IsNullOrEmpty(extractedId))
             {
                 ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
                 await PopulateGovernoratesAsync();
+                await GetAllCategories();
                 return View(model);
             }
             if (extractedId != model.NationalId.ToString())
             {
                 ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
+                await GetAllCategories();
                 await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
@@ -144,6 +172,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.Password ?? ""), "Password");
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
+            if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
+                form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -164,6 +194,7 @@ namespace Sany3y.Controllers
                     ModelState.AddModelError(string.Empty, error);
                 }
 
+                await GetAllCategories();
                 await PopulateGovernoratesAsync();
                 return View(model);
             }
@@ -173,6 +204,7 @@ namespace Sany3y.Controllers
             if (apiResult == null)
             {
                 ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم عبر API.");
+                await GetAllCategories();
                 await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
@@ -248,6 +280,8 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             returnUrl ??= Url.Content("~/");
+            await PopulateGovernoratesAsync();
+            await GetAllCategories();
 
             if (remoteError != null)
             {
@@ -275,11 +309,9 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
-            var response = await _http.GetAsync($"/api/User/GetByEmail/{email}");
-            if (response.IsSuccessStatusCode)
+            var existingUser = await _userManager.FindByEmailAsync(email);
+            if (existingUser != null)
             {
-                var existingUser = await response.Content.ReadFromJsonAsync<User>();
-
                 // Auto confirm email for external login
                 if (!existingUser.EmailConfirmed)
                 {
@@ -318,7 +350,12 @@ namespace Sany3y.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult CompleteProfile(RegisterUserViewModel model) => View(model);
+        public async Task<IActionResult> CompleteProfileAsync(RegisterUserViewModel model)
+        {
+            await GetAllCategories();
+            await PopulateGovernoratesAsync();
+            return View(model);
+        }
 
         [HttpPost]
         [AllowAnonymous]
@@ -328,10 +365,28 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (model.BirthDate >= DateTime.Now)
+            {
+                ModelState.AddModelError("BirthDate", "تاريخ الميلاد غير صالح.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View(model);
+            }
+
+            if (!model.IsClient && model.CategoryId == null)
+            {
+                ModelState.AddModelError("CategoryId", "يرجى اختيار فئة فني.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View(model);
+            }
+
             var response = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
             if (response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError(string.Empty, "This National ID is already registered.");
+                ModelState.AddModelError("NationalId", "هذا الرقم القومي مسجل بالفعل.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
                 return View(model);
             }
 
@@ -347,6 +402,8 @@ namespace Sany3y.Controllers
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
             {
                 ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
                 return View(model);
             }
             string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
@@ -354,12 +411,16 @@ namespace Sany3y.Controllers
             if (string.IsNullOrEmpty(extractedId))
             {
                 ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
 
             if (extractedId != model.NationalId.ToString())
             {
                 ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
 
@@ -381,6 +442,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.Password ?? ""), "Password");
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
+            if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
+                form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -520,8 +583,65 @@ namespace Sany3y.Controllers
             await _emailSender.SendEmailAsync(
                 model.Email,
                 "Password Change Request",
-                $"You requested to change your password. Click the link below to proceed:<br>" +
-                $"<a href='{Url.Action("ChangePassword", "Account", new { email = model.Email }, Request.Scheme)}'>Change Password</a>");
+                $@"
+                <!DOCTYPE html>
+                <html lang='ar' dir='rtl'>
+                <head>
+                    <meta charset='utf-8'>
+                    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                    <style>
+                        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }}
+                        .container {{ max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.05); }}
+                        .header {{ background: linear-gradient(135deg, #198754, #006400); padding: 30px; text-align: center; color: #ffffff; }}
+                        .header h1 {{ margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -1px; }}
+                        .header i {{ font-size: 24px; margin-left: 10px; color: #ffc107; }}
+                        .content {{ padding: 40px 30px; color: #333333; line-height: 1.8; text-align: right; }}
+                        .welcome-text {{ font-size: 20px; font-weight: 600; color: #198754; margin-bottom: 20px; }}
+                        .button-container {{ text-align: center; margin: 30px 0; }}
+                        .button {{ display: inline-block; padding: 15px 40px; background-color: #ffc107; color: #000000; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,193,7,0.3); }}
+                        .button:hover {{ transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,193,7,0.4); background-color: #ffca2c; }}
+                        .footer {{ background-color: #f8f9fa; padding: 20px; text-align: center; font-size: 13px; color: #6c757d; border-top: 1px solid #eee; }}
+                        .social-links {{ margin-top: 10px; }}
+                        .social-links a {{ color: #6c757d; margin: 0 5px; text-decoration: none; }}
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <div class='header'>
+                            <h1><span style='color: #ffc107;'>✦</span> Sany3y | صنايعي</h1>
+                        </div>
+
+                        <div class='content'>
+                            <div class='welcome-text'>طلب تغيير كلمة المرور 🔐</div>
+
+                            <p>لقد استلمنا طلباً لتغيير كلمة المرور الخاصة بحسابك على منصة <strong>صنايعي</strong>.</p>
+                            <p>لإتمام العملية يرجى الضغط على الزر أدناه لتغيير كلمة المرور الخاصة بك:</p>
+
+                            <div class='button-container'>
+                                <a href='{Url.Action("ChangePassword", "Account", new { email = model.Email }, Request.Scheme)}' 
+                                   class='button'>
+                                    تغيير كلمة المرور
+                                </a>
+                            </div>
+
+                            <p style='margin-top: 30px; font-size: 14px; color: #999; border-top: 1px solid #eee; padding-top: 20px;'>
+                                إذا لم تقم بهذا الطلب، يمكنك تجاهل هذا البريد ولن يتم تغيير كلمة المرور الخاصة بك.
+                            </p>
+                        </div>
+
+                        <div class='footer'>
+                            <p>&copy; {DateTime.Now.Year} Sany3y. جميع الحقوق محفوظة.</p>
+                            <div class='social-links'>
+                                <a href='#'>سياسة الخصوصية</a> | 
+                                <a href='#'>شروط الاستخدام</a> | 
+                                <a href='#'>تواصل معنا</a>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            "
+            );
 
             TempData["Info"] = "A password change link has been sent to your email.";
             return View(model);

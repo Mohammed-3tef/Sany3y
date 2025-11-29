@@ -66,6 +66,16 @@
                         <label class="form-label">الأدوار</label>
                         <input type="text" value="@string.Join(", ", Model.Roles)" class="form-control" readonly />
                     </div>
+                    
+                    @{
+                        if (@ViewBag.UserCategory != null)
+                        {
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">التخصص</label>
+                                <input type="text" value="@ViewBag.UserCategory" class="form-control" readonly />
+                            </div>
+                        }
+                    }
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">المحافظة</label>
