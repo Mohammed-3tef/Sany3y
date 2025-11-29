@@ -6,8 +6,8 @@
         "id": "128eb063-e47d-4df9-8862-347fc30b6498",
         "type": "Table",
         "position": {
-          "x": -1141.4843471917418,
-          "y": 442.34750469217556
+          "x": -1145.1093949448111,
+          "y": 378.9091690134622
         },
         "data": {
           "label": "Users",
@@ -92,6 +92,88 @@
                   }
                 ]
               }
+            },
+            {
+              "id": "ed4e7bd4-ec20-4e45-a69a-fe8f4c4d8ada",
+              "name": "PhoneNumber",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "25"
+            },
+            {
+              "id": "2bab3540-805f-4fa2-8f2b-de8738917680",
+              "name": "NationalID",
+              "type": "INT",
+              "position": 0
+            },
+            {
+              "id": "4c544572-3bfb-4986-bb15-db2453814b3c",
+              "name": "Gender",
+              "type": "CHAR(n)",
+              "position": 0,
+              "size": "1"
+            },
+            {
+              "id": "d6a88c09-9103-4137-8e66-d5ae02f7378c",
+              "name": "Username",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "50"
+            },
+            {
+              "id": "7b9b667b-0330-4f5c-8715-5ce35603f32b",
+              "name": "CreatedAt",
+              "type": "DATE",
+              "position": 0
+            },
+            {
+              "id": "4e21f0b8-d952-406d-98c6-a6c84ac109c8",
+              "name": "IsOnline",
+              "type": "Custom",
+              "position": 0,
+              "size": "BIT"
+            },
+            {
+              "id": "741226de-d44d-4e76-91e7-d21e70a72905",
+              "name": "EmailConfirmed",
+              "type": "Custom",
+              "position": 0,
+              "size": "BIT"
+            },
+            {
+              "id": "d8cc0ff2-7983-427a-a796-6ebaff8f4abb",
+              "name": "ExperienceYears",
+              "type": "INT",
+              "position": 0
+            },
+            {
+              "id": "70dd5955-7caa-4828-9388-9c2c5a749d29",
+              "name": "Price",
+              "type": "FLOAT",
+              "position": 0
+            },
+            {
+              "id": "56ebeebd-0fc6-4d34-af44-2aa4054455b6",
+              "name": "Rating",
+              "type": "INT",
+              "position": 0
+            },
+            {
+              "id": "fk_6b3487db-e28e-462a-9e39-2badc2fdad5c",
+              "name": "fk_Categories",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "0c293c7a-9a28-4783-bc39-1ee5b356e129",
+                "sourceTableId": "d42772f8-939b-474d-9722-badb997fb0cb",
+                "columns": [
+                  {
+                    "id": "fk_b77c3bb9-5d50-420c-9fce-9d413179856c",
+                    "name": "CategoryID",
+                    "type": "INT"
+                  }
+                ]
+              }
             }
           ],
           "numberOfGroups": 1,
@@ -100,7 +182,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 200
+          "height": 473
         },
         "selected": false,
         "dragging": false
@@ -109,8 +191,8 @@
         "id": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
         "type": "Table",
         "position": {
-          "x": -690.9181911669781,
-          "y": 163.3393609203647
+          "x": -823.4447942064837,
+          "y": 140.98305115104876
         },
         "data": {
           "label": "Tasks",
@@ -148,13 +230,6 @@
               "isPrimaryKey": false
             },
             {
-              "id": "6faae6da-bf9b-467b-9fd3-bd8d4e7ab1b7",
-              "name": "PriceOffered",
-              "type": "FLOAT",
-              "position": 0,
-              "isPrimaryKey": false
-            },
-            {
               "id": "fk_c60cbfde-6228-4238-9792-2550f8fb67c3",
               "name": "fk_Categories",
               "type": "None",
@@ -166,23 +241,6 @@
                   {
                     "id": "fk_b77c3bb9-5d50-420c-9fce-9d413179856c",
                     "name": "CategoryID",
-                    "type": "INT"
-                  }
-                ]
-              }
-            },
-            {
-              "id": "fk_2f80c6a0-ab4f-4b2a-8d0c-8cd05dc95612",
-              "name": "fk_Addresses",
-              "type": "None",
-              "isForeignKey": true,
-              "foreignKeyProps": {
-                "foreignKeyGroupId": "9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
-                "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
-                "columns": [
-                  {
-                    "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
-                    "name": "AddressID",
                     "type": "INT"
                   }
                 ]
@@ -228,7 +286,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 250
+          "height": 200
         },
         "selected": false,
         "dragging": false
@@ -237,8 +295,8 @@
         "id": "ae8b83ea-3402-41cc-93c3-73efdfacd221",
         "type": "Table",
         "position": {
-          "x": -1476.1417836201367,
-          "y": 529.1531477379334
+          "x": -1472.5167358670674,
+          "y": 337.0256168252586
         },
         "data": {
           "label": "Notifications",
@@ -311,66 +369,11 @@
         "dragging": false
       },
       {
-        "id": "4e3d4915-98ee-4868-a87e-7541c1298c75",
-        "type": "Table",
-        "position": {
-          "x": -1476.7501335781183,
-          "y": 724.5097980578978
-        },
-        "data": {
-          "label": "UserPhones",
-          "isConnectable": false,
-          "columns": [
-            {
-              "id": "50a724f2-611b-464a-aebe-63b6d5c0d27d",
-              "name": "PhoneID",
-              "type": "INT",
-              "position": 0,
-              "isPrimaryKey": true,
-              "isOptional": false
-            },
-            {
-              "id": "15b80060-3bc0-4e51-83ba-1efe33d510ac",
-              "name": "Phone",
-              "type": "VARCHAR(n)",
-              "position": 0,
-              "isPrimaryKey": false,
-              "size": "15"
-            },
-            {
-              "id": "fk_04a6c096-1a7d-4cef-959a-ab382d381ca2",
-              "name": "fk_Users",
-              "type": "None",
-              "isForeignKey": true,
-              "foreignKeyProps": {
-                "foreignKeyGroupId": "f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
-                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
-                "columns": [
-                  {
-                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
-                    "name": "UserID",
-                    "type": "INT"
-                  }
-                ]
-              }
-            }
-          ],
-          "numberOfGroups": 0,
-          "isSelected": false
-        },
-        "measured": {
-          "width": 240,
-          "height": 101
-        },
-        "selected": false,
-        "dragging": false
-      },
-      {
         "id": "252a48ca-05e0-4c46-b125-917c361a1d34",
         "type": "Table",
         "position": {
-          "x": -692.3815165580207,
-          "y": 536.0563631533514
+          "x": -802.891925128016,
+          "y": 704.2777628654552
         },
         "data": {
           "label": "Addresses",
@@ -386,7 +389,7 @@
             },
             {
               "id": "09cfd48c-d65c-40c9-84c7-f673acd6caf2",
-              "name": "AddressLine",
+              "name": "Street",
               "type": "VARCHAR(n)",
               "position": 0,
               "isPrimaryKey": false,
@@ -399,6 +402,12 @@
               "position": 0,
               "isPrimaryKey": false,
               "size": "100"
+            },
+            {
+              "id": "116ec303-d5e0-40c8-a45d-806bf18e3c96",
+              "name": "Governorate",
+              "type": "INT",
+              "position": 0
             }
           ],
           "numberOfGroups": 0,
@@ -406,7 +415,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 100
+          "height": 125
         },
         "selected": false,
         "dragging": false
@@ -415,8 +424,8 @@
         "id": "e798f7a2-b31a-48ba-9651-6e8dfa0f38e2",
         "type": "Table",
         "position": {
-          "x": -1477.070994944132,
-          "y": 363.60378984561373
+          "x": -1471.633423314528,
+          "y": 176.913830562543
         },
         "data": {
           "label": "Messages",
@@ -494,8 +503,8 @@
         "id": "d42772f8-939b-474d-9722-badb997fb0cb",
         "type": "Table",
         "position": {
-          "x": -997.1372798834625,
-          "y": 172.43279885656042
+          "x": -1138.9277706057862,
+          "y": 239.8965005381663
         },
         "data": {
           "label": "Categories",
@@ -540,8 +549,8 @@
         "id": "6d8c9773-a9bb-4390-b916-60c135d22919",
         "type": "Table",
         "position": {
-          "x": -371.81067353461964,
-          "y": 326.0220515992173
+          "x": -522.2557011631623,
+          "y": 270.0328613763212
         },
         "data": {
           "label": "Ratings",
@@ -561,14 +570,6 @@
               "type": "INT",
               "position": 0,
               "isPrimaryKey": false
-            },
-            {
-              "id": "26c11c7d-2f04-4488-96a4-c0f3f3b1c41f",
-              "name": "ReviewText",
-              "type": "VARCHAR(n)",
-              "position": 0,
-              "isPrimaryKey": false,
-              "size": "255"
             },
             {
               "id": "fk_ecdf23dc-6df7-4c1e-b598-40d7ff8c4b9b",
@@ -620,6 +621,13 @@
                   }
                 ]
               }
+            },
+            {
+              "id": "e3f0db92-a122-481b-a25a-df29a11ce4cc",
+              "name": "Comment",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "255"
             }
           ],
           "numberOfGroups": 0,
@@ -636,8 +644,8 @@
         "id": "4a6944b8-10f4-4549-88e4-863095aae6b4",
         "type": "Table",
         "position": {
-          "x": -366.9342632365191,
-          "y": 39.65204394667249
+          "x": -1141.088772693132,
+          "y": -35.56769692951621
         },
         "data": {
           "label": "Payments",
@@ -738,15 +746,15 @@
           "width": 240,
           "height": 225
         },
-        "selected": true,
+        "selected": false,
         "dragging": false
       },
       {
         "id": "69b47aa7-566d-490e-9a56-e4d06de362b9",
         "type": "Table",
         "position": {
-          "x": -1139.6026001649818,
-          "y": 333
+          "x": -1471.294469570826,
+          "y": 728.1302050845574
         },
         "data": {
           "label": "ProfilePicture",
@@ -783,8 +791,8 @@
         "id": "422a4964-b8cb-48ec-ba57-a75672da47ff",
         "type": "Table",
         "position": {
-          "x": -689.3916682896654,
-          "y": 50.83678779450966
+          "x": -1471.6080015043935,
+          "y": 27.06827239848224
         },
         "data": {
           "label": "PaymentMethod",
@@ -800,10 +808,24 @@
             },
             {
               "id": "cb5e8d15-8d37-4dae-997e-5b19263ef5dc",
-              "name": "PaymentMethodName",
+              "name": "Name",
               "type": "VARCHAR(n)",
               "position": 0,
               "size": "50"
+            },
+            {
+              "id": "da73f959-c85e-494f-adec-d3851f31b192",
+              "name": "Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "150"
+            },
+            {
+              "id": "fbf80d7a-14e1-4030-9e94-ba2ded08424d",
+              "name": "IsActive",
+              "type": "Custom",
+              "position": 0,
+              "size": "BIT"
             }
           ],
           "numberOfGroups": 0,
@@ -811,7 +833,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 125
         },
         "selected": false,
         "dragging": false
@@ -820,8 +842,8 @@
         "id": "055e1381-d7a0-47cc-aa51-e43ae281d842",
         "type": "Table",
         "position": {
-          "x": -1140.0574584941937,
-          "y": 667.0160458877864
+          "x": -1475.2462501017508,
+          "y": 532.3396155865888
         },
         "data": {
           "label": "Roles",
@@ -837,10 +859,17 @@
             },
             {
               "id": "f362a41f-261d-4481-85ab-70df2ae8ad5a",
-              "name": "RoleName",
+              "name": "Name",
               "type": "VARCHAR(n)",
               "position": 0,
               "size": "50"
+            },
+            {
+              "id": "30437ea4-562c-481a-8b77-da6f3e2adb5b",
+              "name": "Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "100"
             }
           ],
           "numberOfGroups": 0,
@@ -848,7 +877,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 100
         },
         "selected": false,
         "dragging": false
@@ -857,8 +886,8 @@
         "id": "8ea85a12-1425-4e68-980a-dc112eb3128f",
         "type": "Table",
         "position": {
-          "x": -1138.87855220122,
-          "y": 765.4838502663048
+          "x": -1474.0923147608864,
+          "y": 641.6068714717203
         },
         "data": {
           "label": "User_Roles",
@@ -909,6 +938,81 @@
         "measured": {
           "width": 240,
           "height": 77
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "674238dc-06e8-4496-8bed-4c2f0c066842",
+        "type": "Table",
+        "position": {
+          "x": -804.1459608592291,
+          "y": 502.0237300005573
+        },
+        "data": {
+          "label": "TechnicianSchedules",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "c1b4e90f-589e-43da-8ae8-d7fc11bb6f81",
+              "name": "ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "f1ef073c-7ea6-4ec1-9e41-120cf91afeca",
+              "name": "Date",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "2b8816f1-3e7d-44bf-b12d-de875dbc944f",
+              "name": "StartTime",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "08b4e0cf-6cab-4a95-af35-c82b8cdfc565",
+              "name": "EndDate",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "c195afb9-7c26-4698-9883-193cff0fb8ec",
+              "name": "IsBooked",
+              "type": "Custom",
+              "position": 0,
+              "size": "BIT",
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_e69dee8d-8fc4-4009-b5b7-e03e07a95f59",
+              "name": "fk_Users",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "e502eb57-fa76-4c1e-90a7-79b7002295e3",
+                "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+                "columns": [
+                  {
+                    "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                    "name": "TechnicianID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 175
         },
         "selected": false,
         "dragging": false
@@ -1047,52 +1151,6 @@
               {
                 "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
                 "name": "UserID",
-                "type": "INT"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "id": "128eb063-e47d-4df9-8862-347fc30b6498->4e3d4915-98ee-4868-a87e-7541c1298c75_f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
-        "type": "Relational",
-        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
-        "targetHandle": "foreign-key-handle-f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
-        "target": "4e3d4915-98ee-4868-a87e-7541c1298c75",
-        "markerStart": {
-          "type": "arrow"
-        },
-        "data": {
-          "foreignKeyProps": {
-            "foreignKeyGroupId": "f374ed76-4813-4f3e-bd19-3ad33b4dd1cf",
-            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
-            "columns": [
-              {
-                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
-                "name": "UserID",
-                "type": "INT"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "id": "252a48ca-05e0-4c46-b125-917c361a1d34->4cedcc23-d14b-4792-9595-488ff9ccd5d8_9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
-        "type": "Relational",
-        "source": "252a48ca-05e0-4c46-b125-917c361a1d34",
-        "targetHandle": "foreign-key-handle-9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
-        "target": "4cedcc23-d14b-4792-9595-488ff9ccd5d8",
-        "markerStart": {
-          "type": "arrow"
-        },
-        "data": {
-          "foreignKeyProps": {
-            "foreignKeyGroupId": "9bc089ae-dccc-41d7-8e28-6221bdb2a7a3",
-            "sourceTableId": "252a48ca-05e0-4c46-b125-917c361a1d34",
-            "columns": [
-              {
-                "id": "fk_ddb9bdc9-919b-442d-89e5-d06b2f541b90",
-                "name": "AddressID",
                 "type": "INT"
               }
             ]
@@ -1328,12 +1386,58 @@
             ]
           }
         }
+      },
+      {
+        "id": "128eb063-e47d-4df9-8862-347fc30b6498->674238dc-06e8-4496-8bed-4c2f0c066842_e502eb57-fa76-4c1e-90a7-79b7002295e3",
+        "type": "Relational",
+        "source": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "targetHandle": "foreign-key-handle-e502eb57-fa76-4c1e-90a7-79b7002295e3",
+        "target": "674238dc-06e8-4496-8bed-4c2f0c066842",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "e502eb57-fa76-4c1e-90a7-79b7002295e3",
+            "sourceTableId": "128eb063-e47d-4df9-8862-347fc30b6498",
+            "columns": [
+              {
+                "id": "fk_0cd8900a-5196-402b-be2d-917f045e9f69",
+                "name": "UserID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "d42772f8-939b-474d-9722-badb997fb0cb->128eb063-e47d-4df9-8862-347fc30b6498_0c293c7a-9a28-4783-bc39-1ee5b356e129",
+        "type": "Relational",
+        "source": "d42772f8-939b-474d-9722-badb997fb0cb",
+        "targetHandle": "foreign-key-handle-0c293c7a-9a28-4783-bc39-1ee5b356e129",
+        "target": "128eb063-e47d-4df9-8862-347fc30b6498",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "0c293c7a-9a28-4783-bc39-1ee5b356e129",
+            "sourceTableId": "d42772f8-939b-474d-9722-badb997fb0cb",
+            "columns": [
+              {
+                "id": "fk_b77c3bb9-5d50-420c-9fce-9d413179856c",
+                "name": "CategoryID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
       }
     ],
     "viewport": {
-      "x": 1228.7798983434516,
-      "y": 8.031072304108648,
-      "zoom": 1.017397525664199
+      "x": 1012.6767085232583,
+      "y": 108.94130933371395,
+      "zoom": 0.55171687002098
     }
   },
   "name": "Physical ERD",
@@ -1343,6 +1447,6 @@
     "depth": 0,
     "id": 43769
   },
-  "id": 101568,
-  "updatedAtTimestamp": 1760298282
+  "id": 182373,
+  "updatedAtTimestamp": 1764449688
 }
