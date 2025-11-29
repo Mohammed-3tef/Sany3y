@@ -53,6 +53,12 @@ namespace Sany3y.Controllers
             await _emailService.SendConfirmationAsync(user, callbackUrl);
         }
         
+        private async System.Threading.Tasks.Task PopulateGovernoratesAsync()
+        {
+            var governorates = await _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates");
+            ViewBag.AllGovernorates = governorates?.OrderBy(g => g.ArabicName).ToList();
+        }
+
         #endregion
 
         public AccountController(
@@ -82,9 +88,9 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            ViewBag.AllGovernorates = _http.GetFromJsonAsync<List<Governorate>>("/api/CountryServices/GetAllGovernorates").Result?.OrderBy(g => g.ArabicName);
+            await PopulateGovernoratesAsync();
             return View();
         }
 
@@ -93,23 +99,29 @@ namespace Sany3y.Controllers
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                await PopulateGovernoratesAsync();
                 return View("Register", model);
+            }
 
             // تحقق من الرقم القومي باستخدام OCR
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
             {
                 ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
+                await PopulateGovernoratesAsync();
                 return View(model);
             }
             string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
             if (string.IsNullOrEmpty(extractedId))
             {
                 ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
+                await PopulateGovernoratesAsync();
                 return View(model);
             }
             if (extractedId != model.NationalId.ToString())
             {
                 ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
+                await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
 
@@ -152,6 +164,7 @@ namespace Sany3y.Controllers
                     ModelState.AddModelError(string.Empty, error);
                 }
 
+                await PopulateGovernoratesAsync();
                 return View(model);
             }
 
@@ -160,6 +173,7 @@ namespace Sany3y.Controllers
             if (apiResult == null)
             {
                 ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم عبر API.");
+                await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
 
