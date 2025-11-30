@@ -217,91 +217,41 @@
             text-align: center;
         }
 
-    /* Booking Section (Left Side) */
-    .booking-section {
-        flex: 1;
-        padding: 15px;
+    /* Action Section (Left Side) */
+    .action-section {
+        flex: 0 0 200px;
         background: #fcfcfc;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border-top: 1px solid #eee;
+        align-items: center;
+        padding: 20px;
+        border-right: 1px solid #eee; /* RTL: border-right */
     }
 
-    @@media (min-width: 768px) {
-        .booking-section {
-            border-top: none;
+    @media (max-width: 768px) {
+        .action-section {
+            width: 100%;
+            border-right: none;
+            border-top: 1px solid #eee;
+            flex: none;
+        }
+        
+        .tech-card {
+            flex-direction: column;
         }
     }
 
-    .booking-header {
-        text-align: center;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        color: white;
-        background: var(--primary-green);
-        padding: 5px;
-        border-radius: 4px;
+    /* RTL Adjustments */
+    body[dir="rtl"] .action-section {
+        border-left: none;
+        border-right: 1px solid #eee;
     }
-
-    .booking-slots {
-        display: flex;
-        gap: 5px;
-        overflow-x: auto;
-        padding-bottom: 10px;
-        justify-content: center;
-    }
-
-    .slot-card {
-        background: white;
-        border: 1px solid var(--primary-green);
-        border-radius: 4px;
-        min-width: 100px;
-        text-align: center;
-        padding: 10px 5px;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-        .slot-card:hover {
-            background: var(--primary-green);
-            color: white;
+    
+    @media (min-width: 768px) {
+        body[dir="rtl"] .tech-card {
+            flex-direction: row;
         }
-
-    .slot-day {
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .slot-time {
-        font-size: 0.75rem;
-    }
-
-    .btn-book {
-        background: #d9534f; /* Red like Vezeeta booking button */
-        color: white;
-        width: 100%;
-        border: none;
-        padding: 8px;
-        border-radius: 4px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-        .btn-book:hover {
-            background: #c9302c;
-        }
-
-    /* Scrollbar for slots */
-    .booking-slots::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .booking-slots::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 4px;
     }
 </style>
 
@@ -418,56 +368,17 @@
                                 <div><i class="fas fa-phone-alt"></i> 16676 - سعر مكالمة عادية</div>
                             </div>
                         </a>
-                        <!-- Booking Section -->
-                        <div class="booking-section">
-                            <div class="booking-header">المواعيد المتاحة</div>
-
-                            <!-- Carousel for slots -->
-                            <div id="carousel-@user.Id" class="carousel slide" data-bs-ride="false">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <div class="booking-slots">
-                                            <div class="slot-card">
-                                                <div class="slot-day">اليوم</div>
-                                                <div class="slot-time">02:00 م</div>
-                                            </div>
-                                            <div class="slot-card">
-                                                <div class="slot-day">اليوم</div>
-                                                <div class="slot-time">04:00 م</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="booking-slots">
-                                            <div class="slot-card">
-                                                <div class="slot-day">غداً</div>
-                                                <div class="slot-time">10:00 ص</div>
-                                            </div>
-                                            <div class="slot-card">
-                                                <div class="slot-day">غداً</div>
-                                                <div class="slot-time">12:00 م</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@user.Id" data-bs-slide="prev" style="width: 20px; background: #ccc; border-radius: 0 4px 4px 0;">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true" style="width: 10px;"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@user.Id" data-bs-slide="next" style="width: 20px; background: #ccc; border-radius: 4px 0 0 4px;">
-                                    <span class="carousel-control-next-icon" aria-hidden="true" style="width: 10px;"></span>
-                                </button>
+                        <!-- Action Section -->
+                        <div class="action-section d-flex flex-column justify-content-center align-items-center p-3 bg-light border-start">
+                            <div class="text-center mb-2 text-muted small">
+                                <i class="fas fa-bolt text-warning"></i> حجز فوري
                             </div>
-
-                            <div class="text-center mt-2 text-muted small">
-                                حجز أونلاين، الدفع في الموقع
-                            </div>
-
-                            <a href="/Services/Details/@user.Id"
-                               class="btn-book text-decoration-none d-block text-center">
+                            <a href="/Services/Details/@user.Id" class="btn btn-danger fw-bold w-100 px-4">
                                 احجز الآن
                             </a>
-
-                              
+                            <div class="mt-2 text-muted small" style="font-size: 0.75rem;">
+                                متاح الدفع أونلاين
+                            </div>
                         </div>
                     </div>
                 }
