@@ -3,94 +3,298 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<footer class="footer bg-dark text-white pt-5 pb-4">
+<footer class="footer-section">
     <div class="container">
-        <h1 class="fw-bold mb-3">Sany3y<span class="text-success">.com</span></h1>
-        <div class="row gy-4">
-            <!-- العمود الأول -->
-            <div class="col-md-3 col-6">
-                <ul class="list-unstyled">
-                    <li><a asp-controller="Home" asp-action="Index" class="footer-link">الرئيسية</a></li>
-                    <li><a asp-controller="Home" asp-action="AboutUs" class="footer-link">من نحن</a></li>
-                    <li><a asp-controller="Home" asp-action="OurTeam" class="footer-link">فريق العمل</a></li>
-                </ul>
-            </div>
-
-            <!-- العمود الثاني -->
-            <div class="col-md-3 col-6">
-                <h5 class="fw-bold mb-2">بحث حسب:</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="footer-link">التخصص</a></li>
-                    <li><a href="#" class="footer-link">المنطقة</a></li>
-                </ul>
-            </div>
-
-            @if (!SignInManager.IsSignedIn(User))
-            {
-                <!-- العمود الثالث -->
-                <div class="col-md-3 col-6">
-                    <h5 class="fw-bold mb-2">هل أنت فني؟</h5>
-                    <ul class="list-unstyled">
-                        <li><a asp-controller="Account" asp-action="Login" class="footer-link">انضم إلى فنيين صنايعي</a></li>
-                    </ul>
+        <div class="footer-content pt-5 pb-5">
+            <div class="row">
+                <!-- Brand Column -->
+                <div class="col-xl-4 col-lg-4 mb-5">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <a href="@Url.Action("Index", "Home")" class="logo-text">
+                                Sany3y<span class="text-gold">.com</span>
+                            </a>
+                        </div>
+                        <div class="footer-text">
+                            <p>منصتك الأولى للوصول لأمهر الفنيين والصنايعية في مصر. جودة، ثقة، وسرعة في التنفيذ.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>تابعنا</span>
+                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                            <a href="#"><i class="fab fa-instagram instagram-bg"></i></a>
+                        </div>
+                    </div>
                 </div>
-            }
 
-            <!-- العمود الرابع -->
-            <div class="col-md-3 col-6">
-                <h5 class="fw-bold mb-2">هل تحتاج مساعدة؟</h5>
-                <ul class="list-unstyled">
-                    <li><a asp-controller="Home" data-show-loader="true" asp-action="ContactUs" class="footer-link">تواصل معنا</a></li>
-                    <li><a asp-controller="Home" data-show-loader="true" asp-action="Policy" class="footer-link">سياسة الخصوصية</a></li>
-                </ul>
+                <!-- Quick Links -->
+                <div class="col-xl-2 col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>روابط سريعة</h3>
+                        </div>
+                        <ul>
+                            <li><a asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+                            <li><a asp-controller="Home" asp-action="AboutUs">من نحن</a></li>
+                            <li><a asp-controller="Services" asp-action="Index">خدماتنا</a></li>
+                            <li><a asp-controller="Home" asp-action="ContactUs">تواصل معنا</a></li>
+                            <li><a asp-controller="Home" asp-action="OurTeam">فريق العمل</a></li>
+                            <li><a asp-controller="Home" asp-action="Policy">سياسة الخصوصية</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-                <!-- أيقونات السوشيال -->
-                <div class="social-icons mt-2">
-                    <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                <!-- Services -->
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>أهم الخدمات</h3>
+                        </div>
+                        <ul>
+                            <li><a href="/Services/Search?serviceType=كهربا">كهرباء</a></li>
+                            <li><a href="/Services/Search?serviceType=سباكه">سباكة</a></li>
+                            <li><a href="/Services/Search?serviceType=نجاره">نجارة</a></li>
+                            <li><a href="/Services/Search?serviceType=نقاشه">نقاشة</a></li>
+                            <li><a href="/Services/Search?serviceType=تكييف وتبريد">تكييف</a></li>
+                            <li><a href="/Services/Search?serviceType=صيانة اجهزة">صيانة أجهزة</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Subscribe & App -->
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-5">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>النشرة البريدية</h3>
+                        </div>
+                        <div class="footer-text mb-3">
+                            <p>اشترك معنا ليصلك كل جديد وعروض حصرية.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="البريد الإلكتروني">
+                                <button><i class="fab fa-telegram-plane"></i></button>
+                            </form>
+                        </div>
+                        
+
+                    </div>
                 </div>
             </div>
-
         </div>
-
-        <hr class="my-4 text-secondary" />
-
-        <div class="text-center small text-secondary">
-            &copy; 2025 <span class="text-success fw-bold">Sany3y</span>. جميع الحقوق محفوظة.
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-end">
+                    <div class="copyright-text">
+                        <p>حقوق النشر &copy; 2025 محفوظة لـ <a href="#">Sany3y</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 d-none d-lg-block text-start">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="#">الرئيسية</a></li>
+                            <li><a href="#">الشروط</a></li>
+                            <li><a href="#">الخصوصية</a></li>
+                            <li><a href="#">سياسة الاستخدام</a></li>
+                            <li><a href="#">تواصل</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
 
 <style>
-    .footer-link {
-        color: #bbb;
-        text-decoration: none;
-        transition: color 0.3s;
-    }
-
-    .footer-link:hover {
+    /* Footer Base */
+    .footer-section {
+        background: #151414;
+        position: relative;
         color: #fff;
-        text-decoration: underline;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .footer-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Logo & Text */
+    .logo-text {
+        font-size: 36px;
+        font-weight: 800;
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 20px;
+    }
+    
+    .text-gold {
+        color: #ffc107;
+    }
+    
+    .footer-text p {
+        margin-bottom: 14px;
+        font-size: 14px;
+        color: #7e7e7e;
+        line-height: 28px;
+    }
+    
+    /* Social Icons */
+    .footer-social-icon span {
+        color: #fff;
+        display: block;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 20px;
+    }
+    
+    .footer-social-icon a {
+        color: #fff;
+        font-size: 16px;
+        margin-left: 15px;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 50%;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    
+    .facebook-bg { background: #3B5998; }
+    .twitter-bg { background: #55ACEE; }
+    .instagram-bg { background: #E1306C; }
+    
+    .footer-social-icon a:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    .social-icons {
-        display: flex;
-        gap: 15px;
+    /* Widgets */
+    .footer-widget-heading h3 {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 40px;
+        position: relative;
     }
-
-    .social-link {
-        color: #bbb;
-        font-size: 1.2rem;
-        transition: color 0.3s, transform 0.3s;
+    
+    .footer-widget-heading h3::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: -15px;
+        height: 2px;
+        width: 50px;
+        background: #ffc107;
     }
-
-    .social-link:hover {
-        color: #0d6efd;
-        transform: translateY(-3px);
+    
+    .footer-widget ul li {
+        display: inline-block;
+        width: 50%; /* Two columns for links */
+        float: right;
+        margin-bottom: 12px;
     }
-
-    .footer-logo {
-        font-size: 1.5rem;
+    
+    .footer-widget ul li a {
+        color: #878787;
+        text-transform: capitalize;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    
+    .footer-widget ul li a:hover {
+        color: #ffc107;
+        padding-right: 5px;
+    }
+    
+    /* Subscribe Form */
+    .subscribe-form {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .subscribe-form input {
+        width: 100%;
+        padding: 14px 28px;
+        background: #2E2E2E;
+        border: 1px solid #2E2E2E;
+        color: #fff;
+        border-radius: 30px;
+    }
+    
+    .subscribe-form button {
+        position: absolute;
+        left: 5px; /* Arabic RTL */
+        top: 5px;
+        background: #ffc107;
+        padding: 9px 20px;
+        border: 1px solid #ffc107;
+        color: #151414;
+        border-radius: 30px;
+        transition: all 0.3s;
+    }
+    
+    .subscribe-form button:hover {
+        background: #e0a800;
+        color: #fff;
+    }
+    
+    /* Copyright */
+    .copyright-area {
+        background: #202020;
+        padding: 25px 0;
+    }
+    
+    .copyright-text p {
+        margin: 0;
+        font-size: 14px;
+        color: #878787;
+    }
+    
+    .copyright-text p a {
+        color: #ffc107;
+        text-decoration: none;
+    }
+    
+    .footer-menu ul {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .footer-menu ul li {
+        display: inline-block;
+        margin-left: 20px;
+    }
+    
+    .footer-menu ul li a {
+        font-size: 14px;
+        color: #878787;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    
+    .footer-menu ul li a:hover {
+        color: #ffc107;
+    }
+    
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .footer-widget ul li {
+            width: 100%; /* Single column on mobile */
+            float: none;
+        }
+        .footer-menu ul li {
+            display: block;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .copyright-text {
+            text-align: center;
+        }
     }
 </style>
