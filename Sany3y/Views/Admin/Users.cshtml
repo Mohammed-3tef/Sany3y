@@ -49,9 +49,9 @@
                 </td>
                 <td>@item.User.CreatedAt.ToString("yyyy/MM/dd")</td>
                 <td class="d-flex">
-                    <button type="button" class="btn btn-outline-success w-100 chat-btn" data-id="@item.User.Id" title="شات">
+                    <a asp-controller="Account" asp-action="Chat" asp-route-id="@item.User.Id" class="btn btn-outline-success w-100 chat-btn">
                         <i class="fa-solid fa-comments fa-sm"></i>
-                    </button>
+                    </a>
                     <button type="button" class="btn btn-outline-primary w-100 view-user-btn" data-id="@item.User.Id" title="عرض">
                         <i class="fa-solid fa-eye fa-sm"></i>
                     </button>
@@ -79,7 +79,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title" id="confirmDeleteModalLabel">تأكيد الحذف</h5>
-                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="إغلاق" style="margin-right:auto"></button>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="إغلاق" style="margin-left: 0 !important;"></button>
                 </div>
                 <div class="modal-body">
                     <p>هل أنت متأكد أنك تريد حذف المستخدم <strong id="deleteUsername"></strong>؟</p>

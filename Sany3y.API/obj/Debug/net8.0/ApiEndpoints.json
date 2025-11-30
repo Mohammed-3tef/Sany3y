@@ -422,6 +422,22 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.MessageController",
+    "Method": "GetChatPartners",
+    "RelativePath": "api/Message/GetChatPartners/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.MessageController",
     "Method": "GetConversation",
     "RelativePath": "api/Message/GetConversation/{userId}/{otherUserId}",
     "HttpMethod": "GET",
@@ -1326,6 +1342,11 @@
       },
       {
         "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ExperienceYears",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }

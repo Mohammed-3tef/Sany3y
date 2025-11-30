@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -20,11 +21,13 @@ namespace Sany3y.Infrastructure.Models
         public DateTime SentAt { get; set; }
 
         [ForeignKey("Sender")]
-        public long SenderId { get; set; }
-        public User Sender { get; set; }
+        public long? SenderId { get; set; }
+        [JsonIgnore]
+        public User? Sender { get; set; }
 
         [ForeignKey("Receiver")]
-        public long ReceiverId { get; set; }
-        public User Receiver { get; set; }
+        public long? ReceiverId { get; set; }
+        [JsonIgnore]
+        public User? Receiver { get; set; }
     }
 }

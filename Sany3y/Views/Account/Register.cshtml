@@ -304,24 +304,36 @@
                                 <div class="step-title">
                                     <span class="step-icon"><i class="fas fa-layer-group"></i></span>
                                     التخصص
-                                </div>                                
-                                <div class="form-floating">
-                                    <select asp-for="CategoryId" class="form-select">
-                                        <option value="">اختر التخصص</option>
-                                        @{
-                                            if (ViewBag.AllCategories != null)
-                                            {
-                                                foreach (var category in ViewBag.AllCategories)
-                                                {
-                                                    <option value="@category.Id">@category.Name</option>
-                                                }
-                                            }
-                                        }
-                                    </select>
-                                    <label asp-for="CategoryId">التخصص</label>
                                 </div>
-                                <span asp-validation-for="CategoryId" class="text-danger small"></span>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select asp-for="CategoryId" class="form-select">
+                                                <option value="">اختر التخصص</option>
+                                                @{
+                                                    if (ViewBag.AllCategories != null)
+                                                    {
+                                                        foreach (var category in ViewBag.AllCategories)
+                                                        {
+                                                            <option value="@category.Id">@category.Name</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                            <label asp-for="CategoryId">التخصص</label>
+                                        </div>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input asp-for="ExperienceYears" type="number" class="form-control" placeholder="عدد سنين الخبرة" />
+                                            <label asp-for="ExperienceYears">عدد سنين الخبرة</label>
+                                        </div>
+                                        <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>                            
 
                             <!-- 6. Verification -->
                             <div class="step-title">

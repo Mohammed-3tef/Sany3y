@@ -1,0 +1,190 @@
+﻿@using Sany3y.Infrastructure.Models
+
+@{
+    var sender = ViewBag.Sender as User;
+    var receiver = ViewBag.Receiver as User;
+    ViewData["Title"] = "Chat with " + (receiver?.UserName ?? "");
+}
+
+<div class="chat-wrapper">
+    <!-- الهيدر -->
+    <div class="chat-header">
+        <img src="@ViewBag.ReceiverImage" class="header-avatar" />
+        <div>
+            <div class="fw-bold">@receiver?.UserName</div>
+            <div id="chatStatus" class="small text-muted">جارِ التحميل...</div>
+        </div>
+    </div>
+
+    <!-- الرسائل -->
+    <div id="messages" class="chat-messages"></div>
+
+    <!-- كتابة الآن -->
+    <div id="typing" class="typing-indicator">يكتب الآن...</div>
+
+    <!-- الإدخال -->
+    <div class="chat-input">
+        <input id="msg" type="text" class="form-control" placeholder="اكتب رسالة..." />
+        <button id="sendBtn" class="btn btn-primary px-4">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+    .chat-wrapper {
+        width: 60%;
+        margin: auto;
+        background: white;
+        height: 80vh;
+        border-radius: 12px;
+        box-shadow: 0 0 10px #ccc;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .chat-header {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .header-avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background: #f1f3f5;
+    }
+
+    .message {
+        max-width: 60%;
+        padding: 10px 15px;
+        border-radius: 14px;
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+
+    .sent {
+        background: #0d6efd;
+        color: white;
+        margin-left: auto;
+    }
+
+    .received {
+        background: #e9ecef;
+        margin-right: auto;
+    }
+
+    .time {
+        font-size: 0.75rem;
+        opacity: .7;
+        text-align: right;
+    }
+
+    .chat-input {
+        padding: 12px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+    }
+
+    .typing-indicator {
+        padding-left: 15px;
+        color: #6c757d;
+        display: none;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+    <script>
+        const sender = "@(sender?.UserName ?? "")";
+        const receiver = "@(receiver?.UserName ?? "")";
+        const senderId = @sender.Id;
+        const receiverId = @receiver.Id;
+        const apiBase = "https://localhost:7178";
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        // جلب الرسائل القديمة
+        async function loadOldMessages() {
+            try {
+                const res = await fetch(`${apiBase}/api/Message/GetConversation/${senderId}/${receiverId}`);
+                const messages = await res.json();
+                messages.forEach(m => {
+                    const isSent = m.senderId === senderId;
+                    addMessage(isSent, m.content, new Date(m.sentAt).toLocaleTimeString());
+                });
+                scrollDown();
+            } catch (err) {
+                console.error("Failed to load messages:", err);
+            }
+        }
+
+        // إضافة رسالة في الواجهة
+        function addMessage(isSent, message, time) {
+            const div = `
+                <div class="message ${isSent ? "sent" : "received"}">
+                    <div>${message}</div>
+                    <div class="time">${time}</div>
+                </div>
+            `;
+            $("#messages").append(div);
+            scrollDown();
+        }
+
+        function scrollDown() {
+            var chatBox = document.getElementById("messages");
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // استقبال رسائل من SignalR
+        connection.on("ReceiveMessage", (from, message, time) => {
+            if (from === receiver) addMessage(false, message, time);
+        });
+
+        connection.on("MessageSent", (to, message, time) => {
+            if (to === receiver) addMessage(true, message, time);
+        });
+
+        connection.on("TypingIndicator", (username) => {
+            if (username === receiver) {
+                $("#typing").show();
+                setTimeout(() => $("#typing").hide(), 1200);
+            }
+        });
+
+        connection.start().then(() => {
+            console.log("Connected");
+        });
+
+        $("#sendBtn").click(sendMessage);
+        $("#msg").on("input", () => connection.invoke("Typing", receiver));
+        $("#msg").keypress(e => { if (e.which === 13) sendMessage(); });
+
+        async function sendMessage() {
+            let message = $("#msg").val().trim();
+            if (!message) return;
+
+            // إرسال عبر SignalR
+            connection.invoke("SendPrivateMessage", receiver, message);
+
+            $("#msg").val("");
+        }
+
+        // تحميل الرسائل القديمة عند التحميل
+        $(document).ready(loadOldMessages);
+    </script>
+}

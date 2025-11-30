@@ -608,6 +608,29 @@
         }
       }
     },
+    "/api/Message/GetChatPartners/{userId}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Message/GetConversation/{userId}/{otherUserId}": {
       "get": {
         "tags": [
@@ -2279,6 +2302,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "ExperienceYears",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "requestBody": {
@@ -2588,17 +2619,13 @@
           },
           "senderId": {
             "type": "integer",
-            "format": "int64"
-          },
-          "sender": {
-            "$ref": "#/components/schemas/User"
+            "format": "int64",
+            "nullable": true
           },
           "receiverId": {
             "type": "integer",
-            "format": "int64"
-          },
-          "receiver": {
-            "$ref": "#/components/schemas/User"
+            "format": "int64",
+            "nullable": true
           }
         },
         "additionalProperties": false

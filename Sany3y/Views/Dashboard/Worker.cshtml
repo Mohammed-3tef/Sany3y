@@ -1,5 +1,7 @@
+@using Sany3y.Infrastructure.Models
 @{
     ViewData["Title"] = "لوحة تحكم العامل";
+    var chatPartners = ViewBag.ChatPartners as List<Sany3y.Infrastructure.Models.User>;
 }
 
 <div class="container mt-4">
@@ -138,7 +140,27 @@
                 المحادثات الأخيرة
             </div>
             <div class="card-body">
-                <p class="text-muted">المحادثات قيد التطوير...</p>
+                @if (chatPartners != null && chatPartners.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var user in chatPartners)
+                        {
+                            <div class="col-md-4">
+                                <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id" class="text-decoration-none">
+                                    <div class="card h-100 shadow-sm hover-shadow">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">@user.UserName</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">لا توجد محادثات سابقة.</p>
+                }
             </div>
         </div>
     </div>

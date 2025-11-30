@@ -231,10 +231,10 @@ namespace Sany3y.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ReceiverId")
+                    b.Property<long?>("ReceiverId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SenderId")
+                    b.Property<long?>("SenderId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("SentAt")
@@ -715,14 +715,12 @@ namespace Sany3y.Infrastructure.Migrations
                     b.HasOne("Sany3y.Infrastructure.Models.User", "Receiver")
                         .WithMany()
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Sany3y.Infrastructure.Models.User", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Receiver");
 

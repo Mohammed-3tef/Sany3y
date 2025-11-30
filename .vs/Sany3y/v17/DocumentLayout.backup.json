@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_LoginPartial.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Shared\\_LoginPartial.cshtml",
-              "ViewState": "AgIAABEAAAAAAAAAAAAowCUAAABGAAAAAAAAAA==",
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFYAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-30T07:47:28.939Z",
+              "WhenOpened": "2025-11-30T12:57:15.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Users.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\Users.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\Users.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\Users.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\Users.cshtml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFEAAACSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-30T12:55:25.384Z",
               "EditorCaption": ""
             },
             {

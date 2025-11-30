@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
+using System.Threading.Tasks;
 
 namespace Sany3y.API.Controllers
 {
@@ -10,11 +12,13 @@ namespace Sany3y.API.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        IRepository<Message> _messageRepository;
+        private IRepository<Message> _messageRepository;
+        private UserManager<User> _userManager;
 
-        public MessageController(IRepository<Message> repository)
+        public MessageController(IRepository<Message> repository, UserManager<User> userManager)
         {
             _messageRepository = repository;
+            _userManager = userManager;
         }
 
         [HttpGet("GetAll")]
@@ -31,6 +35,32 @@ namespace Sany3y.API.Controllers
             if (message == null)
                 return NotFound();
             return Ok(message);
+        }
+
+        // في نفس الـ Controller الموجود فيه Messages/Chat
+        [HttpGet("GetChatPartners/{userId}")]
+        public async Task<IActionResult> GetChatPartners(long userId)
+        {
+            // نجيب كل الرسائل اللي تخص المستخدم
+            var allMessages = await _messageRepository.GetAll();
+
+            // نجيب كل الـ Ids المختلفين اللي اتكلم معهم المستخدم
+            var partnerIds = allMessages
+                .Where(m => m.SenderId == userId || m.ReceiverId == userId)
+                .Select(m => m.SenderId == userId ? m.ReceiverId : m.SenderId)
+                .Distinct()
+                .ToList();
+
+            // جلب كل المستخدمين من UserManager
+            var partners = new List<User>();
+            foreach (var id in partnerIds)
+            {
+                var user = await _userManager.FindByIdAsync(id.ToString());
+                if (user != null)
+                    partners.Add(user);
+            }
+
+            return Ok(partners);
         }
 
         [HttpGet("GetConversation/{userId}/{otherUserId}")]

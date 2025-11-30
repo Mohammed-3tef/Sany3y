@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Sany3y.Hubs;
 using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
@@ -127,6 +128,14 @@ namespace Sany3y.Controllers
                 await PopulateGovernoratesAsync();
                 return View("Register", model);
             }
+            
+            if (!model.IsClient && model.ExperienceYears == null)
+            {
+                ModelState.AddModelError("ExperienceYears", "يرجى إدخال سنوات الخبرة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
 
             // تحقق من الرقم القومي باستخدام OCR
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
@@ -174,6 +183,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
             if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
+            if (!string.IsNullOrEmpty(model.ExperienceYears.ToString()))
+                form.Add(new StringContent(model.ExperienceYears.ToString()), "ExperienceYears");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -381,6 +392,14 @@ namespace Sany3y.Controllers
                 return View(model);
             }
 
+            if (!model.IsClient && model.ExperienceYears == null)
+            {
+                ModelState.AddModelError("ExperienceYears", "يرجى إدخال سنوات الخبرة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
+
             var response = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
             if (response.IsSuccessStatusCode)
             {
@@ -444,6 +463,8 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
             if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
+            if (!string.IsNullOrEmpty(model.ExperienceYears.ToString()))
+                form.Add(new StringContent(model.ExperienceYears.ToString()), "ExperienceYears");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -754,6 +775,45 @@ namespace Sany3y.Controllers
             await _userManager.UpdateAsync(currentUser);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Chat(long id)   // id = ReceiverId
+        {
+            var sender = await _userManager.GetUserAsync(User);
+            var receiver = await _userManager.FindByIdAsync(id.ToString());
+
+            if (receiver == null)
+                return NotFound();
+
+            ViewBag.Sender = sender;
+            ViewBag.Receiver = receiver;
+
+            // جلب صورة المستلم
+            var pictureResponse = await _http.GetAsync($"/api/ProfilePicture/GetById/{receiver?.ProfilePictureId}");
+            if (pictureResponse.IsSuccessStatusCode)
+            {
+                var profilePicture = await pictureResponse.Content.ReadFromJsonAsync<ProfilePicture>();
+                ViewBag.ReceiverImage = profilePicture?.Path ?? "https://placehold.co/100x100?text=Profile";
+            }
+            else
+            {
+                ViewBag.ReceiverImage = "https://placehold.co/100x100?text=Profile";
+            }
+
+            // جلب الرسائل القديمة من الداتابيز عبر API
+            var messagesResponse = await _http.GetAsync($"/api/Message/GetConversation/{sender?.Id}/{receiver?.Id}");
+            if (messagesResponse.IsSuccessStatusCode)
+            {
+                var messages = await messagesResponse.Content.ReadFromJsonAsync<List<Message>>();
+                ViewBag.Messages = messages?.OrderBy(m => m.SentAt).ToList(); // ترتيب حسب الوقت
+            }
+            else
+            {
+                ViewBag.Messages = new List<Message>();
+            }
+
+            return View();
         }
     }
 }
