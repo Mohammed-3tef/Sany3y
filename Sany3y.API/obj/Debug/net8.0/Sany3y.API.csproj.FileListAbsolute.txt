@@ -482,6 +482,7 @@ D:\final grad\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
 D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
 D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
 D:\final grad\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
+D:\final grad\Sany3y.API\bin\Debug\net8.0\Stripe.net.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.Development.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\appsettings.json
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
@@ -534,9 +535,9 @@ D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.OpenApi.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Mono.TextTemplating.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Stripe.net.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -548,14 +549,11 @@ D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Hosting.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Composition.TypedParts.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Drawing.Common.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Memory.Data.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Runtime.Caching.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\System.Windows.Extensions.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -614,12 +612,7 @@ D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.dll
 D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
 D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.csproj.AssemblyReference.cache
@@ -646,4 +639,3 @@ D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\refint\Sany3y.API.dll
 D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
 D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
 D:\Projects\Sany3y\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
-D:\final grad\Sany3y.API\bin\Debug\net8.0\Stripe.net.dll

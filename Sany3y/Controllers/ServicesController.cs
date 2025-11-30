@@ -152,6 +152,7 @@ namespace Sany3y.Controllers
                 ? long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value)
                 : 0;
 
+            ViewBag.CurrentUserName = User.Identity.Name;
             return View(user);
         }
 

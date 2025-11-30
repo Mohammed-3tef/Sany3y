@@ -629,6 +629,7 @@ C:\Users\lenovo\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 C:\Users\lenovo\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 C:\Users\lenovo\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 C:\Users\lenovo\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
+D:\final grad\Sany3y\bin\Debug\net8.0\Stripe.net.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.deps.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.runtimeconfig.json
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.staticwebassets.endpoints.json
@@ -710,7 +711,6 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenera
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Mono.TextTemplating.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\NuGet.Common.dll
@@ -725,6 +725,7 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\NuGet.Versioning.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\SQLitePCLRaw.core.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll
+D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Stripe.net.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -736,15 +737,12 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Composition.Hosting.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Composition.TypedParts.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Drawing.Common.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Memory.Data.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Runtime.Caching.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Security.Permissions.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\System.Windows.Extensions.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\af\Humanizer.resources.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\ar\Humanizer.resources.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -890,7 +888,6 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Dat
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so
@@ -911,10 +908,7 @@ D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-arm\native\e_sqlite3.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.Infrastructure.dll
 D:\Projects\Sany3y\Sany3y\bin\Debug\net8.0\Sany3y.API.pdb
@@ -948,4 +942,3 @@ D:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\refint\Sany3y.dll
 D:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.pdb
 D:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\Sany3y.genruntimeconfig.cache
 D:\Projects\Sany3y\Sany3y\obj\Debug\net8.0\ref\Sany3y.dll
-D:\final grad\Sany3y\bin\Debug\net8.0\Stripe.net.dll

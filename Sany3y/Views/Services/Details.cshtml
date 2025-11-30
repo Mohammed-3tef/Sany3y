@@ -556,10 +556,11 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
-    const technicianId = "@Model.Id";
-    const currentUserId = @ViewBag.CurrentUserId;
+    const technicianId = parseInt("@Model.Id");
+    const currentUserId = parseInt("@ViewBag.CurrentUserId");
+    const currentUserName = "@ViewBag.currentUserName";
 
     function loadSchedule() {
         const modal = new bootstrap.Modal(document.getElementById('scheduleModal'));
@@ -681,9 +682,9 @@
         }
     });
 
-    // -----------------------------
-    // 💬 Chat Feature
-    // -----------------------------
+    // -------------------------
+    // 💬 Chat Feature (Real-time)
+    // -------------------------
     const chatBtn = document.getElementById("chatBtn");
     const chatWindow = document.getElementById("chatWindow");
     const closeChat = document.getElementById("closeChat");
@@ -694,47 +695,39 @@
     // Toggle Chat Window
     chatBtn.addEventListener("click", () => {
         const isHidden = window.getComputedStyle(chatWindow).display === "none";
-
-        if (isHidden) {
-            chatWindow.style.display = "flex";
-            loadChatHistory();
-        } else {
-            chatWindow.style.display = "none";
-        }
+        chatWindow.style.display = isHidden ? "flex" : "none";
+        if (isHidden) loadChatHistory();
     });
-
-    closeChat.addEventListener("click", () => {
-        chatWindow.style.display = "none";
-    });
+    closeChat.addEventListener("click", () => chatWindow.style.display = "none");
 
     // SignalR Connection
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chatHub")
-        .build();
+    const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-    connection.on("ReceiveMessage", function (senderId, message) {
-        if (senderId == technicianId) {
-            appendMessage(message, "received");
-        }
+    // استقبال الرسائل real-time
+    connection.on("ReceiveMessage", (senderUserName, message, time) => {
+        const type = senderUserName === currentUserName ? "received" : "sent";
+        appendMessage(`${message} (${time})`, type);
+    });
+
+    // تأكيد الرسائل المرسلة
+    connection.on("MessageSent", (receiverUserName, message, time) => {
+        appendMessage(`${message} (${time})`, "sent");
     });
 
     connection.start().catch(err => console.error(err.toString()));
 
-    // Send Message
+    // إرسال الرسائل
     sendBtn.addEventListener("click", sendMessage);
-    chatInput.addEventListener("keypress", function (e) {
-        if (e.key === "Enter") sendMessage();
-    });
+    chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
 
     function sendMessage() {
-        const message = chatInput.value;
-        if (message.trim() === "") return;
-
-        connection.invoke("SendMessage", technicianId, message).catch(err => console.error(err.toString()));
-        appendMessage(message, "sent");
+        const message = chatInput.value.trim();
+        if (!message) return;
+        connection.invoke("SendPrivateMessage", "@Model.UserName", message).catch(err => console.error(err.toString()));
         chatInput.value = "";
     }
 
+    // عرض الرسائل في الـ div
     function appendMessage(message, type) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("chat-message", type);
@@ -743,22 +736,26 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
+    // تحميل المحادثة القديمة
     function loadChatHistory() {
         chatMessages.innerHTML = '<div class="text-center text-muted small">جاري تحميل المحادثة...</div>';
 
-        fetch(`/Services/GetConversation?otherUserId=${technicianId}`)
+        fetch(`/api/Message/GetConversation/${currentUserId}/${technicianId}`)
             .then(res => res.json())
             .then(data => {
                 chatMessages.innerHTML = "";
-                if (data.length === 0) {
+                if (!data.length) {
                     chatMessages.innerHTML = '<div class="text-center text-muted small mt-3">ابدأ المحادثة الآن!</div>';
+                    return;
                 }
                 data.forEach(msg => {
-                    const type = msg.senderId == currentUserId ? "sent" : "received";
-                    appendMessage(msg.content, type);
+                    const type = msg.senderId == currentUserId ? "received" : "sent";
+                    appendMessage(`${msg.content} (${new Date(msg.sentAt).toLocaleTimeString()})`, type);
                 });
+            })
+            .catch(err => {
+                console.error(err);
+                chatMessages.innerHTML = '<div class="text-center text-danger small">فشل تحميل المحادثة</div>';
             });
     }
 </script>
-
-
