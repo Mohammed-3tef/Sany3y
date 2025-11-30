@@ -68,6 +68,70 @@
             </div>
         </div>
         
+        <!-- Schedule Management Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <span>إدارة المواعيد</span>
+                        <button class="btn btn-light btn-sm text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addSlotModal">
+                            <i class="fas fa-plus"></i> إضافة موعد
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover text-center align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>التاريخ</th>
+                                        <th>من</th>
+                                        <th>إلى</th>
+                                        <th>الحالة</th>
+                                        <th>إجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedule-list">
+                                    <!-- Slots will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <p id="no-schedule" class="text-muted text-center mt-3" style="display:none;">لا توجد مواعيد مضافة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Slot Modal -->
+        <div class="modal fade" id="addSlotModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">إضافة موعد جديد</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addSlotForm">
+                            <div class="mb-3">
+                                <label class="form-label">التاريخ</label>
+                                <input type="date" class="form-control" id="slotDate" required min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                            </div>
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <label class="form-label">من الساعة</label>
+                                    <input type="time" class="form-control" id="slotStart" required>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label class="form-label">إلى الساعة</label>
+                                    <input type="time" class="form-control" id="slotEnd" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">حفظ الموعد</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Chat Section Placeholder -->
         <div class="card mb-4">
             <div class="card-header">
@@ -113,9 +177,17 @@
                     if (data.receivedRequests && data.receivedRequests.length > 0) {
                         data.receivedRequests.forEach(function (task) {
                             var item = '<li class="list-group-item">' +
+                                '<div class="d-flex justify-content-between align-items-center">' +
+                                '<div>' +
                                 '<strong>' + task.title + '</strong><br/>' +
                                 '<small>Client: ' + task.otherPartyName + '</small><br/>' +
                                 '<span class="badge bg-warning text-dark">' + task.status + '</span>' +
+                                '</div>' +
+                                '<div>' +
+                                '<button class="btn btn-success btn-sm me-2 accept-req" data-id="' + task.id + '"><i class="fas fa-check"></i> قبول</button>' +
+                                '<button class="btn btn-danger btn-sm reject-req" data-id="' + task.id + '"><i class="fas fa-times"></i> رفض</button>' +
+                                '</div>' +
+                                '</div>' +
                                 '</li>';
                             $('#requests-list').append(item);
                         });
@@ -136,6 +208,10 @@
                     } else {
                         $('#no-jobs').show();
                     }
+
+                    // Load Schedule
+                    loadSchedule(userId, apiUrl);
+
                 },
                 error: function (xhr, status, error) {
                     $('#loading').hide();
@@ -143,6 +219,131 @@
                     console.error(error);
                 }
             });
+
+            // Handle Add Slot
+            $('#addSlotForm').on('submit', function (e) {
+                e.preventDefault();
+                
+                var date = $('#slotDate').val();
+                var start = $('#slotStart').val();
+                var end = $('#slotEnd').val();
+
+                if(start >= end) {
+                    toastr.error("وقت البدء يجب أن يكون قبل وقت الانتهاء");
+                    $('#loader').addClass('hide'); // Fix infinite loading
+                    return;
+                }
+
+                var payload = {
+                    technicianId: userId,
+                    date: date,
+                    startTime: start + ":00",
+                    endTime: end + ":00"
+                };
+
+                $.ajax({
+                    url: apiUrl + '/api/TechnicianSchedule/AddSlot',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(payload),
+                    success: function () {
+                        toastr.success("تم إضافة الموعد بنجاح");
+                        $('#addSlotModal').modal('hide');
+                        $('#addSlotForm')[0].reset();
+                        loadSchedule(userId, apiUrl);
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseText || "فشل إضافة الموعد");
+                    }
+                });
+            });
+
+            // Handle Delete Slot
+            $(document).on('click', '.delete-slot', function () {
+                var slotId = $(this).data('id');
+                if(!confirm("هل أنت متأكد من حذف هذا الموعد؟")) return;
+
+                $.ajax({
+                    url: apiUrl + '/api/TechnicianSchedule/DeleteSlot/' + slotId,
+                    method: 'DELETE',
+                    success: function () {
+                        toastr.success("تم حذف الموعد بنجاح");
+                        loadSchedule(userId, apiUrl);
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseText || "فشل حذف الموعد");
+                    }
+                });
+            });
+
+            // Handle Accept Request
+            $(document).on('click', '.accept-req', function () {
+                var taskId = $(this).data('id');
+                $.ajax({
+                    url: apiUrl + '/api/TechnicianSchedule/AcceptRequest/' + taskId,
+                    method: 'POST',
+                    success: function () {
+                        toastr.success("تم قبول الطلب");
+                        location.reload(); // Reload to update lists and earnings
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseText || "فشل قبول الطلب");
+                    }
+                });
+            });
+
+            // Handle Reject Request
+            $(document).on('click', '.reject-req', function () {
+                var taskId = $(this).data('id');
+                if(!confirm("هل أنت متأكد من رفض هذا الطلب؟")) return;
+
+                $.ajax({
+                    url: apiUrl + '/api/TechnicianSchedule/RejectRequest/' + taskId,
+                    method: 'POST',
+                    success: function () {
+                        toastr.success("تم رفض الطلب");
+                        location.reload();
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseText || "فشل رفض الطلب");
+                    }
+                });
+            });
         });
+
+        function loadSchedule(userId, apiUrl) {
+            $.ajax({
+                url: apiUrl + '/api/TechnicianSchedule/GetMySchedule/' + userId,
+                method: 'GET',
+                success: function (data) {
+                    var list = $('#schedule-list');
+                    list.empty();
+                    
+                    if (data && data.length > 0) {
+                        $('#no-schedule').hide();
+                        data.forEach(function (slot) {
+                            var statusBadge = slot.isBooked 
+                                ? '<span class="badge bg-danger">محجوز</span>' 
+                                : '<span class="badge bg-success">متاح</span>';
+                            
+                            var deleteBtn = slot.isBooked 
+                                ? '<button class="btn btn-sm btn-secondary" disabled><i class="fas fa-trash"></i></button>'
+                                : '<button class="btn btn-sm btn-danger delete-slot" data-id="' + slot.id + '"><i class="fas fa-trash"></i></button>';
+
+                            var row = '<tr>' +
+                                '<td>' + slot.date.split('T')[0] + '</td>' +
+                                '<td>' + slot.startTime + '</td>' +
+                                '<td>' + slot.endTime + '</td>' +
+                                '<td>' + statusBadge + '</td>' +
+                                '<td>' + deleteBtn + '</td>' +
+                                '</tr>';
+                            list.append(row);
+                        });
+                    } else {
+                        $('#no-schedule').show();
+                    }
+                }
+            });
+        }
     </script>
 }
