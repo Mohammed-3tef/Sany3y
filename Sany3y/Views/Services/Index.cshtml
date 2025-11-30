@@ -166,10 +166,10 @@
         display: block; /* Ensure it behaves like a block for layout */
     }
 
-    .tech-info-section:hover {
-        background-color: #f9f9f9; /* Subtle hover effect */
-        cursor: pointer;
-    }
+        .tech-info-section:hover {
+            background-color: #f9f9f9; /* Subtle hover effect */
+            cursor: pointer;
+        }
 
     .tech-header {
         display: flex;
@@ -229,17 +229,20 @@
         border-right: 1px solid #eee; /* RTL: border-right */
     }
 
-    @media (max-width: 768px) {
-        .action-section {
-            width: 100%;
-            border-right: none;
-            border-top: 1px solid #eee;
-            flex: none;
-        }
-        
-        .tech-card {
-            flex-direction: column;
-        }
+    @@media (max-width: 768px) {
+        .action-section
+
+    {
+        width: 100%;
+        border-right: none;
+        border-top: 1px solid #eee;
+        flex: none;
+    }
+
+    .tech-card {
+        flex-direction: column;
+    }
+
     }
 
     /* RTL Adjustments */
@@ -247,11 +250,14 @@
         border-left: none;
         border-right: 1px solid #eee;
     }
-    
-    @media (min-width: 768px) {
-        body[dir="rtl"] .tech-card {
-            flex-direction: row;
-        }
+
+    @@media (min-width: 768px) {
+        body [dir="rtl"] .tech-card
+
+    {
+        flex-direction: row;
+    }
+
     }
 </style>
 
@@ -267,40 +273,32 @@
                             <label class="search-label"><i class="fas fa-tools"></i> التخصص</label>
                             <select name="categoryId" class="search-select">
                                 <option value="">اختر التخصص</option>
-                                <option value="1">بناء وتشييد</option>
-                                <option value="2">كهرباء</option>
-                                <option value="3">سباكة</option>
-                                <option value="4">دهانات و تشطيبات</option>
-                                <option value="5">نجارة</option>
-                                <option value="6">حدادة</option>
-                                <option value="7">ألوميتال</option>
-                                <option value="8">مقاولات عامة</option>
-                                <option value="9">رخام وسيراميك</option>
-                                <option value="10">نقاشة</option>
-                                <option value="11">تكييف وتبريد</option>
-                                <option value="12">صيانة أجهزة</option>
-                                <option value="13">تركيبات</option>
-                                <option value="14">تنظيف وتجهيز</option>
-                                <option value="15">نقل عفش وخدمات لوجستية</option>
-                                <option value="16">خدمات أخرى</option>
+                                @if (ViewBag.Categories != null)
+                                {
+                                    foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="search-item">
                             <label class="search-label"><i class="fas fa-map-marker-alt"></i> المحافظة</label>
-                            <select name="city" class="search-select">
+                            <select name="governorate" id="governorateSelect" class="search-select">
                                 <option value="">اختر المحافظة</option>
-                                <option value="القاهرة">القاهرة</option>
-                                <option value="الجيزة">الجيزة</option>
-                                <option value="الإسكندرية">الإسكندرية</option>
+                                @if (ViewBag.Governorates != null)
+                                {
+                                    foreach (var gov in ViewBag.Governorates)
+                                    {
+                                        <option value="@gov.ArabicName" data-id="@gov.Id">@gov.ArabicName</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="search-item">
                             <label class="search-label"><i class="fas fa-map-pin"></i> المنطقة</label>
-                            <select class="search-select">
+                            <select name="city" id="citySelect" class="search-select">
                                 <option value="">اختر المنطقة</option>
-                                <option>مدينة نصر</option>
-                                <option>المعادي</option>
-                                <option>التجمع الخامس</option>
                             </select>
                         </div>
                         <div class="search-item">
@@ -395,6 +393,26 @@
 
 @section Scripts {
     <script>
-        // Initialize carousels manually if needed, or rely on data-bs attributes
+        $(document).ready(function() {
+            $('#governorateSelect').change(function() {
+                var govId = $(this).find(':selected').data('id');
+                var citySelect = $('#citySelect');
+
+                citySelect.empty().append('<option value="">جاري التحميل...</option>');
+
+                if (govId) {
+                    $.get('/Services/GetCitiesByGovernorateId?id=' + govId, function(data) {
+                        citySelect.empty().append('<option value="">اختر المنطقة</option>');
+                        $.each(data, function(i, city) {
+                            citySelect.append('<option value="' + city.arabicName + '">' + city.arabicName + '</option>');
+                        });
+                    }).fail(function() {
+                        citySelect.empty().append('<option value="">خطأ في التحميل</option>');
+                    });
+                } else {
+                    citySelect.empty().append('<option value="">اختر المنطقة</option>');
+                }
+            });
+        });
     </script>
 }

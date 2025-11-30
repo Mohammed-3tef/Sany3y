@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace Sany3y.Controllers
 {
@@ -15,16 +16,23 @@ namespace Sany3y.Controllers
 
         public async Task<IActionResult> Index(
             int? categoryId,
+            string? governorate,
             string? city,
             string? name,
             decimal? minPrice,
             decimal? maxPrice,
             double? rating)
         {
+            // Fetch filters data
+            await PopulateFilters();
+
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
 
             if (categoryId != null)
                 users = users.Where(u => u.CategoryID == categoryId).ToList();
+
+            if (!string.IsNullOrEmpty(governorate))
+                users = users.Where(u => u.Address != null && u.Address.Governorate.Contains(governorate)).ToList();
 
             if (!string.IsNullOrEmpty(city))
                 users = users.Where(u => u.Address != null && u.Address.City.Contains(city)).ToList();
@@ -42,8 +50,6 @@ namespace Sany3y.Controllers
                 users = users.Where(u => u.Rating >= rating.Value).ToList();
 
             return View(users);
-
-
         }
 
         //--------------------------------------
@@ -70,8 +76,11 @@ namespace Sany3y.Controllers
         }
 
         //--------------- البحث من الهوم -----------------
+        //--------------- البحث من الهوم -----------------
         public async Task<IActionResult> Search(string serviceType)
         {
+            await PopulateFilters(); // Ensure filters are populated
+
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
 
             if (!string.IsNullOrEmpty(serviceType))
@@ -109,6 +118,15 @@ namespace Sany3y.Controllers
             return View("Index", users);
         }
 
+        private async Task PopulateFilters()
+        {
+            var categories = await _http.GetFromJsonAsync<List<Category>>("api/Category/GetAll");
+            var governorates = await _http.GetFromJsonAsync<List<Governorate>>("api/CountryServices/GetAllGovernorates");
+
+            ViewBag.Categories = categories;
+            ViewBag.Governorates = governorates;
+        }
+
         // -------------------------------------------------------------
         // 🔵 صفحة تفاصيل الفني
         // -------------------------------------------------------------
@@ -142,6 +160,13 @@ namespace Sany3y.Controllers
         {
             var schedule = await _http.GetFromJsonAsync<List<TechnicianSchedule>>($"/api/TechnicianSchedule/GetSchedule/{technicianId}");
             return Json(schedule);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCitiesByGovernorateId(int id)
+        {
+            var cities = await _http.GetFromJsonAsync<List<City>>($"/api/CountryServices/GetCitiesByGovernorateId/{id}");
+            return Json(cities);
         }
 
         [HttpPost]
