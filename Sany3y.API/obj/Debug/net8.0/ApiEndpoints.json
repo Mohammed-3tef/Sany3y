@@ -1126,6 +1126,38 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "AcceptRequest",
+    "RelativePath": "api/TechnicianSchedule/AcceptRequest/{taskId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "AddSlot",
+    "RelativePath": "api/TechnicianSchedule/AddSlot",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Sany3y.API.Controllers.AddSlotRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
     "Method": "BookSlot",
     "RelativePath": "api/TechnicianSchedule/BookSlot",
     "HttpMethod": "POST",
@@ -1142,6 +1174,38 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "DeleteSlot",
+    "RelativePath": "api/TechnicianSchedule/DeleteSlot/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "GetMySchedule",
+    "RelativePath": "api/TechnicianSchedule/GetMySchedule/{technicianId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "technicianId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
     "Method": "GetSchedule",
     "RelativePath": "api/TechnicianSchedule/GetSchedule/{technicianId}",
     "HttpMethod": "GET",
@@ -1151,6 +1215,22 @@
       {
         "Name": "technicianId",
         "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "RejectRequest",
+    "RelativePath": "api/TechnicianSchedule/RejectRequest/{taskId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

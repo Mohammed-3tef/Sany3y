@@ -1,17 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Sany3y.Infrastructure.Models
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
 
 <footer class="footer-section">
     <div class="container">
         <div class="footer-content pt-5 pb-5">
             <div class="row">
                 <!-- Brand Column -->
-                <div class="col-xl-4 col-lg-4 mb-5">
+                <div class="col-md-6 mb-5">
                     <div class="footer-widget">
                         <div class="footer-logo">
-                            <a href="@Url.Action("Index", "Home")" class="logo-text">
+                            <a asp-controller="Home" asp-action="Index" id="logo-text">
                                 Sany3y<span class="text-gold">.com</span>
                             </a>
                         </div>
@@ -20,15 +18,15 @@
                         </div>
                         <div class="footer-social-icon">
                             <span>تابعنا</span>
-                            <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                            <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                            <a href="#"><i class="fab fa-instagram instagram-bg"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Quick Links -->
-                <div class="col-xl-2 col-lg-2 col-md-6 mb-4">
+                <div class="col-md-3 mb-4">
                     <div class="footer-widget">
                         <div class="footer-widget-heading">
                             <h3>روابط سريعة</h3>
@@ -45,7 +43,7 @@
                 </div>
 
                 <!-- Services -->
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-4">
+                <div class="col-md-3 mb-4">
                     <div class="footer-widget">
                         <div class="footer-widget-heading">
                             <h3>أهم الخدمات</h3>
@@ -60,26 +58,6 @@
                         </ul>
                     </div>
                 </div>
-
-                <!-- Subscribe & App -->
-                <div class="col-xl-3 col-lg-3 col-md-6 mb-5">
-                    <div class="footer-widget">
-                        <div class="footer-widget-heading">
-                            <h3>النشرة البريدية</h3>
-                        </div>
-                        <div class="footer-text mb-3">
-                            <p>اشترك معنا ليصلك كل جديد وعروض حصرية.</p>
-                        </div>
-                        <div class="subscribe-form">
-                            <form action="#">
-                                <input type="text" placeholder="البريد الإلكتروني">
-                                <button><i class="fab fa-telegram-plane"></i></button>
-                            </form>
-                        </div>
-                        
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -88,17 +66,16 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6 text-center text-lg-end">
                     <div class="copyright-text">
-                        <p>حقوق النشر &copy; 2025 محفوظة لـ <a href="#">Sany3y</a></p>
+                        <p>حقوق النشر &copy; 2025 محفوظة لـ <a asp-controller="Home" asp-action="Index">Sany3y</a></p>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 d-none d-lg-block text-start">
                     <div class="footer-menu">
                         <ul>
-                            <li><a href="#">الرئيسية</a></li>
-                            <li><a href="#">الشروط</a></li>
-                            <li><a href="#">الخصوصية</a></li>
-                            <li><a href="#">سياسة الاستخدام</a></li>
-                            <li><a href="#">تواصل</a></li>
+                            <li><a asp-controller="Home" asp-action="Index">الرئيسية</a></li>
+                            <li><a asp-controller="Home" asp-action="Policy">سياسة الخصوصية</a></li>
+                            <li><a asp-controller="Home" asp-action="ContactUs">تواصل</a></li>
+                            <li><a asp-controller="Home" asp-action="OurTeam">فريق العمل</a></li>
                         </ul>
                     </div>
                 </div>
@@ -122,7 +99,7 @@
     }
     
     /* Logo & Text */
-    .logo-text {
+    #logo-text {
         font-size: 36px;
         font-weight: 800;
         color: #fff;
@@ -165,13 +142,8 @@
         transition: all 0.3s;
     }
     
-    .facebook-bg { background: #3B5998; }
-    .twitter-bg { background: #55ACEE; }
-    .instagram-bg { background: #E1306C; }
-    
     .footer-social-icon a:hover {
         transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     /* Widgets */
@@ -210,38 +182,6 @@
     .footer-widget ul li a:hover {
         color: #ffc107;
         padding-right: 5px;
-    }
-    
-    /* Subscribe Form */
-    .subscribe-form {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .subscribe-form input {
-        width: 100%;
-        padding: 14px 28px;
-        background: #2E2E2E;
-        border: 1px solid #2E2E2E;
-        color: #fff;
-        border-radius: 30px;
-    }
-    
-    .subscribe-form button {
-        position: absolute;
-        left: 5px; /* Arabic RTL */
-        top: 5px;
-        background: #ffc107;
-        padding: 9px 20px;
-        border: 1px solid #ffc107;
-        color: #151414;
-        border-radius: 30px;
-        transition: all 0.3s;
-    }
-    
-    .subscribe-form button:hover {
-        background: #e0a800;
-        color: #fff;
     }
     
     /* Copyright */
