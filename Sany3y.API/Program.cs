@@ -10,6 +10,9 @@ namespace Sany3y.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Configure Stripe
+            Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
+
             // Add services to the container.
 
             builder.Services.AddControllers();

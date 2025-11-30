@@ -84,10 +84,10 @@
         transition: transform 0.2s;
     }
 
-    .stat-box:hover {
-        transform: translateY(-3px);
-        background: #e9ecef;
-    }
+        .stat-box:hover {
+            transform: translateY(-3px);
+            background: #e9ecef;
+        }
 
     .stat-value {
         font-size: 1.5rem;
@@ -109,10 +109,10 @@
         margin: 0 5px;
     }
 
-    .nav-pills .nav-link.active {
-        background-color: var(--primary-green);
-        color: white;
-    }
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-green);
+            color: white;
+        }
 
     /* Reviews */
     .review-card {
@@ -120,9 +120,9 @@
         padding: 20px 0;
     }
 
-    .review-card:last-child {
-        border-bottom: none;
-    }
+        .review-card:last-child {
+            border-bottom: none;
+        }
 
     .review-avatar {
         width: 50px;
@@ -163,9 +163,9 @@
         transition: background 0.3s;
     }
 
-    .btn-book-lg:hover {
-        background: #c9302c;
-    }
+        .btn-book-lg:hover {
+            background: #c9302c;
+        }
 
     /* Mobile Sticky Bar */
     .mobile-book-bar {
@@ -184,6 +184,7 @@
         .mobile-book-bar {
             display: block;
         }
+
         .booking-card-desktop {
             display: none;
         }
@@ -210,10 +211,10 @@
                 <!-- Avatar -->
                 <div class="text-center mb-4" style="margin-top: -110px;">
                     <div class="profile-avatar-container">
-                        <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/200x200?text=User")" 
-                             class="profile-avatar" 
+                        <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/200x200?text=User")"
+                             class="profile-avatar"
                              alt="@Model.FirstName"
-                             onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=User';"/>
+                             onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=User';" />
                         <div class="verified-badge" title="تم التحقق">
                             <i class="fas fa-check"></i>
                         </div>
@@ -329,7 +330,7 @@
         <div class="col-lg-4 booking-card-desktop">
             <div class="booking-card">
                 <h5 class="fw-bold mb-4 text-center">معلومات الحجز</h5>
-                
+
                 <div class="text-center mb-4">
                     <span class="text-muted">سعر المعاينة</span>
                     <div class="price-tag">@(Model.Price?.ToString("0") ?? "50") ج.م</div>
@@ -337,7 +338,16 @@
 
                 <div class="d-flex justify-content-between mb-3 border-bottom pb-3">
                     <span class="text-muted"><i class="fas fa-money-bill-wave me-2"></i> الدفع</span>
-                    <span class="fw-bold">كاش بعد الخدمة</span>
+                    <div class="d-flex gap-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentCash" value="1" checked>
+                            <label class="form-check-label" for="paymentCash">كاش</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paymentOnline" value="2">
+                            <label class="form-check-label" for="paymentOnline">أونلاين</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between mb-4">
@@ -348,7 +358,7 @@
                 <button class="btn-book-lg" id="btnShowScheduleDesktop">
                     <i class="far fa-calendar-check me-2"></i> احجز موعد الآن
                 </button>
-                
+
                 <div class="text-center mt-3 small text-muted">
                     <i class="fas fa-lock me-1"></i> حجز مجاني وآمن 100%
                 </div>
@@ -437,9 +447,9 @@
         transition: transform 0.2s;
     }
 
-    .chat-btn:hover {
-        transform: scale(1.1);
-    }
+        .chat-btn:hover {
+            transform: scale(1.1);
+        }
 
     .chat-window {
         position: fixed;
@@ -485,19 +495,19 @@
         word-wrap: break-word;
     }
 
-    .chat-message.sent {
-        background: var(--primary-green);
-        color: white;
-        align-self: flex-end;
-        border-bottom-left-radius: 0;
-    }
+        .chat-message.sent {
+            background: var(--primary-green);
+            color: white;
+            align-self: flex-end;
+            border-bottom-left-radius: 0;
+        }
 
-    .chat-message.received {
-        background: #e9ecef;
-        color: #333;
-        align-self: flex-start;
-        border-bottom-right-radius: 0;
-    }
+        .chat-message.received {
+            background: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-right-radius: 0;
+        }
 
     .chat-input-area {
         padding: 15px;
@@ -507,25 +517,25 @@
         background: white;
     }
 
-    .chat-input-area input {
-        flex: 1;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        padding: 8px 15px;
-        outline: none;
-    }
+        .chat-input-area input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 8px 15px;
+            outline: none;
+        }
 
-    .chat-input-area button {
-        background: var(--primary-green);
-        color: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .chat-input-area button {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 </style>
 
 <div class="chat-btn" id="chatBtn">
@@ -554,7 +564,7 @@
     function loadSchedule() {
         const modal = new bootstrap.Modal(document.getElementById('scheduleModal'));
         modal.show();
-        
+
         document.getElementById("loadingSpinner").style.display = "block";
         document.getElementById("scheduleTableBody").innerHTML = "";
         document.getElementById("bookingSuccessMsg").style.display = "none";
@@ -598,31 +608,70 @@
         if (e.target.classList.contains("btnBook")) {
             const btn = e.target;
             const scheduleId = btn.getAttribute("data-id");
-            
+
             // Disable button
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+            // Get selected payment method
+            const paymentMethodId = document.querySelector('input[name="paymentMethod"]:checked').value;
+            const price = @(Model.Price ?? 50);
+            const serviceName = "@Model.FirstName @Model.LastName";
 
             fetch(`/Services/BookSlot`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     scheduleId: scheduleId,
-                    customerId: currentUserId
+                    customerId: currentUserId,
+                    paymentMethodId: parseInt(paymentMethodId)
                 })
             })
             .then(res => {
-                if (res.ok) return res.text();
+                if (res.ok) return res.json();
                 throw new Error('Booking failed');
             })
-            .then(() => {
-                document.getElementById("bookingSuccessMsg").style.display = "block";
-                btn.closest("tr").remove();
-                
-                // Hide success message after 3 seconds
-                setTimeout(() => {
-                    document.getElementById("bookingSuccessMsg").style.display = "none";
-                }, 3000);
+            .then(data => {
+                if (data.paymentRequired && data.taskId) {
+                    // Initiate Online Payment
+                    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> جاري التحويل...';
+
+                    const encodedServiceName = encodeURIComponent(serviceName);
+                    const url = `/Payment/Checkout?taskId=${data.taskId}&price=${price}&serviceName=${encodedServiceName}&customerId=${currentUserId}`;
+
+                    fetch(url, {
+                        method: "POST"
+                    })
+                    .then(res => {
+                        if (res.ok) return res.json();
+                        return res.json().then(err => { throw new Error(err.details || "Payment initialization failed"); });
+                    })
+                    .then(payData => {
+                        if (payData.url) {
+                            window.location.href = payData.url;
+                        } else {
+                            alert("فشل في إنشاء رابط الدفع");
+                            btn.disabled = false;
+                            btn.innerText = "حجز";
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("حدث خطأ: " + err.message);
+                        btn.disabled = false;
+                        btn.innerText = "حجز";
+                    });
+
+                } else {
+                    // Cash Booking Success
+                    document.getElementById("bookingSuccessMsg").style.display = "block";
+                    btn.closest("tr").remove();
+
+                    // Hide success message after 3 seconds
+                    setTimeout(() => {
+                        document.getElementById("bookingSuccessMsg").style.display = "none";
+                    }, 3000);
+                }
             })
             .catch(err => {
                 alert("فشل الحجز، يرجى المحاولة مرة أخرى.");
@@ -645,7 +694,7 @@
     // Toggle Chat Window
     chatBtn.addEventListener("click", () => {
         const isHidden = window.getComputedStyle(chatWindow).display === "none";
-        
+
         if (isHidden) {
             chatWindow.style.display = "flex";
             loadChatHistory();
@@ -696,7 +745,7 @@
 
     function loadChatHistory() {
         chatMessages.innerHTML = '<div class="text-center text-muted small">جاري تحميل المحادثة...</div>';
-        
+
         fetch(`/Services/GetConversation?otherUserId=${technicianId}`)
             .then(res => res.json())
             .then(data => {

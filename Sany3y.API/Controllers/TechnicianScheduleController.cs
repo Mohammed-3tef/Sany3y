@@ -70,7 +70,15 @@ namespace Sany3y.API.Controllers
             _context.Tasks.Add(newTask);
             await _context.SaveChangesAsync();
 
-            return Ok("Booking request sent. Waiting for technician approval.");
+            // 3. Handle Payment Method
+            if (req.PaymentMethodId == 2) // Online Payment (Stripe)
+            {
+                // Call PaymentController logic internally or return necessary data for frontend to call it
+                // Ideally, we should inject a service, but for now let's return the TaskId so frontend can initiate payment
+                return Ok(new { message = "Booking created. Proceed to payment.", taskId = newTask.Id, paymentRequired = true });
+            }
+
+            return Ok(new { message = "Booking request sent. Waiting for technician approval.", paymentRequired = false });
         }
 
         // ----------------------------------
@@ -92,14 +100,14 @@ namespace Sany3y.API.Controllers
             // 2. Create Payment (Now we create it upon acceptance)
             var paymentMethod = await _context.PaymentMethods.FirstOrDefaultAsync();
             var paymentMethodId = paymentMethod?.Id ?? 1;
-            
+
             // Ensure PaymentMethod exists if not found (Safety check)
             if (paymentMethod == null)
             {
-                 var defaultMethod = new PaymentMethod { Name = "Cash" };
-                 _context.PaymentMethods.Add(defaultMethod);
-                 await _context.SaveChangesAsync();
-                 paymentMethodId = defaultMethod.Id;
+                var defaultMethod = new PaymentMethod { Name = "Cash" };
+                _context.PaymentMethods.Add(defaultMethod);
+                await _context.SaveChangesAsync();
+                paymentMethodId = defaultMethod.Id;
             }
 
             var price = task.Tasker.Price ?? 0;
@@ -140,7 +148,7 @@ namespace Sany3y.API.Controllers
             // Title format: "Booking on yyyy-MM-dd"
             // Description format: "Scheduled appointment from HH:mm:ss to HH:mm:ss"
 
-            try 
+            try
             {
                 var dateStr = task.Title.Replace("Booking on ", "");
                 var date = DateTime.Parse(dateStr);
@@ -155,9 +163,9 @@ namespace Sany3y.API.Controllers
                     var startTime = TimeSpan.Parse(startTimeStr);
 
                     var slot = await _context.TechnicianSchedules
-                        .FirstOrDefaultAsync(s => 
-                            s.TechnicianId == task.TaskerId && 
-                            s.Date.Date == date.Date && 
+                        .FirstOrDefaultAsync(s =>
+                            s.TechnicianId == task.TaskerId &&
+                            s.Date.Date == date.Date &&
                             s.StartTime == startTime);
 
                     if (slot != null)
@@ -175,7 +183,7 @@ namespace Sany3y.API.Controllers
             await _context.SaveChangesAsync();
             return Ok("Request rejected");
         }
-    
+
 
         // ----------------------------------
         // ✅ Get ALL schedule for specific technician (For Dashboard)
@@ -243,16 +251,17 @@ namespace Sany3y.API.Controllers
 
     // Request model
     public class BookingRequest
-{
-    public int ScheduleId { get; set; }
-    public long CustomerId { get; set; }
-}
+    {
+        public int ScheduleId { get; set; }
+        public long CustomerId { get; set; }
+        public int PaymentMethodId { get; set; }
+    }
 
-public class AddSlotRequest
-{
-    public long TechnicianId { get; set; }
-    public DateTime Date { get; set; }
-    public TimeSpan StartTime { get; set; }
-    public TimeSpan EndTime { get; set; }
-}
+    public class AddSlotRequest
+    {
+        public long TechnicianId { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public TimeSpan EndTime { get; set; }
+    }
 }

@@ -175,15 +175,24 @@ namespace Sany3y.Controllers
             var response = await _http.PostAsJsonAsync("/api/TechnicianSchedule/BookSlot", request);
             if (response.IsSuccessStatusCode)
             {
-                return Ok("Booked successfully");
+                var result = await response.Content.ReadFromJsonAsync<BookingResponse>();
+                return Ok(result);
             }
             return BadRequest("Booking failed");
+        }
+
+        public class BookingResponse
+        {
+            public string Message { get; set; }
+            public int? TaskId { get; set; }
+            public bool PaymentRequired { get; set; }
         }
 
         public class BookingRequest
         {
             public int ScheduleId { get; set; }
             public int CustomerId { get; set; }
+            public int PaymentMethodId { get; set; }
         }
 
         [HttpGet]
