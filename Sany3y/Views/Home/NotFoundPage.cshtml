@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "صفحة غير موجودة";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<style>
+    :root {
+        --primary-green: #004d00;
+        --accent-yellow: #ffb300;
+        --light-bg: #f8f9fa;
+        --text-dark: #2c3e50;
+    }
+
+    body {
+        background-color: var(--light-bg);
+    }
+
+    .notfound-section {
+        min-height: 90vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("/img/hero-bg.png");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        color: white;
+    }
+
+    /* Glass Box */
+    .glass-box {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 40px;
+        border-radius: 25px;
+        border: 1px solid rgba(255,255,255,0.2);
+        max-width: 600px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        animation-duration: 1s;
+    }
+
+    .notfound-title {
+        font-size: 5rem;
+        font-weight: 900;
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        margin-bottom: 1rem;
+    }
+
+    .notfound-text {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        margin-bottom: 2rem;
+    }
+
+    .btn-home {
+        background: var(--accent-yellow);
+        color: var(--text-dark);
+        border-radius: 50px;
+        padding: 12px 40px;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+        background: #ffc107;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255,179,0,0.4);
+    }
+
+    .warning-icon {
+        font-size: 4.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent-yellow);
+        text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+</style>
+
+<section class="notfound-section animate__animated animate__fadeIn">
+    <div class="glass-box animate__animated animate__zoomIn">
+        <div class="warning-icon">
+            <i class="fas fa-question-circle"></i>
+        </div>
+        <h1 class="notfound-title">
+            <span style="color: #ffc107;">4</span>0<span style="color: #ffc107;">4</span>
+        </h1>
+        <p class="notfound-text">
+            عذرًا، الصفحة التي تبحث عنها غير موجودة.
+            قد تكون قد أزيلت أو تم نقلها.
+        </p>
+
+        <a asp-controller="Home" asp-action="Index" class="btn-home text-decoration-none">العودة للصفحة الرئيسية</a>
+    </div>
+</section>

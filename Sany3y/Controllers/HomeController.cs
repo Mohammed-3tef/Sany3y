@@ -55,5 +55,10 @@ namespace Sany3y.Controllers
         {
             return View();
         }
+
+        public IActionResult NotFoundPage()
+        {
+            return View();
+        }
     }
 }

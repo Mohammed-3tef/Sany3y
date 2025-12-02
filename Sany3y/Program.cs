@@ -65,6 +65,7 @@ namespace Sany3y
                 pattern: "{controller=Home}/{action=Index}/{id?}"
             );
 
+            app.UseStatusCodePagesWithReExecute("/Home/NotFoundPage");
             app.Run();
         }
     }
