@@ -1,9 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الصفحة الرئيسية";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
     :root {
@@ -17,6 +18,23 @@
     body {
         background-color: var(--light-bg);
         font-family: 'Cairo', sans-serif;
+    }
+
+    .navbar-collapse.collapse {
+        color: var(--text-dark);
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar-collapse.collapse.show {
+        padding: 1rem 0;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px); /* تأثير البلور */
+        -webkit-backdrop-filter: blur(10px); /* دعم Safari */
+    }
+    
+    .navbar-collapse.collapse.show .navbar-nav {
+        padding: 0rem 1.5rem;
     }
 
     /* Hero Section */
@@ -262,32 +280,6 @@
         top: 20px;
         right: 20px;
     }
-
-    /* Emergency Box */
-    /* .emergency-box {
-        background: linear-gradient(45deg, var(--primary-green), #006400);
-        border-radius: 20px;
-        padding: 40px;
-        color: white;
-        position: relative;
-        overflow: hidden;
-    } */
-
-    /* .emergency-btn {
-        background: white;
-        color: var(--primary-green);
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        font-weight: bold;
-        transition: all 0.3s;
-    }
-
-    .emergency-btn:hover {
-        background: var(--accent-yellow);
-        color: white;
-        transform: scale(1.05);
-    } */
 </style>
 
 <!-- Hero Section -->
@@ -379,7 +371,6 @@
 </section>
 
 <!-- Testimonials -->
-<!-- Testimonials -->
 <section class="py-5">
     <div class="container">
         <div class="section-header text-center mb-4">
@@ -412,51 +403,30 @@
         </div>
     </div>
 </section>
-
-<!-- Swiper JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<script>
-    var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        breakpoints: {
-            576: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            992: { slidesPerView: 3 },
-            1200: { slidesPerView: 4 },
-        }
-    });
-</script>
-
-@* <!-- Emergency CTA -->
-<section class="py-5">
-    <div class="container">
-        <div class="emergency-box d-flex flex-column flex-md-row align-items-center justify-content-between">
-            <div class="mb-3 mb-md-0">
-                <h2 class="fw-bold mb-2"><i class="fas fa-exclamation-circle me-2"></i> عندك حالة طارئة؟</h2>
-                <p class="mb-0 opacity-75 fs-5">لا تتردد! عندنا فنيين جاهزين لخدمتك 24 ساعة.</p>
-            </div>
-            <button class="emergency-btn">اطلب خدمة طارئة</button>
-        </div>
-    </div>
-</section> *@
-
-
                
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         $(document).ready(function () {
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    576: { slidesPerView: 1 },
+                    768: { slidesPerView: 2 },
+                    992: { slidesPerView: 3 },
+                    1200: { slidesPerView: 4 },
+                }
+            });
 
             $(".filter-btn").click(function () {
 

@@ -145,14 +145,19 @@
                     <div class="row g-3">
                         @foreach (var user in chatPartners)
                         {
-                            <div class="col-md-4">
-                                <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id" class="text-decoration-none">
-                                    <div class="card h-100 shadow-sm hover-shadow">
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">@user.UserName</h5>
+                            <div class="col-md-12">
+                                    <div class="h-100">
+                                        <div class="d-flex align-items-center">
+                                            <!-- صورة المستخدم -->
+                                            <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=Profile")"
+                                                 alt="@user.UserName" class="rounded-circle mx-3"
+                                                 style="width:50px; height:50px; object-fit:cover;">
+                                            <!-- اسم المستخدم -->
+                                            <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id" class="text-decoration-none">
+                                                <h5 class="mb-0">@user.UserName</h5>
+                                            </a>
                                         </div>
                                     </div>
-                                </a>
                             </div>
                         }
                     </div>

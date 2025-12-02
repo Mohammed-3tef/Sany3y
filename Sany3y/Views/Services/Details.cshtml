@@ -495,19 +495,19 @@
         word-wrap: break-word;
     }
 
-        .chat-message.sent {
-            background: var(--primary-green);
-            color: white;
-            align-self: flex-end;
-            border-bottom-left-radius: 0;
-        }
+    .chat-message.received {
+        background: var(--primary-green);
+        color: white;
+        align-self: flex-end;
+        border-bottom-left-radius: 0;
+    }
 
-        .chat-message.received {
-            background: #e9ecef;
-            color: #333;
-            align-self: flex-start;
-            border-bottom-right-radius: 0;
-        }
+    .chat-message.sent {
+        background: #e9ecef;
+        color: #333;
+        align-self: flex-start;
+        border-bottom-right-radius: 0;
+    }
 
     .chat-input-area {
         padding: 15px;
@@ -517,25 +517,25 @@
         background: white;
     }
 
-        .chat-input-area input {
-            flex: 1;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 8px 15px;
-            outline: none;
-        }
+    .chat-input-area input {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 8px 15px;
+        outline: none;
+    }
 
-        .chat-input-area button {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .chat-input-area button {
+        background: var(--primary-green);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 
 <div class="chat-btn" id="chatBtn">
@@ -556,206 +556,209 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
-<script>
-    const technicianId = parseInt("@Model.Id");
-    const currentUserId = parseInt("@ViewBag.CurrentUserId");
-    const currentUserName = "@ViewBag.currentUserName";
+@section Scripts {
 
-    function loadSchedule() {
-        const modal = new bootstrap.Modal(document.getElementById('scheduleModal'));
-        modal.show();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const technicianId = parseInt("@Model.Id");
+        const currentUserId = parseInt("@ViewBag.CurrentUserId");
+        const currentUserName = "@ViewBag.currentUserName";
 
-        document.getElementById("loadingSpinner").style.display = "block";
-        document.getElementById("scheduleTableBody").innerHTML = "";
-        document.getElementById("bookingSuccessMsg").style.display = "none";
+        function loadSchedule() {
+            const modal = new bootstrap.Modal(document.getElementById('scheduleModal'));
+            modal.show();
 
-        fetch(`/Services/GetSchedule?technicianId=${technicianId}`)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.getElementById("scheduleTableBody");
-                document.getElementById("loadingSpinner").style.display = "none";
+            document.getElementById("loadingSpinner").style.display = "block";
+            document.getElementById("scheduleTableBody").innerHTML = "";
+            document.getElementById("bookingSuccessMsg").style.display = "none";
 
-                if (data.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="text-muted py-4"><i class="far fa-calendar-times fa-2x mb-2 d-block"></i>لا توجد مواعيد متاحة حالياً</td></tr>`;
-                    return;
-                }
+            fetch(`/Services/GetSchedule?technicianId=${technicianId}`)
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById("scheduleTableBody");
+                    document.getElementById("loadingSpinner").style.display = "none";
 
-                data.forEach(slot => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="fw-bold text-dark">${slot.date}</td>
-                            <td>${slot.startTime}</td>
-                            <td>${slot.endTime}</td>
-                            <td>
-                                <button class="btn btn-outline-primary btn-sm px-4 rounded-pill btnBook" data-id="${slot.id}">
-                                    حجز
-                                </button>
-                            </td>
-                        </tr>`;
-                });
-            })
-            .catch(err => {
-                console.error(err);
-                document.getElementById("loadingSpinner").style.display = "none";
-                document.getElementById("scheduleTableBody").innerHTML = `<tr><td colspan="4" class="text-danger">حدث خطأ أثناء تحميل المواعيد</td></tr>`;
-            });
-    }
+                    if (data.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="4" class="text-muted py-4"><i class="far fa-calendar-times fa-2x mb-2 d-block"></i>لا توجد مواعيد متاحة حالياً</td></tr>`;
+                        return;
+                    }
 
-    document.getElementById("btnShowScheduleDesktop").addEventListener("click", loadSchedule);
-    document.getElementById("btnShowScheduleMobile").addEventListener("click", loadSchedule);
-
-    document.addEventListener("click", function (e) {
-        if (e.target.classList.contains("btnBook")) {
-            const btn = e.target;
-            const scheduleId = btn.getAttribute("data-id");
-
-            // Disable button
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-
-            // Get selected payment method
-            const paymentMethodId = document.querySelector('input[name="paymentMethod"]:checked').value;
-            const price = @(Model.Price ?? 50);
-            const serviceName = "@Model.FirstName @Model.LastName";
-
-            fetch(`/Services/BookSlot`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    scheduleId: scheduleId,
-                    customerId: currentUserId,
-                    paymentMethodId: parseInt(paymentMethodId)
+                    data.forEach(slot => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td class="fw-bold text-dark">${slot.date}</td>
+                                <td>${slot.startTime}</td>
+                                <td>${slot.endTime}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm px-4 rounded-pill btnBook" data-id="${slot.id}">
+                                        حجز
+                                    </button>
+                                </td>
+                            </tr>`;
+                    });
                 })
-            })
-            .then(res => {
-                if (res.ok) return res.json();
-                throw new Error('Booking failed');
-            })
-            .then(data => {
-                if (data.paymentRequired && data.taskId) {
-                    // Initiate Online Payment
-                    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> جاري التحويل...';
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById("loadingSpinner").style.display = "none";
+                    document.getElementById("scheduleTableBody").innerHTML = `<tr><td colspan="4" class="text-danger">حدث خطأ أثناء تحميل المواعيد</td></tr>`;
+                });
+        }
 
-                    const encodedServiceName = encodeURIComponent(serviceName);
-                    const url = `/Payment/Checkout?taskId=${data.taskId}&price=${price}&serviceName=${encodedServiceName}&customerId=${currentUserId}`;
+        document.getElementById("btnShowScheduleDesktop").addEventListener("click", loadSchedule);
+        document.getElementById("btnShowScheduleMobile").addEventListener("click", loadSchedule);
 
-                    fetch(url, {
-                        method: "POST"
+        document.addEventListener("click", function (e) {
+            if (e.target.classList.contains("btnBook")) {
+                const btn = e.target;
+                const scheduleId = btn.getAttribute("data-id");
+
+                // Disable button
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+                // Get selected payment method
+                const paymentMethodId = document.querySelector('input[name="paymentMethod"]:checked').value;
+                const price = @(Model.Price ?? 50);
+                const serviceName = "@Model.FirstName @Model.LastName";
+
+                fetch(`/Services/BookSlot`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        scheduleId: scheduleId,
+                        customerId: currentUserId,
+                        paymentMethodId: parseInt(paymentMethodId)
                     })
-                    .then(res => {
-                        if (res.ok) return res.json();
-                        return res.json().then(err => { throw new Error(err.details || "Payment initialization failed"); });
-                    })
-                    .then(payData => {
-                        if (payData.url) {
-                            window.location.href = payData.url;
-                        } else {
-                            alert("فشل في إنشاء رابط الدفع");
+                })
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error('Booking failed');
+                })
+                .then(data => {
+                    if (data.paymentRequired && data.taskId) {
+                        // Initiate Online Payment
+                        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> جاري التحويل...';
+
+                        const encodedServiceName = encodeURIComponent(serviceName);
+                        const url = `/Payment/Checkout?taskId=${data.taskId}&price=${price}&serviceName=${encodedServiceName}&customerId=${currentUserId}`;
+
+                        fetch(url, {
+                            method: "POST"
+                        })
+                        .then(res => {
+                            if (res.ok) return res.json();
+                            return res.json().then(err => { throw new Error(err.details || "Payment initialization failed"); });
+                        })
+                        .then(payData => {
+                            if (payData.url) {
+                                window.location.href = payData.url;
+                            } else {
+                                alert("فشل في إنشاء رابط الدفع");
+                                btn.disabled = false;
+                                btn.innerText = "حجز";
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("حدث خطأ: " + err.message);
                             btn.disabled = false;
                             btn.innerText = "حجز";
-                        }
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("حدث خطأ: " + err.message);
-                        btn.disabled = false;
-                        btn.innerText = "حجز";
-                    });
+                        });
 
-                } else {
-                    // Cash Booking Success
-                    document.getElementById("bookingSuccessMsg").style.display = "block";
-                    btn.closest("tr").remove();
+                    } else {
+                        // Cash Booking Success
+                        document.getElementById("bookingSuccessMsg").style.display = "block";
+                        btn.closest("tr").remove();
 
-                    // Hide success message after 3 seconds
-                    setTimeout(() => {
-                        document.getElementById("bookingSuccessMsg").style.display = "none";
-                    }, 3000);
-                }
-            })
-            .catch(err => {
-                alert("فشل الحجز، يرجى المحاولة مرة أخرى.");
-                btn.disabled = false;
-                btn.innerText = "حجز";
-            });
-        }
-    });
-
-    // -------------------------
-    // 💬 Chat Feature (Real-time)
-    // -------------------------
-    const chatBtn = document.getElementById("chatBtn");
-    const chatWindow = document.getElementById("chatWindow");
-    const closeChat = document.getElementById("closeChat");
-    const chatMessages = document.getElementById("chatMessages");
-    const chatInput = document.getElementById("chatInput");
-    const sendBtn = document.getElementById("sendBtn");
-
-    // Toggle Chat Window
-    chatBtn.addEventListener("click", () => {
-        const isHidden = window.getComputedStyle(chatWindow).display === "none";
-        chatWindow.style.display = isHidden ? "flex" : "none";
-        if (isHidden) loadChatHistory();
-    });
-    closeChat.addEventListener("click", () => chatWindow.style.display = "none");
-
-    // SignalR Connection
-    const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-    // استقبال الرسائل real-time
-    connection.on("ReceiveMessage", (senderUserName, message, time) => {
-        const type = senderUserName === currentUserName ? "received" : "sent";
-        appendMessage(`${message} (${time})`, type);
-    });
-
-    // تأكيد الرسائل المرسلة
-    connection.on("MessageSent", (receiverUserName, message, time) => {
-        appendMessage(`${message} (${time})`, "sent");
-    });
-
-    connection.start().catch(err => console.error(err.toString()));
-
-    // إرسال الرسائل
-    sendBtn.addEventListener("click", sendMessage);
-    chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
-
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        connection.invoke("SendPrivateMessage", "@Model.UserName", message).catch(err => console.error(err.toString()));
-        chatInput.value = "";
-    }
-
-    // عرض الرسائل في الـ div
-    function appendMessage(message, type) {
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("chat-message", type);
-        msgDiv.innerText = message;
-        chatMessages.appendChild(msgDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // تحميل المحادثة القديمة
-    function loadChatHistory() {
-        chatMessages.innerHTML = '<div class="text-center text-muted small">جاري تحميل المحادثة...</div>';
-
-        fetch(`/api/Message/GetConversation/${currentUserId}/${technicianId}`)
-            .then(res => res.json())
-            .then(data => {
-                chatMessages.innerHTML = "";
-                if (!data.length) {
-                    chatMessages.innerHTML = '<div class="text-center text-muted small mt-3">ابدأ المحادثة الآن!</div>';
-                    return;
-                }
-                data.forEach(msg => {
-                    const type = msg.senderId == currentUserId ? "received" : "sent";
-                    appendMessage(`${msg.content} (${new Date(msg.sentAt).toLocaleTimeString()})`, type);
+                        // Hide success message after 3 seconds
+                        setTimeout(() => {
+                            document.getElementById("bookingSuccessMsg").style.display = "none";
+                        }, 3000);
+                    }
+                })
+                .catch(err => {
+                    alert("فشل الحجز، يرجى المحاولة مرة أخرى.");
+                    btn.disabled = false;
+                    btn.innerText = "حجز";
                 });
-            })
-            .catch(err => {
-                console.error(err);
-                chatMessages.innerHTML = '<div class="text-center text-danger small">فشل تحميل المحادثة</div>';
-            });
-    }
-</script>
+            }
+        });
+
+        // -------------------------
+        // 💬 Chat Feature (Real-time)
+        // -------------------------
+        const chatBtn = document.getElementById("chatBtn");
+        const chatWindow = document.getElementById("chatWindow");
+        const closeChat = document.getElementById("closeChat");
+        const chatMessages = document.getElementById("chatMessages");
+        const chatInput = document.getElementById("chatInput");
+        const sendBtn = document.getElementById("sendBtn");
+
+        // Toggle Chat Window
+        chatBtn.addEventListener("click", () => {
+            const isHidden = window.getComputedStyle(chatWindow).display === "none";
+            chatWindow.style.display = isHidden ? "flex" : "none";
+            if (isHidden) loadChatHistory();
+        });
+        closeChat.addEventListener("click", () => chatWindow.style.display = "none");
+
+        // SignalR Connection
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // استقبال الرسائل real-time
+        connection.on("ReceiveMessage", (senderUserName, message, time) => {
+            const type = senderUserName === currentUserName ? "sent" : "received";
+            appendMessage(`${message}`, type);
+        });
+
+        // تأكيد الرسائل المرسلة
+        connection.on("MessageSent", (receiverUserName, message, time) => {
+            appendMessage(`${message}`, "sent");
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        // إرسال الرسائل
+        sendBtn.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            connection.invoke("SendPrivateMessage", "@Model.UserName", message).catch(err => console.error(err.toString()));
+            chatInput.value = "";
+        }
+
+        // عرض الرسائل في الـ div
+        function appendMessage(message, type) {
+            const msgDiv = document.createElement("div");
+            msgDiv.classList.add("chat-message", type);
+            msgDiv.innerText = message;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // تحميل المحادثة القديمة
+        function loadChatHistory() {
+            chatMessages.innerHTML = '<div class="text-center text-muted small">جاري تحميل المحادثة...</div>';
+
+            fetch(`/api/Message/GetConversation/${currentUserId}/${technicianId}`)
+                .then(res => res.json())
+                .then(data => {
+                    chatMessages.innerHTML = "";
+                    if (!data.length) {
+                        chatMessages.innerHTML = '<div class="text-center text-muted small mt-3">ابدأ المحادثة الآن!</div>';
+                        return;
+                    }
+                    data.forEach(msg => {
+                        const type = msg.senderId == currentUserId ? "sent" : "received";
+                        appendMessage(`${msg.content}`, type);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    chatMessages.innerHTML = '<div class="text-center text-danger small">فشل تحميل المحادثة</div>';
+                });
+        }
+    </script>
+}
