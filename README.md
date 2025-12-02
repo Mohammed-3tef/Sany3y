@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Sany3y Banner](docs/sany3y_banner2.png)
+![Sany3y Banner](docs/sany3y_banner4.png)
 
 ![Sany3y Logo](https://img.shields.io/badge/Sany3y-Service_Marketplace-blue?style=for-the-badge)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/)
