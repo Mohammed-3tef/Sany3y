@@ -50,5 +50,10 @@ namespace Sany3y.Controllers
         {
             return View();
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

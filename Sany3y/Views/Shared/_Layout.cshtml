@@ -21,7 +21,8 @@
     @{
         var path = Context.Request.Path.Value?.ToLower();
         var isHomePage = path == "/" || path == "/home" || path == "/home/index";
-        var mainClass = isHomePage ? "pb-3" : "pt-5 pb-3 mt-5";
+        var isAccessDeniedPage = path == "/home/accessdenied";
+        var mainClass = isHomePage ? "pb-3" : isAccessDeniedPage ? "pt-5" : "pt-5 pb-3 mt-5";
     }
 
     <div class="@mainClass">

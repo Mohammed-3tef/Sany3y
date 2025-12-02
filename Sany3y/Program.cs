@@ -18,7 +18,11 @@ namespace Sany3y
             builder.Services.AddControllersWithViews();
 
             // Application Services
-            builder.Services.AddApplicationServices();            
+            builder.Services.AddApplicationServices();
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Home/AccessDenied";
+            });
 
             // Infrastructure Service
             builder.Services.AddInfrastructureServices(builder.Configuration);
