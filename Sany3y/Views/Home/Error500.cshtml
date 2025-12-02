@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "صفحة غير موجودة";
+    ViewData["Title"] = "خطأ في الخادم";
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
@@ -17,7 +17,7 @@
         background-color: var(--light-bg);
     }
 
-    .notfound-section {
+    .error500-section {
         min-height: 90vh;
         margin: 0;
         display: flex;
@@ -44,14 +44,14 @@
         animation-duration: 1s;
     }
 
-    .notfound-title {
+    .error500-title {
         font-size: 5rem;
         font-weight: 900;
         text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         margin-bottom: 1rem;
     }
 
-    .notfound-text {
+    .error500-text {
         font-size: 1.3rem;
         opacity: 0.95;
         margin-bottom: 2rem;
@@ -77,22 +77,20 @@
     .warning-icon {
         font-size: 4.5rem;
         margin-bottom: 1rem;
-        color: var(--accent-yellow);
+        color: #ff4444;
         text-shadow: 0 3px 10px rgba(0,0,0,0.4);
     }
 </style>
 
-<section class="notfound-section animate__animated animate__fadeIn">
+<section class="error500-section animate__animated animate__fadeIn">
     <div class="glass-box animate__animated animate__zoomIn">
         <div class="warning-icon">
-            <i class="fas fa-question-circle fa-lg"></i>
+            <i class="fas fa-bomb fa-lg"></i>
         </div>
-        <h1 class="notfound-title">
-            <span style="color: #ffc107;">4</span>0<span style="color: #ffc107;">4</span>
-        </h1>
-        <p class="notfound-text">
-            عذرًا، الصفحة التي تبحث عنها غير موجودة.
-            قد تكون قد أزيلت أو تم نقلها.
+        <h1 class="error500-title">500</h1>
+        <p class="error500-text">
+            حدث خطأ في الخادم، يرجى المحاولة لاحقًا.<br />
+            فريق الدعم الفني على علم بالمشكلة وسيتم إصلاحها قريبًا.
         </p>
 
         <a asp-controller="Home" asp-action="Index" class="btn-home text-decoration-none">العودة للصفحة الرئيسية</a>

@@ -45,7 +45,7 @@ namespace Sany3y
             // Configure middleware
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error500");
                 app.UseHsts();
             }
 

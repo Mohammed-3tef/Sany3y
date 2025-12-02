@@ -60,5 +60,10 @@ namespace Sany3y.Controllers
         {
             return View();
         }
+        
+        public IActionResult Error500()
+        {
+            return View();
+        }
     }
 }
