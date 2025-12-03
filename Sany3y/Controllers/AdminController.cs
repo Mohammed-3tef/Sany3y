@@ -324,7 +324,7 @@ namespace Sany3y.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = "Failed to upload profile picture.";
+                    TempData["Error"] = "فشل في رفع صورة الملف الشخصي.";
                     return RedirectToAction("Users");
                 }
             }
@@ -334,7 +334,7 @@ namespace Sany3y.Controllers
             var addressCreateResponse = await _http.PutAsJsonAsync($"/api/Address/Update/{existingAddress?.Id}", addressObj);
             if (!addressCreateResponse.IsSuccessStatusCode)
             {
-                TempData["Error"] = "Failed to create/update address.";
+                TempData["Error"] = "فشل في إنشاء/تحديث العنوان.";
                 return RedirectToAction("Users");
             }
 
@@ -342,7 +342,7 @@ namespace Sany3y.Controllers
             var response = await _http.PutAsJsonAsync($"/api/User/Update/{userObj.Id}", userObj);
             if (!response.IsSuccessStatusCode)
             {
-                TempData["Error"] = "Failed to update user.";
+                TempData["Error"] = "فشل في تحديث بيانات المستخدم.";
                 return RedirectToAction("Users");
             }
 
@@ -354,7 +354,7 @@ namespace Sany3y.Controllers
                 var roleResponse = await _http.PutAsJsonAsync($"/api/User/UpdateRole/{updatedUser.Id}", role);
                 if (!roleResponse.IsSuccessStatusCode)
                 {
-                    TempData["Error"] = "Failed to update user role.";
+                    TempData["Error"] = "فشل في تحديث دور المستخدم.";
                     return RedirectToAction("Users");
                 }
             }
@@ -378,7 +378,7 @@ namespace Sany3y.Controllers
 
             if (!users.Any())
             {
-                TempData["Error"] = "No users available to export.";
+                TempData["Error"] = "لا يوجد مستخدمون متاحون للتصدير.";
                 return RedirectToAction("Users");
             }
 
@@ -420,7 +420,7 @@ namespace Sany3y.Controllers
 
             if (!users.Any())
             {
-                TempData["Error"] = "No users available to export.";
+                TempData["Error"] = "لا يوجد مستخدمون متاحون للتصدير.";
                 return RedirectToAction("Users");
             }
 
@@ -461,7 +461,7 @@ namespace Sany3y.Controllers
 
             if (!categories.Any())
             {
-                TempData["Error"] = "No categories available to export.";
+                TempData["Error"] = "لا توجد تصنيفات متاحة للتصدير.";
                 return RedirectToAction("Categories");
             }
 
@@ -484,7 +484,7 @@ namespace Sany3y.Controllers
 
             if (!categories.Any())
             {
-                TempData["Error"] = "No categories available to export.";
+                TempData["Error"] = "لا توجد تصنيفات متاحة للتصدير.";
                 return RedirectToAction("Categories");
             }
 

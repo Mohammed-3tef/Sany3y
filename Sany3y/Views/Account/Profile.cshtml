@@ -59,7 +59,7 @@
                             <div class="col-12 text-center">
                                 <label class="form-label d-block mb-2">صورة الملف الشخصي</label>
                                 <div class="mb-3">
-                                    <img id="profilePreview" src="@Model.ProfilePicture" alt="صورة الملف الشخصي" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #004d00;" />
+                                    <img id="profilePreview" src="@Model.ProfilePicture" alt="صورة الملف الشخصي" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #004d00;" />
                                 </div>
                                 <input name="UploadedImage" id="profileImageInput" type="file" class="form-control form-control-sm w-auto mx-auto" />
                                 <span asp-validation-for="ProfilePicture" class="text-danger small"></span>
@@ -67,7 +67,7 @@
 
                             <!-- Personal Info Section -->
                             <div class="col-12">
-                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
+                                <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
                             </div>
 
                             <div class="col-md-6">
@@ -108,7 +108,7 @@
 
                             <!-- Contact Info Section -->
                             <div class="col-12 mt-4">
-                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-address-book me-2"></i> معلومات الاتصال</h5>
+                                <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-address-book me-2"></i> معلومات الاتصال</h5>
                             </div>
 
                             <div class="col-md-6">
@@ -131,7 +131,7 @@
 
                             <!-- Address Section -->
                             <div class="col-12 mt-4">
-                                <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-map-marker-alt me-2"></i> العنوان</h5>
+                                <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-map-marker-alt me-2"></i> العنوان</h5>
                             </div>
 
                             <div class="col-md-6">
@@ -181,7 +181,7 @@
                                 {
                                     <!-- Category Section -->
                                     <div class="col-12 mt-4">
-                                        <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-layer-group me-2"></i> التخصص</h5>
+                                        <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-layer-group me-2"></i> التخصص</h5>
                                     </div>
 
                                     <div class="col-md-6">
@@ -265,6 +265,7 @@
 
         $('#Governorate').change(function () {
             var governorateId = $(this).val();
+            var selectedCity = '@Html.Raw(@Model.City)'.trim();
 
             if (!governorateId) {
                 $('#City').empty().append('<option value="">اختر المدينة</option>');
@@ -281,7 +282,8 @@
 
                     if (cities && cities.length > 0) {
                         $.each(cities, function (index, city) {
-                            citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                            var selected = city.arabicName.trim() === selectedCity ? 'selected' : '';
+                            citySelect.append('<option value="' + city.id + '" ' + selected + '>' + city.arabicName + '</option>');
                         });
                     }
                 },

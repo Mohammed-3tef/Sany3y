@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\account\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\account\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,37 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Profile.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Profile.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Account\\Profile.cshtml",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Account\\Profile.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Account\\Profile.cshtml",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAgwI4AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-03T14:37:10.427Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AccountController.cs",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAPoCAAAAAAAAAAAlwCgDAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-03T14:35:11.319Z",
-              "EditorCaption": ""
             }
           ]
         }

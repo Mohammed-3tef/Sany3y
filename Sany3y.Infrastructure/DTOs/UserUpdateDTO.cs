@@ -10,7 +10,7 @@ namespace Sany3y.Infrastructure.DTOs
     public class UserUpdateDTO
     {
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [Display(Name = "First Name")]
@@ -30,12 +30,19 @@ namespace Sany3y.Infrastructure.DTOs
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
+        public string Governorate { get; set; }
+
         public string City { get; set; }
 
         [Required]
         public string Street { get; set; }
 
         public string? Bio { get; set; }
+
         public string? ProfilePictureUrl { get; set; }
+
+        public int? ExperienceYears { get; set; }
+
+        public int? CategoryID { get; set; }
     }
 }

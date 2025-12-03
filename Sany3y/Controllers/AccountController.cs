@@ -10,13 +10,13 @@ using Sany3y.Infrastructure.DTOs;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.ViewModels;
 using Sany3y.Services;
+using System.Net.Http.Json;
 using System.Security.Claims;
 
 namespace Sany3y.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IConfiguration _configuration;
         private readonly HttpClient _http;
         private readonly IHubContext<UserStatusHub> _hubContext;
         private readonly UserManager<User> _userManager;
@@ -69,7 +69,6 @@ namespace Sany3y.Controllers
         #endregion
 
         public AccountController(
-            IConfiguration configuration,
             IHttpClientFactory httpClientFactory,
             IHubContext<UserStatusHub> hubContext,
             IEmailSender emailSender,
@@ -80,7 +79,6 @@ namespace Sany3y.Controllers
             OcrService ocrService
             )
         {
-            _configuration = configuration;
             _http = httpClientFactory.CreateClient();
             _http.BaseAddress = new Uri("https://localhost:7178/");
 
@@ -97,6 +95,9 @@ namespace Sany3y.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Index");
+
             await GetAllCategories();
             await PopulateGovernoratesAsync();
             return View();
@@ -232,7 +233,13 @@ namespace Sany3y.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Index");
+
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -254,7 +261,7 @@ namespace Sany3y.Controllers
             if (!user.EmailConfirmed)
             {
                 await SendEmailConfirmationAsync(user);
-                TempData["Info"] = "Please confirm your email. A new confirmation link has been sent.";
+                TempData["Info"] = "يرجى تأكيد بريدك الإلكتروني. تم إرسال رابط تأكيد جديد.";
                 return RedirectToAction(nameof(EmailConfirmationNotice));
             }
 
@@ -296,14 +303,14 @@ namespace Sany3y.Controllers
 
             if (remoteError != null)
             {
-                TempData["Error"] = $"External provider error: {remoteError}";
+                TempData["Error"] = $"حدث خطأ من مزود الخدمة الخارجي: {remoteError}";
                 return RedirectToAction(nameof(Login));
             }
 
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                TempData["Error"] = "Unable to load external login information.";
+                TempData["Error"] = "يتعذر تحميل معلومات تسجيل الدخول من مزود الخدمة الخارجي.";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -316,7 +323,7 @@ namespace Sany3y.Controllers
 
             if (string.IsNullOrEmpty(email))
             {
-                TempData["Error"] = "Your external provider did not provide an email. Please register manually.";
+                TempData["Error"] = "مزود الخدمة الخارجي لم يوفر بريدًا إلكترونيًا. يرجى التسجيل يدويًا.";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -363,6 +370,9 @@ namespace Sany3y.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CompleteProfileAsync(RegisterUserViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Index");
+
             await GetAllCategories();
             await PopulateGovernoratesAsync();
             return View(model);
@@ -413,7 +423,7 @@ namespace Sany3y.Controllers
             response = await _http.GetAsync($"/api/User/GetByEmail/{model.Email}");
             if (response.IsSuccessStatusCode)
             {
-                TempData["Error"] = "This email is already registered.";
+                TempData["Error"] = "هذا البريد الإلكتروني مسجل بالفعل.";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -568,12 +578,12 @@ namespace Sany3y.Controllers
 
             if (user.EmailConfirmed)
             {
-                TempData["Info"] = "This email is already confirmed.";
+                TempData["Info"] = "هذا البريد الإلكتروني تم تأكيده بالفعل.";
                 return RedirectToAction(nameof(Login));
             }
 
             await SendEmailConfirmationAsync(user);
-            TempData["Success"] = "A new confirmation link has been sent.";
+            TempData["Success"] = "تم إرسال رابط تأكيد جديد.";
             return RedirectToAction(nameof(EmailConfirmationNotice));
         }
 
@@ -664,7 +674,7 @@ namespace Sany3y.Controllers
             "
             );
 
-            TempData["Info"] = "A password change link has been sent to your email.";
+            TempData["Info"] = "تم إرسال رابط تغيير كلمة المرور إلى بريدك الإلكتروني.";
             return View(model);
         }
 
@@ -702,7 +712,7 @@ namespace Sany3y.Controllers
             if (result.Succeeded)
             {
                 result = await _userManager.AddPasswordAsync(user, model.NewPassword);
-                TempData["Success"] = "Password changed successfully!";
+                TempData["Success"] = "تم تغيير كلمة المرور بنجاح!";
                 return RedirectToAction("Login", "Account");
             }
             else
@@ -729,7 +739,9 @@ namespace Sany3y.Controllers
                 ? await response.Content.ReadFromJsonAsync<ProfilePicture>()
                 : null;
 
-            ViewBag.IsTechnical = User.IsInRole("Technician");
+            ViewBag.IsTechnician = User.IsInRole("Technician");
+
+            var userAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser?.AddressId}");
 
             UserDTO userDTO = new UserDTO()
             {
@@ -739,9 +751,9 @@ namespace Sany3y.Controllers
                 BirthDate = currentUser.BirthDate,
                 Email = currentUser.Email,
                 PhoneNumber = currentUser.PhoneNumber.ToString(),
-                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.City ?? string.Empty,
-                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Street ?? string.Empty,
-                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Governorate ?? string.Empty,
+                City = userAddress.City,
+                Street = userAddress.Street,
+                Governorate = userAddress.Governorate,
                 Bio = currentUser.Bio,
                 ProfilePicture = userPicture?.Path ?? "https://placehold.co/100x100?text=Profile",
                 CategoryId = currentUser.CategoryID,
@@ -767,6 +779,23 @@ namespace Sany3y.Controllers
             {
                 ModelState.AddModelError(string.Empty, "User not found.");
                 return View("Profile", userDTO);
+            }
+
+            if (User.IsInRole("Technician"))
+            {
+                if (string.IsNullOrEmpty(userDTO.CategoryId.ToString()))
+                {
+                    ModelState.AddModelError("CategoryId", "يرجى اختيار فئة فني.");
+                    return View("Profile", userDTO);
+                }
+                currentUser.CategoryID = userDTO.CategoryId;
+
+                if (string.IsNullOrEmpty(userDTO.ExperienceYears.ToString()))
+                {
+                    ModelState.AddModelError("ExperienceYears", "يرجى إدخال سنوات الخبرة.");
+                    return View("Profile", userDTO);
+                }
+                currentUser.ExperienceYears = userDTO.ExperienceYears;
             }
 
             Address address = new Address
@@ -810,15 +839,28 @@ namespace Sany3y.Controllers
                 }
             }
 
-            // تحديث بيانات المستخدم
-            currentUser.FirstName = userDTO.FirstName;
-            currentUser.LastName = userDTO.LastName;
-            currentUser.Email = userDTO.Email;
-            currentUser.PhoneNumber = userDTO.PhoneNumber;
-            currentUser.BirthDate = userDTO.BirthDate;
-            currentUser.Bio = userDTO.Bio;
-            await _userManager.UpdateAsync(currentUser);
+            UserUpdateDTO userUpdate = new UserUpdateDTO
+            {
+                Id = currentUser.Id,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Bio = userDTO.Bio ?? string.Empty,
+                BirthDate = DateOnly.Parse(userDTO.BirthDate.ToString("yyyy-MM-dd")),
+                Email = userDTO.Email,
+                PhoneNumber = userDTO.PhoneNumber,
+                ExperienceYears = userDTO.ExperienceYears ?? 0,
+                CategoryID = userDTO.CategoryId ?? 0,
+                Governorate = userDTO.Governorate,
+                City = userDTO.City,
+                Street = userDTO.Street,
+            };
 
+            // تحديث بيانات المستخدم
+            response = await _http.PutAsJsonAsync<UserUpdateDTO>($"/api/User/Update/{currentUser.Id}", userUpdate);
+            if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
+                return View("Profile", userDTO);
+
+            TempData["Success"] = "تم تحديث الملف الشخصي بنجاح.";
             return RedirectToAction("Profile");
         }
 

@@ -167,6 +167,8 @@ namespace Sany3y.API.Controllers
             existingUser.PhoneNumber = userDto.PhoneNumber;
             existingUser.BirthDate = userDto.BirthDate.ToDateTime(TimeOnly.MinValue);
             existingUser.Bio = userDto.Bio;
+            existingUser.ExperienceYears = userDto.ExperienceYears;
+            existingUser.CategoryID = userDto.CategoryID;
 
             await _userRepository.Update(existingUser);
             return CreatedAtAction(nameof(GetById), new { id = existingUser.Id }, existingUser);
