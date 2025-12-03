@@ -51,10 +51,20 @@
                 </div>
                 
                 <div class="card-body p-4">
-                    <form asp-controller="Account" asp-action="EditProfile">
+                    <form asp-controller="Account" asp-action="EditProfile" enctype="multipart/form-data" method="post">
                         <div asp-validation-summary="All" class="alert alert-danger mb-4" role="alert" style="display:none;"></div>
 
                         <div class="row g-4">
+                            <!-- Profile Picture -->
+                            <div class="col-12 text-center">
+                                <label class="form-label d-block mb-2">صورة الملف الشخصي</label>
+                                <div class="mb-3">
+                                    <img id="profilePreview" src="@Model.ProfilePicture" alt="صورة الملف الشخصي" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #004d00;" />
+                                </div>
+                                <input name="UploadedImage" id="profileImageInput" type="file" class="form-control form-control-sm w-auto mx-auto" />
+                                <span asp-validation-for="ProfilePicture" class="text-danger small"></span>
+                            </div>
+
                             <!-- Personal Info Section -->
                             <div class="col-12">
                                 <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
@@ -125,15 +135,39 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label asp-for="City" class="form-label">المدينة</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-city"></i></span>
-                                    <input asp-for="City" class="form-control" placeholder="المدينة" />
-                                </div>
+                                <label asp-for="Governorate" class="form-label">المحافظة</label>
+                                <select asp-for="Governorate" id="Governorate" class="form-select">
+                                    <option value="">اختر المحافظة</option>
+                                    @{
+                                        if (ViewBag.AllGovernorates != null)
+                                        {
+                                            foreach (var governorate in ViewBag.AllGovernorates)
+                                            {
+                                                if (Model.Governorate == governorate.ArabicName)
+                                                {
+                                                    <option value="@governorate.Id" selected>@governorate.ArabicName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@governorate.Id">@governorate.ArabicName</option>                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="Governorate" class="text-danger small"></span>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label asp-for="City" class="form-label">المدينة / المنطقة</label>
+                                <select asp-for="City" id="City" class="form-select">
+                                    <option value="">اختر المدينة / المنطقة</option>
+                                    <!-- Form Ajax -->
+                                </select>
                                 <span asp-validation-for="City" class="text-danger small"></span>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label asp-for="Street" class="form-label">الشارع</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-road"></i></span>
@@ -142,12 +176,45 @@
                                 <span asp-validation-for="Street" class="text-danger small"></span>
                             </div>
 
-                            <!-- Bio Section -->
-                            <div class="col-12 mt-4">
-                                <label asp-for="Bio" class="form-label"><i class="fas fa-info-circle me-2"></i> نبذة شخصية</label>
-                                <textarea asp-for="Bio" class="form-control" rows="4" placeholder="اكتب نبذة مختصرة عنك..."></textarea>
-                                <span asp-validation-for="Bio" class="text-danger small"></span>
-                            </div>
+                            @{
+                                if (ViewBag.IsTechnician == true)
+                                {
+                                    <!-- Category Section -->
+                                    <div class="col-12 mt-4">
+                                        <h5 class="text-muted border-bottom pb-2 mb-3"><i class="fas fa-layer-group me-2"></i> التخصص</h5>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label">التخصص</label>
+                                        <select asp-for="CategoryId" class="form-select">
+                                            <option value="">اختر التخصص</option>
+                                            @{
+                                                if (ViewBag.AllCategories != null)
+                                                {
+                                                    foreach (var category in ViewBag.AllCategories)
+                                                    {
+                                                        <option value="@category.Id">@category.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="ExperienceYears" class="form-label">عدد سنين الخبرة</label>
+                                        <input asp-for="ExperienceYears" type="number" class="form-control" placeholder="عدد سنين الخبرة" />
+                                        <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
+                                    </div>
+
+                                    <!-- Bio Section -->
+                                    <div class="col-12 mt-4">
+                                        <label asp-for="Bio" class="form-label"><i class="fas fa-info-circle me-2"></i> نبذة شخصية</label>
+                                        <textarea asp-for="Bio" class="form-control" rows="4" placeholder="اكتب نبذة مختصرة عنك..."></textarea>
+                                        <span asp-validation-for="Bio" class="text-danger small"></span>
+                                    </div>
+                                }
+                            }
                         </div>
 
                         <!-- Actions -->
@@ -180,6 +247,49 @@
             if ($('.validation-summary-errors ul li').length > 0) {
                 $('.validation-summary-errors').closest('.alert').show();
             }
+
+            $('#Governorate').change();
+
+            // Preview selected profile image
+            $('#profileImageInput').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#profilePreview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        $('#Governorate').change(function () {
+            var governorateId = $(this).val();
+
+            if (!governorateId) {
+                $('#City').empty().append('<option value="">اختر المدينة</option>');
+                return;
+            }
+
+            $.ajax({
+                url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
+                type: 'GET',
+                success: function (cities) {
+                    var citySelect = $('#City');
+                    citySelect.empty();
+                    citySelect.append('<option value="">اختر المدينة / المنطقة</option>');
+
+                    if (cities && cities.length > 0) {
+                        $.each(cities, function (index, city) {
+                            citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX Error:', status, error); // فقط log في console
+                    // alert('حدث خطأ أثناء جلب المدن.');  <-- ممكن تشيله
+                }
+            });
         });
     </script>
 }

@@ -211,9 +211,8 @@
                 <!-- Avatar -->
                 <div class="text-center mb-4" style="margin-top: -110px;">
                     <div class="profile-avatar-container">
-                        <img src="@(Model.ProfilePicture?.Path ?? "https://placehold.co/200x200?text=User")"
-                             class="profile-avatar"
-                             alt="@Model.FirstName"
+                        <img src="@ViewBag.UserProfilePicture"
+                             class="profile-avatar" alt="@Model.FirstName"
                              onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=User';" />
                         <div class="verified-badge" title="تم التحقق">
                             <i class="fas fa-check"></i>

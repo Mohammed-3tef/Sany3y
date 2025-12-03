@@ -145,6 +145,17 @@ namespace Sany3y.Controllers
             ViewBag.UserCategory = userCategory;
             ViewBag.UserRatings = userRatings;
 
+            var pictureResponse = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
+            if (pictureResponse.IsSuccessStatusCode)
+            {
+                var pictureData = await pictureResponse.Content.ReadFromJsonAsync<ProfilePicture>();
+                ViewBag.UserProfilePicture = pictureData?.Path;
+            }
+            else
+            {
+                ViewBag.UserProfilePicture = "https://placehold.co/200x200?text=User";
+            }
+
             // --------------------------------------------------------------------
             // إضافة الـ CurrentUserId من الـ Login الحقيقي
             // --------------------------------------------------------------------

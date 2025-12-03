@@ -717,10 +717,20 @@ namespace Sany3y.Controllers
         [Authorize]
         public async Task<IActionResult> ProfileAsync()
         {
+            await PopulateGovernoratesAsync();
+            await GetAllCategories();
+
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Login", "Account");
 
             User currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUsername/{User.Identity.Name}");
+            var response = await _http.GetAsync($"/api/ProfilePicture/GetByID/{currentUser?.ProfilePictureId}");
+            var userPicture = response.IsSuccessStatusCode
+                ? await response.Content.ReadFromJsonAsync<ProfilePicture>()
+                : null;
+
+            ViewBag.IsTechnical = User.IsInRole("Technician");
+
             UserDTO userDTO = new UserDTO()
             {
                 FirstName = currentUser.FirstName,
@@ -732,40 +742,75 @@ namespace Sany3y.Controllers
                 City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.City ?? string.Empty,
                 Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Street ?? string.Empty,
                 Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{currentUser.AddressId}").Result?.Governorate ?? string.Empty,
-                Bio = currentUser.Bio
+                Bio = currentUser.Bio,
+                ProfilePicture = userPicture?.Path ?? "https://placehold.co/100x100?text=Profile",
+                CategoryId = currentUser.CategoryID,
+                ExperienceYears = currentUser.ExperienceYears
             };
             return View(userDTO);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditProfile(UserDTO userDTO)
+        public async Task<IActionResult> EditProfile(UserDTO userDTO, IFormFile UploadedImage)
         {
+            await PopulateGovernoratesAsync();
+            await GetAllCategories();
+
+            ModelState.Remove("UploadedImage");
+            ModelState.Remove("ProfilePicture");
             if (!ModelState.IsValid)
                 return View("Profile", userDTO);
 
-            var response = await _http.GetAsync($"/api/User/GetByUsername/{User?.Identity?.Name}");
-            if (!response.IsSuccessStatusCode)
+            var currentUser = await _userManager.FindByNameAsync(User?.Identity?.Name);
+            if (currentUser == null)
             {
                 ModelState.AddModelError(string.Empty, "User not found.");
                 return View("Profile", userDTO);
             }
-            var currentUser = await response.Content.ReadFromJsonAsync<User>();
 
             Address address = new Address
             {
                 Id = currentUser.AddressId,
-                Governorate = userDTO.Governorate,
-                City = userDTO.City,
+                Governorate = _http.GetFromJsonAsync<Governorate>($"/api/CountryServices/GetGovernorateById/{long.Parse(userDTO.Governorate)}").Result?.ArabicName ?? string.Empty,
+                City = _http.GetFromJsonAsync<City>($"/api/CountryServices/GetCityById/{long.Parse(userDTO.City)}").Result?.ArabicName ?? string.Empty,
                 Street = userDTO.Street
             };
-
-            response = await _http.PutAsync($"/api/Address/Update/{address}", null);
+            var response = await _http.PutAsJsonAsync<Address>($"/api/Address/Update/{address.Id}", address);
             if (!await ErrorResponseHandler.HandleResponseErrors(response, ModelState))
-            {
                 return View("Profile", userDTO);
+
+            // رفع الصورة وتحويلها ل Base64
+            if (UploadedImage != null && UploadedImage.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await UploadedImage.CopyToAsync(ms);
+                byte[] imageBytes = ms.ToArray();
+                string base64Image = Convert.ToBase64String(imageBytes);
+
+                ProfilePicture picture = new ProfilePicture
+                {
+                    Path = $"data:{UploadedImage.ContentType};base64,{base64Image}"
+                };
+
+                if (currentUser.ProfilePictureId == null)
+                {
+                    response = await _http.PostAsJsonAsync("/api/ProfilePicture/Create", picture);
+                }
+                else
+                {
+                    picture.Id = (long)currentUser.ProfilePictureId;
+                    response = await _http.PutAsJsonAsync($"/api/ProfilePicture/Update/{picture.Id}", picture);
+                }
+
+                if (response.IsSuccessStatusCode && response.Content.Headers.ContentLength > 0)
+                {
+                    picture = await response.Content.ReadFromJsonAsync<ProfilePicture>();
+                    currentUser.ProfilePictureId = picture?.Id;
+                }
             }
 
+            // تحديث بيانات المستخدم
             currentUser.FirstName = userDTO.FirstName;
             currentUser.LastName = userDTO.LastName;
             currentUser.Email = userDTO.Email;
@@ -774,9 +819,10 @@ namespace Sany3y.Controllers
             currentUser.Bio = userDTO.Bio;
             await _userManager.UpdateAsync(currentUser);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Profile");
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Chat(long id)   // id = ReceiverId
         {

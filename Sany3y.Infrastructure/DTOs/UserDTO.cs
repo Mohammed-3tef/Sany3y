@@ -42,6 +42,12 @@ namespace Sany3y.Infrastructure.DTOs
         [Required]
         public string Street { get; set; }
 
+        public string? ProfilePicture { get; set; }
+
         public string? Bio { get; set; }
+        
+        public int? CategoryId { get; set; }
+
+        public int? ExperienceYears { get; set; }
     }
 }

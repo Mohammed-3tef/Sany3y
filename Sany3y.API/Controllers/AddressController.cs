@@ -50,7 +50,10 @@ namespace Sany3y.API.Controllers
             if (existingAddress == null)
                 return NotFound();
 
-            await _addressRepository.Update(address);
+            existingAddress.Street = address.Street;
+            existingAddress.City = address.City;
+            existingAddress.Governorate = address.Governorate;
+            await _addressRepository.Update(existingAddress);
             return NoContent();
         }
 

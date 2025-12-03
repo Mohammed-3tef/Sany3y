@@ -50,7 +50,8 @@ namespace Sany3y.API.Controllers
             if (existingProfilePicture == null)
                 return NotFound();
 
-            await _profilePictureRepository.Update(picture);
+            existingProfilePicture.Path = picture.Path;
+            await _profilePictureRepository.Update(existingProfilePicture);
             return NoContent();
         }
 

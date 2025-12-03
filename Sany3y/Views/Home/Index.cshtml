@@ -438,17 +438,31 @@
                 $.ajax({
                     url: "/api/Technician/GetByCategory/" + categoryId,
                     method: "GET",
-                    success: function (technicians) {
+                    success: async function (technicians) {
                         let grid = $("#technicians-grid");
                         grid.empty();
 
-                        technicians.slice(0, 8).forEach(t => {
+                        // جلب الصور لكل فني
+                        for (const t of technicians.slice(0, 8)) {
+                            let profileUrl = 'https://placehold.co/300x200?text=Technician';
+
+                            if (t.profilePictureId) {
+                                try {
+                                    let picResponse = await fetch("/api/ProfilePicture/GetById/" + t.profilePictureId);
+                                    if (picResponse.ok) {
+                                        let picData = await picResponse.json();
+                                        if (picData.path) profileUrl = picData.path;
+                                    }
+                                } catch (err) {
+                                    console.error("Error fetching profile picture:", err);
+                                }
+                            }
+
                             let card = `
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <div class="tech-card h-100">
                                         <div class="tech-img-wrapper">
-                                            <img src="${t.profilePicture || 'https://placehold.co/300x200?text=Technician'}"
-                                                 class="tech-img" />
+                                            <img src="${profileUrl}" class="tech-img" />
                                             <div class="tech-overlay">
                                                 <span class="badge bg-warning text-dark mb-2">${t.categoryName || ''}</span>
                                             </div>
@@ -464,7 +478,7 @@
                                 </div>`;
 
                             grid.append(card);
-                        });
+                        }
                     }
                 });
             });
