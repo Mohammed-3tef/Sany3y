@@ -103,10 +103,12 @@
                             var payButton = '';
                             // Show Pay button ONLY if Accepted AND PaymentMethod is Online (2)
                             if (task.status === 'Accepted' && task.paymentMethodId === 2) {
-                                payButton = '<button class="btn btn-success btn-sm float-end pay-btn" ' +
+                                payButton = '<button class="btn btn-success btn-sm float-end pay-btn shadow-sm" ' +
                                     'data-taskid="' + task.id + '" ' +
                                     'data-price="' + task.price + '" ' +
-                                    'data-servicename="' + task.serviceName + '">Pay Online</button>';
+                                    'data-servicename="' + task.serviceName + '">' +
+                                    '<i class="fas fa-credit-card me-1"></i> دفع أونلاين' +
+                                    '</button>';
                             }
 
                             var item = '<li class="list-group-item">' +
@@ -125,7 +127,7 @@
                             var serviceName = btn.data('servicename');
 
                             // Disable button to prevent double clicks
-                            btn.prop('disabled', true).text('Processing...');
+                            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري التحويل...');
 
                             $.ajax({
                                 url: '/Payment/Checkout',
@@ -141,13 +143,13 @@
                                         window.location.href = response.url;
                                     } else {
                                         toastr.error("Invalid response from server.");
-                                        btn.prop('disabled', false).text('Pay Online');
+                                        btn.prop('disabled', false).html('<i class="fas fa-credit-card me-1"></i> دفع أونلاين');
                                     }
                                 },
                                 error: function (xhr) {
                                     toastr.error("Payment initiation failed.");
                                     console.error(xhr.responseText);
-                                    btn.prop('disabled', false).text('Pay Online');
+                                    btn.prop('disabled', false).html('<i class="fas fa-credit-card me-1"></i> دفع أونلاين');
                                 }
                             });
                         });
