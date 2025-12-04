@@ -138,6 +138,14 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            if (!model.IsClient && model.Price == null)
+            {
+                ModelState.AddModelError("Price", "يرجى إدخال سعر الخدمة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
+
             // تحقق من الرقم القومي باستخدام OCR
             if (model.NationalIdImage == null || model.NationalIdImage.Length == 0)
             {
@@ -186,6 +194,8 @@ namespace Sany3y.Controllers
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
             if (!string.IsNullOrEmpty(model.ExperienceYears.ToString()))
                 form.Add(new StringContent(model.ExperienceYears.ToString()), "ExperienceYears");
+            if (!string.IsNullOrEmpty(model.Price.ToString()))
+                form.Add(new StringContent(model.Price.ToString()), "Price");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -410,6 +420,14 @@ namespace Sany3y.Controllers
                 return View("Register", model);
             }
 
+            if (!model.IsClient && model.Price == null)
+            {
+                ModelState.AddModelError("Price", "يرجى إدخال سعر الخدمة.");
+                await GetAllCategories();
+                await PopulateGovernoratesAsync();
+                return View("Register", model);
+            }
+
             var response = await _http.GetAsync($"/api/User/GetByNationalId/{model.NationalId}");
             if (response.IsSuccessStatusCode)
             {
@@ -475,6 +493,8 @@ namespace Sany3y.Controllers
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
             if (!string.IsNullOrEmpty(model.ExperienceYears.ToString()))
                 form.Add(new StringContent(model.ExperienceYears.ToString()), "ExperienceYears");
+            if (!string.IsNullOrEmpty(model.Price.ToString()))
+                form.Add(new StringContent(model.Price.ToString()), "Price");
 
             // الملف
             if (model.NationalIdImage != null && model.NationalIdImage.Length > 0)
@@ -796,6 +816,13 @@ namespace Sany3y.Controllers
                     return View("Profile", userDTO);
                 }
                 currentUser.ExperienceYears = userDTO.ExperienceYears;
+
+                if (userDTO.Price == null || userDTO.Price <= 0)
+                {
+                    ModelState.AddModelError("Price", "يرجى إدخال سعر الخدمة.");
+                    return View("Profile", userDTO);
+                }
+                currentUser.Price = userDTO.Price;
             }
 
             Address address = new Address
@@ -848,8 +875,10 @@ namespace Sany3y.Controllers
                 BirthDate = DateOnly.Parse(userDTO.BirthDate.ToString("yyyy-MM-dd")),
                 Email = userDTO.Email,
                 PhoneNumber = userDTO.PhoneNumber,
-                ExperienceYears = userDTO.ExperienceYears ?? 0,
-                CategoryID = userDTO.CategoryId ?? 0,
+                ExperienceYears = userDTO.ExperienceYears ?? currentUser.ExperienceYears,
+                CategoryID = userDTO.CategoryId ?? currentUser.CategoryID,
+                Price = userDTO.Price ?? currentUser.Price,
+                ProfilePictureId = currentUser.ProfilePictureId,
                 Governorate = userDTO.Governorate,
                 City = userDTO.City,
                 Street = userDTO.Street,

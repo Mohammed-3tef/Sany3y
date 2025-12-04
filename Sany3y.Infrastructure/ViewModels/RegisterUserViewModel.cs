@@ -72,6 +72,9 @@ namespace Sany3y.Infrastructure.ViewModels
         public IFormFile? NationalIdImage { get; set; }
 
         public int? CategoryId { get; set; }
+
         public int? ExperienceYears { get; set; }
+
+        public decimal? Price { get; set; }
     }
 }

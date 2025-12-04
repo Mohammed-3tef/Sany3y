@@ -311,24 +311,6 @@ namespace Sany3y.Controllers
             if (userObj == null)
                 return BadRequest("User is null");
 
-            // ----- التعامل مع الصورة -----
-            if (profilePicture != null)
-            {
-                // رفع صورة جديدة أو تحديث الصورة الحالية
-                var pictureEntity = new ProfilePicture { Path = profilePicture.FileName };
-                var picResponse = await _http.PostAsJsonAsync("/api/ProfilePicture/Create", pictureEntity);
-                if (picResponse.IsSuccessStatusCode)
-                {
-                    var createdPicture = await picResponse.Content.ReadFromJsonAsync<ProfilePicture>();
-                    userObj.ProfilePictureUrl = createdPicture?.Path;
-                }
-                else
-                {
-                    TempData["Error"] = "فشل في رفع صورة الملف الشخصي.";
-                    return RedirectToAction("Users");
-                }
-            }
-
             // ----- التعامل مع العنوان -----
             var existingAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{addressObj?.Id}");
             var addressCreateResponse = await _http.PutAsJsonAsync($"/api/Address/Update/{existingAddress?.Id}", addressObj);
