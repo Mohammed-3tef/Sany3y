@@ -1216,6 +1216,22 @@
   },
   {
     "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
+    "Method": "CancelBooking",
+    "RelativePath": "api/TechnicianSchedule/CancelBooking/{taskId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sany3y.API.Controllers.TechnicianScheduleController",
     "Method": "DeleteSlot",
     "RelativePath": "api/TechnicianSchedule/DeleteSlot/{id}",
     "HttpMethod": "DELETE",
@@ -1374,6 +1390,11 @@
       {
         "Name": "ExperienceYears",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],

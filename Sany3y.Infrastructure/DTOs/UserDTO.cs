@@ -49,5 +49,7 @@ namespace Sany3y.Infrastructure.DTOs
         public int? CategoryId { get; set; }
 
         public int? ExperienceYears { get; set; }
+
+        public decimal? Price { get; set; }
     }
 }

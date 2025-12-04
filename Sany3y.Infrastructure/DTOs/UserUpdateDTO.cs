@@ -39,10 +39,12 @@ namespace Sany3y.Infrastructure.DTOs
 
         public string? Bio { get; set; }
 
-        public string? ProfilePictureUrl { get; set; }
+        public long? ProfilePictureId { get; set; }
 
         public int? ExperienceYears { get; set; }
 
         public int? CategoryID { get; set; }
+
+        public decimal? Price { get; set; }
     }
 }

@@ -301,7 +301,7 @@
                     التخصص
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-floating">
                             <select asp-for="CategoryId" class="form-select">
                                 <option value="">اختر التخصص</option>
@@ -326,6 +326,14 @@
                             <label asp-for="ExperienceYears">عدد سنين الخبرة</label>
                         </div>
                         <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="Price" type="number" class="form-control" placeholder="سعر الخدمة" />
+                            <label asp-for="Price">سعر الخدمة</label>
+                        </div>
+                        <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>
                 </div>
             </div>

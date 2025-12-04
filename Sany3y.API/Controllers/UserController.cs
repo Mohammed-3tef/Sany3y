@@ -105,6 +105,7 @@ namespace Sany3y.API.Controllers
                 ProfilePictureId = newPicture.Id != 0 ? newPicture.Id : null,
                 CategoryID = userDto.IsClient ? null : userDto.CategoryId,
                 ExperienceYears = userDto.IsClient ? null : userDto.ExperienceYears,
+                Price = userDto.IsClient ? null : userDto.Price,
             };
 
             var result = await _userManager.CreateAsync(user, userDto.Password);
@@ -169,6 +170,8 @@ namespace Sany3y.API.Controllers
             existingUser.Bio = userDto.Bio;
             existingUser.ExperienceYears = userDto.ExperienceYears;
             existingUser.CategoryID = userDto.CategoryID;
+            existingUser.ProfilePictureId = userDto.ProfilePictureId;
+            existingUser.Price = userDto.Price;
 
             await _userRepository.Update(existingUser);
             return CreatedAtAction(nameof(GetById), new { id = existingUser.Id }, existingUser);
