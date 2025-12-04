@@ -41,8 +41,13 @@ namespace Sany3y.Controllers
             return View();
         }
 
-        public IActionResult Cancel()
+        public async Task<IActionResult> Cancel(int taskId)
         {
+            if (taskId > 0)
+            {
+                // Call API to cancel the booking and release the slot
+                await _http.PostAsync($"api/TechnicianSchedule/CancelBooking/{taskId}", null);
+            }
             return View();
         }
 

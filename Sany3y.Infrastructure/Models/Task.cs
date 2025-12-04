@@ -30,5 +30,9 @@ namespace Sany3y.Infrastructure.Models
         [ForeignKey("Tasker")]
         public long TaskerId { get; set; }
         public User Tasker { get; set; }
+
+        [ForeignKey("Schedule")]
+        public int? ScheduleId { get; set; }
+        public TechnicianSchedule Schedule { get; set; }
     }
 }

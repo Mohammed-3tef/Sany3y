@@ -64,7 +64,8 @@ namespace Sany3y.API.Controllers
                 Status = "Pending", // Changed to Pending for approval workflow
                 CategoryId = slot.Technician.CategoryID ?? 1,
                 ClientId = req.CustomerId,
-                TaskerId = slot.TechnicianId
+                TaskerId = slot.TechnicianId,
+                ScheduleId = slot.Id
             };
 
             _context.Tasks.Add(newTask);
@@ -142,42 +143,48 @@ namespace Sany3y.API.Controllers
             // 1. Update Status
             task.Status = "Rejected";
 
-            // 2. Free up the slot
-            // We need to find the slot. We can try to match by Date, StartTime, and TechnicianId
-            // Parsing Title/Description is fragile but necessary without a direct link
-            // Title format: "Booking on yyyy-MM-dd"
-            // Description format: "Scheduled appointment from HH:mm:ss to HH:mm:ss"
-
-            try
+            // 2. Free up the slot using ScheduleId
+            if (task.ScheduleId.HasValue)
             {
-                var dateStr = task.Title.Replace("Booking on ", "");
-                var date = DateTime.Parse(dateStr);
-
-                // Extract StartTime from Description
-                // "Scheduled appointment from 09:00:00 to 10:00:00"
-                var parts = task.Description.Split(" from ");
-                if (parts.Length > 1)
+                var slot = await _context.TechnicianSchedules.FindAsync(task.ScheduleId.Value);
+                if (slot != null)
                 {
-                    var times = parts[1].Split(" to ");
-                    var startTimeStr = times[0];
-                    var startTime = TimeSpan.Parse(startTimeStr);
-
-                    var slot = await _context.TechnicianSchedules
-                        .FirstOrDefaultAsync(s =>
-                            s.TechnicianId == task.TaskerId &&
-                            s.Date.Date == date.Date &&
-                            s.StartTime == startTime);
-
-                    if (slot != null)
-                    {
-                        slot.IsBooked = false;
-                    }
+                    slot.IsBooked = false;
                 }
             }
-            catch
+            else
             {
-                // If parsing fails, we just reject the task but might fail to free the slot automatically.
-                // In a real app, we should have a ScheduleId in the Task table.
+                // Fallback for old tasks without ScheduleId
+                try
+                {
+                    var dateStr = task.Title.Replace("Booking on ", "");
+                    var date = DateTime.Parse(dateStr);
+
+                    // Extract StartTime from Description
+                    // "Scheduled appointment from 09:00:00 to 10:00:00"
+                    var parts = task.Description.Split(" from ");
+                    if (parts.Length > 1)
+                    {
+                        var times = parts[1].Split(" to ");
+                        var startTimeStr = times[0];
+                        var startTime = TimeSpan.Parse(startTimeStr);
+
+                        var slot = await _context.TechnicianSchedules
+                            .FirstOrDefaultAsync(s =>
+                                s.TechnicianId == task.TaskerId &&
+                                s.Date.Date == date.Date &&
+                                s.StartTime == startTime);
+
+                        if (slot != null)
+                        {
+                            slot.IsBooked = false;
+                        }
+                    }
+                }
+                catch
+                {
+                    // If parsing fails, we just reject the task but might fail to free the slot automatically.
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -246,6 +253,36 @@ namespace Sany3y.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Deleted successfully");
+        }
+
+        // ----------------------------------
+        // ✅ Cancel Booking (Release Slot)
+        // ----------------------------------
+        [HttpPost("CancelBooking/{taskId}")]
+        public async Task<IActionResult> CancelBooking(int taskId)
+        {
+            var task = await _context.Tasks.FindAsync(taskId);
+            if (task == null) return NotFound("Task not found");
+
+            // Only allow cancellation if pending
+            if (task.Status != "Pending")
+                return BadRequest("Cannot cancel a task that is not pending.");
+
+            // Free up the slot using ScheduleId
+            if (task.ScheduleId.HasValue)
+            {
+                var slot = await _context.TechnicianSchedules.FindAsync(task.ScheduleId.Value);
+                if (slot != null)
+                {
+                    slot.IsBooked = false;
+                }
+            }
+
+            // Update Task Status
+            task.Status = "Cancelled";
+            await _context.SaveChangesAsync();
+
+            return Ok("Booking cancelled and slot released.");
         }
     }
 

@@ -45,7 +45,7 @@ namespace Sany3y.API.Controllers
                 },
                 Mode = "payment",
                 SuccessUrl = domain + "/Payment/Success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = domain + "/Payment/Cancel",
+                CancelUrl = domain + $"/Payment/Cancel?taskId={req.TaskId}",
                 Metadata = new Dictionary<string, string>
                 {
                     { "TaskId", req.TaskId.ToString() },
