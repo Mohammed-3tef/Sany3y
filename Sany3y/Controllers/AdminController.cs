@@ -226,6 +226,10 @@ namespace Sany3y.Controllers
             form.Add(new StringContent((role == "Client").ToString()), "IsClient");
             if (!string.IsNullOrEmpty(user.CategoryId.ToString()))
                 form.Add(new StringContent(user.CategoryId.ToString()), "CategoryId");
+            if (!string.IsNullOrEmpty(user.ExperienceYears.ToString()))
+                form.Add(new StringContent(user.ExperienceYears.ToString()), "ExperienceYears");
+            if (!string.IsNullOrEmpty(user.Price.ToString()))
+                form.Add(new StringContent(user.Price.ToString()), "Price");
 
             // بقية البيانات
             form.Add(new StringContent(user.Email), "Email");

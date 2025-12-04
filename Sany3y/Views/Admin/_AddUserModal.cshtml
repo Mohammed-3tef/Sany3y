@@ -81,7 +81,7 @@
                                 }
                             </select>
                         </div>
-                        
+
                         <!-- Category -->
                         <div class="col-md-6 mb-3" id="categorySection" style="display:none;">
                             <label class="form-label">التخصص</label>
@@ -97,6 +97,18 @@
                                     }
                                 }
                             </select>
+                        </div>
+
+                        <!-- Experience Years -->
+                        <div class="col-md-6 mb-3" id="ExperienceYearsSection" style="display:none;">
+                            <label class="form-label">عدد سنين الخبرة</label>
+                            <input type="number" name="ExperienceYears" class="form-control" />
+                        </div>
+
+                        <!-- Experience Years -->
+                        <div class="col-md-6 mb-3" id="PriceSection" style="display:none;">
+                            <label class="form-label">سعر الخدمة</label>
+                            <input type="number" name="Price" class="form-control" />
                         </div>
 
                         <!-- Address -->
@@ -164,6 +176,11 @@
                 toastr.error("يجب اختيار التخصص قبل تسجيل الفني!");
                 return;
             }
+
+            if ($("input[name='ExperienceYears']").val() === "" || $("input[name='Price']").val() === "") {
+                toastr.error("يجب إدخال سنوات الخبرة والسعر قبل تسجيل الفني!");
+                return;
+            }
         }
 
         let formData = new FormData();
@@ -200,6 +217,8 @@
         formData.append("role", selectedRole);
         if (selectedRole === "Technician") {
             formData.append("CategoryId", selectedCategory);
+            formData.append("ExperienceYears", $("input[name='ExperienceYears']").val());
+            formData.append("Price", $("input[name='Price']").val());
         }
 
         $.ajax({
@@ -224,8 +243,12 @@
 
             if (selectedRole === "Technician") {
                 $('#categorySection').show();
+                $('#ExperienceYearsSection').show();
+                $('#PriceSection').show();
             } else {
                 $('#categorySection').hide();
+                $('#ExperienceYearsSection').hide();
+                $('#PriceSection').hide();
             }
         });
 
