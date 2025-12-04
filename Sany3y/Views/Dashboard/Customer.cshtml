@@ -20,7 +20,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2 text-center">
-                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
+                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture"
+                            class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
                     </div>
                     <div class="col-md-10">
                         <h4 id="user-name"></h4>
@@ -98,12 +100,56 @@
                     // Populate Upcoming
                     if (data.upcomingAppointments && data.upcomingAppointments.length > 0) {
                         data.upcomingAppointments.forEach(function (task) {
+                            var payButton = '';
+                            // Show Pay button ONLY if Accepted AND PaymentMethod is Online (2)
+                            if (task.status === 'Accepted' && task.paymentMethodId === 2) {
+                                payButton = '<button class="btn btn-success btn-sm float-end pay-btn" ' +
+                                    'data-taskid="' + task.id + '" ' +
+                                    'data-price="' + task.price + '" ' +
+                                    'data-servicename="' + task.serviceName + '">Pay Online</button>';
+                            }
+
                             var item = '<li class="list-group-item">' +
-                                '<strong>' + task.title + '</strong><br/>' +
+                                '<strong>' + task.title + '</strong>' + payButton + '<br/>' +
                                 '<small>Technician: ' + task.otherPartyName + '</small><br/>' +
                                 '<span class="badge bg-primary">' + task.status + '</span>' +
                                 '</li>';
                             $('#upcoming-list').append(item);
+                        });
+
+                        // Payment Button Handler
+                        $(document).off('click', '.pay-btn').on('click', '.pay-btn', function () {
+                            var btn = $(this);
+                            var taskId = btn.data('taskid');
+                            var price = btn.data('price');
+                            var serviceName = btn.data('servicename');
+
+                            // Disable button to prevent double clicks
+                            btn.prop('disabled', true).text('Processing...');
+
+                            $.ajax({
+                                url: '/Payment/Checkout',
+                                method: 'POST',
+                                data: {
+                                    taskId: taskId,
+                                    price: price,
+                                    serviceName: serviceName,
+                                    customerId: userId
+                                },
+                                success: function (response) {
+                                    if (response.url) {
+                                        window.location.href = response.url;
+                                    } else {
+                                        toastr.error("Invalid response from server.");
+                                        btn.prop('disabled', false).text('Pay Online');
+                                    }
+                                },
+                                error: function (xhr) {
+                                    toastr.error("Payment initiation failed.");
+                                    console.error(xhr.responseText);
+                                    btn.prop('disabled', false).text('Pay Online');
+                                }
+                            });
                         });
                     } else {
                         $('#no-upcoming').show();

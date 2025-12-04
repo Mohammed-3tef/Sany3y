@@ -34,5 +34,9 @@ namespace Sany3y.Infrastructure.Models
         [ForeignKey("Schedule")]
         public int? ScheduleId { get; set; }
         public TechnicianSchedule Schedule { get; set; }
+
+        [ForeignKey("PaymentMethod")]
+        public int? PaymentMethodId { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
     }
 }

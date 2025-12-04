@@ -33,9 +33,6 @@ namespace Sany3y.API.Controllers
         // ----------------------------------
         // ✅ Book a slot
         // ----------------------------------
-        // ----------------------------------
-        // ✅ Book a slot
-        // ----------------------------------
         [HttpPost("BookSlot")]
         public async Task<IActionResult> BookSlot([FromBody] BookingRequest req)
         {
@@ -65,19 +62,16 @@ namespace Sany3y.API.Controllers
                 CategoryId = slot.Technician.CategoryID ?? 1,
                 ClientId = req.CustomerId,
                 TaskerId = slot.TechnicianId,
-                ScheduleId = slot.Id
+                ScheduleId = slot.Id,
+                PaymentMethodId = req.PaymentMethodId // Save the user's choice (Cash/Online)
             };
 
             _context.Tasks.Add(newTask);
             await _context.SaveChangesAsync();
 
             // 3. Handle Payment Method
-            if (req.PaymentMethodId == 2) // Online Payment (Stripe)
-            {
-                // Call PaymentController logic internally or return necessary data for frontend to call it
-                // Ideally, we should inject a service, but for now let's return the TaskId so frontend can initiate payment
-                return Ok(new { message = "Booking created. Proceed to payment.", taskId = newTask.Id, paymentRequired = true });
-            }
+            // For Request -> Accept -> Pay flow, we don't initiate payment here.
+            // We just return success and wait for technician approval.
 
             return Ok(new { message = "Booking request sent. Waiting for technician approval.", paymentRequired = false });
         }
@@ -93,38 +87,17 @@ namespace Sany3y.API.Controllers
                 .FirstOrDefaultAsync(t => t.Id == taskId);
 
             if (task == null) return NotFound("Task not found");
-            if (task.Status != "Pending") return BadRequest("Task is not pending");
+
+            // Allow acceptance if Pending OR Paid
+            if (task.Status != "Pending" && task.Status != "Paid")
+                return BadRequest("Task is not in a valid state to be accepted.");
 
             // 1. Update Status
             task.Status = "Accepted";
 
-            // 2. Create Payment (Now we create it upon acceptance)
-            var paymentMethod = await _context.PaymentMethods.FirstOrDefaultAsync();
-            var paymentMethodId = paymentMethod?.Id ?? 1;
+            // 2. No automatic payment creation here.
+            // The user will initiate payment later, which will create the Payment record via Webhook.
 
-            // Ensure PaymentMethod exists if not found (Safety check)
-            if (paymentMethod == null)
-            {
-                var defaultMethod = new PaymentMethod { Name = "Cash" };
-                _context.PaymentMethods.Add(defaultMethod);
-                await _context.SaveChangesAsync();
-                paymentMethodId = defaultMethod.Id;
-            }
-
-            var price = task.Tasker.Price ?? 0;
-
-            var newPayment = new Payment
-            {
-                AmountAgreed = price,
-                AmountPaid = price,
-                PaymentDate = DateTime.Now,
-                PaymentStatus = "Completed",
-                PaymentMethodId = paymentMethodId,
-                TaskId = task.Id,
-                ClientId = task.ClientId
-            };
-
-            _context.Payments.Add(newPayment);
             await _context.SaveChangesAsync();
 
             return Ok("Request accepted");

@@ -1,17 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Payment Successful";
+    ViewData["Title"] = "Payment Success";
 }
 
-<div class="container text-center mt-5">
+<div class="container mt-5 text-center">
     <div class="card shadow-lg p-5 border-0 rounded-3">
-        <div class="mb-4">
-            <i class="fas fa-check-circle text-success fa-5x animate__animated animate__bounceIn"></i>
-        </div>
-        <h2 class="fw-bold text-success mb-3">تم الدفع بنجاح!</h2>
-        <p class="lead text-muted mb-4">شكراً لك، تم تأكيد حجزك بنجاح. سيتواصل معك الفني قريباً.</p>
+        @if (ViewBag.PaymentStatus == "Paid")
+        {
+            <div class="mb-4">
+                <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+            </div>
+            <h2 class="text-success fw-bold mb-3">تم الدفع بنجاح!</h2>
+            <p class="lead text-muted">شكراً لك، تم تأكيد عملية الدفع الخاصة بك.</p>
+            <p class="text-muted">رقم العملية: <strong>@ViewBag.TaskId</strong></p>
 
-        <a href="/Dashboard/Customer" class="btn btn-primary btn-lg rounded-pill px-5">
-            <i class="fas fa-tachometer-alt me-2"></i> الذهاب إلى لوحة التحكم
-        </a>
+            <div class="mt-4">
+                <a href="/Dashboard/Customer" class="btn btn-primary btn-lg px-5 rounded-pill">
+                    <i class="fas fa-home me-2"></i> العودة للوحة التحكم
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="mb-4">
+                <i class="fas fa-exclamation-circle text-warning" style="font-size: 5rem;"></i>
+            </div>
+            <h2 class="text-warning fw-bold mb-3">جاري التحقق من الدفع...</h2>
+            <p class="lead text-muted">يرجى الانتظار قليلاً حتى يتم تحديث حالة الطلب.</p>
+
+            <div class="mt-4">
+                <a href="/Dashboard/Customer" class="btn btn-outline-primary btn-lg px-5 rounded-pill">
+                    <i class="fas fa-sync me-2"></i> تحديث الحالة
+                </a>
+            </div>
+        }
     </div>
 </div>

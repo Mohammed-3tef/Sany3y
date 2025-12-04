@@ -36,9 +36,33 @@ namespace Sany3y.Controllers
             return BadRequest(new { error = "Failed to initiate payment", details = errorContent });
         }
 
-        public IActionResult Success()
+        public async Task<IActionResult> Success(string session_id)
         {
+            if (string.IsNullOrEmpty(session_id))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Call API to verify payment
+            var response = await _http.GetAsync($"api/Payment/verify-payment/{session_id}");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<PaymentVerificationResult>();
+                ViewBag.PaymentStatus = result.Status;
+                ViewBag.TaskId = result.TaskId;
+            }
+            else
+            {
+                ViewBag.PaymentStatus = "Failed";
+            }
+
             return View();
+        }
+
+        public class PaymentVerificationResult
+        {
+            public string Status { get; set; }
+            public string TaskId { get; set; }
         }
 
         public async Task<IActionResult> Cancel(int taskId)
@@ -53,6 +77,7 @@ namespace Sany3y.Controllers
 
         public class CheckoutResponse
         {
+            [System.Text.Json.Serialization.JsonPropertyName("url")]
             public string Url { get; set; }
         }
     }

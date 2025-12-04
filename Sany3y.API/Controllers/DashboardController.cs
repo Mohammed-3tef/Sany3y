@@ -34,6 +34,7 @@ namespace Sany3y.API.Controllers
 
             var tasks = await _context.Tasks
                 .Include(t => t.Tasker)
+                .Include(t => t.Category)
                 .Where(t => t.ClientId == userId)
                 .ToListAsync();
 
@@ -45,18 +46,23 @@ namespace Sany3y.API.Controllers
                     Title = t.Title,
                     Description = t.Description,
                     Status = t.Status,
-                    OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown"
+                    OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown",
+                    Price = t.Tasker?.Price ?? 0,
+                    ServiceName = t.Category?.Name ?? "Service"
                 }).ToList();
 
             var upcomingAppointments = tasks
-                .Where(t => t.Status == "Pending" || t.Status == "Accepted" || t.Status == "In Progress")
+                .Where(t => t.Status == "Pending" || t.Status == "Accepted" || t.Status == "In Progress" || t.Status == "Paid")
                 .Select(t => new TaskDto
                 {
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
                     Status = t.Status,
-                    OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown"
+                    OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown",
+                    Price = (t.Tasker?.Price ?? 0) > 0 ? t.Tasker.Price.Value : 50, // Default to 50 if null OR zero
+                    ServiceName = t.Category?.Name ?? "Service",
+                    PaymentMethodId = t.PaymentMethodId
                 }).ToList();
 
             var dashboard = new CustomerDashboardDto
@@ -162,7 +168,7 @@ namespace Sany3y.API.Controllers
             user.LastName = updateDto.LastName;
             user.PhoneNumber = updateDto.Phone;
             user.Bio = updateDto.Bio;
-            
+
             // Handle Address update simply for now
             if (user.Address == null)
             {
@@ -173,7 +179,7 @@ namespace Sany3y.API.Controllers
             }
             else
             {
-                 user.Address.City = updateDto.Location;
+                user.Address.City = updateDto.Location;
             }
 
             // Service Details might be bio or category, updating Bio for now as per DTO

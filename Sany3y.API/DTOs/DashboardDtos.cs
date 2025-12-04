@@ -11,6 +11,9 @@ namespace Sany3y.API.DTOs
         public string Status { get; set; }
         public DateTime? Date { get; set; } // Assuming date is relevant, maybe from CreatedAt or a scheduled date if it existed
         public string OtherPartyName { get; set; } // Name of the Tasker (for client) or Client (for tasker)
+        public decimal Price { get; set; }
+        public string ServiceName { get; set; }
+        public int? PaymentMethodId { get; set; }
     }
 
     public class CustomerDashboardDto
