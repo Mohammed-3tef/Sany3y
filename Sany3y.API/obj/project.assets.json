@@ -5446,23 +5446,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\moham\\.nuget\\packages\\": {},
-    "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\steve\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
+      "projectUniqueName": "D:\\final grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
       "projectName": "Sany3y.API",
-      "projectPath": "D:\\Projects\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
-      "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Sany3y\\Sany3y.API\\obj\\",
+      "projectPath": "D:\\final grad\\Sany3y\\Sany3y.API\\Sany3y.API.csproj",
+      "packagesPath": "C:\\Users\\steve\\.nuget\\packages\\",
+      "outputPath": "D:\\final grad\\Sany3y\\Sany3y.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "S:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5477,8 +5477,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
-              "projectPath": "D:\\Projects\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
+            "D:\\final grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj": {
+              "projectPath": "D:\\final grad\\Sany3y\\Sany3y.Infrastructure\\Sany3y.Infrastructure.csproj"
             }
           }
         }
@@ -5537,7 +5537,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

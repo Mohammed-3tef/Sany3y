@@ -5,33 +5,65 @@
 }
 
 <div class="container mt-4">
-    <h2>لوحة تحكم العامل</h2>
-    <div id="loading" class="text-center">
-        <div class="spinner-border" role="status">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-0" style="color: var(--primary-green);">
+                <i class="fas fa-tools me-2"></i>لوحة تحكم العامل
+            </h2>
+            <p class="text-secondary">إدارة طلباتك ومواعيدك</p>
+        </div>
+    </div>
+
+    <div id="loading" class="text-center py-5">
+        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
             <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-3 text-secondary">جاري تحميل البيانات...</p>
     </div>
 
     <div id="dashboard-content" style="display:none;">
         <!-- Profile Section -->
-        <div class="card mb-4">
-            <div class="card-header">
-                معلومات الحساب
-                <a href="@Url.Action("Profile", "Account")" class="btn btn-sm btn-primary float-end">تعديل الحساب</a>
+        <div class="card shadow-sm mb-4 slide-in">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-user-circle me-2"></i>معلومات الحساب</span>
+                <a href="@Url.Action("Profile", "Account")" class="btn btn-light btn-sm">
+                    <i class="fas fa-edit me-1"></i>تعديل الحساب
+                </a>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2 text-center">
-                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center mb-3 mb-md-0">
+                        <img id="profile-pic" src="https://placehold.co/120x120?text=Profile" alt="Profile Picture"
+                            class="img-thumbnail rounded-circle shadow-sm"
+                            style="width: 120px; height: 120px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/120x120?text=Profile';">
                     </div>
-                    <div class="col-md-10">
-                        <h4 id="user-name"></h4>
-                        <p><i class="fas fa-envelope"></i> <span id="user-email"></span></p>
-                        <p><i class="fas fa-phone"></i> <span id="user-phone"></span></p>
-                        <p><i class="fas fa-map-marker-alt"></i> <span id="user-location"></span></p>
-                        <p id="user-bio" class="text-muted"></p>
-                        <div class="alert alert-success d-inline-block mt-2">
-                            <strong>الإجمالي: </strong> <span id="total-earnings"></span> جنيه
+                    <div class="col-md-7">
+                        <h4 id="user-name" class="fw-bold mb-3"></h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="fas fa-envelope me-2" style="color: var(--primary-green);"></i>
+                                    <span id="user-email" class="text-secondary"></span>
+                                </p>
+                                <p class="mb-2">
+                                    <i class="fas fa-phone me-2" style="color: var(--success-green);"></i>
+                                    <span id="user-phone" class="text-secondary"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    <span id="user-location" class="text-secondary"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <p id="user-bio" class="text-muted mt-3 mb-0 fst-italic"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="earnings-card">
+                            <p class="mb-1 opacity-75">إجمالي الأرباح</p>
+                            <h4 class="mb-0"><span id="total-earnings">0</span> جنيه</h4>
                         </div>
                     </div>
                 </div>
@@ -40,56 +72,62 @@
 
         <div class="row">
             <!-- Received Requests -->
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header bg-warning text-dark">
-                        الطلبات الواردة
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100 slide-in">
+                    <div class="card-header bg-warning">
+                        <i class="fas fa-inbox me-2"></i>الطلبات الواردة
                     </div>
                     <div class="card-body">
                         <ul id="requests-list" class="list-group list-group-flush">
                             <!-- Items will be appended here -->
                         </ul>
-                        <p id="no-requests" class="text-muted mt-2" style="display:none;">No new requests.</p>
+                        <div id="no-requests" class="empty-state" style="display:none;">
+                            <i class="fas fa-inbox"></i>
+                            <p class="mt-3 mb-0">لا توجد طلبات جديدة</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Accepted Jobs -->
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header bg-success text-white">
-                        الطلبات المقبولة
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100 slide-in">
+                    <div class="card-header bg-success">
+                        <i class="fas fa-briefcase me-2"></i>الطلبات المقبولة
                     </div>
                     <div class="card-body">
                         <ul id="jobs-list" class="list-group list-group-flush">
                             <!-- Items will be appended here -->
                         </ul>
-                        <p id="no-jobs" class="text-muted mt-2" style="display:none;">No active jobs.</p>
+                        <div id="no-jobs" class="empty-state" style="display:none;">
+                            <i class="fas fa-clipboard-check"></i>
+                            <p class="mt-3 mb-0">لا توجد طلبات نشطة</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Schedule Management Section -->
         <div class="row">
             <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <span>إدارة المواعيد</span>
-                        <button class="btn btn-light btn-sm text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addSlotModal">
-                            <i class="fas fa-plus"></i> إضافة موعد
+                <div class="card shadow-sm mb-4 slide-in">
+                    <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-calendar-alt me-2"></i>إدارة المواعيد</span>
+                        <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addSlotModal">
+                            <i class="fas fa-plus me-1"></i> إضافة موعد
                         </button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover text-center align-middle">
+                            <table class="table table-hover align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>التاريخ</th>
-                                        <th>من</th>
-                                        <th>إلى</th>
-                                        <th>الحالة</th>
-                                        <th>إجراءات</th>
+                                        <th class="text-center"><i class="fas fa-calendar me-1"></i>التاريخ</th>
+                                        <th class="text-center"><i class="fas fa-clock me-1"></i>من</th>
+                                        <th class="text-center"><i class="fas fa-clock me-1"></i>إلى</th>
+                                        <th class="text-center"><i class="fas fa-info-circle me-1"></i>الحالة</th>
+                                        <th class="text-center"><i class="fas fa-cog me-1"></i>إجراءات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="schedule-list">
@@ -97,7 +135,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p id="no-schedule" class="text-muted text-center mt-3" style="display:none;">لا توجد مواعيد مضافة.</p>
+                        <div id="no-schedule" class="empty-state" style="display:none;">
+                            <i class="fas fa-calendar-times"></i>
+                            <p class="mt-3 mb-0">لا توجد مواعيد مضافة</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,39 +146,42 @@
 
         <!-- Add Slot Modal -->
         <div class="modal fade" id="addSlotModal" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">إضافة موعد جديد</h5>
+                        <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>إضافة موعد جديد</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <form id="addSlotForm">
                             <div class="mb-3">
-                                <label class="form-label">التاريخ</label>
-                                <input type="date" class="form-control" id="slotDate" required min="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                <label class="form-label"><i class="fas fa-calendar me-1"></i>التاريخ</label>
+                                <input type="date" class="form-control" id="slotDate" required
+                                    min="@DateTime.Now.ToString("yyyy-MM-dd")">
                             </div>
                             <div class="row">
                                 <div class="col-6 mb-3">
-                                    <label class="form-label">من الساعة</label>
+                                    <label class="form-label"><i class="fas fa-clock me-1"></i>من الساعة</label>
                                     <input type="time" class="form-control" id="slotStart" required>
                                 </div>
                                 <div class="col-6 mb-3">
-                                    <label class="form-label">إلى الساعة</label>
+                                    <label class="form-label"><i class="fas fa-clock me-1"></i>إلى الساعة</label>
                                     <input type="time" class="form-control" id="slotEnd" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">حفظ الموعد</button>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-save me-1"></i>حفظ الموعد
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Chat Section Placeholder -->
-        <div class="card mb-4">
+
+        <!-- Chat Section -->
+        <div class="card shadow-sm mb-4 slide-in">
             <div class="card-header">
-                المحادثات الأخيرة
+                <i class="fas fa-comments me-2"></i>المحادثات الأخيرة
             </div>
             <div class="card-body">
                 @if (chatPartners != null && chatPartners.Any())
@@ -145,26 +189,31 @@
                     <div class="row g-3">
                         @foreach (var user in chatPartners)
                         {
-                            <div class="col-md-12">
-                                    <div class="h-100">
-                                        <div class="d-flex align-items-center">
-                                            <!-- صورة المستخدم -->
-                                            <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=Profile")"
-                                                 alt="@user.UserName" class="rounded-circle mx-3"
-                                                 style="width:50px; height:50px; object-fit:cover;">
-                                            <!-- اسم المستخدم -->
-                                            <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id" class="text-decoration-none">
-                                                <h5 class="mb-0">@user.UserName</h5>
-                                            </a>
+                            <div class="col-md-6 col-lg-4">
+                                <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id"
+                                    class="text-decoration-none">
+                                    <div class="card h-100 border shadow-sm hover-card">
+                                        <div class="card-body d-flex align-items-center">
+                                            <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/60x60?text=Profile")"
+                                                alt="@user.UserName" class="rounded-circle me-3"
+                                                style="width:60px; height:60px; object-fit:cover;">
+                                            <div>
+                                                <h6 class="mb-0 fw-bold">@user.UserName</h6>
+                                                <small class="text-muted">انقر للمحادثة</small>
+                                            </div>
                                         </div>
                                     </div>
+                                </a>
                             </div>
                         }
                     </div>
                 }
                 else
                 {
-                    <p class="text-muted">لا توجد محادثات سابقة.</p>
+                    <div class="empty-state">
+                        <i class="fas fa-comment-slash"></i>
+                        <p class="mt-3 mb-0">لا توجد محادثات سابقة</p>
+                    </div>
                 }
             </div>
         </div>
@@ -194,8 +243,8 @@
                     $('#user-email').text(data.profile.email);
                     $('#user-phone').text(data.profile.phone);
                     $('#user-location').text(data.profile.location);
-                    $('#user-bio').text(data.profile.bio);
-                    $('#total-earnings').text(data.totalEarnings);
+                    $('#user-bio').text(data.profile.bio || 'لا توجد معلومات إضافية');
+                    $('#total-earnings').text(data.totalEarnings.toFixed(2));
                     if (data.profile.profilePictureUrl) {
                         $('#profile-pic').attr('src', data.profile.profilePictureUrl);
                     }
@@ -203,16 +252,20 @@
                     // Populate Requests
                     if (data.receivedRequests && data.receivedRequests.length > 0) {
                         data.receivedRequests.forEach(function (task) {
-                            var item = '<li class="list-group-item">' +
-                                '<div class="d-flex justify-content-between align-items-center">' +
-                                '<div>' +
-                                '<strong>' + task.title + '</strong><br/>' +
-                                '<small>Client: ' + task.otherPartyName + '</small><br/>' +
-                                '<span class="badge bg-warning text-dark">' + task.status + '</span>' +
+                            var item = '<li class="list-group-item border rounded mb-2 shadow-sm">' +
+                                '<div class="d-flex justify-content-between align-items-start">' +
+                                '<div class="flex-grow-1">' +
+                                '<h6 class="mb-1 fw-bold">' + task.title + '</h6>' +
+                                '<small class="text-muted"><i class="fas fa-user me-1"></i>' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge bg-warning text-dark mt-2"><i class="fas fa-clock me-1"></i>' + task.status + '</span>' +
                                 '</div>' +
-                                '<div>' +
-                                '<button class="btn btn-success btn-sm me-2 accept-req" data-id="' + task.id + '"><i class="fas fa-check"></i> قبول</button>' +
-                                '<button class="btn btn-danger btn-sm reject-req" data-id="' + task.id + '"><i class="fas fa-times"></i> رفض</button>' +
+                                '<div class="btn-group-vertical" role="group">' +
+                                '<button class="btn btn-success btn-sm accept-req mb-1" data-id="' + task.id + '">' +
+                                '<i class="fas fa-check me-1"></i>قبول' +
+                                '</button>' +
+                                '<button class="btn btn-danger btn-sm reject-req" data-id="' + task.id + '">' +
+                                '<i class="fas fa-times me-1"></i>رفض' +
+                                '</button>' +
                                 '</div>' +
                                 '</div>' +
                                 '</li>';
@@ -225,10 +278,13 @@
                     // Populate Accepted Jobs
                     if (data.acceptedJobs && data.acceptedJobs.length > 0) {
                         data.acceptedJobs.forEach(function (task) {
-                            var item = '<li class="list-group-item">' +
-                                '<strong>' + task.title + '</strong><br/>' +
-                                '<small>Client: ' + task.otherPartyName + '</small><br/>' +
-                                '<span class="badge bg-success">' + task.status + '</span>' +
+                            var statusClass = task.status === 'In Progress' ? 'bg-primary' : 'bg-success';
+                            var statusIcon = task.status === 'In Progress' ? 'fa-spinner' : 'fa-check-circle';
+
+                            var item = '<li class="list-group-item border rounded mb-2">' +
+                                '<h6 class="mb-1 fw-bold">' + task.title + '</h6>' +
+                                '<small class="text-muted"><i class="fas fa-user me-1"></i>' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge ' + statusClass + ' mt-2"><i class="fas ' + statusIcon + ' me-1"></i>' + task.status + '</span>' +
                                 '</li>';
                             $('#jobs-list').append(item);
                         });
@@ -250,14 +306,13 @@
             // Handle Add Slot
             $('#addSlotForm').on('submit', function (e) {
                 e.preventDefault();
-                
+
                 var date = $('#slotDate').val();
                 var start = $('#slotStart').val();
                 var end = $('#slotEnd').val();
 
-                if(start >= end) {
+                if (start >= end) {
                     toastr.error("وقت البدء يجب أن يكون قبل وقت الانتهاء");
-                    $('#loader').addClass('hide'); // Fix infinite loading
                     return;
                 }
 
@@ -288,7 +343,7 @@
             // Handle Delete Slot
             $(document).on('click', '.delete-slot', function () {
                 var slotId = $(this).data('id');
-                if(!confirm("هل أنت متأكد من حذف هذا الموعد؟")) return;
+                if (!confirm("هل أنت متأكد من حذف هذا الموعد؟")) return;
 
                 $.ajax({
                     url: apiUrl + '/api/TechnicianSchedule/DeleteSlot/' + slotId,
@@ -306,15 +361,19 @@
             // Handle Accept Request
             $(document).on('click', '.accept-req', function () {
                 var taskId = $(this).data('id');
+                var btn = $(this);
+                btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+
                 $.ajax({
                     url: apiUrl + '/api/TechnicianSchedule/AcceptRequest/' + taskId,
                     method: 'POST',
                     success: function () {
                         toastr.success("تم قبول الطلب");
-                        location.reload(); // Reload to update lists and earnings
+                        location.reload();
                     },
                     error: function (xhr) {
                         toastr.error(xhr.responseText || "فشل قبول الطلب");
+                        btn.prop('disabled', false).html('<i class="fas fa-check me-1"></i>قبول');
                     }
                 });
             });
@@ -322,7 +381,7 @@
             // Handle Reject Request
             $(document).on('click', '.reject-req', function () {
                 var taskId = $(this).data('id');
-                if(!confirm("هل أنت متأكد من رفض هذا الطلب؟")) return;
+                if (!confirm("هل أنت متأكد من رفض هذا الطلب؟")) return;
 
                 $.ajax({
                     url: apiUrl + '/api/TechnicianSchedule/RejectRequest/' + taskId,
@@ -345,24 +404,24 @@
                 success: function (data) {
                     var list = $('#schedule-list');
                     list.empty();
-                    
+
                     if (data && data.length > 0) {
                         $('#no-schedule').hide();
                         data.forEach(function (slot) {
-                            var statusBadge = slot.isBooked 
-                                ? '<span class="badge bg-danger">محجوز</span>' 
-                                : '<span class="badge bg-success">متاح</span>';
-                            
-                            var deleteBtn = slot.isBooked 
+                            var statusBadge = slot.isBooked
+                                ? '<span class="badge bg-danger"><i class="fas fa-lock me-1"></i>محجوز</span>'
+                                : '<span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>متاح</span>';
+
+                            var deleteBtn = slot.isBooked
                                 ? '<button class="btn btn-sm btn-secondary" disabled><i class="fas fa-trash"></i></button>'
                                 : '<button class="btn btn-sm btn-danger delete-slot" data-id="' + slot.id + '"><i class="fas fa-trash"></i></button>';
 
                             var row = '<tr>' +
-                                '<td>' + slot.date.split('T')[0] + '</td>' +
-                                '<td>' + slot.startTime + '</td>' +
-                                '<td>' + slot.endTime + '</td>' +
-                                '<td>' + statusBadge + '</td>' +
-                                '<td>' + deleteBtn + '</td>' +
+                                '<td class="text-center">' + slot.date.split('T')[0] + '</td>' +
+                                '<td class="text-center"><strong>' + slot.startTime + '</strong></td>' +
+                                '<td class="text-center"><strong>' + slot.endTime + '</strong></td>' +
+                                '<td class="text-center">' + statusBadge + '</td>' +
+                                '<td class="text-center">' + deleteBtn + '</td>' +
                                 '</tr>';
                             list.append(row);
                         });
@@ -373,4 +432,15 @@
             });
         }
     </script>
+
+    <style>
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
 }

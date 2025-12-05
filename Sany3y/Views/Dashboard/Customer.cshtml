@@ -3,70 +3,102 @@
 }
 
 <div class="container mt-4">
-    <h2>لوحة تحكم العميل</h2>
-    <div id="loading" class="text-center">
-        <div class="spinner-border" role="status">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="fw-bold mb-0" style="color: var(--primary-green);">
+                <i class="fas fa-tachometer-alt me-2"></i>لوحة تحكم العميل
+            </h2>
+            <p class="text-secondary">مرحباً بك في لوحة التحكم الخاصة بك</p>
+        </div>
+    </div>
+
+    <div id="loading" class="text-center py-5">
+        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
             <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-3 text-secondary">جاري تحميل البيانات...</p>
     </div>
 
     <div id="dashboard-content" style="display:none;">
         <!-- Profile Section -->
-        <div class="card mb-4">
-            <div class="card-header">
-                معلومات الحساب
-                <a href="@Url.Action("Profile", "Account")" class="btn btn-sm btn-primary float-end">تعديل الحساب</a>
+        <div class="card shadow-sm mb-4 slide-in">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-user-circle me-2"></i>معلومات الحساب</span>
+                <a href="@Url.Action("Profile", "Account")" class="btn btn-light btn-sm">
+                    <i class="fas fa-edit me-1"></i>تعديل الحساب
+                </a>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2 text-center">
-                        <img id="profile-pic" src="https://placehold.co/100x100?text=Profile" alt="Profile Picture"
-                            class="img-thumbnail rounded-circle" style="width: 100px; height: 100px;"
-                            onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Profile';">
+                <div class="row align-items-center">
+                    <div class="col-md-2 text-center mb-3 mb-md-0">
+                        <img id="profile-pic" src="https://placehold.co/120x120?text=Profile" alt="Profile Picture"
+                            class="img-thumbnail rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover;"
+                            onerror="this.onerror=null;this.src='https://placehold.co/120x120?text=Profile';">
                     </div>
                     <div class="col-md-10">
-                        <h4 id="user-name"></h4>
-                        <p><i class="fas fa-envelope"></i> <span id="user-email"></span></p>
-                        <p><i class="fas fa-phone"></i> <span id="user-phone"></span></p>
-                        <p><i class="fas fa-map-marker-alt"></i> <span id="user-location"></span></p>
-                        <p id="user-bio" class="text-muted"></p>
+                        <h4 id="user-name" class="fw-bold mb-3"></h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="fas fa-envelope me-2" style="color: var(--primary-green);"></i>
+                                    <span id="user-email" class="text-secondary"></span>
+                                </p>
+                                <p class="mb-2">
+                                    <i class="fas fa-phone me-2" style="color: var(--success-green);"></i>
+                                    <span id="user-phone" class="text-secondary"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-2">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    <span id="user-location" class="text-secondary"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <p id="user-bio" class="text-muted mt-3 mb-0 fst-italic"></p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <!-- Upcoming Appointments -->
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header bg-info text-white">
-                        المواعيد القادمة
-                    </div>
-                    <div class="card-body">
-                        <ul id="upcoming-list" class="list-group list-group-flush">
-                            <!-- Items will be appended here -->
-                        </ul>
-                        <p id="no-upcoming" class="text-muted mt-2" style="display:none;">No upcoming appointments.</p>
-                    </div>
-                </div>
+    <!-- Upcoming Appointments -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100 slide-in">
+            <div class="card-header bg-info">
+                <i class="fas fa-calendar-check me-2"></i>المواعيد القادمة
             </div>
-
-            <!-- Past Bookings -->
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header bg-secondary text-white">
-                        الحجوزات السابقة
-                    </div>
-                    <div class="card-body">
-                        <ul id="past-list" class="list-group list-group-flush">
-                            <!-- Items will be appended here -->
-                        </ul>
-                        <p id="no-past" class="text-muted mt-2" style="display:none;">لا يوجد حجوزات سابقة.</p>
-                    </div>
+            <div class="card-body">
+                <ul id="upcoming-list" class="list-group list-group-flush">
+                    <!-- Items will be appended here -->
+                </ul>
+                <div id="no-upcoming" class="empty-state" style="display:none;">
+                    <i class="fas fa-calendar-times"></i>
+                    <p class="mt-3 mb-0">لا توجد مواعيد قادمة</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Past Bookings -->
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow-sm h-100 slide-in">
+            <div class="card-header bg-secondary">
+                <i class="fas fa-history me-2"></i>الحجوزات السابقة
+            </div>
+            <div class="card-body">
+                <ul id="past-list" class="list-group list-group-flush">
+                    <!-- Items will be appended here -->
+                </ul>
+                <div id="no-past" class="empty-state" style="display:none;">
+                    <i class="fas fa-inbox"></i>
+                    <p class="mt-3 mb-0">لا يوجد حجوزات سابقة</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 @section Scripts {
@@ -92,7 +124,7 @@
                     $('#user-email').text(data.profile.email);
                     $('#user-phone').text(data.profile.phone);
                     $('#user-location').text(data.profile.location);
-                    $('#user-bio').text(data.profile.bio);
+                    $('#user-bio').text(data.profile.bio || 'لا توجد معلومات إضافية');
                     if (data.profile.profilePictureUrl) {
                         $('#profile-pic').attr('src', data.profile.profilePictureUrl);
                     }
@@ -111,10 +143,40 @@
                                     '</button>';
                             }
 
-                            var item = '<li class="list-group-item">' +
-                                '<strong>' + task.title + '</strong>' + payButton + '<br/>' +
-                                '<small>Technician: ' + task.otherPartyName + '</small><br/>' +
-                                '<span class="badge bg-primary">' + task.status + '</span>' +
+                            var statusClass = '';
+                            var statusIcon = '';
+                            switch (task.status) {
+                                case 'Pending':
+                                    statusClass = 'bg-warning';
+                                    statusIcon = 'fa-clock';
+                                    break;
+                                case 'Accepted':
+                                    statusClass = 'bg-info';
+                                    statusIcon = 'fa-check-circle';
+                                    break;
+                                case 'In Progress':
+                                    statusClass = 'bg-primary';
+                                    statusIcon = 'fa-spinner';
+                                    break;
+                                case 'Paid':
+                                    statusClass = 'bg-success';
+                                    statusIcon = 'fa-money-bill-wave';
+                                    break;
+                                default:
+                                    statusClass = 'bg-secondary';
+                                    statusIcon = 'fa-info-circle';
+                            }
+
+                            var item = '<li class="list-group-item border rounded mb-2 shadow-sm">' +
+                                '<div class="d-flex justify-content-between align-items-start mb-2">' +
+                                '<div class="flex-grow-1">' +
+                                '<h6 class="mb-1 fw-bold">' + task.title + '</h6>' +
+                                '<small class="text-muted"><i class="fas fa-user me-1"></i>' + task.otherPartyName + '</small><br/>' +
+                                '<small class="text-muted"><i class="fas fa-tag me-1"></i>' + task.serviceName + '</small>' +
+                                '</div>' +
+                                payButton +
+                                '</div>' +
+                                '<span class="badge ' + statusClass + '"><i class="fas ' + statusIcon + ' me-1"></i>' + task.status + '</span>' +
                                 '</li>';
                             $('#upcoming-list').append(item);
                         });
@@ -160,10 +222,13 @@
                     // Populate Past
                     if (data.pastBookings && data.pastBookings.length > 0) {
                         data.pastBookings.forEach(function (task) {
-                            var item = '<li class="list-group-item">' +
-                                '<strong>' + task.title + '</strong><br/>' +
-                                '<small>Technician: ' + task.otherPartyName + '</small><br/>' +
-                                '<span class="badge bg-secondary">' + task.status + '</span>' +
+                            var statusClass = task.status === 'Completed' ? 'bg-success' : 'bg-secondary';
+                            var statusIcon = task.status === 'Completed' ? 'fa-check-double' : 'fa-times-circle';
+
+                            var item = '<li class="list-group-item border rounded mb-2">' +
+                                '<h6 class="mb-1 fw-bold">' + task.title + '</h6>' +
+                                '<small class="text-muted"><i class="fas fa-user me-1"></i>' + task.otherPartyName + '</small><br/>' +
+                                '<span class="badge ' + statusClass + ' mt-2"><i class="fas ' + statusIcon + ' me-1"></i>' + task.status + '</span>' +
                                 '</li>';
                             $('#past-list').append(item);
                         });

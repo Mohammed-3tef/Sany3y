@@ -1,14 +1,69 @@
-﻿:root {
+﻿/* ========================================
+   CSS VARIABLES - Brand-Aligned Color Palette
+   ======================================== */
+:root {
+    /* Primary Brand Colors - Green Shades */
     --primary-green: #004d00;
+    --primary-green-dark: #003300;
+    --primary-green-darker: #002200;
+    --primary-green-light: #006600;
+    --primary-green-lighter: #008000;
+    --primary-green-pale: #e8f5e9;
+
+    /* Accent Colors - Yellow/Gold Shades */
     --accent-yellow: #ffb300;
-    --light-yellow: #ffc947;
-    --light-bg: #f8f9fa;
-    --text-dark: #2c3e50;
+    --accent-yellow-dark: #e0a800;
+    --accent-yellow-darker: #cc9900;
+    --accent-gold: #ffc947;
+    --accent-gold-light: #ffd966;
+    --accent-gold-pale: #fff9e6;
+
+    /* Status Colors */
+    --success-green: #34a853;
+    --success-green-dark: #2d8e47;
+    --success-green-pale: #d4edda;
+
+    --warning-amber: #fbbc04;
+    --warning-amber-dark: #e0a800;
+    --warning-amber-pale: #fff3cd;
+
+    --danger-red: #ea4335;
+    --danger-red-dark: #c5362c;
+    --danger-red-pale: #f8d7da;
+
+    --info-teal: #17a2b8;
+    --info-teal-dark: #138496;
+    --info-teal-pale: #d1ecf1;
+
+    /* Neutral Colors */
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --bg-gray: #e9ecef;
+    --text-primary: #2c3e50;
+    --text-secondary: #5f6368;
+    --text-muted: #6c757d;
+    --border-light: #dee2e6;
+    --border-medium: #ced4da;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 77, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 77, 0, 0.1);
+    --shadow-lg: 0 10px 20px rgba(0, 77, 0, 0.15);
+    --shadow-hover: 0 6px 12px rgba(0, 77, 0, 0.15);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
 }
 
+/* ========================================
+   BASE STYLES
+   ======================================== */
 html {
     font-size: 14px;
     font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -17,21 +72,212 @@ html {
     }
 }
 
+body {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+}
+
+/* ========================================
+   FOCUS STATES
+   ======================================== */
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--primary-green);
 }
 
-html {
-    position: relative;
-    min-height: 100%;
-    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ========================================
+   DASHBOARD CARD STYLES
+   ======================================== */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    margin-bottom: 1.5rem;
 }
 
-/* كل الـ td و th و أي p جوه الجدول يتوسّطوا عموديًا وأفقيًا */
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+}
+
+.card-header.bg-info {
+    background: linear-gradient(135deg, var(--info-teal) 0%, var(--info-teal-dark) 100%) !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--success-green-dark) 100%) !important;
+}
+
+.card-header.bg-warning {
+    background: linear-gradient(135deg, var(--warning-amber) 0%, var(--warning-amber-dark) 100%) !important;
+}
+
+.card-header.bg-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%) !important;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* ========================================
+   ENHANCED BADGES
+   ======================================== */
+.badge {
+    padding: 0.5em 0.85em;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary-green) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--success-green) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--warning-amber) !important;
+    color: var(--text-primary) !important;
+}
+
+.badge.bg-danger {
+    background-color: var(--danger-red) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--info-teal) !important;
+}
+
+/* ========================================
+   ENHANCED BUTTONS
+   ======================================== */
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-green-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success {
+    background-color: var(--success-green);
+}
+
+.btn-success:hover {
+    background-color: var(--success-green-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+    background-color: var(--danger-red);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger-red-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-warning {
+    background-color: var(--warning-amber);
+    color: var(--text-primary);
+}
+
+.btn-warning:hover {
+    background-color: var(--warning-amber-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-animate:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   LIST GROUP ENHANCEMENTS
+   ======================================== */
+.list-group-item {
+    border: 1px solid var(--border-light);
+    border-radius: 8px !important;
+    margin-bottom: 0.75rem;
+    transition: all var(--transition-fast);
+    background-color: var(--bg-white);
+}
+
+.list-group-item:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateX(-3px);
+    border-color: var(--primary-green);
+}
+
+.list-group-flush .list-group-item {
+    border-width: 0 0 1px;
+    border-radius: 0 !important;
+}
+
+/* ========================================
+   PROFILE SECTION
+   ======================================== */
+.img-thumbnail {
+    border: 3px solid var(--border-light);
+    padding: 0.25rem;
+    transition: all var(--transition-normal);
+}
+
+.img-thumbnail:hover {
+    border-color: var(--primary-green);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   TABLE ENHANCEMENTS
+   ======================================== */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--bg-light);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 77, 0, 0.05);
+}
+
+/* DataTables Styles */
 table.dataTable td,
 table.dataTable th,
 table.dataTable td p {
@@ -39,45 +285,97 @@ table.dataTable td p {
     vertical-align: middle !important;
 }
 
-/* محاذاة عناصر الـ DataTables layout */
 .dataTables_wrapper .dataTables_filter,
 .dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_paginate {
     margin: 0;
-    /* يشيل أي مسافات زائدة */
 }
 
-/* RTL support */
 .dataTables_wrapper {
     direction: rtl;
     text-align: right;
 }
 
-/* نخلي input البحث على الشمال */
 .dataTables_wrapper .dataTables_filter {
     float: left;
-    /* Search box على الشمال */
     text-align: left;
-    /* نص البحث على الشمال */
     margin: 0 0 10px 0;
-    /* مسافة بسيطة أسفل */
 }
 
-/* Buttons و Responsive details */
 .dataTables_wrapper .dt-buttons {
     float: right;
-    /* زرار Export على اليمين */
     margin-bottom: 10px;
 }
 
-
-.btn-animate:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+/* ========================================
+   LOADING SPINNER
+   ======================================== */
+.spinner-border {
+    color: var(--primary-green);
 }
 
-/* Scroll to Top Button */
+/* ========================================
+   ALERT ENHANCEMENTS
+   ======================================== */
+.alert {
+    border-radius: 8px;
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-success {
+    background-color: var(--success-green-pale);
+    color: var(--success-green-dark);
+}
+
+/* ========================================
+   MODAL ENHANCEMENTS
+   ======================================== */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    border: none;
+}
+
+.modal-footer {
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+/* ========================================
+   FORM ENHANCEMENTS
+   ======================================== */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    padding: 0.625rem 0.875rem;
+    transition: all var(--transition-fast);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(0, 77, 0, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   SCROLL TO TOP BUTTON
+   ======================================== */
 #scrollTopBtn {
     display: none;
     position: fixed;
@@ -88,20 +386,23 @@ table.dataTable td p {
     border: none;
     outline: none;
     background-color: var(--accent-yellow);
-    color: white;
+    color: var(--text-primary);
     cursor: pointer;
     padding: 15px;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
 }
 
 #scrollTopBtn:hover {
-    background-color: #e0a800;
+    background-color: var(--accent-yellow-dark);
     transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
-/* Fade In Up Animation */
+/* ========================================
+   ANIMATIONS
+   ======================================== */
 .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
@@ -111,4 +412,99 @@ table.dataTable td p {
 .fade-in-up.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.4s ease-out;
+}
+
+/* ========================================
+   DASHBOARD SPECIFIC STYLES
+   ======================================== */
+.dashboard-stat-card {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.dashboard-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.dashboard-stat-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-stat-card p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Earnings Display */
+.earnings-card {
+    background: linear-gradient(135deg, var(--success-green) 0%, var(--success-green-dark) 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.earnings-card h4 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .dashboard-stat-card h3 {
+        font-size: 1.5rem;
+    }
 }
