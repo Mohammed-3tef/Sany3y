@@ -49,6 +49,7 @@ namespace Sany3y.Controllers
             if (rating != null)
                 users = users.Where(u => u.Rating >= rating.Value).ToList();
 
+            ViewBag.AllCategories = await _http.GetFromJsonAsync<List<Category>>("api/Category/GetAll");
             return View(users);
         }
 

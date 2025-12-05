@@ -1,7 +1,9 @@
+@using Sany3y.Infrastructure.Models
 @model IEnumerable<Sany3y.Infrastructure.Models.User>
 
 @{
     ViewData["Title"] = "احجز مع أفضل الصنايعية";
+    var categories = ViewBag.AllCategories as List<Category>;
 }
 
 <style>
@@ -360,10 +362,18 @@
                             </div>
 
                             <div class="tech-meta">
-                                <div><i class="fas fa-stethoscope"></i> متخصص في: <span class="fw-bold text-dark">صيانة عامة</span></div>
-                                <div><i class="fas fa-map-marker-alt"></i> العنوان: @(user.Address?.City ?? "القاهرة")، @(user.Address?.Street ?? "غير محدد")</div>
-                                <div><i class="fas fa-money-bill-alt"></i> سعر المعاينة: <span class="fw-bold text-success">50 ج.م</span></div>
-                                <div><i class="fas fa-phone-alt"></i> 16676 - سعر مكالمة عادية</div>
+                                <div>
+                                    <i class="fas fa-stethoscope"></i> متخصص في:
+                                    <span class="fw-bold text-dark">
+                                        @{
+                                            var category = categories?.FirstOrDefault(c => c.Id == user.CategoryID);
+                                        }
+                                        @(category?.Name ?? "غير محدد")
+                                    </span>
+                                </div>
+                                <div><i class="fas fa-map-marker-alt"></i> العنوان: @(user.Address?.Governorate ?? "القاهرة")، @(user.Address?.City ?? "غير محدد")، @(user.Address?.Street ?? "غير محدد")</div>
+                                <div><i class="fas fa-money-bill-alt"></i> سعر المعاينة: <span class="fw-bold text-success">@user.Price ج.م</span></div>
+                                <div><i class="fas fa-phone-alt"></i> @user.PhoneNumber - سعر مكالمة عادية</div>
                             </div>
                         </a>
                         <!-- Action Section -->

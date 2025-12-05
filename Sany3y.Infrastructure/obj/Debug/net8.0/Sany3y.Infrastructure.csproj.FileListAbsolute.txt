@@ -13,3 +13,18 @@ D:\final grad\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\refint\Sany3y.Infras
 D:\final grad\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
 D:\final grad\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
 D:\final grad\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll
+D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.deps.json
+D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.runtimeconfig.json
+D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.dll
+D:\Projects\Sany3y\Sany3y.Infrastructure\bin\Debug\net8.0\Sany3y.Infrastructure.pdb
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.AssemblyReference.cache
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.AssemblyInfo.cs
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.sourcelink.json
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.dll
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\refint\Sany3y.Infrastructure.dll
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.pdb
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\Sany3y.Infrastructure.genruntimeconfig.cache
+D:\Projects\Sany3y\Sany3y.Infrastructure\obj\Debug\net8.0\ref\Sany3y.Infrastructure.dll

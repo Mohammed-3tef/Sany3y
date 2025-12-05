@@ -777,7 +777,8 @@ namespace Sany3y.Controllers
                 Bio = currentUser.Bio,
                 ProfilePicture = userPicture?.Path ?? "https://placehold.co/100x100?text=Profile",
                 CategoryId = currentUser.CategoryID,
-                ExperienceYears = currentUser.ExperienceYears
+                ExperienceYears = currentUser.ExperienceYears,
+                Price = currentUser.Price
             };
             return View(userDTO);
         }

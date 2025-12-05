@@ -84,7 +84,7 @@ namespace Sany3y.Controllers
             var totalCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             ViewBag.TotalCategories = totalCategories.Count;
 
-            await GetTopCategories();
+            //await GetTopCategories();
 
             return View();
         }
