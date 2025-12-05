@@ -27,7 +27,7 @@
                                     <img id="previewImg"
                                          src="@ViewBag.UserProfilePictureUrl"
                                          alt="User Image" class="img-thumbnail"
-                                         style="height: 125px; width:125px; border-radius: 50%;" />
+                                         style="height: 150px; width:150px; border-radius: 50%;" />
                                 </div>
 
                                 <div class="col-md-6">
@@ -82,22 +82,6 @@
                             <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" />
                         </div>
 
-                        <!-- Roles -->
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">الأدوار</label>
-                            <select id="roleSelect" name="Roles" class="form-select">
-                                @foreach (var role in ViewBag.Roles)
-                                {
-                                    if (role != ViewBag.UserRole)
-                                    {
-                                        <option value="@role">@role</option>
-                                        continue;
-                                    }
-                                    <option selected value="@role">@role</option>
-                                }
-                            </select>
-                        </div>
-
                         <!-- Address -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">المدينة</label>
@@ -127,6 +111,51 @@
                         <div class="col-md-12 mb-3">
                             <label class="form-label">الشارع</label>
                             <input type="text" name="Street" value="@(ViewBag.Address?.Street)" class="form-control" />
+                        </div>
+
+                        <!-- Roles -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">الأدوار</label>
+                            <select id="roleSelect" name="Roles" class="form-select">
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    if (role != ViewBag.UserRole)
+                                    {
+                                        <option value="@role">@role</option>
+                                        continue;
+                                    }
+                                    <option selected value="@role">@role</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="col-md-6 mb-3" id="categorySection" style="display:none;">
+                            <label class="form-label">التخصص</label>
+                            <select id="CategoryId" name="Category" class="form-select">
+                                <option value="">اختر التخصص</option>
+                                @{
+                                    if (ViewBag.AllCategories != null)
+                                    {
+                                        foreach (var category in ViewBag.AllCategories)
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Experience Years -->
+                        <div class="col-md-6 mb-3" id="ExperienceYearsSection" style="display:none;">
+                            <label class="form-label">عدد سنين الخبرة</label>
+                            <input type="number" name="ExperienceYears" class="form-control" />
+                        </div>
+
+                        <!-- Price -->
+                        <div class="col-md-6 mb-3" id="PriceSection" style="display:none;">
+                            <label class="form-label">سعر الخدمة</label>
+                            <input type="number" name="Price" class="form-control" />
                         </div>
 
                         <!-- Bio -->
@@ -160,6 +189,20 @@
     const jwtToken = '@jwtToken';
 
     $(document).ready(function () {
+        $('#roleSelect').on('change', function () {
+            let selectedRole = $(this).val();
+
+            if (selectedRole === "Technician") {
+                $('#categorySection').show();
+                $('#ExperienceYearsSection').show();
+                $('#PriceSection').show();
+            } else {
+                $('#categorySection').hide();
+                $('#ExperienceYearsSection').hide();
+                $('#PriceSection').hide();
+            }
+        });
+
         function loadCities() {
             var governorateId = $('#Governorate').val();
             var selectedCity = '@Html.Raw(ViewBag.Address?.City ?? "")';
@@ -200,17 +243,24 @@
         loadCities();
     });
 
-    // ----- Preview Image -----
-    $("#ProfilePicFile").on("change", function (e) {
-        let reader = new FileReader();
-        reader.onload = function (e) {
-            $("#previewImg").attr("src", e.target.result);
-        };
-        reader.readAsDataURL(this.files[0]);
-    });
-
     // ----- Save -----
     $("#saveUserBtn").on("click", function () {
+        let selectedRole = $("#roleSelect").val();
+        let selectedCategory = $("#CategoryId").val();
+
+        if (selectedRole === "Technician") {
+            // والتحقق إن مفيش تخصص متختار
+            if (selectedCategory === "" || selectedCategory == null) {
+                toastr.error("يجب اختيار التخصص قبل تسجيل الفني!");
+                return;
+            }
+
+            if ($("input[name='ExperienceYears']").val() === "" || $("input[name='Price']").val() === "") {
+                toastr.error("يجب إدخال سنوات الخبرة والسعر قبل تسجيل الفني!");
+                return;
+            }
+        }
+
         let userObj = {
             Id: Number("@Model.Id"),
             FirstName: $("input[name='FirstName']").val(),
@@ -222,7 +272,10 @@
             City: $("#City option:selected").text(),
             Street: $("input[name='Street']").val(),
             Bio: $("textarea[name='Bio']").val(),
-            ProfilePictureUrl: ""
+            ProfilePictureUrl: "",
+            CategoryID: selectedRole === "Technician" ? Number(selectedCategory) : null,
+            ExperienceYears: selectedRole === "Technician" ? Number($("input[name='ExperienceYears']").val()) : null,
+            Price: selectedRole === "Technician" ? Number($("input[name='Price']").val()) : null
         };
 
         let addressObj = {
@@ -237,8 +290,6 @@
         formData.append("address", JSON.stringify(addressObj));
         formData.append("role", $("#roleSelect").val());
 
-        let file = $("#ProfilePicFile")[0].files[0];
-        if (file) formData.append("profilePicture", file);
 
         $.ajax({
             url: "/Admin/EditUser",
@@ -250,8 +301,7 @@
                 location.reload();
             },
             error: function (xhr) {
-                let message = "حدث خطأ أثناء حفظ البيانات";
-                toastr.error(message);
+                toastr.error("حدث خطأ أثناء حفظ البيانات");
             }
         });
     });

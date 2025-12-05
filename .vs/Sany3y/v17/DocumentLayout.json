@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\admin\\_viewusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\_viewusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\controllers\\servicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\servicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\admin\\_editusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\_editusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ServicesController.cs",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\ServicesController.cs",
-              "RelativeDocumentMoniker": "Sany3y\\Controllers\\ServicesController.cs",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\ServicesController.cs",
-              "RelativeToolTip": "Sany3y\\Controllers\\ServicesController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwDMAAABoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T07:25:02.418Z",
+              "Title": "_EditUserModal.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAAAPoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-05T08:16:38.209Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ViewState": "AgIAAGIBAAAAAAAAAAAAAHABAABFAAAAAAAAAA==",
+              "Title": "_ViewUserModal.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\_ViewUserModal.cshtml",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGUAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-05T07:19:10.888Z",
+              "WhenOpened": "2025-12-05T08:15:20.26Z",
               "EditorCaption": ""
             },
             {

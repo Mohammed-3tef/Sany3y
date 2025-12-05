@@ -172,7 +172,9 @@ namespace Sany3y.Controllers
                 return NotFound();
 
             ViewBag.Address = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
-            var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+            var userCategory = user.CategoryID.HasValue
+                ? await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID.Value}")
+                : null;
             ViewBag.UserCategory = userCategory?.Name;
 
             var response = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
@@ -307,7 +309,7 @@ namespace Sany3y.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditUser([FromForm] string user, [FromForm] string address, [FromForm] IFormFile profilePicture, [FromForm] string role)
+        public async Task<IActionResult> EditUser([FromForm] string user, [FromForm] string address, [FromForm] string role)
         {
             var userObj = JsonSerializer.Deserialize<UserUpdateDTO>(user);
             var addressObj = JsonSerializer.Deserialize<Address>(address);

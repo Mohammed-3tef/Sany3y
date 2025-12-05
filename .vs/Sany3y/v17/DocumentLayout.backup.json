@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "D:\\Projects\\Sany3y\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\services\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\admin\\_editusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\_editusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|d:\\projects\\sany3y\\sany3y\\views\\admin\\_addusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{722400ED-9816-43F7-B6C3-64F3D3426B3B}|Sany3y\\Sany3y.csproj|solutionrelative:sany3y\\views\\admin\\_addusermodal.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,24 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeDocumentMoniker": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Services\\Index.cshtml",
-              "RelativeToolTip": "Sany3y\\Views\\Services\\Index.cshtml",
-              "ViewState": "AgIAAFwBAAAAAAAAAAAAAGoBAACBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-05T07:19:10.888Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_AddUserModal.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_AddUserModal.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\_AddUserModal.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_AddUserModal.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\_AddUserModal.cshtml",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAAAKkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-05T07:53:06.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Sany3y\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Sany3y\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAEgBAAAAAAAAAAAAAFcBAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T07:53:06.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_EditUserModal.cshtml",
+              "DocumentMoniker": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "RelativeDocumentMoniker": "Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "ToolTip": "D:\\Projects\\Sany3y\\Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "RelativeToolTip": "Sany3y\\Views\\Admin\\_EditUserModal.cshtml",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAAAPcAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-05T07:48:56.631Z",
+              "EditorCaption": ""
             }
           ]
         }

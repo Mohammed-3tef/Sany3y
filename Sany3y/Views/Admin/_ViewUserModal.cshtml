@@ -63,21 +63,6 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">الأدوار</label>
-                        <input type="text" value="@string.Join(", ", Model.Roles)" class="form-control" readonly />
-                    </div>
-                    
-                    @{
-                        if (@ViewBag.UserCategory != null)
-                        {
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">التخصص</label>
-                                <input type="text" value="@ViewBag.UserCategory" class="form-control" readonly />
-                            </div>
-                        }
-                    }
-
-                    <div class="col-md-6 mb-3">
                         <label class="form-label">المحافظة</label>
                         <input type="text" value="@(ViewBag.Address?.Governorate)" class="form-control" readonly />
                     </div>
@@ -91,6 +76,31 @@
                         <label class="form-label">الشارع</label>
                         <input type="text" value="@(ViewBag.Address?.Street)" class="form-control" readonly />
                     </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">الأدوار</label>
+                        <input type="text" value="@string.Join(", ", Model.Roles)" class="form-control" readonly />
+                    </div>
+
+                    @{
+                        if (string.Join(", ", Model.Roles) == "Technician")
+                        {
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">التخصص</label>
+                                <input type="text" value="@ViewBag.UserCategory" class="form-control" readonly />
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">عدد سنين الخبرة</label>
+                                <input type="text" value="@Model.User.ExperienceYears" class="form-control" readonly />
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">سعر الخدمة</label>
+                                <input type="text" value="@Model.User.Price" class="form-control" readonly />
+                            </div>
+                        }
+                    }
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label">الحالة الآن</label>
