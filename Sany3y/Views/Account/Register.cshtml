@@ -24,6 +24,7 @@
         padding: 40px 20px;
         text-align: center;
         position: relative;
+        color: white;
     }
 
     .register-header::after {
@@ -305,7 +306,7 @@
                                     <span class="step-icon"><i class="fas fa-layer-group"></i></span>
                                     التخصص
                                 </div>
-                                <div class="row">
+                                <div class="row g-3">
                                     <div class="col-md-12">
                                         <div class="form-floating">
                                             <select asp-for="CategoryId" class="form-select">
@@ -336,7 +337,7 @@
                                     <div class="col-md-6">
                                         <div class="form-floating">
                                             <input asp-for="Price" type="number" class="form-control" placeholder="سعر الخدمة" />
-                                            <label asp-for="Price">سعر الخدمة</label>
+                                            <label asp-for="Price">سعر المعاينة</label>
                                         </div>
                                         <span asp-validation-for="Price" class="text-danger small"></span>
                                     </div>

@@ -85,13 +85,13 @@
         padding: 15px;
         border-radius: 10px;
         background: #f8f9fa;
-        transition: transform 0.2s;
+        transition: all 0.3s ease-in-out;
     }
 
-        .stat-box:hover {
-            transform: translateY(-3px);
-            background: #e9ecef;
-        }
+    .stat-box:hover {
+        transform: translateY(-3px);
+        background: #e9ecef;
+    }
 
     .stat-value {
         font-size: 1.5rem;
@@ -111,12 +111,13 @@
         padding: 10px 25px;
         border-radius: 30px;
         margin: 0 5px;
+        transition: all 0.3s ease-in-out;
     }
 
-        .nav-pills .nav-link.active {
-            background-color: var(--primary-green);
-            color: white;
-        }
+    .nav-pills .nav-link.active {
+        color: white !important;
+        background-color: var(--primary-green) !important;
+    }
 
     /* Reviews */
     .review-card {
@@ -124,9 +125,9 @@
         padding: 20px 0;
     }
 
-        .review-card:last-child {
-            border-bottom: none;
-        }
+    .review-card:last-child {
+        border-bottom: none;
+    }
 
     .review-avatar {
         width: 50px;
@@ -167,9 +168,9 @@
         transition: background 0.3s;
     }
 
-        .btn-book-lg:hover {
-            background: #c9302c;
-        }
+    .btn-book-lg:hover {
+        background: #c9302c;
+    }
 
     /* Mobile Sticky Bar */
     .mobile-book-bar {
@@ -214,7 +215,7 @@
             <div class="profile-card">
                 <!-- Avatar -->
                 <div class="text-center mb-4" style="margin-top: -110px;">
-                    <div class="profile-avatar-container">
+                        <div class="profile-avatar-container">
                         <img src="@ViewBag.UserProfilePicture"
                              class="profile-avatar" alt="@Model.FirstName"
                              onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=User';" />
@@ -389,10 +390,10 @@
 <!-- Schedule Modal -->
 <div class="modal fade" id="scheduleModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content shadow-lg rounded-3 border-0">
+        <div class="modal-content shadow-lg border-0">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title fw-bold">اختر الموعد المناسب</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close btn-close-white" style="margin: -7px" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body p-4">
                 <!-- Success Message -->
@@ -447,12 +448,12 @@
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         z-index: 1000;
-        transition: transform 0.2s;
+        transition: all 0.2s ease-in-out;
     }
 
-        .chat-btn:hover {
-            transform: scale(1.1);
-        }
+    .chat-btn:hover {
+        transform: scale(1.1);
+    }
 
     .chat-window {
         position: fixed;
@@ -541,23 +542,26 @@
     }
 </style>
 
-<div class="chat-btn" id="chatBtn">
-    <i class="fas fa-comments"></i>
-</div>
+@if (ViewBag.CurrentUserId != null && ViewBag.CurrentUserId != Model.Id)
+{
+    <div class="chat-btn" id="chatBtn">
+        <i class="fas fa-comments"></i>
+    </div>
 
-<div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-        <span>محادثة مع @Model.FirstName</span>
-        <i class="fas fa-times" id="closeChat" style="cursor:pointer;"></i>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>محادثة مع @Model.FirstName</span>
+            <i class="fas fa-times" id="closeChat" style="cursor:pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
+            <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
-    <div class="chat-messages" id="chatMessages">
-        <!-- Messages will appear here -->
-    </div>
-    <div class="chat-input-area">
-        <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
-        <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-    </div>
-</div>
+}
 
 @section Scripts {
 

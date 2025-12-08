@@ -45,8 +45,6 @@ ConcurrencyStamp, PhoneNumber, TwoFactorEnabled, LockoutEnd, LockoutEnabled,
 AccessFailedCount, CategoryID, ExperienceYears, Price, Rating
 )
 VALUES
-(100, 30111234567890, N'محمد', N'عادل', N'فني كهرباء', '1993-05-10', 'M', 1, GETDATE(), NULL, 1, 'moh100', 'MOH100', '[moh100@mail.com](mailto:moh100@mail.com)', '[MOH100@MAIL.COM](mailto:MOH100@MAIL.COM)', 1, 'HASH', 'ST', 'CC', '010001100', 0, NULL, 0, 0, 1, 5, 150.00, 4.5),
-(101, 30121234567891, N'أحمد', N'سمير', N'سباك', '1991-03-22', 'M', 0, GETDATE(), NULL, 2, 'ahmed101', 'AHMED101', '[ah101@mail.com](mailto:ah101@mail.com)', '[AH101@MAIL.COM](mailto:AH101@MAIL.COM)', 1, 'HASH', 'ST', 'CC', '010001101', 0, NULL, 0, 0, 2, 7, 200.00, 4.8),
 (102, 29801012345678, N'يوسف', N'حاتم', N'نجار مسلح', '1995-08-01', 'M', 0, GETDATE(), NULL, 3, 'youssef102', 'YOUSSEF102', '[yo102@mail.com](mailto:yo102@mail.com)', '[YO102@MAIL.COM](mailto:YO102@MAIL.COM)', 1, 'HASH', 'ST', 'CC', '010001102', 0, NULL, 0, 0, 3, 4, 120.00, 4.2),
 (103, 29902098765432, N'محمود', N'نبيل', N'فني تبريد', '1990-11-10', 'M', 1, GETDATE(), NULL, 4, 'mahmoud103', 'MAHMOUD103', '[ma103@mail.com](mailto:ma103@mail.com)', '[MA103@MAIL.COM](mailto:MA103@MAIL.COM)', 1, 'HASH', 'ST', 'CC', '010001103', 0, NULL, 0, 0, 4, 6, 250.00, 4.9),
 (104, 30005012349876, N'عمر', N'مجدي', N'حداد', '1994-01-15', 'M', 0, GETDATE(), NULL, 5, 'omar104', 'OMAR104', '[om104@mail.com](mailto:om104@mail.com)', '[OM104@MAIL.COM](mailto:OM104@MAIL.COM)', 1, 'HASH', 'ST', 'CC', '010001104', 0, NULL, 0, 0, 5, 3, 130.00, 4.3),
@@ -82,8 +80,6 @@ SET IDENTITY_INSERT AspNetUsers OFF;
 
 INSERT INTO AspNetUserRoles(UserId, RoleId)
 VALUES
-(100, 2),
-(101, 2),
 (102, 2),
 (103, 2),
 (104, 2),

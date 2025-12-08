@@ -202,7 +202,7 @@
                 <div class="col-md-6">
                     <div class="form-control h-100 d-flex align-items-center justify-content-around border-0 bg-light rounded-3">
                         <div class="form-check">
-                            <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" checked />
+                            <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" />
                             <label class="form-check-label" for="genderMale"><i class="fas fa-male me-1"></i> ذكر</label>
                         </div>
                         <div class="form-check">
@@ -331,7 +331,7 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input asp-for="Price" type="number" class="form-control" placeholder="سعر الخدمة" />
-                            <label asp-for="Price">سعر الخدمة</label>
+                            <label asp-for="Price">سعر المعاينة</label>
                         </div>
                         <span asp-validation-for="Price" class="text-danger small"></span>
                     </div>

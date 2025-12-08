@@ -251,8 +251,8 @@ python app.py
 ## 📖 Documentation
 
 ### Project Documents
-- 📄 [Business Requirements Specification](docs/Business%20Requirements%20Specification.pdf)
-- 🗺️ [Physical ERD Diagram](docs/ERDs/Physical%20ERD.png)
+- 🗺️ [Physical ERD Diagram](./docs/ERDs/ERD.png)
+- 📄 [Full Documentation](./docs/Sany3y.pdf)
 
 ### API Documentation
 - Access Swagger UI at `https://localhost:7178/swagger` when running the API
@@ -327,7 +327,7 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 ## 👥 Team Members
 
-<table>
+<table width="100%">
   <tr>
     <td align="center">
       <a href="https://github.com/Mohammed-3tef">

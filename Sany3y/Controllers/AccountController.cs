@@ -370,6 +370,8 @@ namespace Sany3y.Controllers
                 FirstName = firstName,
                 LastName = lastName,
                 Picture = pictureUrl,
+                IsMale = true,
+                IsClient = true
             };
 
             // Redirect to CompleteProfile with prefilled data

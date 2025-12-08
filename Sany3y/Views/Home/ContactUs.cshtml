@@ -1,14 +1,16 @@
-﻿<title>@ViewData["Title"]</title>
+﻿@{
+    ViewData["Title"] = "تواصل معنا";
+}
+
+<title>@ViewData["Title"]</title>
 <style>
     /* ====== ضبط الاتجاه والخطوط ====== */
     * {
         margin: 0;
-        /* padding: 0; */
         box-sizing: border-box;
-        font-family: 'Cairo', sans-serif;
         direction: rtl;
         text-align: right;
-    }       
+    }
 
     /* ====== Buttons (Login / Signup) ====== */
     .btns {
@@ -35,7 +37,7 @@
     /* ====== Body & Contact Section ====== */
     body {
         background-color: #e5e9ee;
-    background-image: url("https://img.freepik.com/premium-vector/doodle-mechanic-seamless-pattern-background-vector-illustration_7087-2491.jpg");
+        background-image: url("https://img.freepik.com/premium-vector/doodle-mechanic-seamless-pattern-background-vector-illustration_7087-2491.jpg");
         background-position: center;
     }
 
