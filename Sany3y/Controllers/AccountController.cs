@@ -258,14 +258,23 @@ namespace Sany3y.Controllers
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            // Check if username exists
+            // Check username by API
             var response = await _http.GetAsync($"/api/User/GetByUsername/{model.UserName}");
             if (!response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة.");
                 return View("Login", model);
             }
-            var user = await response.Content.ReadFromJsonAsync<User>();
+
+            // Get user data from API
+            var apiUser = await response.Content.ReadFromJsonAsync<User>();
+            var user = await _userManager.FindByNameAsync(apiUser.UserName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة.");
+                return View("Login", model);
+            }
 
             // Check if email is confirmed
             if (!user.EmailConfirmed)
@@ -275,15 +284,18 @@ namespace Sany3y.Controllers
                 return RedirectToAction(nameof(EmailConfirmationNotice));
             }
 
-            // Attempt to sign in the user with the provided credentials
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: true);
+
+            if (result.IsLockedOut)
+                return RedirectToAction("Lockout");
+
             if (!result.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                ModelState.AddModelError(string.Empty, "اسم المستخدم أو كلمة المرور غير صحيحة.");
                 return View("Login", model);
             }
 
-            // Make Account online after login
+            // Mark account online
             await UserStatusUpdater.UpdateUserOnlineStatus(user, true, _http, _hubContext, this);
             var token = await _jwtService.GenerateTokenAsync(user);
             HttpContext.Session.SetString("JwtToken", token);
@@ -537,6 +549,10 @@ namespace Sany3y.Controllers
             HttpContext.Session.SetString("JwtToken", token);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Lockout() => View();
 
         [HttpPost]
         [Authorize]

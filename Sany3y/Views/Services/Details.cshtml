@@ -542,7 +542,7 @@
     }
 </style>
 
-@if (ViewBag.CurrentUserId != null && ViewBag.CurrentUserId != Model.Id)
+@if (ViewBag.CurrentUserId != null && ViewBag.CurrentUserId != Model.Id && User?.Identity?.IsAuthenticated)
 {
     <div class="chat-btn" id="chatBtn">
         <i class="fas fa-comments"></i>

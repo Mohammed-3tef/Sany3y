@@ -24,7 +24,8 @@
         var isAccessDeniedPage = path == "/home/accessdenied";
         var isNotFoundPage = path == "/home/notfoundpage";
         var isError500Page = path == "/home/error500";
-        var mainClass = isHomePage ? "pb-3" : (isAccessDeniedPage || isNotFoundPage || isError500Page) ? "pt-5" : "pt-5 pb-3 mt-5";
+        var isLockedOut = path == "/account/lockout";
+        var mainClass = isHomePage ? "pb-3" : (isAccessDeniedPage || isNotFoundPage || isError500Page || isLockedOut) ? "pt-5" : "pt-5 pb-3 mt-5";
     }
 
     <div class="@mainClass">
