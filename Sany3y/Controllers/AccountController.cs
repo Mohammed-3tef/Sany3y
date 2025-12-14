@@ -102,6 +102,17 @@ namespace Sany3y.Controllers
             await PopulateGovernoratesAsync();
             return View();
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> RegisterShop()
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "Index");
+
+            await GetAllCategories();
+            await PopulateGovernoratesAsync();
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -111,39 +122,45 @@ namespace Sany3y.Controllers
             {
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             if (model.BirthDate >= DateTime.Now)
             {
-                ModelState.AddModelError("BirthDate", "تاريخ الميلاد غير صالح.");
+                if (model.IsShop != null && (bool)model.IsShop)
+                    ModelState.AddModelError("BirthDate", "تاريخ الإنشاء غير صالح.");
+                else 
+                    ModelState.AddModelError("BirthDate", "تاريخ الميلاد غير صالح.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             if (!model.IsClient && model.CategoryId == null)
             {
-                ModelState.AddModelError("CategoryId", "يرجى اختيار فئة فني.");
+                if (model.IsShop != null && (bool)model.IsShop)
+                    ModelState.AddModelError("CategoryId", "يرجى اختيار فئة المتجر.");
+                else
+                    ModelState.AddModelError("CategoryId", "يرجى اختيار فئة فني.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
-            
-            if (!model.IsClient && model.ExperienceYears == null)
+
+            if (!model.IsClient && model.IsShop == false && model.ExperienceYears == null)
             {
                 ModelState.AddModelError("ExperienceYears", "يرجى إدخال سنوات الخبرة.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
-            if (!model.IsClient && model.Price == null)
+            if (!model.IsClient && model.IsShop == false && model.Price == null)
             {
                 ModelState.AddModelError("Price", "يرجى إدخال سعر الخدمة.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             // تحقق من الرقم القومي باستخدام OCR
@@ -152,7 +169,7 @@ namespace Sany3y.Controllers
                 ModelState.AddModelError("NationalIdImage", "يرجى رفع صورة البطاقة.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View(model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             string extractedId = await _ocrService.DetectNationalIdAsync(model.NationalIdImage);
@@ -161,14 +178,14 @@ namespace Sany3y.Controllers
                 ModelState.AddModelError(string.Empty, "تعذّر قراءة الرقم القومي من الصورة.");
                 await PopulateGovernoratesAsync();
                 await GetAllCategories();
-                return View(model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
             if (extractedId != model.NationalId.ToString())
             {
                 ModelState.AddModelError("NationalId", "الرقم القومي لا يطابق الصورة المرفوعة.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             var userGovernorate = await _http.GetFromJsonAsync<Governorate>($"/api/CountryServices/GetGovernorateById/{model.Governorate}");
@@ -190,6 +207,11 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.Password ?? ""), "Password");
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
+
+            form.Add(new StringContent(model.IsShop.ToString()), "IsShop");
+            if (model.IsShop != null && (bool)model.IsShop)
+                form.Add(new StringContent(model.ShopName ?? ""), "ShopName");
+
             if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
             if (!string.IsNullOrEmpty(model.ExperienceYears.ToString()))
@@ -218,7 +240,7 @@ namespace Sany3y.Controllers
 
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View(model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             // قراءة المستخدم الناتج
@@ -228,7 +250,7 @@ namespace Sany3y.Controllers
                 ModelState.AddModelError(string.Empty, "حدث خطأ أثناء إنشاء المستخدم عبر API.");
                 await GetAllCategories();
                 await PopulateGovernoratesAsync();
-                return View("Register", model);
+                return View(model.IsShop == true ? "RegisterShop" : "Register", model);
             }
 
             // إضافة الدور
@@ -586,8 +608,8 @@ namespace Sany3y.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
             ViewBag.Message = result.Succeeded
-                ? "Your email has been successfully confirmed! You can now log in."
-                : "Email confirmation failed. The link may be invalid or expired.";
+                ? "تم تأكيد البريد الإلكتروني بنجاح! يمكنك الآن تسجيل الدخول."
+                : "فشل تأكيد البريد الإلكتروني. قد يكون الرابط غير صالح أو منتهي الصلاحية.";
 
             await _signInManager.SignOutAsync();
             return View("ConfirmEmail");

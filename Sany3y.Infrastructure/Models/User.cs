@@ -63,5 +63,9 @@ namespace Sany3y.Infrastructure.Models
         [ForeignKey("Category")]
         public int? CategoryID { get; set; }
         public Category? Category { get; set; }
+
+        // Shop Details
+        public bool? IsShop { get; set; }
+        public string? ShopName { get; set; }
     }
 }

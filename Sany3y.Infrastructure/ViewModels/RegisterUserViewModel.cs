@@ -76,5 +76,9 @@ namespace Sany3y.Infrastructure.ViewModels
         public int? ExperienceYears { get; set; }
 
         public decimal? Price { get; set; }
+
+        // Shop Details
+        public bool? IsShop { get; set; }
+        public string? ShopName { get; set; }
     }
 }

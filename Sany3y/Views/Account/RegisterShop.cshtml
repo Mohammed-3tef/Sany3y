@@ -1,7 +1,7 @@
 ﻿@model Sany3y.Infrastructure.ViewModels.RegisterUserViewModel
 
 @{
-    ViewData["Title"] = "إنشاء حساب جديد";
+    ViewData["Title"] = "إنشاء حساب محل جديد";
 }
 
 <style>
@@ -36,44 +36,6 @@
         width: 20px;
         height: 20px;
         background: white;
-    }
-
-    .role-selector .btn-check:checked + .role-card {
-        border-color: var(--primary-green);
-        background-color: #e8f5e9;
-        color: var(--primary-green);
-    }
-
-    .role-selector .btn-check:checked + .role-card .role-icon {
-        color: var(--primary-green);
-        transform: scale(1.1);
-    }
-
-    .role-card {
-        border: 2px solid #eee;
-        border-radius: 15px;
-        padding: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: white;
-    }
-
-    .role-card:hover {
-        border-color: var(--accent-yellow);
-        background-color: #fffde7;
-        transform: translateY(-2px);
-    }
-
-    .role-icon {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        color: #ccc;
-        transition: all 0.3s;
     }
 
     .form-floating > label {
@@ -128,10 +90,10 @@
         background: #fafafa;
     }
 
-    .custom-file-upload:hover {
-        border-color: var(--primary-green);
-        background: #f1f8e9;
-    }
+        .custom-file-upload:hover {
+            border-color: var(--primary-green);
+            background: #f1f8e9;
+        }
 </style>
 
 <div class="register-section">
@@ -140,50 +102,20 @@
             <div class="col-lg-8">
                 <div class="register-card animate__animated animate__fadeInUp">
                     <div class="register-header">
-                        <h2 class="fw-bold mb-2">إنشاء حساب جديد</h2>
-                        <p class="mb-0 opacity-75">انضم إلينا الآن وابدأ رحلتك مع صنايعي</p>
+                        <h2 class="fw-bold mb-2">إنشاء حساب محل جديد</h2>
+                        <p class="mb-0 opacity-75">انضم إلينا الآن وأضف محلك إلى صنايعي</p>
                     </div>
 
                     <div class="p-3 p-md-5">
-                        <form asp-action="Register" enctype="multipart/form-data">
+                        <form asp-action="Register" enctype="multipart/form-data" method="post">
                             <div asp-validation-summary="All" class="alert alert-danger mb-4" role="alert" style="display:none;"></div>
 
-                            <input type="hidden" asp-for="IsShop" value="false" />
+                            <input type="hidden" asp-for="IsShop" value="true" />
 
-                            <!-- 1. Account Type -->
-                            <div class="mb-5">
-                                <h5 class="text-center mb-4 fw-bold text-muted">اختر نوع الحساب</h5>
-                                <div class="row g-3 role-selector justify-content-center">
-                                    <div class="col-4 col-md-3">
-                                        <input type="radio" asp-for="IsClient" value="true" id="roleClient" class="btn-check" checked>
-                                        <label class="role-card" for="roleClient">
-                                            <i class="fas fa-user role-icon"></i>
-                                            <h5 class="fw-bold mb-1">عميل</h5>
-                                            <small class="text-muted">أبحث عن خدمات</small>
-                                        </label>
-                                    </div>
-                                    <div class="col-4 col-md-3">
-                                        <input type="radio" asp-for="IsClient" value="false" id="roleTechnician" class="btn-check">
-                                        <label class="role-card" for="roleTechnician">
-                                            <i class="fas fa-tools role-icon"></i>
-                                            <h5 class="fw-bold mb-1">فني</h5>
-                                            <small class="text-muted">أقدم خدمات</small>
-                                        </label>
-                                    </div>
-                                    <div class="col-4 col-md-3" onclick="window.location.href='@Url.Action("RegisterShop", "Account")'">
-                                        <label class="role-card" for="roleShop">
-                                            <i class="fas fa-store role-icon"></i>
-                                            <h5 class="fw-bold mb-1">محل</h5>
-                                            <small class="text-muted">يمثل محل/متجر</small>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 2. Personal Info -->
+                            <!-- بيانات مالك المحل -->
                             <div class="step-title">
-                                <span class="step-icon"><i class="fas fa-id-card"></i></span>
-                                البيانات الشخصية
+                                <span class="step-icon"><i class="fas fa-user"></i></span>
+                                بيانات مالك المحل
                             </div>
                             <div class="row g-3">
                                 <div class="col-md-6">
@@ -200,40 +132,62 @@
                                     </div>
                                     <span asp-validation-for="LastName" class="text-danger small"></span>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="NationalId" type="number" class="form-control" placeholder="الرقم القومي" />
-                                        <label asp-for="NationalId">الرقم القومي (14 رقم)</label>
+                                        <label asp-for="NationalId">الرقم القومي للمالك</label>
                                     </div>
                                     <span asp-validation-for="NationalId" class="text-danger small"></span>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input asp-for="BirthDate" type="date" class="form-control" placeholder="تاريخ الميلاد" />
-                                        <label asp-for="BirthDate">تاريخ الميلاد</label>
+                                <div class="col-md-6 d-flex gap-3 align-items-center">
+                                    <label class="me-2">جنس المالك:</label>
+                                    <div class="form-check">
+                                        <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" checked />
+                                        <label class="form-check-label" for="genderMale"><i class="fas fa-male me-1"></i> ذكر</label>
                                     </div>
-                                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-control h-100 d-flex align-items-center justify-content-around border-0 bg-light rounded-3">
-                                        <div class="form-check">
-                                            <input asp-for="IsMale" class="form-check-input" type="radio" value="true" id="genderMale" checked />
-                                            <label class="form-check-label" for="genderMale"><i class="fas fa-male me-1"></i> ذكر</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input asp-for="IsMale" class="form-check-input" type="radio" value="false" id="genderFemale" />
-                                            <label class="form-check-label" for="genderFemale"><i class="fas fa-female me-1"></i> أنثى</label>
-                                        </div>
+                                    <div class="form-check">
+                                        <input asp-for="IsMale" class="form-check-input" type="radio" value="false" id="genderFemale" />
+                                        <label class="form-check-label" for="genderFemale"><i class="fas fa-female me-1"></i> أنثى</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 3. Contact Info -->
+                            <!-- بيانات المحل -->
                             <div class="step-title">
-                                <span class="step-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                بيانات التواصل
+                                <span class="step-icon"><i class="fas fa-store"></i></span>
+                                بيانات المحل
                             </div>
                             <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        <input asp-for="ShopName" class="form-control" placeholder="اسم المحل" />
+                                        <label asp-for="ShopName">اسم المحل</label>
+                                    </div>
+                                    <span asp-validation-for="ShopName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <select asp-for="CategoryId" class="form-select">
+                                            <option value="">اختر نوع النشاط</option>
+                                            @if (ViewBag.AllCategories != null)
+                                            {
+                                                foreach (var category in ViewBag.AllCategories)
+                                                {
+                                                    <option value="@category.Id">@category.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <label asp-for="CategoryId">نوع النشاط</label>
+                                    </div>
+                                    <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="BirthDate" type="date" class="form-control" placeholder="تاريخ الإنشاء" />
+                                        <label asp-for="BirthDate">تاريخ الإنشاء</label>
+                                    </div>
+                                    <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="Email" type="email" class="form-control" placeholder="البريد الإلكتروني" />
@@ -244,10 +198,18 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="PhoneNumber" class="form-control" placeholder="رقم الهاتف" />
-                                        <label asp-for="PhoneNumber">رقم الهاتف</label>
+                                        <label asp-for="PhoneNumber">رقم هاتف</label>
                                     </div>
                                     <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
                                 </div>
+                            </div>
+
+                            <!-- بيانات التواصل للمحل -->
+                            <div class="step-title">
+                                <span class="step-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                بيانات التواصل
+                            </div>
+                            <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <select asp-for="Governorate" class="form-select" id="Governorate">
@@ -259,13 +221,12 @@
                                         </select>
                                         <label asp-for="Governorate">المحافظة</label>
                                     </div>
-                                    <span asp-validation-for="City" class="text-danger small"></span>
+                                    <span asp-validation-for="Governorate" class="text-danger small"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <select asp-for="City" class="form-select" id="City">
                                             <option value="">اختر المدينة</option>
-                                            @* Cities will be populated via JavaScript based on selected governorate *@
                                         </select>
                                         <label asp-for="City">المدينة</label>
                                     </div>
@@ -280,7 +241,7 @@
                                 </div>
                             </div>
 
-                            <!-- 4. Security -->
+                            <!-- بيانات الحساب -->
                             <div class="step-title">
                                 <span class="step-icon"><i class="fas fa-lock"></i></span>
                                 بيانات الحساب
@@ -308,63 +269,19 @@
                                     <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                                 </div>
                             </div>
-                            
-                            <!-- 5. Category --></>
-                            <div class="mb-5" id="categorySection" style="display:none;">
-                                <div class="step-title">
-                                    <span class="step-icon"><i class="fas fa-layer-group"></i></span>
-                                    التخصص
-                                </div>
-                                <div class="row g-3">
-                                    <div class="col-md-12">
-                                        <div class="form-floating">
-                                            <select asp-for="CategoryId" class="form-select">
-                                                <option value="">اختر التخصص</option>
-                                                @{
-                                                    if (ViewBag.AllCategories != null)
-                                                    {
-                                                        foreach (var category in ViewBag.AllCategories)
-                                                        {
-                                                            <option value="@category.Id">@category.Name</option>
-                                                        }
-                                                    }
-                                                }
-                                            </select>
-                                            <label asp-for="CategoryId">التخصص</label>
-                                        </div>
-                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
-                                    </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input asp-for="ExperienceYears" type="number" class="form-control" placeholder="عدد سنين الخبرة" />
-                                            <label asp-for="ExperienceYears">عدد سنين الخبرة</label>
-                                        </div>
-                                        <span asp-validation-for="ExperienceYears" class="text-danger small"></span>
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input asp-for="Price" type="number" class="form-control" placeholder="سعر الخدمة" />
-                                            <label asp-for="Price">سعر المعاينة</label>
-                                        </div>
-                                        <span asp-validation-for="Price" class="text-danger small"></span>
-                                    </div>
-                                </div>
-                            </div>                            
-
-                            <!-- 6. Verification -->
+                            <!-- التحقق من الهوية / الرخصة -->
                             <div class="step-title">
                                 <span class="step-icon"><i class="fas fa-camera"></i></span>
-                                التحقق من الهوية
+                                التحقق من الهوية / الرخصة
                             </div>
                             <div class="mb-4">
-                                <label class="form-label mb-2">صورة البطاقة الشخصية (للتحقق)</label>
+                                <label class="form-label mb-2">صورة بطاقة مالك المحل</label>
                                 <label class="custom-file-upload d-block w-100">
-                                    <input type="file" name="NationalIdImage" accept="image/*" style="display: none;" onchange="previewImage(this)" />
+                                    <input asp-for="NationalIdImage" type="file" accept="image/*" style="display:none;" onchange="previewImage(this)" />
                                     <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
-                                    <h6 class="text-muted">اضغط هنا لرفع صورة البطاقة</h6>
-                                    <p class="small text-muted mb-0">يرجى التأكد من وضوح الصورة والأرقام</p>
+                                    <h6 class="text-muted">اضغط هنا لرفع الصورة</h6>
+                                    <p class="small text-muted mb-0">يرجى التأكد من وضوح الصورة</p>
                                     <div id="image-preview" class="mt-3 d-none">
                                         <img src="" alt="Preview" style="max-height: 150px; border-radius: 10px;" />
                                         <p class="text-success small mt-1"><i class="fas fa-check-circle"></i> تم اختيار الصورة</p>
@@ -396,8 +313,10 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
         function previewImage(input) {
             if (input.files && input.files[0]) {
@@ -410,48 +329,26 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        
-        // Show validation summary if it has errors
-        $(document).ready(function() {
-            if ($(".validation-summary-errors").length > 0) {
-                $(".alert-danger").show();
+
+        $('#Governorate').change(function () {
+            var governorateId = $(this).val();
+            if (!governorateId) {
+                $('#City').empty().append('<option value="">اختر المدينة</option>');
+                return;
             }
-
-            $('input[name="IsClient"]').on('change', function () {
-                if ($('#roleTechnician').is(':checked')) {
-                    $('#categorySection').show();
-                } else {
-                    $('#categorySection').hide();
-                }
-            });
-
-            $('#Governorate').change(function () {
-                var governorateId = $(this).val();
-
-                if (!governorateId) {
-                    $('#City').empty().append('<option value="">اختر المدينة</option>');
-                    return;
-                }
-
-                $.ajax({
-                    url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
-                    type: 'GET',
-                    success: function (cities) {
-                        var citySelect = $('#City');
-                        citySelect.empty();
-                        citySelect.append('<option value="">اختر المدينة</option>');
-
-                        if (cities && cities.length > 0) {
-                            $.each(cities, function (index, city) {
-                                citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
-                            });
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('AJAX Error:', status, error); // فقط log في console
-                        // alert('حدث خطأ أثناء جلب المدن.');  <-- ممكن تشيله
+            $.ajax({
+                url: `https://localhost:7178/api/CountryServices/GetCitiesByGovernorateId/${governorateId}`,
+                type: 'GET',
+                success: function (cities) {
+                    var citySelect = $('#City');
+                    citySelect.empty();
+                    citySelect.append('<option value="">اختر المدينة</option>');
+                    if (cities && cities.length > 0) {
+                        $.each(cities, function (index, city) {
+                            citySelect.append('<option value="' + city.id + '">' + city.arabicName + '</option>');
+                        });
                     }
-                });
+                }
             });
         });
     </script>

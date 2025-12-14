@@ -106,6 +106,8 @@ namespace Sany3y.API.Controllers
                 CategoryID = userDto.IsClient ? null : userDto.CategoryId,
                 ExperienceYears = userDto.IsClient ? null : userDto.ExperienceYears,
                 Price = userDto.IsClient ? null : userDto.Price,
+                IsShop = userDto.IsShop,
+                ShopName = userDto.IsShop == true ? userDto.ShopName : null,
             };
 
             var result = await _userManager.CreateAsync(user, userDto.Password);
