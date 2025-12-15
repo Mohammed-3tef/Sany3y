@@ -11,10 +11,10 @@
 
     <div>
         <!-- Maybe a different export for shops or same actions -->
-        <a asp-controller="Admin" asp-action="ExportUsersPDF" class="btn btn-outline-danger">
+        <a asp-controller="Admin" asp-action="ExportStoresPDF" class="btn btn-outline-danger">
             <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
         </a>
-        <a asp-controller="Admin" asp-action="ExportUsersCSV" class="btn btn-outline-success">
+        <a asp-controller="Admin" asp-action="ExportStoresCSV" class="btn btn-outline-success">
             <i class="fa-solid fa-file-csv me-1"></i> تصدير CSV
         </a>
     </div>
@@ -26,7 +26,6 @@
             <th>اسم المحل</th>
             <th>اسم المالك</th>
             <th>البريد الإلكتروني</th>
-            <th>الدور</th>
             <th>الحالة</th>
             <th>تاريخ الإنشاء</th>
             <th>الإجراءات</th>
@@ -39,7 +38,6 @@
                 <td>@(item.User.ShopName ?? "غير محدد")</td>
                 <td>@item.User.FirstName @item.User.LastName</td>
                 <td>@item.User.Email</td>
-                <td>@string.Join(", ", item.Roles)</td>
                 <td>
                     <p class="user-status px-2 rounded-pill text-center mb-0
                         @(item.User.IsOnline ? "text-success border border-success" : "text-danger border border-danger")"

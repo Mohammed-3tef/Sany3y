@@ -309,4 +309,3 @@ D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.pdb
 D:\final grad\Sany3y.API\obj\Debug\net8.0\Sany3y.API.genruntimeconfig.cache
 D:\final grad\Sany3y.API\obj\Debug\net8.0\ref\Sany3y.API.dll
 D:\final grad\Sany3y.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-D:\Projects\Sany3y\Sany3y.API\bin\Debug\net8.0\Sany3y.API.exe

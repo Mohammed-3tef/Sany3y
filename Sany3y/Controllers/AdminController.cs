@@ -402,7 +402,7 @@ namespace Sany3y.Controllers
 
             string[] headers = {
                 "الرقم القومي", "اسم المستخدم", "الاسم كامل", "النوع", "تاريخ الميلاد",
-                "البريد الالكتروني", "الهاتف", "الوظيفة", "المدينة", "الشارع"
+                "البريد الالكتروني", "الهاتف", "الوظيفة", "المحافظة", "المدينة", "الشارع"
             };
 
             var data = users.Select(u => new
@@ -427,7 +427,7 @@ namespace Sany3y.Controllers
                 headers,
                 item => new object[] {
                     item.NationalId, item.UserName, item.Name, item.Gender, item.BirthDate,
-                    item.Email, item.PhoneNumber, item.Role, item.City, item.Street
+                    item.Email, item.PhoneNumber, item.Role, item.Governorate, item.City, item.Street
             });
         }
 
@@ -444,7 +444,7 @@ namespace Sany3y.Controllers
 
             string[] headers = {
                 "National ID", "Username", "Full Name", "Gender", "Birth Date",
-                "Email", "Phone", "Role", "City", "Street"
+                "Email", "Phone", "Role", "Governorate", "City", "Street"
             };
 
             var data = users.Select(u => new
@@ -458,7 +458,8 @@ namespace Sany3y.Controllers
                 u.PhoneNumber,
                 Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
                 City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
-                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A"
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A",
+                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Governorate ?? "N/A"
             }).Where(u => u.Role != "Admin").ToList();
 
             var exporter = new TableExporter();
@@ -468,6 +469,98 @@ namespace Sany3y.Controllers
                 headers,
                 item => new object[] {
                     item.NationalId, item.UserName, item.Name, item.Gender, item.BirthDate,
+                    item.Email, item.PhoneNumber, item.Role, item.Governorate, item.City, item.Street
+                });
+        }
+        
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ExportStoresPDFAsync()
+        {
+            var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
+            users = users?.Where(u => u.IsShop == true).ToList();
+
+            if (!users.Any())
+            {
+                TempData["Error"] = "لا يوجد متاجر متاحة للتصدير.";
+                return RedirectToAction("Users");
+            }
+
+            var data = users.Select(u => new
+            {
+                ShopName = u.ShopName,
+                Category = u.CategoryID.HasValue
+                    ? _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{u.CategoryID.Value}").Result?.Name ?? "N/A"
+                    : "N/A",
+                OwnerName = u.FirstName + " " + u.LastName,
+                u.UserName,
+                CreationDate = u.BirthDate.Date.ToString("dd/MM/yyyy"),
+                u.Email,
+                u.PhoneNumber,
+                Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
+                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Governorate ?? "N/A",
+                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A",
+                u.IsShop
+            }).Where(u => u.Role == "Technician" && u.IsShop == true).ToList();
+
+            string[] headers = {
+                "اسم المتجر", "نوع النشاط", "اسم المالك", "اسم المستخدم", "تاريخ الإنشاء",
+                "البريد الالكتروني", "الهاتف", "المحافظة", "المدينة", "الشارع"
+            };
+
+            var exporter = new TableExporter();
+            return exporter.ExportArabicToPDF(
+                data,
+                "Sany3y Stores",
+                headers,
+                item => new object[] {
+                    item.ShopName, item.Category, item.OwnerName, item.UserName, item.CreationDate,
+                    item.Email, item.PhoneNumber, item.Governorate, item.City, item.Street
+            });
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ExportStoresCSVAsync()
+        {
+            var users = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
+            users = users?.Where(u => u.IsShop == true).ToList();
+
+            if (!users.Any())
+            {
+                TempData["Error"] = "لا يوجد محلات متاحة للتصدير.";
+                return RedirectToAction("Users");
+            }
+
+            var data = users.Select(u => new
+            {
+                ShopName = u.ShopName,
+                Category = u.CategoryID.HasValue
+                    ? _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{u.CategoryID.Value}").Result?.Name ?? "N/A"
+                    : "N/A",
+                OwnerName = u.FirstName + " " + u.LastName,
+                u.UserName,
+                CreationDate = u.BirthDate.Date.ToString("dd/MM/yyyy"),
+                u.Email,
+                u.PhoneNumber,
+                Role = _userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "N/A",
+                City = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.City ?? "N/A",
+                Street = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Street ?? "N/A",
+                Governorate = _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{u.AddressId}").Result?.Governorate ?? "N/A",
+                u.IsShop
+            }).Where(u => u.Role == "Technician" && u.IsShop == true).ToList();
+
+            string[] headers = {
+                "Shop Name", "Category", "Owner Name", "Username", "Creation Date",
+                "Email", "Phone", "Governorate", "City", "Street"
+            };
+
+            var exporter = new TableExporter();
+            return exporter.ExportToCSV(
+                data,
+                "Sany3y Stores",
+                headers,
+                item => new object[] {
+                    item.ShopName, item.Category, item.OwnerName, item.UserName, item.CreationDate,
                     item.Email, item.PhoneNumber, item.Role, item.City, item.Street
                 });
         }

@@ -32,7 +32,7 @@ namespace Sany3y.Controllers
             {
                 // Filter by IsShop == true
                 // Note: IsShop is nullable bool?
-                users = users.Where(u => u.IsShop == true).ToList();
+                users = users.Where(u => u.IsShop != null && u.IsShop == true).ToList();
 
                 // 3. Apply other filters
                 if (categoryId != null)

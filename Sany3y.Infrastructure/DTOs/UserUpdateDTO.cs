@@ -46,5 +46,9 @@ namespace Sany3y.Infrastructure.DTOs
         public int? CategoryID { get; set; }
 
         public decimal? Price { get; set; }
+
+        public bool? IsShop { get; set; }
+
+        public string? ShopName { get; set; }
     }
 }

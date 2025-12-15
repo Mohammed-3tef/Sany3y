@@ -840,7 +840,7 @@ namespace Sany3y.Controllers
             var currentUser = await _userManager.FindByNameAsync(User?.Identity?.Name);
             if (currentUser == null)
             {
-                ModelState.AddModelError(string.Empty, "User not found.");
+                ModelState.AddModelError(string.Empty, "المستخدم غير موجود.");
                 return View("Profile", userDTO);
             }
 
@@ -853,14 +853,14 @@ namespace Sany3y.Controllers
                 }
                 currentUser.CategoryID = userDTO.CategoryId;
 
-                if (string.IsNullOrEmpty(userDTO.ExperienceYears.ToString()))
+                if (string.IsNullOrEmpty(userDTO.ExperienceYears.ToString()) && userDTO.IsShop == null && userDTO.IsShop == false)
                 {
                     ModelState.AddModelError("ExperienceYears", "يرجى إدخال سنوات الخبرة.");
                     return View("Profile", userDTO);
                 }
                 currentUser.ExperienceYears = userDTO.ExperienceYears;
 
-                if (userDTO.Price == null || userDTO.Price <= 0)
+                if ((userDTO.Price == null || userDTO.Price <= 0) && userDTO.IsShop == null && userDTO.IsShop == false)
                 {
                     ModelState.AddModelError("Price", "يرجى إدخال سعر الخدمة.");
                     return View("Profile", userDTO);
@@ -925,6 +925,8 @@ namespace Sany3y.Controllers
                 Governorate = userDTO.Governorate,
                 City = userDTO.City,
                 Street = userDTO.Street,
+                IsShop = userDTO.IsShop,
+                ShopName = userDTO.ShopName,
             };
 
             // تحديث بيانات المستخدم
