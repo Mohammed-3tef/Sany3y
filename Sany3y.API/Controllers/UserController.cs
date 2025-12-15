@@ -174,7 +174,6 @@ namespace Sany3y.API.Controllers
             existingUser.CategoryID = userDto.CategoryID;
             existingUser.ProfilePictureId = userDto.ProfilePictureId;
             existingUser.Price = userDto.Price;
-            existingUser.IsShop = userDto.IsShop;
             existingUser.ShopName = userDto.IsShop == true ? userDto.ShopName : existingUser.ShopName;
 
             await _userRepository.Update(existingUser);

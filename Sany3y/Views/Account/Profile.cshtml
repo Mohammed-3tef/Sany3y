@@ -253,7 +253,7 @@
                             </div>
 
                             @{
-                                if (ViewBag.IsTechnician == true && Model.IsShop == false)
+                                if (ViewBag.IsTechnician == true && (Model.IsShop == null || Model.IsShop == false))
                                 {
                                     <!-- Category Section -->
                                     <div class="col-12 mt-4">

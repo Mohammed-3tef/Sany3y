@@ -208,9 +208,11 @@ namespace Sany3y.Controllers
             form.Add(new StringContent(model.ConfirmPassword ?? ""), "ConfirmPassword");
             form.Add(new StringContent(model.IsClient.ToString()), "IsClient");
 
-            form.Add(new StringContent(model.IsShop.ToString()), "IsShop");
-            if (model.IsShop != null && (bool)model.IsShop)
+            if (model.IsShop == true)
+            {
+                form.Add(new StringContent(model.IsShop.ToString()), "IsShop");
                 form.Add(new StringContent(model.ShopName ?? ""), "ShopName");
+            }
 
             if (!string.IsNullOrEmpty(model.CategoryId.ToString()))
                 form.Add(new StringContent(model.CategoryId.ToString()), "CategoryId");
@@ -607,6 +609,7 @@ namespace Sany3y.Controllers
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
+            ViewBag.State = result.Succeeded ? "Success" : "Failed";
             ViewBag.Message = result.Succeeded
                 ? "تم تأكيد البريد الإلكتروني بنجاح! يمكنك الآن تسجيل الدخول."
                 : "فشل تأكيد البريد الإلكتروني. قد يكون الرابط غير صالح أو منتهي الصلاحية.";
@@ -925,7 +928,6 @@ namespace Sany3y.Controllers
                 Governorate = userDTO.Governorate,
                 City = userDTO.City,
                 Street = userDTO.Street,
-                IsShop = userDTO.IsShop,
                 ShopName = userDTO.ShopName,
             };
 

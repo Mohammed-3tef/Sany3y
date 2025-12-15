@@ -27,7 +27,7 @@ namespace Sany3y.Controllers
             await PopulateFilters();
 
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
-            users = users?.Where(u => u.IsShop == null).ToList();
+            users = users?.Where(u => u.IsShop == null || u.IsShop == false).ToList();
 
             if (categoryId != null)
                 users = users?.Where(u => u.CategoryID == categoryId).ToList();

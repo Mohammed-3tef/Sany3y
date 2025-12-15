@@ -3,7 +3,7 @@
 }
 
 <div class="text-center py-5">
-    @if (ViewBag.Message?.ToString().Contains("successfully") ?? false)
+    @if (ViewBag.State == "Success")
     {
         <div class="alert alert-success shadow-sm p-4 rounded-3">
             <h4 class="fw-semibold mb-2">✅ تم تأكيد البريد بنجاح</h4>
