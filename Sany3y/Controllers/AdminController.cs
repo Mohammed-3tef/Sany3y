@@ -48,7 +48,7 @@ namespace Sany3y.Controllers
             var categoryCounts = new List<object>();
             var allTasks = await _http.GetFromJsonAsync<List<Infrastructure.Models.Task>>("/api/Task/GetAll");
             if (allTasks.Count <= 0 || allCategories.Count <= 0) return;
-            
+
             foreach (var category in allCategories)
             {
                 var count = allTasks.Count(t => t.CategoryId == category.Id);
@@ -113,7 +113,8 @@ namespace Sany3y.Controllers
             for (int month = 1; month <= 12; month++)
             {
                 var count = nonAdminUsers.Count(u => u.CreatedAt.Year == currentYear && u.CreatedAt.Month == month);
-                monthlyUserCounts.Add( new {
+                monthlyUserCounts.Add(new
+                {
                     Month = months[month - 1],
                     UserCount = count
                 });
@@ -157,6 +158,31 @@ namespace Sany3y.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 userRoles.Add((user, roles));
+            }
+
+            ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
+            return View(userRoles);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Shops()
+        {
+            var currentUser = await _http.GetFromJsonAsync<User>($"/api/User/GetByUserName/{User?.Identity?.Name}");
+            // Fetch all users and filter for shops
+            // Note: Ideally API should support filtering, but as per current API capabilities:
+            var allUsers = await _http.GetFromJsonAsync<List<User>>($"/api/User/GetAll");
+            var shops = allUsers?.Where(u => u.UserName != currentUser?.UserName && u.IsShop == true).ToList();
+
+            var userRoles = new List<(User User, IList<string> Roles)>();
+
+            if (shops != null)
+            {
+                foreach (var user in shops)
+                {
+                    var roles = await _userManager.GetRolesAsync(user);
+                    userRoles.Add((user, roles));
+                }
             }
 
             ViewBag.JwtToken = HttpContext.Session.GetString("JwtToken") ?? "";
@@ -457,7 +483,9 @@ namespace Sany3y.Controllers
 
             var data = categories.Select(c => new
             {
-                c.Id, c.Name, c.Description
+                c.Id,
+                c.Name,
+                c.Description
             }).ToList();
 
             var exporter = new TableExporter();
@@ -480,7 +508,9 @@ namespace Sany3y.Controllers
 
             var data = categories.Select(c => new
             {
-                c.Id, c.Name, c.Description
+                c.Id,
+                c.Name,
+                c.Description
             }).ToList();
 
             var exporter = new TableExporter();

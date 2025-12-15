@@ -42,6 +42,8 @@ namespace Sany3y.API.DTOs
         public string Location { get; set; } // Simplified address
         public string ProfilePictureUrl { get; set; }
         public string ServiceDetails { get; set; } // For workers, maybe Category or Bio
+        public string? ShopName { get; set; }
+        public bool? IsShop { get; set; }
     }
 
     public class UpdateProfileDto

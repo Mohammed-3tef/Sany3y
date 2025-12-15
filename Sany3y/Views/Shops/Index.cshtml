@@ -1,0 +1,183 @@
+@model List<Sany3y.Infrastructure.Models.User>
+
+@{
+    ViewData["Title"] = "المحلات";
+}
+
+<div class="container" style="direction: rtl;">
+    <!-- Hero Section -->
+    <div class="text-center mb-5 fade-in-up">
+        <h1 class="display-4 fw-bold text-primary-green mb-3">المحلات المتاحة</h1>
+        <p class="lead text-muted">استعرض أفضل المحلات والمتاجر لخدماتك</p>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3 mb-4">
+            <div class="card shadow-sm border-0 rounded-3 sticky-top" style="top: 100px; z-index: 900;">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="mb-0 fw-bold text-primary-green">
+                        <i class="fas fa-filter me-2"></i>تصفية البحث
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="get">
+                        <!-- Search Name -->
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-bold">اسم المحل</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
+                                <input type="text" name="name" class="form-control bg-light border-start-0" placeholder="ابحث بالاسم..." value="@Context.Request.Query["name"]">
+                            </div>
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-bold">التخصص</label>
+                            <select name="categoryId" class="form-select bg-light">
+                                <option value="">كل التخصصات</option>
+                                @if (ViewBag.Categories != null)
+                                {
+                                    foreach (var cat in ViewBag.Categories)
+                                    {
+                                                <option value="@cat.Id" selected="@(Context.Request.Query["categoryId"] == cat.Id.ToString() ? "selected" : null)">
+                                            @cat.Name
+                                                </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Location Filter -->
+                        <div class="mb-3">
+                            <label class="form-label small text-muted fw-bold">المحافظة</label>
+                            <select name="governorate" class="form-select bg-light">
+                                <option value="">كل المحافظات</option>
+                                @if (ViewBag.Governorates != null)
+                                {
+                                    foreach (var gov in ViewBag.Governorates)
+                                    {
+                                                <option value="@gov.ArabicName" selected="@(Context.Request.Query["governorate"] == gov.ArabicName ? "selected" : null)">
+                                            @gov.ArabicName
+                                                </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary-green text-white fw-bold">
+                                <i class="fas fa-check me-2"></i>تطبيق الفلتر
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-undo me-2"></i>إعادة تعيين
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shops Grid -->
+        <div class="col-lg-9">
+            @if (Model != null && Model.Any())
+            {
+                    <div class="row g-4">
+                    @foreach (var user in Model)
+                    {
+                                <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+                                    <div class="card w-100 shadow-sm border-0 rounded-3 card-hover h-100 position-relative overflow-hidden">
+                                        <!-- Status Badge -->
+                                        <div class="position-absolute top-0 end-0 m-3 z-1">
+                                            <span class="badge @(user.IsOnline ? "bg-success" : "bg-secondary") rounded-pill shadow-sm">
+                                                <i class="fas fa-circle me-1 small"></i>@(user.IsOnline ? "متاح الآن" : "غير متاح")
+                                            </span>
+                                        </div>
+
+                                        <!-- Image Header -->
+                                        <div class="position-relative bg-light text-center pt-4 pb-0" style="min-height: 180px;">
+                                    @{
+                                        var imgSrc = user.ProfilePicture?.Path ?? "https://placehold.co/400x300?text=Shop";
+                                    }
+                                            <img src="@imgSrc" class="img-fluid rounded-circle shadow-sm border border-4 border-white" 
+                                                 style="width: 120px; height: 120px; object-fit: cover;" alt="@user.ShopName">
+
+                                            <!-- Category Badge -->
+                                            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-n3">
+                                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm border border-2 border-white">
+                                                    <i class="fas fa-store me-1"></i>@(user.Category?.Name ?? "عام")
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body pt-5 text-center">
+                                            <!-- Shop Name -->
+                                            <h5 class="card-title fw-bold text-dark mb-1">@(user.ShopName ?? $"{user.FirstName} {user.LastName}")</h5>
+
+                                            <!-- Location -->
+                                            <p class="text-muted small mb-3">
+                                                <i class="fas fa-map-marker-alt me-1 text-primary-green"></i>
+                                        @(user.Address?.City ?? "") - @(user.Address?.Governorate ?? "موقع غير محدد")
+                                            </p>
+
+                                            <hr class="my-3 opacity-10">
+
+                                            <!-- Bio / Description -->
+                                            <p class="card-text text-muted small mb-4 text-truncate-2" style="min-height: 40px;">
+                                        @(string.IsNullOrEmpty(user.Bio) ? "لا يوجد وصف متاح لهذا المحل حالياً." : user.Bio)
+                                            </p>
+
+                                            <!-- Action Button -->
+                                            <div class="d-grid">
+                                                <a asp-controller="Services" asp-action="Details" asp-route-id="@user.Id" 
+                                                   class="btn btn-outline-primary-green rounded-pill fw-bold hover-scale">
+                                                    عرض التفاصيل <i class="fas fa-arrow-left ms-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    }
+                    </div>
+            }
+            else
+            {
+                    <div class="text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-store-slash fa-4x text-muted opacity-25"></i>
+                        </div>
+                        <h4 class="text-muted fw-bold">لا توجد محلات متاحة حالياً</h4>
+                        <p class="text-muted">حاول تغيير خيارات البحث أو عد لاحقاً</p>
+                        <a asp-action="Index" class="btn btn-primary-green mt-3">
+                            عرض كل المحلات
+                        </a>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-primary-green { color: #007722; }
+    .bg-primary-green { background-color: #007722; }
+    .btn-primary-green { background-color: #007722; border-color: #007722; }
+    .btn-primary-green:hover { background-color: #006611; border-color: #006611; }
+    .btn-outline-primary-green { color: #007722; border-color: #007722; }
+    .btn-outline-primary-green:hover { background-color: #007722; color: #fff; }
+
+    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+    @@keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

@@ -64,7 +64,7 @@
         border-bottom: none !important;
         box-shadow: none !important;
     }
-    
+
     .navbar-transparent .nav-link, 
     .navbar-transparent .navbar-brand {
         color: white !important;
@@ -101,7 +101,7 @@
     .navbar-toggler:focus {
         box-shadow: none;
     }
-    
+
     .navbar-transparent .navbar-toggler-icon {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     }
@@ -121,7 +121,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -130,30 +130,33 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Services" asp-action="Index">خدماتنا</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Shops" asp-action="Index">المحلات</a>
+                    </li>
+
                     @if (User.IsInRole("Admin"))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">لوحة التحكم</a>
+                            </li>
                     }
-                    
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         @if (User.IsInRole("Client"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Dashboard" asp-action="Customer">لوحتي</a>
-                            </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Dashboard" asp-action="Customer">لوحتي</a>
+                                    </li>
                         }
                         @if (User.IsInRole("Technician"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Dashboard" asp-action="Worker">لوحتي</a>
-                            </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Dashboard" asp-action="Worker">لوحتي</a>
+                                    </li>
                         }
                     }
-                    
+
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="ContactUs">تواصل معنا</a>
                     </li>
@@ -167,14 +170,14 @@
 
 @if (isHomePage)
 {
-    <script>
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('mainNav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    </script>
+        <script>
+            window.addEventListener('scroll', function() {
+                const nav = document.getElementById('mainNav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        </script>
 }

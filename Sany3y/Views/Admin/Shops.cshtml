@@ -1,0 +1,182 @@
+@model IEnumerable<(Sany3y.Infrastructure.Models.User User, IList<string> Roles)>
+
+@{
+    ViewData["Title"] = "إدارة المحلات";
+    Layout = "_AdminLayout";
+    var jwtToken = ViewBag.JwtToken as string;
+}
+
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-center mb-2">
+    <h1 class="mb-3">@ViewData["Title"]</h1>
+
+    <div>
+        <!-- Maybe a different export for shops or same actions -->
+        <a asp-controller="Admin" asp-action="ExportUsersPDF" class="btn btn-outline-danger">
+            <i class="fa-solid fa-file-pdf me-1"></i> تصدير PDF
+        </a>
+        <a asp-controller="Admin" asp-action="ExportUsersCSV" class="btn btn-outline-success">
+            <i class="fa-solid fa-file-csv me-1"></i> تصدير CSV
+        </a>
+    </div>
+</div>
+
+<table id="shop-table" class="table table-striped table-bordered" width="100%">
+    <thead>
+        <tr>
+            <th>اسم المحل</th>
+            <th>اسم المالك</th>
+            <th>البريد الإلكتروني</th>
+            <th>الدور</th>
+            <th>الحالة</th>
+            <th>تاريخ الإنشاء</th>
+            <th>الإجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-user-id="@item.User.Id">
+                <td>@(item.User.ShopName ?? "غير محدد")</td>
+                <td>@item.User.FirstName @item.User.LastName</td>
+                <td>@item.User.Email</td>
+                <td>@string.Join(", ", item.Roles)</td>
+                <td>
+                    <p class="user-status px-2 rounded-pill text-center mb-0
+                        @(item.User.IsOnline ? "text-success border border-success" : "text-danger border border-danger")"
+                        data-username="@item.User.UserName">
+                        @(item.User.IsOnline ? "متصل الأن" : "غير متصل")
+                    </p>
+                </td>
+                <td>@item.User.CreatedAt.ToString("yyyy/MM/dd")</td>
+                <td class="d-flex">
+                    <a asp-controller="Account" asp-action="Chat" asp-route-id="@item.User.Id"
+                        class="btn btn-outline-success w-100 chat-btn">
+                        <i class="fa-solid fa-comments fa-sm"></i>
+                    </a>
+                    <button type="button" class="btn btn-outline-primary w-100 view-user-btn me-1" data-id="@item.User.Id"
+                        title="عرض">
+                        <i class="fa-solid fa-eye fa-sm"></i>
+                    </button>
+                    <!-- Edit and Delete logic reused from Users since Shops are Users -->
+                    <button type="button" class="btn btn-outline-warning w-100 mx-2 edit-user-btn" data-id="@item.User.Id"
+                        title="تعديل">
+                        <i class="fa-solid fa-pen fa-sm"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-danger w-100 delete-user-btn" data-id="@item.User.Id"
+                        data-username="@item.User.UserName" title="حذف">
+                        <i class="fa-solid fa-trash fa-sm"></i>
+                    </button>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="userModalContainer"></div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="deleteUserForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">تأكيد الحذف</h5>
+                    <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="إغلاق"
+                        style="margin-left: 0 !important;"></button>
+                </div>
+                <div class="modal-body">
+                    <p>هل أنت متأكد أنك تريد حذف المحل <strong id="deleteUsername"></strong>؟</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            const jwtToken = `@jwtToken`;
+            initArabicDataTable('#shop-table');
+
+            $(document).on('click', '.view-user-btn', function () {
+                var userId = $(this).data('id');
+
+                $.ajax({
+                    url: '/Admin/ViewUser',
+                    type: 'GET',
+                    data: { id: userId },
+                    success: function (html) {
+                        $('#userModalContainer').html(html);
+                        $('#viewUserModal').modal('show');
+                    },
+                    error: function () {
+                        alert('Error loading user details.');
+                    }
+                });
+            });
+
+            $(document).on('click', '.edit-user-btn', function () {
+                var userId = $(this).data('id');
+
+                $.ajax({
+                    url: `/Admin/EditUser/${userId}`,
+                    type: 'GET',
+                    success: function (html) {
+                        $('#userModalContainer').html(html);
+                        $('#editUserModal').modal('show');
+                    },
+                    error: function () {
+                        alert('Error loading user details.');
+                    }
+                });
+            });
+
+
+            // عند الضغط على زر الحذف باستخدام delegated binding
+            $(document).on('click', '.delete-user-btn', function () {
+                selectedUserId = $(this).data('id');
+                const username = $(this).data('username');
+                $('#deleteUsername').text(username);
+                $('#confirmDeleteModal').modal('show');
+            });
+
+            // عند تأكيد الحذف
+            $('#deleteUserForm').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: `https://localhost:7178/api/User/Delete/${selectedUserId}`,
+                    type: 'DELETE',
+                    headers: { 'Authorization': 'Bearer ' + jwtToken },
+                    success: function (res) {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            // SignalR لتحديث حالة المستخدم أونلاين/أوفلاين
+            const connection = new signalR.HubConnectionBuilder().withUrl("/userStatusHub").build();
+
+            connection.on("ReceiveUserStatus", function (userId, isOnline) {
+                const statusElement = document.querySelector(`tr[data-user-id='${userId}'] .user-status`);
+                if (statusElement) {
+                    statusElement.textContent = isOnline ? "متصل الأن" : "غير متصل";
+                    statusElement.classList.toggle("text-success", isOnline);
+                    statusElement.classList.toggle("border-success", isOnline);
+                    statusElement.classList.toggle("text-danger", !isOnline);
+                    statusElement.classList.toggle("border-danger", !isOnline);
+                }
+            });
+
+            connection.start().then(() => {
+                console.log("Connected to SignalR hub");
+            }).catch(err => console.error("❌ SignalR Error:", err));
+        });
+    </script>
+}
