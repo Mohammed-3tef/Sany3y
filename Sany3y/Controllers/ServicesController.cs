@@ -27,27 +27,28 @@ namespace Sany3y.Controllers
             await PopulateFilters();
 
             var users = await _http.GetFromJsonAsync<List<User>>("api/Technician/GetAll");
+            users = users?.Where(u => (bool)u.IsShop == false).ToList();
 
             if (categoryId != null)
-                users = users.Where(u => u.CategoryID == categoryId).ToList();
+                users = users?.Where(u => u.CategoryID == categoryId).ToList();
 
             if (!string.IsNullOrEmpty(governorate))
-                users = users.Where(u => u.Address != null && u.Address.Governorate.Contains(governorate)).ToList();
+                users = users?.Where(u => u.Address != null && u.Address.Governorate.Contains(governorate)).ToList();
 
             if (!string.IsNullOrEmpty(city))
-                users = users.Where(u => u.Address != null && u.Address.City.Contains(city)).ToList();
+                users = users?.Where(u => u.Address != null && u.Address.City.Contains(city)).ToList();
 
             if (!string.IsNullOrEmpty(name))
-                users = users.Where(u => (u.FirstName + " " + u.LastName).Contains(name) || u.FirstName.Contains(name) || u.LastName.Contains(name)).ToList();
+                users = users?.Where(u => (u.FirstName + " " + u.LastName).Contains(name) || u.FirstName.Contains(name) || u.LastName.Contains(name)).ToList();
 
             if (minPrice.HasValue)
-                users = users.Where(u => u.Price >= minPrice.Value).ToList();
+                users = users?.Where(u => u.Price >= minPrice.Value).ToList();
 
             if (maxPrice.HasValue)
-                users = users.Where(u => u.Price <= maxPrice.Value).ToList();
+                users = users?.Where(u => u.Price <= maxPrice.Value).ToList();
 
             if (rating != null)
-                users = users.Where(u => u.Rating >= rating.Value).ToList();
+                users = users?.Where(u => u.Rating >= rating.Value).ToList();
 
             ViewBag.AllCategories = await _http.GetFromJsonAsync<List<Category>>("api/Category/GetAll");
             return View(users);
@@ -112,7 +113,7 @@ namespace Sany3y.Controllers
 
                 if (categoryId != null)
                 {
-                    users = users.Where(u => u.CategoryID == categoryId).ToList();
+                    users = users?.Where(u => u.CategoryID == categoryId).ToList();
                 }
             }
 

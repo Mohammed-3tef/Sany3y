@@ -25,33 +25,39 @@
         <!-- Profile Section -->
         <div class="card shadow-sm mb-4 slide-in border-0 rounded-3">
             <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
-                <span class="fw-bold text-primary-green"><i class="fas fa-store-alt me-2"></i>بيانات المحل</span>
-                <a href="@Url.Action("Profile", "Account")" class="btn btn-outline-secondary btn-sm rounded-pill">
+                <span class="fw-bold"><i class="fas fa-store-alt me-2"></i>بيانات المحل</span>
+                <a href="@Url.Action("Profile", "Account")" class="btn btn-outline-secondary btn-sm rounded-pill text-white">
                     <i class="fas fa-edit me-1"></i>تعديل
                 </a>
             </div>
             <div class="card-body">
                 <div class="row align-items-center">
-                    <div class="col-md-2 text-center mb-3 mb-md-0">
+                    <div class="col-md-3 text-center mb-3 mb-md-0">
                         <img id="profile-pic" src="https://placehold.co/120x120?text=Shop" alt="Shop Logo"
                             class="img-thumbnail rounded-circle shadow-sm"
-                            style="width: 120px; height: 120px; object-fit: cover;"
+                            style="width: 150px; height: 150px; object-fit: cover;"
                             onerror="this.onerror=null;this.src='https://placehold.co/120x120?text=Shop';">
                     </div>
-                    <div class="col-md-7">
-                        <h4 id="user-name" class="fw-bold mb-3 text-dark"></h4>
+                    <div class="col-md-9">
+                        <h4 id="shop-name" class="fw-bold mb-3 text-dark"></h4>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <p class="mb-2">
+                                    <i class="fas fa-user me-2 text-success"></i>
+                                    <span id="user-name" class="text-secondary"></span>
+                                </p>
+                                <p class="mb-0">
                                     <i class="fas fa-envelope me-2 text-primary-green"></i>
                                     <span id="user-email" class="text-secondary"></span>
                                 </p>
+                            </div>
+                            <div class="col-md-6">
                                 <p class="mb-2">
                                     <i class="fas fa-phone me-2 text-success"></i>
                                     <span id="user-phone" class="text-secondary"></span>
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <p class="mb-2">
                                     <i class="fas fa-map-marker-alt text-danger me-2"></i>
                                     <span id="user-location" class="text-secondary"></span>
@@ -60,17 +66,17 @@
                         </div>
                         <p id="user-bio" class="text-muted mt-3 mb-0 fst-italic small"></p>
                     </div>
-                    <div class="col-md-3">
+                    @* <div class="col-md-3">
                         <div class="p-3 rounded-3 bg-light text-center border">
                             <p class="mb-1 text-muted small">إجمالي المبيعات</p>
                             <h4 class="mb-0 fw-bold text-primary-green"><span id="total-earnings">0</span> جنيه</h4>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        @* <div class="row">
             <!-- Received Requests -->
             <div class="col-lg-6 mb-4">
                 <div class="card shadow-sm h-100 slide-in border-0 rounded-3">
@@ -106,10 +112,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
 
         <!-- Schedule Management Section (Adapted for Shop Opening Hours potentially, but keeping logic same for now) -->
-        <div class="row">
+        @* <div class="row">
             <div class="col-12">
                 <div class="card shadow-sm mb-4 slide-in border-0 rounded-3">
                     <div
@@ -144,16 +150,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
 
         <!-- Add Slot Modal -->
-        <div class="modal fade" id="addSlotModal" tabindex="-1">
+        @* <div class="modal fade" id="addSlotModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 shadow">
                     <div class="modal-header bg-light">
-                        <h5 class="modal-title fw-bold text-primary-green"><i class="fas fa-plus-circle me-2"></i>إضافة
-                            موعد جديد</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <h5 class="modal-title fw-bold"><i class="fas fa-plus-circle me-2"></i>إضافة موعد جديد</h5>
+                        <button type="button" class="btn-close text-white" style="margin-left: 0;" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <form id="addSlotForm">
@@ -180,12 +185,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> *@
 
         <!-- Chat Section -->
         <div class="card shadow-sm mb-4 slide-in border-0 rounded-3">
             <div class="card-header bg-white border-0 py-3">
-                <h5 class="mb-0 fw-bold text-primary-green"><i class="fas fa-comments me-2"></i>رسائل العملاء</h5>
+                <h5 class="mb-0 fw-bold"><i class="fas fa-comments me-2"></i>رسائل العملاء</h5>
             </div>
             <div class="card-body">
                 @if (chatPartners != null && chatPartners.Any())
@@ -193,20 +198,16 @@
                     <div class="row g-3">
                         @foreach (var user in chatPartners)
                         {
-                            <div class="col-md-4">
-                                <div class="p-3 border rounded-3 hover-card h-100">
-                                    <div class="d-flex align-items-center">
-                                        <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/60x60?text=Customer")"
-                                            alt="@user.UserName" class="rounded-circle me-3"
-                                            style="width: 50px; height: 50px; object-fit:cover;">
-                                        <div class="mx-2">
-                                            <h6 class="mb-1 fw-bold">@user.FirstName @user.LastName</h6>
-                                            <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id"
-                                                class="btn btn-sm btn-outline-primary rounded-pill stretched-link">
-                                                <i class="fas fa-comment-dots me-1"></i>مراسلة
-                                            </a>
+                            <div class="col-12 h-100">
+                                <div class="d-flex align-items-center">
+                                    <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/60x60?text=Profile")"
+                                         alt="@user.UserName" class="rounded-circle mx-3" style="width: 75px; height: 75px; object-fit:cover;">
+                                    <a asp-controller="Account" asp-action="Chat" asp-route-id="@user.Id" class="text-decoration-none">
+                                        <div>
+                                            <h6 class="mb-0 fw-bold">@user.UserName</h6>
+                                            <small class="text-muted">انقر للمحادثة</small>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -246,7 +247,8 @@
                     // Populate Profile
                     // Prioritize ShopName if available, else name
                     var displayName = data.profile.shopName || (data.profile.firstName + ' ' + data.profile.lastName);
-                    $('#user-name').text(displayName);
+                    $('#shop-name').text(displayName);
+                    $('#user-name').text(data.profile.firstName + ' ' + data.profile.lastName);
 
                     $('#user-email').text(data.profile.email);
                     $('#user-phone').text(data.profile.phone);

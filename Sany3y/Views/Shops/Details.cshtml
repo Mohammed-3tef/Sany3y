@@ -1,0 +1,555 @@
+﻿@model Sany3y.Infrastructure.Models.User
+@using Sany3y.Infrastructure.Models
+
+@{
+    ViewData["Title"] = Model.FirstName + " " + Model.LastName;
+    var ratings = ViewBag.UserRatings as List<Rating> ?? new List<Rating>();
+    var averageRating = ratings.Any() ? ratings.Average(r => r.Score) : 0;
+    var reviewCount = ratings.Count;
+}
+
+<style>
+    :root {
+        --primary-green: #004d00;
+        --secondary-green: #006400;
+        --accent-yellow: #ffb300;
+        --light-bg: #f8f9fa;
+        --text-dark: #2c3e50;
+    }
+
+    body {
+        background-color: var(--light-bg);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #main-content{
+        padding-top: 6rem;
+    }
+
+    /* Hero Section */
+    .profile-hero {
+        background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+        color: white;
+        padding: 60px 0 100px;
+        position: relative;
+        margin-bottom: -60px;
+    }
+
+    .profile-avatar-container {
+        position: relative;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+        border: 5px solid white;
+        border-radius: 50%;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .profile-avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .verified-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: #3b82f6;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+        font-size: 14px;
+    }
+
+    /* Main Content Card */
+    .profile-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        padding: 80px 30px 30px;
+        margin-top: -80px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stat-box {
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px;
+        background: #f8f9fa;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-3px);
+        background: #e9ecef;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-green);
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    /* Tabs */
+    .nav-pills .nav-link {
+        color: #6c757d;
+        font-weight: 600;
+        padding: 10px 25px;
+        border-radius: 30px;
+        margin: 0 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .nav-pills .nav-link.active {
+        color: white !important;
+        background-color: var(--primary-green) !important;
+    }
+
+    /* Reviews */
+    .review-card {
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
+    }
+
+    .review-card:last-child {
+        border-bottom: none;
+    }
+
+    .review-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #6c757d;
+    }
+
+    /* Booking Section */
+    .booking-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        padding: 25px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .price-tag {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--primary-green);
+    }
+
+    .btn-book-lg {
+        background: #d9534f;
+        color: white;
+        font-weight: bold;
+        padding: 15px;
+        border-radius: 8px;
+        width: 100%;
+        border: none;
+        transition: background 0.3s;
+    }
+
+    .btn-book-lg:hover {
+        background: #c9302c;
+    }
+
+    /* Mobile Sticky Bar */
+    .mobile-book-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 15px;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        display: none;
+    }
+
+    @@media (max-width: 991px) {
+        .mobile-book-bar {
+            display: block;
+        }
+
+        .booking-card-desktop {
+            display: none;
+        }
+    }
+</style>
+
+<!-- Hero Header -->
+<div class="profile-hero text-center">
+    <div class="container">
+        <h1 class="fw-bold mb-2">@Model.ShopName</h1>
+        <p class="opacity-75 mb-0">
+            <i class="fas fa-store me-2"></i>@(ViewBag.UserCategory?.Name ?? "محل عام")
+            <span class="mx-2">|</span>
+            <i class="fas fa-map-marker-alt me-2"></i>@(ViewBag.UserAddress?.City ?? "القاهرة")
+        </p>
+    </div>
+</div>
+
+<div class="container mb-5" id="main-content">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-12">
+            <div class="profile-card">
+                <!-- Avatar / Logo -->
+                <div class="text-center mb-4" style="margin-top: -110px;">
+                    <div class="profile-avatar-container">
+                        <img src="@ViewBag.UserProfilePicture"
+                             class="profile-avatar" alt="@Model.ShopName"
+                             onerror="this.onerror=null;this.src='https://placehold.co/200x200?text=Shop';" />
+                        <div class="verified-badge" title="تم التحقق">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="row g-3 mb-5 justify-content-center">
+                    <div class="col-4 col-md-3">
+                        <div class="stat-box">
+                            <div class="stat-value">@averageRating.ToString("0.0") <i class="fas fa-star text-warning fs-6"></i></div>
+                            <div class="stat-label">التقييم العام</div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-3">
+                        <div class="stat-box">
+                            <div class="stat-value">@(Model.CreatedAt.Date.ToString("yyyy/MM/dd"))</div>
+                            <div class="stat-label">تأسس منذ</div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-3">
+                        <div class="stat-box">
+                            <div class="stat-value">@reviewCount</div>
+                            <div class="stat-label">مراجعة</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-about-tab" data-bs-toggle="pill" data-bs-target="#pills-about" type="button" role="tab">عن المحل</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-reviews" type="button" role="tab">التقييمات (@reviewCount)</button>
+                    </li>
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="pills-tabContent">
+                    <!-- About Tab -->
+                    <div class="tab-pane fade show active" id="pills-about" role="tabpanel">
+                        <h5 class="fw-bold mb-3"><i class="fas fa-info-circle text-primary me-2"></i> نبذة عن المحل</h5>
+                        <p class="text-muted leading-relaxed">
+                            @(Model.Bio ?? "لا توجد نبذة تعريفية متاحة حالياً لهذا المحل. ولكنه يقدم خدمات ممتازة ولديه خبرة جيدة في التعامل مع العملاء.")
+                        </p>
+
+                        <hr class="my-4">
+
+                        <h5 class="fw-bold mb-3"><i class="fas fa-info-circle text-primary me-2"></i> معلومات إضافية</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-map-marked-alt fa-fw me-3 text-secondary"></i>
+                                    <span>يخدم في مناطق: @(ViewBag.UserAddress?.City ?? "القاهرة والجيزة")</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-clock fa-fw me-3 text-secondary"></i>
+                                    <span>مواعيد العمل: 9 ص - 10 م</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews Tab -->
+                    <div class="tab-pane fade" id="pills-reviews" role="tabpanel">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h5 class="fw-bold mb-0">آراء العملاء</h5>
+                            <div class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                                <i class="fas fa-star me-1"></i> @averageRating.ToString("0.0") من 5
+                            </div>
+                        </div>
+
+                        @if (ratings.Any())
+                        {
+                            foreach (var review in ratings)
+                            {
+                                <div class="review-card">
+                                    <div class="d-flex gap-3">
+                                        <div class="review-avatar">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">عميل</h6>
+                                            <div class="mb-2">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    <i class="fas fa-star @(i <= review.Score ? "text-warning" : "text-muted") small"></i>
+                                                }
+                                                <span class="text-muted small ms-2">@review.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                            </div>
+                                            <p class="text-muted mb-0">@review.Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="text-center py-5 text-muted">
+                                <i class="far fa-comment-dots fa-3x mb-3"></i>
+                                <p>لا توجد تقييمات بعد.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden Input for User ID -->
+<input type="hidden" id="CurrentUserId" value="@ViewBag.CurrentUserId" />
+
+<!-- Chat Styles & UI -->
+<style>
+    .chat-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: var(--primary-green);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .chat-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .chat-window {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+        border: 1px solid #eee;
+    }
+
+    .chat-header {
+        background: var(--primary-green);
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .chat-message {
+        max-width: 75%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        word-wrap: break-word;
+    }
+
+    .chat-message.received {
+        background: var(--primary-green);
+        color: white;
+        align-self: flex-end;
+        border-bottom-left-radius: 0;
+    }
+
+    .chat-message.sent {
+        background: #e9ecef;
+        color: #333;
+        align-self: flex-start;
+        border-bottom-right-radius: 0;
+    }
+
+    .chat-input-area {
+        padding: 15px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+        background: white;
+    }
+
+    .chat-input-area input {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 8px 15px;
+        outline: none;
+    }
+
+    .chat-input-area button {
+        background: var(--primary-green);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+@if (ViewBag.CurrentUserId != null && ViewBag.CurrentUserId != Model.Id && User?.Identity?.IsAuthenticated)
+{
+    <div class="chat-btn" id="chatBtn">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>محادثة مع @Model.FirstName</span>
+            <i class="fas fa-times" id="closeChat" style="cursor:pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="اكتب رسالتك..." />
+            <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const technicianId = parseInt("@Model.Id");
+        const currentUserId = parseInt("@ViewBag.CurrentUserId");
+        const currentUserName = "@ViewBag.currentUserName";
+ 
+        // -------------------------
+        // 💬 Chat Feature (Real-time)
+        // -------------------------
+        const chatBtn = document.getElementById("chatBtn");
+        const chatWindow = document.getElementById("chatWindow");
+        const closeChat = document.getElementById("closeChat");
+        const chatMessages = document.getElementById("chatMessages");
+        const chatInput = document.getElementById("chatInput");
+        const sendBtn = document.getElementById("sendBtn");
+
+        // Toggle Chat Window
+        chatBtn.addEventListener("click", () => {
+            const isHidden = window.getComputedStyle(chatWindow).display === "none";
+            chatWindow.style.display = isHidden ? "flex" : "none";
+            if (isHidden) loadChatHistory();
+        });
+        closeChat.addEventListener("click", () => chatWindow.style.display = "none");
+
+        // SignalR Connection
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // استقبال الرسائل real-time
+        connection.on("ReceiveMessage", (senderUserName, message, time) => {
+            const type = senderUserName === currentUserName ? "sent" : "received";
+            appendMessage(`${message}`, type);
+        });
+
+        // تأكيد الرسائل المرسلة
+        connection.on("MessageSent", (receiverUserName, message, time) => {
+            appendMessage(`${message}`, "sent");
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        // إرسال الرسائل
+        sendBtn.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            connection.invoke("SendPrivateMessage", "@Model.UserName", message).catch(err => console.error(err.toString()));
+            chatInput.value = "";
+        }
+
+        // عرض الرسائل في الـ div
+        function appendMessage(message, type) {
+            const msgDiv = document.createElement("div");
+            msgDiv.classList.add("chat-message", type);
+            msgDiv.innerText = message;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // تحميل المحادثة القديمة
+        function loadChatHistory() {
+            chatMessages.innerHTML = '<div class="text-center text-muted small">جاري تحميل المحادثة...</div>';
+
+            fetch(`/api/Message/GetConversation/${currentUserId}/${technicianId}`)
+                .then(res => res.json())
+                .then(data => {
+                    chatMessages.innerHTML = "";
+                    if (!data.length) {
+                        chatMessages.innerHTML = '<div class="text-center text-muted small mt-3">ابدأ المحادثة الآن!</div>';
+                        return;
+                    }
+                    data.forEach(msg => {
+                        const type = msg.senderId == currentUserId ? "sent" : "received";
+                        appendMessage(`${msg.content}`, type);
+                    });
+                })
+                .catch(err => {
+                    console.error(err);
+                    chatMessages.innerHTML = '<div class="text-center text-danger small">فشل تحميل المحادثة</div>';
+                });
+        }
+    </script>
+}

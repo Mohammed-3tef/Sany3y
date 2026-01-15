@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sany3y.Infrastructure.Models;
 using System.Net.Http;
 using Task = System.Threading.Tasks.Task;
@@ -73,6 +73,46 @@ namespace Sany3y.Controllers
                 ViewBag.Categories = new List<Category>();
                 ViewBag.Governorates = new List<Governorate>();
             }
+        }
+
+        // -------------------------------------------------------------
+        // 🔵 صفحة تفاصيل المحل
+        // -------------------------------------------------------------
+        public async Task<IActionResult> Details(int id)
+        {
+            var user = await _http.GetFromJsonAsync<User>($"/api/Technician/GetByID/{id}");
+
+            if (user == null)
+                return NotFound();
+
+            var userAddress = await _http.GetFromJsonAsync<Address>($"/api/Address/GetByID/{user.AddressId}");
+            var userCategory = await _http.GetFromJsonAsync<Category>($"/api/Category/GetByID/{user.CategoryID}");
+            var userRatings = await _http.GetFromJsonAsync<List<Rating>>($"/api/Rating/GetByTaskerId/{id}");
+
+            ViewBag.UserAddress = userAddress;
+            ViewBag.UserCategory = userCategory;
+            ViewBag.UserRatings = userRatings;
+
+            var pictureResponse = await _http.GetAsync($"/api/ProfilePicture/GetByID/{user.ProfilePictureId}");
+            if (pictureResponse.IsSuccessStatusCode)
+            {
+                var pictureData = await pictureResponse.Content.ReadFromJsonAsync<ProfilePicture>();
+                ViewBag.UserProfilePicture = pictureData?.Path;
+            }
+            else
+            {
+                ViewBag.UserProfilePicture = "https://placehold.co/200x200?text=Shop";
+            }
+
+            // --------------------------------------------------------------------
+            // إضافة الـ CurrentUserId من الـ Login الحقيقي
+            // --------------------------------------------------------------------
+            ViewBag.CurrentUserId = User.Identity.IsAuthenticated
+                ? long.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value)
+                : 0;
+
+            ViewBag.CurrentUserName = User.Identity.Name;
+            return View(user);
         }
     }
 }

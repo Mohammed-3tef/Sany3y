@@ -65,47 +65,123 @@
                                 <span asp-validation-for="ProfilePicture" class="text-danger small"></span>
                             </div>
 
-                            <!-- Personal Info Section -->
-                            <div class="col-12">
-                                <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
-                            </div>
+                            @{
+                                if (Model.IsShop == true)
+                                {
+                                    <div class="col-12">
+                                        <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-store me-2"></i> بيانات المحل</h5>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <label asp-for="FirstName" class="form-label">الاسم الأول</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input asp-for="FirstName" class="form-control" placeholder="الاسم الأول" />
-                                </div>
-                                <span asp-validation-for="FirstName" class="text-danger small"></span>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="ShopName" class="form-label">اسم المحل</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-store"></i></span>
+                                            <input asp-for="ShopName" class="form-control" placeholder="اسم المحل" />
+                                        </div>
+                                        <span asp-validation-for="ShopName" class="text-danger small"></span>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <label asp-for="LastName" class="form-label">اسم العائلة</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    <input asp-for="LastName" class="form-control" placeholder="اسم العائلة" />
-                                </div>
-                                <span asp-validation-for="LastName" class="text-danger small"></span>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="CategoryId" class="form-label">نوع النشاط</label>
+                                        <select asp-for="CategoryId" class="form-select">
+                                            <option value="">اختر نوع النشاط</option>
+                                            @{
+                                                if (ViewBag.AllCategories != null)
+                                                {
+                                                    foreach (var category in ViewBag.AllCategories)
+                                                    {
+                                                        <option value="@category.Id">@category.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <label asp-for="UserName" class="form-label">اسم المستخدم</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                    <input asp-for="UserName" class="form-control bg-light" readonly />
-                                </div>
-                                <span asp-validation-for="UserName" class="text-danger small"></span>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="UserName" class="form-label">اسم المستخدم</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                            <input asp-for="UserName" class="form-control bg-light" readonly />
+                                        </div>
+                                        <span asp-validation-for="UserName" class="text-danger small"></span>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input asp-for="BirthDate" type="date" class="form-control text-end" />
-                                </div>
-                                <span asp-validation-for="BirthDate" class="text-danger small"></span>
-                            </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="BirthDate" class="form-label">تاريخ الإنشاء</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            <input asp-for="BirthDate" type="date" class="form-control text-end" />
+                                        </div>
+                                        <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                    </div>
 
+                                    <div class="col-12">
+                                        <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-user me-2"></i> بيانات مالك المحل</h5>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="FirstName" class="form-label">الاسم الأول</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            <input asp-for="FirstName" class="form-control" placeholder="الاسم الأول" />
+                                        </div>
+                                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="LastName" class="form-label">اسم العائلة</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            <input asp-for="LastName" class="form-control" placeholder="اسم العائلة" />
+                                        </div>
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-12">
+                                        <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-id-card me-2"></i> المعلومات الشخصية</h5>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="FirstName" class="form-label">الاسم الأول</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            <input asp-for="FirstName" class="form-control" placeholder="الاسم الأول" />
+                                        </div>
+                                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="LastName" class="form-label">اسم العائلة</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            <input asp-for="LastName" class="form-control" placeholder="اسم العائلة" />
+                                        </div>
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="UserName" class="form-label">اسم المستخدم</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                            <input asp-for="UserName" class="form-control bg-light" readonly />
+                                        </div>
+                                        <span asp-validation-for="UserName" class="text-danger small"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="BirthDate" class="form-label">تاريخ الميلاد</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            <input asp-for="BirthDate" type="date" class="form-control text-end" />
+                                        </div>
+                                        <span asp-validation-for="BirthDate" class="text-danger small"></span>
+                                    </div>
+                                }
+                            }     
+                            
                             <!-- Contact Info Section -->
                             <div class="col-12 mt-4">
                                 <h5 class="text-muted border-bottom pb-2 mt-3"><i class="fas fa-address-book me-2"></i> معلومات الاتصال</h5>
@@ -177,7 +253,7 @@
                             </div>
 
                             @{
-                                if (ViewBag.IsTechnician == true)
+                                if (ViewBag.IsTechnician == true && Model.IsShop == false)
                                 {
                                     <!-- Category Section -->
                                     <div class="col-12 mt-4">

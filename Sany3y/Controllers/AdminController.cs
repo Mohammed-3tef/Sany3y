@@ -68,18 +68,22 @@ namespace Sany3y.Controllers
             var totalUsers = await _http.GetFromJsonAsync<List<User>>("/api/User/GetAll");
             var totalUserCount = 0;
             var totalTaskerCount = 0;
+            var totalStores = 0;
 
             foreach (var user in totalUsers)
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 if (roles.Contains("User"))
                     totalUserCount++;
-                if (roles.Contains("Technician"))
+                else if (user.IsShop == true) 
+                    totalStores++;
+                else
                     totalTaskerCount++;
             }
 
             ViewBag.TotalUsers = totalUserCount;
             ViewBag.TotalTaskers = totalTaskerCount;
+            ViewBag.TotalStores = totalStores;
 
             var totalCategories = await _http.GetFromJsonAsync<List<Category>>("/api/Category/GetAll");
             ViewBag.TotalCategories = totalCategories.Count;

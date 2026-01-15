@@ -1,183 +1,345 @@
-@model List<Sany3y.Infrastructure.Models.User>
+@using Sany3y.Infrastructure.Models
+@model IEnumerable<Sany3y.Infrastructure.Models.User>
 
 @{
-    ViewData["Title"] = "المحلات";
+    ViewData["Title"] = "استعرض أفضل المحلات";
+    var categories = ViewBag.Categories as List<Category>;
 }
 
-<div class="container" style="direction: rtl;">
-    <!-- Hero Section -->
-    <div class="text-center mb-5 fade-in-up">
-        <h1 class="display-4 fw-bold text-primary-green mb-3">المحلات المتاحة</h1>
-        <p class="lead text-muted">استعرض أفضل المحلات والمتاجر لخدماتك</p>
-    </div>
+<style>
+    :root {
+        --primary-green: #004d00;
+        --secondary-green: #006400;
+        --accent-yellow: #ffb300;
+        --light-bg: #f0f2f5;
+        --text-dark: #2c3e50;
+        --border-color: #e0e0e0;
+    }
 
-    <div class="row">
-        <!-- Sidebar Filters -->
-        <div class="col-lg-3 mb-4">
-            <div class="card shadow-sm border-0 rounded-3 sticky-top" style="top: 100px; z-index: 900;">
-                <div class="card-header bg-white border-0 py-3">
-                    <h5 class="mb-0 fw-bold text-primary-green">
-                        <i class="fas fa-filter me-2"></i>تصفية البحث
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Index" method="get">
-                        <!-- Search Name -->
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">اسم المحل</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
-                                <input type="text" name="name" class="form-control bg-light border-start-0" placeholder="ابحث بالاسم..." value="@Context.Request.Query["name"]">
-                            </div>
-                        </div>
+    body {
+        background-color: var(--light-bg);
+    }
 
-                        <!-- Category Filter -->
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">التخصص</label>
-                            <select name="categoryId" class="form-select bg-light">
-                                <option value="">كل التخصصات</option>
+    /* Search Bar Section */
+    .search-section {
+        background: var(--primary-green);
+        padding: 20px 0;
+        color: white;
+        margin-bottom: 30px;
+    }
+
+    .search-container {
+        background: white;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .search-item {
+        flex: 1;
+        min-width: 200px;
+        border-left: 1px solid #eee;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .search-item:last-child {
+        border-left: none;
+    }
+
+    .search-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .search-select {
+        width: 100%;
+        border: none;
+        font-weight: bold;
+        color: var(--text-dark);
+        outline: none;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .search-btn {
+        background: var(--accent-yellow);
+        color: white;
+        border: none;
+        padding: 0 40px;
+        font-weight: bold;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+    }
+
+    .search-btn:hover {
+        background: #e6a200;
+    }
+
+    /* Technician Card / Shop Card */
+    .tech-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 20px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tech-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    @@media (min-width: 768px) {
+        .tech-card {
+            flex-direction: row;
+        }
+    }
+
+    /* Tech Info (Right Side) */
+    .tech-info-section {
+        padding: 20px;
+        flex: 1.5;
+        border-left: 1px solid #eee;
+        text-decoration: none;
+        color: inherit;
+        transition: background-color 0.2s ease;
+        display: block;
+    }
+
+    .tech-info-section:hover {
+        background-color: #f9f9f9;
+        cursor: pointer;
+    }
+
+    .tech-header {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+
+    .tech-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #eee;
+    }
+
+    .tech-details h4 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--primary-green);
+    }
+
+    .tech-title {
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 5px;
+    }
+
+    .tech-meta {
+        font-size: 0.85rem;
+        color: #555;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .tech-meta i {
+        color: var(--primary-green);
+        width: 20px;
+        text-align: center;
+    }
+
+    /* Action Section (Left Side) */
+    .action-section {
+        flex: 0 0 200px;
+        background: #fcfcfc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border-right: 1px solid #eee;
+    }
+
+    @@media (max-width: 768px) {
+        .action-section {
+            width: 100%;
+            border-right: none;
+            border-top: 1px solid #eee;
+            flex: none;
+        }
+
+        .tech-card {
+            flex-direction: column;
+        }
+    }
+
+    /* RTL Adjustments */
+    body[dir="rtl"] .action-section {
+        border-left: none;
+        border-right: 1px solid #eee;
+    }
+</style>
+
+<!-- Top Search Section -->
+<div class="search-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-3 text-center d-none d-md-block">استعرض أفضل المحلات في مصر</h2>
+                <form action="@Url.Action("Index", "Shops")" method="get">
+                    <div class="search-container">
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-store"></i> التخصص</label>
+                            <select name="categoryId" class="search-select">
+                                <option value="">اختر التخصص</option>
                                 @if (ViewBag.Categories != null)
                                 {
-                                    foreach (var cat in ViewBag.Categories)
+                                    foreach (var category in ViewBag.Categories)
                                     {
-                                                <option value="@cat.Id" selected="@(Context.Request.Query["categoryId"] == cat.Id.ToString() ? "selected" : null)">
-                                            @cat.Name
-                                                </option>
+                                        <option value="@category.Id">@category.Name</option>
                                     }
                                 }
                             </select>
                         </div>
-
-                        <!-- Location Filter -->
-                        <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">المحافظة</label>
-                            <select name="governorate" class="form-select bg-light">
-                                <option value="">كل المحافظات</option>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-map-marker-alt"></i> المحافظة</label>
+                            <select name="governorate" id="governorateSelect" class="search-select">
+                                <option value="">اختر المحافظة</option>
                                 @if (ViewBag.Governorates != null)
                                 {
                                     foreach (var gov in ViewBag.Governorates)
                                     {
-                                                <option value="@gov.ArabicName" selected="@(Context.Request.Query["governorate"] == gov.ArabicName ? "selected" : null)">
-                                            @gov.ArabicName
-                                                </option>
+                                        <option value="@gov.ArabicName" data-id="@gov.Id">@gov.ArabicName</option>
                                     }
                                 }
                             </select>
                         </div>
-
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary-green text-white fw-bold">
-                                <i class="fas fa-check me-2"></i>تطبيق الفلتر
-                            </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="fas fa-undo me-2"></i>إعادة تعيين
-                            </a>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-map-pin"></i> المنطقة</label>
+                            <select name="city" id="citySelect" class="search-select">
+                                <option value="">اختر المنطقة</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="search-item">
+                            <label class="search-label"><i class="fas fa-user"></i> اسم المحل</label>
+                            <input type="text" name="name" class="search-select" placeholder="ابحث بالاسم..." style="border-bottom: 1px solid #eee;">
+                        </div>
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i> ابحث</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Shops Grid -->
-        <div class="col-lg-9">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold">كل التخصصات <span class="text-muted fs-6">(@(Model?.Count() ?? 0) محل)</span></h5>
+            </div>
+
             @if (Model != null && Model.Any())
             {
-                    <div class="row g-4">
-                    @foreach (var user in Model)
-                    {
-                                <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
-                                    <div class="card w-100 shadow-sm border-0 rounded-3 card-hover h-100 position-relative overflow-hidden">
-                                        <!-- Status Badge -->
-                                        <div class="position-absolute top-0 end-0 m-3 z-1">
-                                            <span class="badge @(user.IsOnline ? "bg-success" : "bg-secondary") rounded-pill shadow-sm">
-                                                <i class="fas fa-circle me-1 small"></i>@(user.IsOnline ? "متاح الآن" : "غير متاح")
-                                            </span>
-                                        </div>
-
-                                        <!-- Image Header -->
-                                        <div class="position-relative bg-light text-center pt-4 pb-0" style="min-height: 180px;">
-                                    @{
-                                        var imgSrc = user.ProfilePicture?.Path ?? "https://placehold.co/400x300?text=Shop";
-                                    }
-                                            <img src="@imgSrc" class="img-fluid rounded-circle shadow-sm border border-4 border-white" 
-                                                 style="width: 120px; height: 120px; object-fit: cover;" alt="@user.ShopName">
-
-                                            <!-- Category Badge -->
-                                            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-n3">
-                                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm border border-2 border-white">
-                                                    <i class="fas fa-store me-1"></i>@(user.Category?.Name ?? "عام")
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div class="card-body pt-5 text-center">
-                                            <!-- Shop Name -->
-                                            <h5 class="card-title fw-bold text-dark mb-1">@(user.ShopName ?? $"{user.FirstName} {user.LastName}")</h5>
-
-                                            <!-- Location -->
-                                            <p class="text-muted small mb-3">
-                                                <i class="fas fa-map-marker-alt me-1 text-primary-green"></i>
-                                        @(user.Address?.City ?? "") - @(user.Address?.Governorate ?? "موقع غير محدد")
-                                            </p>
-
-                                            <hr class="my-3 opacity-10">
-
-                                            <!-- Bio / Description -->
-                                            <p class="card-text text-muted small mb-4 text-truncate-2" style="min-height: 40px;">
-                                        @(string.IsNullOrEmpty(user.Bio) ? "لا يوجد وصف متاح لهذا المحل حالياً." : user.Bio)
-                                            </p>
-
-                                            <!-- Action Button -->
-                                            <div class="d-grid">
-                                                <a asp-controller="Services" asp-action="Details" asp-route-id="@user.Id" 
-                                                   class="btn btn-outline-primary-green rounded-pill fw-bold hover-scale">
-                                                    عرض التفاصيل <i class="fas fa-arrow-left ms-2"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                @foreach (var user in Model)
+                {
+                    <div class="tech-card animate_animated animate_fadeInUp">
+                        <!-- Info Section -->
+                        <a href="/Shops/Details/@user.Id" class="tech-info-section text-decoration-none text-reset">
+                            <div class="tech-header">
+                                <img src="@(user.ProfilePicture?.Path ?? "https://placehold.co/100x100?text=Shop")"
+                                     class="tech-img" alt="@user.ShopName" />
+                                <div class="tech-details">
+                                    <h4>@(user.ShopName ?? $"{user.FirstName} {user.LastName}")</h4>
+                                    <p class="tech-title">@((user.Category?.Name) ?? "محل عام")</p>
                                 </div>
-                    }
+                            </div>
+
+                            <div class="tech-meta">
+                                <div>
+                                    <i class="fas fa-store"></i>
+                                    نوع النشاط:
+                                    <span class="fw-bold text-dark">
+                                        @{
+                                            var category = categories?.FirstOrDefault(c => c.Id == user.CategoryID);
+                                        }
+                                        @(category?.Name ?? "غير محدد")
+                                    </span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    العنوان: @(user.Address?.Governorate ?? "غير محدد")، @(user.Address?.City ?? "غير محدد")، @(user.Address?.Street ?? "غير محدد")
+                                </div>
+                                <div>
+                                    <i class="fas fa-info-circle"></i>
+                                    @(string.IsNullOrEmpty(user.Bio) ? "لا يوجد وصف للمحل" : user.Bio)
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Action Section -->
+                        <div class="action-section">
+                            <div class="text-center mb-2 text-muted small">
+                                <i class="fas fa-bolt text-warning"></i> @(user.IsOnline ? "متاح الآن" : "غير متاح")
+                            </div>
+                            <a href="/Shops/Details/@user.Id" class="btn btn-danger fw-bold w-100">
+                                عرض المحل
+                            </a>
+                            <div class="mt-2 text-muted small" style="font-size: 0.75rem;">
+                                تواصل مباشر
+                            </div>
+                        </div>
                     </div>
+                }
             }
             else
             {
-                    <div class="text-center py-5">
-                        <div class="mb-4">
-                            <i class="fas fa-store-slash fa-4x text-muted opacity-25"></i>
-                        </div>
-                        <h4 class="text-muted fw-bold">لا توجد محلات متاحة حالياً</h4>
-                        <p class="text-muted">حاول تغيير خيارات البحث أو عد لاحقاً</p>
-                        <a asp-action="Index" class="btn btn-primary-green mt-3">
-                            عرض كل المحلات
-                        </a>
-                    </div>
+                <div class="alert alert-info text-center">
+                    لا يوجد محلات متاحة حالياً في هذا التصنيف.
+                </div>
             }
         </div>
     </div>
 </div>
 
-<style>
-    .text-primary-green { color: #007722; }
-    .bg-primary-green { background-color: #007722; }
-    .btn-primary-green { background-color: #007722; border-color: #007722; }
-    .btn-primary-green:hover { background-color: #006611; border-color: #006611; }
-    .btn-outline-primary-green { color: #007722; border-color: #007722; }
-    .btn-outline-primary-green:hover { background-color: #007722; color: #fff; }
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#governorateSelect').change(function() {
+                var govId = $(this).find(':selected').data('id');
+                var citySelect = $('#citySelect');
 
-    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+                citySelect.empty().append('<option value="">جاري التحميل...</option>');
 
-    .text-truncate-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
-    @@keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
+                if (govId) {
+                    $.get('/Services/GetCitiesByGovernorateId?id=' + govId, function(data) {
+                        citySelect.empty().append('<option value="">اختر المنطقة</option>');
+                        $.each(data, function(i, city) {
+                            citySelect.append('<option value="' + city.arabicName + '">' + city.arabicName + '</option>');
+                        });
+                    }).fail(function() {
+                        citySelect.empty().append('<option value="">خطأ في التحميل</option>');
+                    });
+                } else {
+                    citySelect.empty().append('<option value="">اختر المنطقة</option>');
+                }
+            });
+        });
+    </script>
+}
