@@ -1,6 +1,8 @@
 ﻿using Sany3y.API.Extensions;
+using Sany3y.API.Hubs;
 using Sany3y.Infrastructure.Services;
 using System.Diagnostics;
+using System.Text;
 
 namespace Sany3y.API
 {
@@ -14,9 +16,9 @@ namespace Sany3y.API
             Stripe.StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             // Add services to the container.
-
             builder.Services.AddControllers();
             builder.Services.AddHttpClient();
+            builder.Services.AddSignalR();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -30,16 +32,29 @@ namespace Sany3y.API
             builder.Services.AddJwtAuthentication(builder.Configuration);
             builder.Services.AddSwaggerWithJwt();
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             // شغل FastAPI
-            var psi = new ProcessStartInfo
+            try
             {
-                FileName = "cmd.exe",
-                Arguments = "/c python -m uvicorn app:app --host 0.0.0.0 --port 8000",
-                WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "py"),
-                UseShellExecute = false,
-                CreateNoWindow = false
-            };
-            Process.Start(psi);
+                var pyDir = Path.Combine(Directory.GetCurrentDirectory(), "py");
+                if (Directory.Exists(pyDir))
+                {
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = "/c python -m uvicorn app:app --host 0.0.0.0 --port 8000",
+                        WorkingDirectory = pyDir,
+                        UseShellExecute = false,
+                        CreateNoWindow = false
+                    };
+                    Process.Start(psi);
+                }
+            }
+            catch
+            {
+                // Ignore if Python / uvicorn is already running or not installed
+            }
 
             var app = builder.Build();
             app.UseCors("AllowAll");
@@ -63,6 +78,8 @@ namespace Sany3y.API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapHub<UserStatusHub>("/userStatusHub");
+            app.MapHub<ChatHub>("/chatHub");
             app.MapControllers();
             app.Run();
         }
