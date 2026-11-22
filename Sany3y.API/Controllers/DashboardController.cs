@@ -39,7 +39,7 @@ namespace Sany3y.API.Controllers
                 .ToListAsync();
 
             var pastBookings = tasks
-                .Where(t => t.Status == "Completed" || t.Status == "Cancelled")
+                .Where(t => t.Status == "Completed" || t.Status == "Cancelled" || t.Status == "Rejected")
                 .Select(t => new TaskDto
                 {
                     Id = t.Id,
@@ -47,8 +47,11 @@ namespace Sany3y.API.Controllers
                     Description = t.Description,
                     Status = t.Status,
                     OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown",
+                    OtherPartyId = t.TaskerId,
+                    OtherPartyUserName = t.Tasker?.UserName,
                     Price = t.Tasker?.Price ?? 0,
-                    ServiceName = t.Category?.Name ?? "Service"
+                    ServiceName = t.Category?.Name ?? "Service",
+                    PaymentMethodId = t.PaymentMethodId
                 }).ToList();
 
             var upcomingAppointments = tasks
@@ -60,7 +63,9 @@ namespace Sany3y.API.Controllers
                     Description = t.Description,
                     Status = t.Status,
                     OtherPartyName = t.Tasker != null ? $"{t.Tasker.FirstName} {t.Tasker.LastName}" : "Unknown",
-                    Price = (t.Tasker?.Price ?? 0) > 0 ? t.Tasker.Price.Value : 50, // Default to 50 if null OR zero
+                    OtherPartyId = t.TaskerId,
+                    OtherPartyUserName = t.Tasker?.UserName,
+                    Price = (t.Tasker?.Price ?? 0) > 0 ? t.Tasker.Price.Value : 50,
                     ServiceName = t.Category?.Name ?? "Service",
                     PaymentMethodId = t.PaymentMethodId
                 }).ToList();
@@ -111,18 +116,22 @@ namespace Sany3y.API.Controllers
                     Title = t.Title,
                     Description = t.Description,
                     Status = t.Status,
-                    OtherPartyName = t.Client != null ? $"{t.Client.FirstName} {t.Client.LastName}" : "Unknown"
+                    OtherPartyName = t.Client != null ? $"{t.Client.FirstName} {t.Client.LastName}" : "Unknown",
+                    OtherPartyId = t.ClientId,
+                    OtherPartyUserName = t.Client?.UserName
                 }).ToList();
 
             var acceptedJobs = tasks
-                .Where(t => t.Status == "Accepted" || t.Status == "In Progress")
+                .Where(t => t.Status == "Accepted" || t.Status == "In Progress" || t.Status == "Paid")
                 .Select(t => new TaskDto
                 {
                     Id = t.Id,
                     Title = t.Title,
                     Description = t.Description,
                     Status = t.Status,
-                    OtherPartyName = t.Client != null ? $"{t.Client.FirstName} {t.Client.LastName}" : "Unknown"
+                    OtherPartyName = t.Client != null ? $"{t.Client.FirstName} {t.Client.LastName}" : "Unknown",
+                    OtherPartyId = t.ClientId,
+                    OtherPartyUserName = t.Client?.UserName
                 }).ToList();
 
             // Calculate earnings from Payments table

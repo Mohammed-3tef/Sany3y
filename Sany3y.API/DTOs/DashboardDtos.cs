@@ -9,8 +9,10 @@ namespace Sany3y.API.DTOs
         public string Title { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
-        public DateTime? Date { get; set; } // Assuming date is relevant, maybe from CreatedAt or a scheduled date if it existed
-        public string OtherPartyName { get; set; } // Name of the Tasker (for client) or Client (for tasker)
+        public DateTime? Date { get; set; }
+        public string OtherPartyName { get; set; }
+        public long? OtherPartyId { get; set; }
+        public string? OtherPartyUserName { get; set; }
         public decimal Price { get; set; }
         public string ServiceName { get; set; }
         public int? PaymentMethodId { get; set; }

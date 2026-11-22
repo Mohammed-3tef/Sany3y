@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Sany3y.Infrastructure.Models;
 using Sany3y.Infrastructure.Repositories;
 using Sany3y.Infrastructure.Services;
+using Sany3y.API.Services;
 using Sany3y.API.Services.CountryServices;
 
 namespace Sany3y.API.Extensions
@@ -23,18 +24,21 @@ namespace Sany3y.API.Extensions
             services.AddScoped<IRepository<ProfilePicture>, ProfilePictureRepository>();
             services.AddScoped<IRepository<Notification>, NotificationRepository>();
             services.AddScoped<IRepository<Rating>, RatingRepository>();
-            //services.AddScoped<IRepository<PaymentMethod>, PaymentMethodRepository>();
-            //services.AddScoped<IRepository<Payment>, PaymentRepository>();
             services.AddScoped<IRepository<Infrastructure.Models.Task>, TaskRepository>();
+
+            services.AddScoped<ApiJwtTokenService>();
+            services.AddScoped<ApiEmailService>();
+            services.AddScoped<ApiOcrService>();
 
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", builder =>
                 {
                     builder
-                        .AllowAnyOrigin()
+                        .SetIsOriginAllowed(_ => true)
                         .AllowAnyMethod()
-                        .AllowAnyHeader();
+                        .AllowAnyHeader()
+                        .AllowCredentials();
                 });
             });
 

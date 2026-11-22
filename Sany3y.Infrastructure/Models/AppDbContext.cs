@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +10,6 @@ namespace Sany3y.Infrastructure.Models
 {
     public class AppDbContext : IdentityDbContext<User, Role, long>
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
         public DbSet<Message> Messages { get; set; }

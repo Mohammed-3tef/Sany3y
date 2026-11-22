@@ -55,3 +55,13 @@ nunit-*.xml
 
 # Visual Studio
 .vs/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Python
+__pycache__/
+*.pyc
+build_error.log
