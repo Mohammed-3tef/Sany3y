@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using Stripe.Checkout;
 using Sany3y.Infrastructure.Models;

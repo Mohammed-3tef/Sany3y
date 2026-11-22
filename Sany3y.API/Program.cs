@@ -1,4 +1,4 @@
-﻿using Sany3y.API.Extensions;
+using Sany3y.API.Extensions;
 using Sany3y.API.Hubs;
 using Sany3y.Infrastructure.Services;
 using System.Diagnostics;
