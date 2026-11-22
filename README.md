@@ -201,7 +201,7 @@ Sany3y/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Mohammed-3tef/Sany3y.git
+git clone https://github.com/Steven-Amin02/Sany3y.git
 cd Sany3y
 ```
 
