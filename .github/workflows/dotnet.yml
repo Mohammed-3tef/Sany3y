@@ -1,28 +1,40 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Build Backend & Frontend
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/nextjs-frontend" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  build-backend:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
-    - name: Setup .NET
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0
+        dotnet-version: '8.0.x'
     - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    # - name: Test
-    #   run: dotnet test --no-build --verbosity normal
+      run: dotnet restore Sany3y.sln
+    - name: Build .NET Backend
+      run: dotnet build Sany3y.sln --no-restore
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./sany3y-web
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: ./sany3y-web/package-lock.json
+    - name: Install dependencies
+      run: npm ci
+    - name: Build Next.js application
+      run: npm run build
+
