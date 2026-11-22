@@ -23,7 +23,9 @@ namespace Sany3y.API.Controllers
         [HttpPost("create-checkout-session")]
         public async System.Threading.Tasks.Task<IActionResult> CreateCheckoutSession([FromBody] CreateCheckoutSessionRequest req)
         {
-            var domain = "https://localhost:7004"; // Frontend URL
+            var domain = (!string.IsNullOrWhiteSpace(req.FrontendUrl)
+                ? req.FrontendUrl
+                : (_configuration["FrontendUrl"] ?? "http://localhost:3000")).TrimEnd('/');
 
             var options = new SessionCreateOptions
             {
@@ -45,8 +47,8 @@ namespace Sany3y.API.Controllers
                     },
                 },
                 Mode = "payment",
-                SuccessUrl = domain + "/Payment/Success?session_id={CHECKOUT_SESSION_ID}",
-                CancelUrl = domain + $"/Payment/Cancel?taskId={req.TaskId}",
+                SuccessUrl = domain + "/payment/success?session_id={CHECKOUT_SESSION_ID}",
+                CancelUrl = domain + $"/payment/cancel?taskId={req.TaskId}",
                 Metadata = new Dictionary<string, string>
                 {
                     { "TaskId", req.TaskId.ToString() },
@@ -152,5 +154,6 @@ namespace Sany3y.API.Controllers
         public decimal Price { get; set; }
         public int TaskId { get; set; }
         public long CustomerId { get; set; }
+        public string? FrontendUrl { get; set; }
     }
 }

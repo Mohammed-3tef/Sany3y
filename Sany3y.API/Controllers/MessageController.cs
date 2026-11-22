@@ -14,11 +14,13 @@ namespace Sany3y.API.Controllers
     {
         private IRepository<Message> _messageRepository;
         private UserManager<User> _userManager;
+        private AppDbContext _context;
 
-        public MessageController(IRepository<Message> repository, UserManager<User> userManager)
+        public MessageController(IRepository<Message> repository, UserManager<User> userManager, AppDbContext context)
         {
             _messageRepository = repository;
             _userManager = userManager;
+            _context = context;
         }
 
         [HttpGet("GetAll")]
@@ -51,14 +53,11 @@ namespace Sany3y.API.Controllers
                 .Distinct()
                 .ToList();
 
-            // جلب كل المستخدمين من UserManager
-            var partners = new List<User>();
-            foreach (var id in partnerIds)
-            {
-                var user = await _userManager.FindByIdAsync(id.ToString());
-                if (user != null)
-                    partners.Add(user);
-            }
+            // جلب كل المستخدمين مع صورهم الشخصية
+            var partners = await _context.Users
+                .Include(u => u.ProfilePicture)
+                .Where(u => partnerIds.Contains(u.Id))
+                .ToListAsync();
 
             return Ok(partners);
         }
