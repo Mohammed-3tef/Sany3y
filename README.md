@@ -1,331 +1,265 @@
-# Sany3y - صنـايعـي
+# Sany3y (صنـايعـي)
 
 <div align="center">
 
 ![Sany3y Banner](docs/sany3y_banner4.png)
 
-![Sany3y Logo](https://img.shields.io/badge/Sany3y-Service_Marketplace-blue?style=for-the-badge)
-[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet)](https://dotnet.microsoft.com/)
-[![License](https://img.shields.io/badge/License-GPL--3.0-green?style=for-the-badge)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=flat-square&logo=dotnet)](https://dotnet.microsoft.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-YOLOv8_OCR-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![SQL Server](https://img.shields.io/badge/Database-SQL_Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/sql-server)
+[![License](https://img.shields.io/badge/License-GPL--3.0-2ea44f?style=flat-square)](LICENSE)
 
-**A modern service marketplace platform connecting clients with trusted technicians**
+**A full-stack, decoupled service marketplace connecting clients with verified technicians and maintenance shops across Egypt.**
 
-[Features](#-features) • [Tech Stack](#-technology-stack) • [Getting Started](#-getting-started) • [Documentation](#-documentation) • [Team](#-team-members)
+[Overview](#overview) | [System Architecture](#system-architecture) | [Key Capabilities](#key-capabilities) | [Technology Stack](#technology-stack) | [API & Real-Time Reference](#api--real-time-reference) | [Database Design](#database-design) | [Getting Started](#getting-started) | [Documentation](#documentation) | [Contributors](#contributors)
 
 </div>
 
 ---
 
-## 📌 Overview
+## Overview
 
-**Sany3y** (صنـايعـي) is a comprehensive service marketplace platform built with **ASP.NET Core 8** that bridges the gap between clients seeking home or business maintenance services and skilled technicians. Whether you need an electrician, plumber, carpenter, or any other service professional, Sany3y provides a seamless, secure, and efficient platform for connecting and managing service requests.
+**Sany3y** is a decoupled service and maintenance marketplace platform engineered with a **Next.js 15 (App Router + TypeScript)** client application and an **ASP.NET Core 8 Web API** backend. It streamlines the discovery, verification, scheduling, communication, and payment workflows between clients seeking residential or commercial maintenance, independent technicians, and local hardware/supply shops across Egyptian governorates and cities.
 
-### 🎯 Key Highlights
+### Core Engineering Highlights
 
-- 🔐 **Secure Authentication** - ASP.NET Core Identity with Google OAuth integration
-- 💬 **Real-time Communication** - Live chat and notifications using SignalR
-- 💳 **Flexible Payments** - Stripe integration for online payments + cash option
-- 🤖 **AI-Powered Verification** - Python ML models for ID card verification
-- 📅 **Smart Scheduling** - Technician availability management system
-- ⭐ **Rating System** - Build trust through reviews and ratings
-- 🌍 **Location Services** - Comprehensive Egyptian location hierarchy
-
----
-
-## ✨ Features
-
-### For Clients 👤
-
-- ✅ Browse and search technicians by category, location, and rating
-- ✅ View detailed technician profiles with experience and pricing
-- ✅ Check real-time availability and book appointments
-- ✅ Secure payment options (Stripe or Cash on Service)
-- ✅ Real-time chat with technicians
-- ✅ Rate and review service providers
-- ✅ Track booking history and status
-- ✅ Receive instant notifications
-
-### For Technicians 🔧
-
-- ✅ Create professional profiles with portfolio
-- ✅ Set custom pricing and service categories
-- ✅ Manage availability schedule with time slots
-- ✅ Receive and manage booking requests
-- ✅ Direct communication with clients
-- ✅ Track earnings and payment history
-- ✅ Build reputation through ratings
-- ✅ AI-verified identity for trust
-
-### For Administrators 👨‍💼
-
-- ✅ Comprehensive admin dashboard
-- ✅ User and technician management
-- ✅ Category and service oversight
-- ✅ Payment monitoring and analytics
-- ✅ System health monitoring
-- ✅ Content moderation tools
+- **Decoupled Client-Server Architecture**: Separation between the Next.js 15 App Router frontend (`sany3y-web`) and the .NET 8 REST/SignalR backend (`Sany3y.API`), backed by a dedicated Entity Framework Core data access layer (`Sany3y.Infrastructure`).
+- **Identity & Role-Based Access Control (RBAC)**: Built on ASP.NET Core Identity with stateless JWT Bearer authentication, Google OAuth integration, email confirmation workflows, and account lockout policies across three primary roles (`Admin`, `Technician`, `Client`) and shop entities (`IsShop`).
+- **Computer Vision Identity Verification**: Embedded Python FastAPI microservice executing a two-stage **Ultralytics YOLOv8** inference pipeline (`detect_id_card.pt` and `detect_arabic_numbers.pt`) to extract and verify 14-digit Egyptian National ID numbers from uploaded ID card images during registration.
+- **Real-Time Bidirectional Communication**: SignalR WebSocket hubs (`/chatHub` and `/userStatusHub`) authenticated via JWT tokens, providing instant private messaging, typing indicators, and live online/offline presence tracking.
+- **Integrated Payment Processing**: Stripe Checkout and Webhook integration supporting online payments in Egyptian Pounds (EGP) alongside Cash-on-Service settlement.
+- **Automated Reporting & Arabic RTL Exports**: Server-side document generation using iTextSharp for right-to-left Arabic PDF reports and UTF-8 CSV exports, paired with interactive Chart.js administrative analytics.
 
 ---
 
-## 🏗️ Architecture
+## System Architecture
 
-The solution follows a **clean 3-tier architecture** with clear separation of concerns:
-
-```
+```text
 Sany3y/
-├── Sany3y/                      # Main Web Application (MVC)
-│   ├── Controllers/             # 6 MVC Controllers
-│   ├── Views/                   # Razor Views (Account, Admin, Dashboard, etc.)
-│   ├── wwwroot/                 # Static files (CSS, JS, images)
-│   ├── Extensions/              # Service configuration extensions
-│   ├── Hubs/                    # SignalR hubs (Chat, UserStatus)
-│   └── Program.cs               # Application entry point
+├── sany3y-web/                        # Next.js 15 Frontend Application (TypeScript)
+│   ├── public/                        # Static assets (backgrounds, team portraits, favicon)
+│   ├── src/
+│   │   ├── app/                       # Next.js App Router pages and layouts
+│   │   │   ├── admin/                 # Administrative dashboard, user/shop/category management
+│   │   │   ├── chat/[id]/             # Full-page real-time SignalR messaging interface
+│   │   │   ├── dashboard/             # Role-specific dashboards (Customer, Worker, Shop)
+│   │   │   ├── payment/               # Stripe Checkout verification and cancellation callbacks
+│   │   │   ├── services/              # Technician directory, search filters, and booking views
+│   │   │   ├── shops/                 # Maintenance shop directory and detail views
+│   │   │   ├── login/ & register/     # Authentication, shop onboarding, and ID OCR upload
+│   │   │   └── profile/               # Account and service profile management
+│   │   ├── components/                # Reusable UI modules (Navbar, Footer, FloatingChatWidget)
+│   │   ├── context/                   # React contexts for JWT Auth and SignalR connections
+│   │   ├── lib/                       # Typed HTTP client and authenticated file download utilities
+│   │   └── types/                     # TypeScript domain contracts and DTO interfaces
+│   └── package.json
 │
-├── Sany3y.API/                  # RESTful API Backend
-│   ├── Controllers/             # 16 API Controllers
-│   ├── Services/                # Business logic services
-│   ├── DTOs/                    # Data Transfer Objects
-│   ├── py/                      # Python ML models for verification
-│   │   ├── detect_id_card.pt
-│   │   └── detect_arabic_numbers.pt
-│   └── Program.cs               # API entry point
+├── Sany3y.API/                        # ASP.NET Core 8 Web API & SignalR Host
+│   ├── Controllers/                   # 18 RESTful API controllers
+│   ├── Hubs/                          # SignalR hubs (ChatHub, UserStatusHub)
+│   ├── Services/                      # JWT issuance, email dispatch, OCR proxy, location services
+│   ├── DTOs/                          # Data Transfer Objects for dashboards and API contracts
+│   ├── Extensions/                    # Service registration, Identity, JWT, CORS, and Swagger
+│   ├── py/                            # Python FastAPI + YOLOv8 OCR Microservice
+│   │   ├── app.py                     # FastAPI inference server (/predict/)
+│   │   ├── detect_id_card.pt          # YOLOv8 model for national ID bounding-box detection
+│   │   ├── detect_arabic_numbers.pt   # YOLOv8 model for Arabic numeral recognition
+│   │   └── requirements.txt
+│   └── Program.cs
 │
-├── Sany3y.Infrastructure/       # Data Access Layer
-│   ├── Models/                  # 17 Entity models
-│   ├── Repositories/            # 9 Repository implementations
-│   ├── ViewModels/              # View models for data transfer
-│   ├── Migrations/              # EF Core migrations
-│   └── AppDbContext.cs          # Database context
+├── Sany3y.Infrastructure/             # Persistence & Infrastructure Layer
+│   ├── Models/                        # 16 EF Core domain entities and AppDbContext
+│   ├── Repositories/                  # Generic repository contract and 9 concrete repositories
+│   ├── Services/                      # Database seeding, Arabic PDF/CSV exporter, SMTP client
+│   ├── DTOs/ & ViewModels/            # Shared data transfer and validation models
+│   ├── Migrations/                    # EF Core SQL Server schema migrations
+│   └── Queries/                       # SQL seed scripts for Egyptian administrative divisions
 │
-└── docs/                        # Documentation
+└── docs/                              # Technical & Business Documentation
     ├── Business Requirements Specification.pdf
-    └── ERDs/                    # Database diagrams
+    ├── Database Design.pdf
+    ├── Project Planning.pdf
+    ├── Stakeholder Analysis.pdf
+    └── ERDs/ERD.png
 ```
 
 ---
 
-## 🔧 Technology Stack
+## Key Capabilities
 
-### Backend
-- **Framework**: .NET 8 (LTS)
-- **Web Framework**: ASP.NET Core MVC
-- **API**: ASP.NET Core Web API with Swagger
-- **ORM**: Entity Framework Core 8
-- **Database**: SQL Server
-- **Authentication**: ASP.NET Core Identity + JWT
-- **Real-time**: SignalR for WebSocket communication
+### Client Capabilities
+- **Discovery & Filtering**: Search technicians and shops by category, governorate, city, name, price range, and rating, including server-side Arabic character normalization.
+- **Profile Inspection**: Review technician credentials, verification status, years of experience, inspection fee, service coverage area, and verified customer ratings.
+- **Appointment Scheduling**: Inspect real-time availability slots and submit booking requests with preferred payment methods (Cash or Online via Stripe).
+- **Booking Lifecycle Management**: Track appointment states (`Pending`, `Accepted`, `In Progress`, `Paid`, `Completed`, `Cancelled`), trigger online checkout once accepted, or cancel pending requests.
+- **Direct Messaging & Reviews**: Communicate with service providers in real time and submit post-service ratings and reviews.
 
-### Frontend
-- **Template Engine**: Razor Pages
-- **CSS Framework**: Bootstrap 5
-- **JavaScript**: jQuery + Vanilla JS
-- **Validation**: jQuery Validation
+### Technician Capabilities
+- **Identity-Verified Onboarding**: Automated validation matching the user's 14-digit National ID against the uploaded ID card image via YOLOv8 OCR.
+- **Service Configuration**: Manage specialty category, inspection pricing, experience metrics, biography, and profile imagery.
+- **Availability Management**: Create and remove unbooked schedule slots directly from the Worker Dashboard.
+- **Request Fulfillment**: Accept or reject incoming client requests (automatically releasing reserved schedule slots upon rejection) and monitor cumulative earnings.
 
-### Third-Party Integrations
-- **Payment**: Stripe.net (v50.0.0)
-- **OAuth**: Google Authentication
-- **Email**: ASP.NET Core Email Service
-- **PDF Generation**: iTextSharp
+### Shop Capabilities
+- **Commercial Onboarding**: Dedicated registration flow capturing shop name, commercial category, establishment date, address, and owner identity verification.
+- **Storefront Presence**: Public listing in the Shops directory with live online presence indicators and direct customer messaging.
 
-### AI/ML
-- **Python**: ML model inference
-- **PyTorch**: ID verification models
-- **Computer Vision**: Arabic number detection
-
-### DevOps & Tools
-- **Version Control**: Git & GitHub
-- **CI/CD**: GitHub Actions (.github/workflows/dotnet.yml)
-- **API Documentation**: Swagger/OpenAPI
-- **Package Manager**: NuGet
+### Administrative Capabilities
+- **Platform Telemetry**: Real-time KPI summary cards and Chart.js visualizations for monthly user acquisition and demographic distribution, with client-side PNG chart export.
+- **Entity Management**: Full CRUD administration over users, shops, roles, and service categories, integrated with live SignalR user status updates.
+- **Document Exports**: On-demand generation and download of formatted Arabic RTL PDF and UTF-8 CSV reports for users, stores, and categories.
 
 ---
 
-## 📊 Database Schema
+## Technology Stack
 
-### Core Entities
-
-| Entity | Description |
-|--------|-------------|
-| **User** | Extended IdentityUser with custom properties (NationalId, Bio, etc.) |
-| **Category** | Service categories (Electrician, Plumber, Carpenter, etc.) |
-| **Task** | Service bookings connecting clients and technicians |
-| **Payment** | Payment records with Stripe integration |
-| **Rating** | Reviews and ratings for technicians |
-| **Message** | Real-time chat messages |
-| **Notification** | User notifications |
-| **TechnicianSchedule** | Availability time slots |
-| **Address** | User location information |
-| **ProfilePicture** | User profile images |
-
-### Location Hierarchy
-- **Province** → **Governorate** → **City** (Egyptian administrative divisions)
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend (`sany3y-web`)** | Next.js 15 (App Router), React 19, TypeScript 5.7, Bootstrap 5 RTL, Font Awesome 6, `@microsoft/signalr`, Chart.js, `react-chartjs-2`, Sonner, EmailJS |
+| **Backend (`Sany3y.API`)** | .NET 8, ASP.NET Core Web API, ASP.NET Core Identity, JWT Bearer Authentication, SignalR, Stripe.net (v50), Swashbuckle (OpenAPI/Swagger) |
+| **Data & Infrastructure (`Sany3y.Infrastructure`)** | Entity Framework Core 8, Microsoft SQL Server, Repository Pattern, iTextSharp (PDF generation), SMTP Mail Client |
+| **Computer Vision (`Sany3y.API/py`)** | Python 3.10+, FastAPI, Uvicorn, Ultralytics YOLOv8 (PyTorch), Pillow |
+| **CI/CD** | GitHub Actions ([`.github/workflows/dotnet.yml`](.github/workflows/dotnet.yml)) validating both the .NET 8 solution and Next.js production build |
 
 ---
 
-## 🚀 Getting Started
+## API & Real-Time Reference
+
+### Primary REST Endpoints (`Sany3y.API`)
+
+| Module | Endpoint | Method | Description |
+| :--- | :--- | :--- | :--- |
+| **Authentication** | `/api/Auth/login` | `POST` | Validate credentials, update online status, and issue a signed JWT |
+| **Authentication** | `/api/Auth/register` | `POST` (`multipart/form-data`) | Validate National ID via OCR, persist user and address, assign role, and send confirmation email |
+| **Authentication** | `/api/Auth/google` | `POST` | Authenticate existing Google OAuth users or return prefill metadata for profile completion |
+| **Authentication** | `/api/Auth/complete-profile` | `POST` (`multipart/form-data`) | Finalize registration for external OAuth users with National ID OCR verification |
+| **Authentication** | `/api/Auth/confirm-email` | `GET` | Confirm user email address using Identity confirmation token |
+| **Authentication** | `/api/Auth/forgot-password` | `POST` | Issue a password reset token and dispatch reset instructions via email |
+| **Authentication** | `/api/Auth/reset-password` | `POST` | Reset user password using token verification |
+| **Authentication** | `/api/Auth/profile` | `GET` / `PUT` | Retrieve or update authenticated user profile, address, and base64 avatar |
+| **Marketplace** | `/api/Technician/Search` | `GET` | Query technicians or shops with filters (`isShop`, `categoryId`, `governorate`, `city`, `name`, `serviceType`, `sortBy`) |
+| **Marketplace** | `/api/Technician/Details/{id}` | `GET` | Retrieve full technician or shop profile including address, category, ratings, and aggregates |
+| **Scheduling** | `/api/TechnicianSchedule/GetSchedule/{id}` | `GET` | List available (unbooked) schedule slots for a specific technician |
+| **Scheduling** | `/api/TechnicianSchedule/GetMySchedule/{id}` | `GET` | List all schedule slots (booked and available) for technician dashboard management |
+| **Scheduling** | `/api/TechnicianSchedule/AddSlot` | `POST` | Create a new availability time slot |
+| **Scheduling** | `/api/TechnicianSchedule/BookSlot` | `POST` | Reserve an available time slot and initialize a `Pending` service task |
+| **Scheduling** | `/api/TechnicianSchedule/AcceptRequest/{taskId}` | `POST` | Transition a booking task from `Pending` to `Accepted` |
+| **Scheduling** | `/api/TechnicianSchedule/RejectRequest/{taskId}` | `POST` | Reject a pending task and release the associated schedule slot |
+| **Scheduling** | `/api/TechnicianSchedule/CancelBooking/{taskId}` | `POST` | Cancel a pending task and release the associated schedule slot |
+| **Dashboards** | `/api/Dashboard/customer/{userId}` | `GET` | Aggregate customer profile, upcoming appointments, and historical bookings |
+| **Dashboards** | `/api/Dashboard/worker/{userId}` | `GET` | Aggregate technician/shop profile, pending requests, active jobs, and total earnings |
+| **Payments** | `/api/Payment/create-checkout-session` | `POST` | Create a Stripe Checkout session in EGP for an accepted online-payment task |
+| **Payments** | `/api/Payment/verify-payment/{sessionId}` | `GET` | Verify Stripe session completion and persist the payment transaction |
+| **Messaging** | `/api/Message/GetConversation/{u1}/{u2}` | `GET` | Retrieve chronological message history between two users |
+| **Messaging** | `/api/Message/GetChatPartners/{userId}` | `GET` | Retrieve distinct users with whom the specified user has exchanged messages |
+| **Locations** | `/api/CountryServices/GetAllGovernorates` | `GET` | Retrieve all Egyptian governorates |
+| **Locations** | `/api/CountryServices/GetCitiesByGovernorateId/{id}` | `GET` | Retrieve cities belonging to a specific governorate |
+| **Administration** | `/api/Admin/stats` | `GET` | Retrieve platform-wide user, technician, shop, and category counts (`Admin` role required) |
+| **Administration** | `/api/Admin/charts/monthly-users` | `GET` | Retrieve monthly user registration time series for the current year |
+| **Administration** | `/api/Admin/charts/gender-distribution` | `GET` | Retrieve demographic distribution across non-admin accounts |
+| **Administration** | `/api/Admin/users` | `GET` / `POST` | List or create user and shop accounts with role assignment |
+| **Administration** | `/api/Admin/users/{id}` | `GET` / `PUT` | Retrieve or update a specific user account, address, and role |
+| **Administration** | `/api/Admin/export/{target}/{format}` | `GET` | Stream PDF or CSV exports for `users`, `stores`, or `categories` |
+
+### SignalR WebSocket Hubs
+
+| Hub Endpoint | Client-Invoked Methods | Server-Emitted Events |
+| :--- | :--- | :--- |
+| **`/chatHub`** | `SendPrivateMessage(receiverUserName, message)`, `Typing(receiverUserName)`, `MarkAsSeen(senderUserName)` | `ReceiveMessage(senderUserName, message, time)`, `MessageSent(receiverUserName, message, time)`, `TypingIndicator(senderUserName)`, `MessageSeen` |
+| **`/userStatusHub`** | Managed automatically on connection lifecycle via JWT `access_token` | `ReceiveUserStatus(userId, isOnline)`, `UserStatusChanged(userName, isOnline)` |
+
+---
+
+## Database Design
+
+| Entity | Responsibility |
+| :--- | :--- |
+| **`User`** | Extends `IdentityUser<long>` with `NationalId`, `FirstName`, `LastName`, `BirthDate`, `Gender`, `Bio`, `IsOnline`, `ExperienceYears`, `Price`, `Rating`, `CategoryID`, `IsShop`, `ShopName`, `AddressId`, and `ProfilePictureId` |
+| **`Role`** | Extends `IdentityRole<long>` (`Admin`, `Technician`, `Client`) |
+| **`Category`** | Service categories (seeded with 16 standard maintenance and construction specialties) |
+| **`Task`** | Service bookings connecting `ClientId`, `TaskerId`, `CategoryId`, `ScheduleId`, `PaymentMethodId`, and `Status` |
+| **`TechnicianSchedule`** | Time slot availability records (`TechnicianId`, `Date`, `StartTime`, `EndTime`, `IsBooked`) |
+| **`Payment` & `PaymentMethod`** | Financial records tracking agreed amount, paid amount, payment date, status, and method (`Cash` or `Online`) |
+| **`Rating`** | Customer evaluations (`Score` 1–5, `Comment`, `ClientId`, `TaskerId`, `CreatedAt`) |
+| **`Message` & `Notification`** | Persisted chat messages and system notifications |
+| **`Address`, `Province`, `Governorate`, `City`** | Normalized Egyptian geographic hierarchy |
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [SQL Server](https://www.microsoft.com/sql-server) (LocalDB or Express)
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
-- [Python 3.8+](https://www.python.org/) (for ML features)
-- [Git](https://git-scm.com/)
+- [Node.js 20+](https://nodejs.org/) and npm
+- [Microsoft SQL Server](https://www.microsoft.com/sql-server) (LocalDB, Express, or Developer Edition)
+- [Python 3.10+](https://www.python.org/) (required for YOLOv8 National ID OCR verification)
 
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Mohammed-3tef/Sany3y.git
-   cd Sany3y
-   ```
-
-2. **Restore NuGet packages**
-   ```bash
-   dotnet restore
-   ```
-
-3. **Update connection string**
-   
-   Edit `Sany3y/appsettings.json`:
-   ```json
-   {
-     "ConnectionStrings": {
-       "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=Sany3yDB;Trusted_Connection=True;"
-     }
-   }
-   ```
-
-4. **Configure API settings**
-   
-   Edit `Sany3y.API/appsettings.json` with your Stripe keys:
-   ```json
-   {
-     "Stripe": {
-       "SecretKey": "your_stripe_secret_key",
-       "PublishableKey": "your_stripe_publishable_key"
-     }
-   }
-   ```
-
-5. **Apply database migrations**
-   ```bash
-   cd Sany3y
-   dotnet ef database update
-   ```
-
-6. **Run the application**
-   
-   **Option 1: Run both projects simultaneously (recommended)**
-   ```bash
-   # Terminal 1 - API
-   cd Sany3y.API
-   dotnet run
-   
-   # Terminal 2 - Web App
-   cd Sany3y
-   dotnet run
-   ```
-   
-   **Option 2: Using Visual Studio**
-   - Right-click solution → Properties → Multiple Startup Projects
-   - Set both `Sany3y` and `Sany3y.API` to "Start"
-
-7. **Access the application**
-   - Web App: `https://localhost:7001` (or check console output)
-   - API: `https://localhost:7178`
-   - Swagger: `https://localhost:7178/swagger`
-
-### Python ML Setup (Optional)
-
-For ID verification features:
+### 1. Clone the Repository
 
 ```bash
-cd Sany3y.API/py
-pip install -r requirements.txt
-python app.py
+git clone https://github.com/Mohammed-3tef/Sany3y.git
+cd Sany3y
 ```
 
----
+### 2. Backend Setup (`Sany3y.API`)
 
-## 📖 Documentation
+1. Configure your database connection string, JWT secret, SMTP credentials, Stripe keys, and `FrontendUrl` in `Sany3y.API/appsettings.json`:
+   ```json
+   {
+     "FrontendUrl": "http://localhost:3000",
+     "ConnectionStrings": {
+       "MainDB": "Data Source=.;Initial Catalog=Sany3yDB;Integrated Security=True;Trust Server Certificate=True"
+     }
+   }
+   ```
+2. Apply Entity Framework Core database migrations:
+   ```bash
+   dotnet ef database update --project Sany3y.Infrastructure --startup-project Sany3y.API
+   ```
+3. (Optional) Install Python dependencies for the YOLOv8 OCR microservice (automatically launched on port `8000` when `Sany3y.API` starts):
+   ```bash
+   cd Sany3y.API/py
+   pip install -r requirements.txt
+   cd ../..
+   ```
+4. Run the API project:
+   ```bash
+   cd Sany3y.API
+   dotnet run
+   ```
+   - **API Base URL**: `https://localhost:7178`
+   - **Swagger Documentation**: `https://localhost:7178/swagger`
+   - **Default Seeded Administrator**: `sany3y.admin@gmail.com` / `Admin@123` (Username: `Admin`)
 
-### Project Documents
-- 🗺️ [Physical ERD Diagram](./docs/ERDs/ERD.png)
-- 📄 [Full Documentation](./docs/Sany3y.pdf)
+### 3. Frontend Setup (`sany3y-web`)
 
-### API Documentation
-- Access Swagger UI at `https://localhost:7178/swagger` when running the API
-
-### Key Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/Category/GetAll` | GET | Get all service categories |
-| `/api/Technician/GetAll` | GET | Get all technicians |
-| `/api/TechnicianSchedule/GetAvailability` | GET | Get technician availability |
-| `/api/Payment/CreateStripeSession` | POST | Create Stripe payment session |
-| `/api/Message/Send` | POST | Send chat message |
-| `/api/Notification/GetUserNotifications` | GET | Get user notifications |
-
----
-
-## 🔐 Authentication Flow
-
-1. **Registration** → Email verification → Profile completion
-2. **Login** → Session creation → Dashboard redirect
-3. **Google OAuth** → External authentication → Profile linking
-4. **JWT Tokens** → API authentication for mobile/external clients
-
----
-
-## 💡 Usage Examples
-
-### Booking a Service
-
-1. Browse available technicians by category
-2. View technician profile and ratings
-3. Check availability calendar
-4. Select time slot and create booking
-5. Choose payment method (Stripe/Cash)
-6. Receive confirmation and chat with technician
-
-### Managing Technician Profile
-
-1. Register as technician
-2. Complete profile with category and pricing
-3. Upload ID for verification (AI-powered)
-4. Set availability schedule
-5. Receive booking requests
-6. Manage appointments and earnings
+1. Install Node.js dependencies and start the Next.js development server:
+   ```bash
+   cd sany3y-web
+   npm install
+   npm run dev
+   ```
+2. Navigate to **`http://localhost:3000`**.
+   *(To point the client to a custom API host, set `NEXT_PUBLIC_API_URL` in `sany3y-web/.env.local`.)*
 
 ---
 
-## 🤝 Contributing
+## Documentation
 
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Code Style
-- Follow C# coding conventions
-- Use meaningful variable and method names
-- Add XML documentation for public APIs
-- Write unit tests for new features
+- [Physical Entity-Relationship Diagram (ERD)](./docs/ERDs/ERD.png)
+- [Comprehensive System Documentation (PDF)](./docs/Sany3y.pdf)
+- [Business Requirements Specification](./docs/Business%20Requirements%20Specification.pdf)
+- [Database Design Specification](./docs/Database%20Design.pdf)
+- [Project Planning Document](./docs/Project%20Planning.pdf)
+- [Stakeholder Analysis](./docs/Stakeholder%20Analysis.pdf)
 
 ---
 
-## 📝 License
-
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👥 Team Members
+## Contributors
 
 <table width="100%">
   <tr>
@@ -362,28 +296,6 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 
 ---
 
-## 📞 Contact & Support
+## License
 
-- 📧 **Email**: Contact team members via LinkedIn
-- 🐛 **Issues**: [GitHub Issues](https://github.com/Mohammed-3tef/Sany3y/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/Mohammed-3tef/Sany3y/discussions)
-
----
-
-## 🙏 Acknowledgments
-
-- ASP.NET Core team for the excellent framework
-- Stripe for payment processing
-- SignalR for real-time capabilities
-- Bootstrap for responsive UI components
-- All open-source contributors
-
----
-
-<div align="center">
-
-**Built with ❤️ by the Sany3y Team**
-
-⭐ Star us on GitHub if you find this project useful!
-
-</div>
+This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](LICENSE) file for full license text.
